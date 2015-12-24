@@ -8,7 +8,7 @@ package com.raj.dp;
  *
  */
 
-public class _20MinJumpstoReachEnd {
+public class MinJumpstoReachEnd {
 
 	/**
 	 * @param args
@@ -18,7 +18,7 @@ public class _20MinJumpstoReachEnd {
 		// int a[] = { 2, 3, 1, 1, 2, 4, 2, 0, 1, 1 };
 
 		int result = -1;
-		_20MinJumpstoReachEnd obj = new _20MinJumpstoReachEnd();
+		MinJumpstoReachEnd obj = new MinJumpstoReachEnd();
 		result = obj.minJumpsToReachEnd(a);
 		System.out.println(result);
 	}

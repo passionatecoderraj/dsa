@@ -1,14 +1,14 @@
 package com.raj.dp;
 
 
-public class _02LCS {
+public class LCS {
 
 	public static void main(String[] args) {
 		String x = "AGGTAB";
 		String y = "GXTXAYB";
 		// String x = "AG";
 		// String y = "GXX";
-		_02LCS obj = new _02LCS();
+		LCS obj = new LCS();
 		x = "baab";
 		y = "abb";
 		int result = -1;

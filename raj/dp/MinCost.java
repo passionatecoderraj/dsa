@@ -1,9 +1,9 @@
 package com.raj.dp;
 
-public class _05MinCost {
+public class MinCost {
 
 	public static void main(String[] args) {
-		_05MinCost obj = new _05MinCost();
+		MinCost obj = new MinCost();
 
 		int c[][] = { { 1, 2, 3 }, { 4, 8, 2 }, { 1, 5, 3 } };
 		int result = -1;

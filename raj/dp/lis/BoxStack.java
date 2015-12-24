@@ -3,10 +3,10 @@ package com.raj.dp.lis;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class _07BoxStack {
+public class BoxStack {
 
 	public static void main(String[] args) {
-		_07BoxStack obj = new _07BoxStack();
+		BoxStack obj = new BoxStack();
 		Box[] a = { new Box(1, 2, 4), new Box(3, 2, 5) };
 		int result = -1;
 		result = obj.maxStackHeight(a);

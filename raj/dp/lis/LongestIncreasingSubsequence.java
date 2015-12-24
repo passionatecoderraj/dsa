@@ -1,8 +1,8 @@
 package com.raj.dp.lis;
 
-public class _03LongestIncreasingSubsequence {
+public class LongestIncreasingSubsequence {
 	public static void main(String[] args) {
-		_03LongestIncreasingSubsequence obj = new _03LongestIncreasingSubsequence();
+		LongestIncreasingSubsequence obj = new LongestIncreasingSubsequence();
 		int result = -1;
 		//int a[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
 		//int a[] = { 1, 101, 2, 3, 100, 4, 5 };

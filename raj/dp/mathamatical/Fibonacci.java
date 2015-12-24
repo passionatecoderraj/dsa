@@ -1,9 +1,9 @@
 package com.raj.dp.mathamatical;
 
-public class _01Fibonacci {
+public class Fibonacci {
 
 	public static void main(String[] args) {
-		_01Fibonacci obj = new _01Fibonacci();
+		Fibonacci obj = new Fibonacci();
 		int n = 20;
 		int result =-1;
 		result = obj.fibBruteForce(n);

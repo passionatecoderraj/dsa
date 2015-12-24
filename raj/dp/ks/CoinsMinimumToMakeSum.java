@@ -37,11 +37,4 @@ public class CoinsMinimumToMakeSum {
 		return t[n];
 	}
 
-	private int getTotal(int[] a) {
-		int tot = 0;
-		for (int i : a)
-			tot += i;
-		return tot;
-	}
-
 }

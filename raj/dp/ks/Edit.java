@@ -1,13 +1,13 @@
 package com.raj.dp.ks;
 
-public class _06Edit {
+public class Edit {
 
 	public static void main(String[] args) {
 		String x = "saturday";
 		String y = "sunday";
 		// String x = "AG";
 		// String y = "GXX";
-		_06Edit obj = new _06Edit();
+		Edit obj = new Edit();
 
 		int result = -1;
 		result = obj.editBruteForce(x.toCharArray(), y.toCharArray(), x.length(), y.length());

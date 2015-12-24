@@ -7,7 +7,7 @@ package com.raj.dp.matrix;
  * @author Raj
  *
  */
-public class _13LongestPalindromeSubSequence {
+public class LongestPalindromeSubSequence {
 
 	/**
 	 * @param args
@@ -17,7 +17,7 @@ public class _13LongestPalindromeSubSequence {
 
 		int result = -1, n = str.length();
 
-		_13LongestPalindromeSubSequence obj = new _13LongestPalindromeSubSequence();
+		LongestPalindromeSubSequence obj = new LongestPalindromeSubSequence();
 		result = obj.longestPalindormeBruteForce(str.toCharArray(), 0, n - 1);
 		System.out.println(result);
 		result = obj.longestPalindormeDp(str.toCharArray(), 0, n);

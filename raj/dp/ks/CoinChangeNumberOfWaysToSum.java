@@ -2,11 +2,11 @@ package com.raj.dp.ks;
 
 import com.interivew.graph.CommonUtil;
 
-public class _05CoinChangeNumberOfWaysToSum {
+public class CoinChangeNumberOfWaysToSum {
 
 	public static void main(String[] args) {
 		int a[] = { 1, 2, 3 };
-		_05CoinChangeNumberOfWaysToSum obj = new _05CoinChangeNumberOfWaysToSum();
+		CoinChangeNumberOfWaysToSum obj = new CoinChangeNumberOfWaysToSum();
 		int result = -1, sum = 5;
 		result = obj.coinChangeNumberOfWaysToSum(a, sum);
 		System.out.println(result);

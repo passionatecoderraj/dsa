@@ -8,7 +8,7 @@ package com.raj.dp.ks;
  *
  */
 
-public class _07MaximumSubSquareMatrix {
+public class MaximumSubSquareMatrix {
 
 	/**
 	 * @param args
@@ -18,7 +18,7 @@ public class _07MaximumSubSquareMatrix {
 				{ 0, 0, 0, 0, 0 } };
 
 		int result = -1, m = 6, n = 5;
-		_07MaximumSubSquareMatrix obj = new _07MaximumSubSquareMatrix();
+		MaximumSubSquareMatrix obj = new MaximumSubSquareMatrix();
 		result = obj.maxSubSquareMatrix(a, m, n);
 		System.out.println(result);
 	}

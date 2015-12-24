@@ -25,7 +25,7 @@ class Pair {
 
 }
 
-public class _10MaxlengthofChainOfPairs {
+public class MaxlengthofChainOfPairs {
 
 	/**
 	 * @param args
@@ -34,7 +34,7 @@ public class _10MaxlengthofChainOfPairs {
 		Pair a[] = { new Pair(5, 24), new Pair(39, 60), new Pair(15, 28), new Pair(27, 40), new Pair(50, 60) };
 
 		int result = -1;
-		_10MaxlengthofChainOfPairs obj = new _10MaxlengthofChainOfPairs();
+		MaxlengthofChainOfPairs obj = new MaxlengthofChainOfPairs();
 		result = obj.maxLengthOfChainPairs(a);
 		System.out.println(result);
 	}

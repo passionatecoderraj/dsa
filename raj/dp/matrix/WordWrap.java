@@ -7,7 +7,7 @@ package com.raj.dp.matrix;
  * @author Raj
  *
  */
-public class _17WordWrap {
+public class WordWrap {
 
 	/**
 	 * @param args
@@ -16,7 +16,7 @@ public class _17WordWrap {
 		int a[] = { 6, 3, 5, 2, 4 };
 
 		int result = -1, widthOfLine = 10;
-		_17WordWrap obj = new _17WordWrap();
+		WordWrap obj = new WordWrap();
 		result = obj.wordWrapDpOn2(a, widthOfLine);
 		System.out.println(result);
 		result = obj.wordWrapDpReversePrintOn2(a, widthOfLine);

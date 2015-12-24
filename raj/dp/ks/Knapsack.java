@@ -7,7 +7,7 @@ package com.raj.dp.ks;
  * @author Raj
  *
  */
-public class _03Knapsack {
+public class Knapsack {
 
 	/**
 	 * @param args
@@ -17,7 +17,7 @@ public class _03Knapsack {
 		int profits[] = { 60, 100, 120 };
 
 		int result = -1;
-		_03Knapsack obj = new _03Knapsack();
+		Knapsack obj = new Knapsack();
 		result = obj.knapSack(wt, profits, 50);
 		System.out.println(result);
 	}

@@ -7,7 +7,7 @@ package com.raj.dp.ks;
  * @author Raj
  *
  */
-public class _04RodCut {
+public class RodCut {
 
 	/**
 	 * @param args
@@ -20,7 +20,7 @@ public class _04RodCut {
 		int profits[] = { 1, 5, 8, 9, 10, 17, 17, 20 };
 
 		int result = -1, n = 8;
-		_04RodCut obj = new _04RodCut();
+		RodCut obj = new RodCut();
 		result = obj.cutRod(len, profits, n);
 		System.out.println(result);
 	}

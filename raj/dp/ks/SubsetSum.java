@@ -7,7 +7,7 @@ package com.raj.dp.ks;
  * @author Raj
  *
  */
-public class _02SubsetSum {
+public class SubsetSum {
 
 	/**
 	 * @param args
@@ -17,7 +17,7 @@ public class _02SubsetSum {
 
 		boolean result = false;
 		int n = 5;
-		_02SubsetSum obj = new _02SubsetSum();
+		SubsetSum obj = new SubsetSum();
 		result = obj.isSubsetSumPresent(a, n);
 		System.out.println(result);
 	}

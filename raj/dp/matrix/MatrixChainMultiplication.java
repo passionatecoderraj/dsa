@@ -1,8 +1,8 @@
 package com.raj.dp.matrix;
 
-public class _16MatrixChainMultiplication {
+public class MatrixChainMultiplication {
 	public static void main(String[] args) {
-		_16MatrixChainMultiplication obj = new _16MatrixChainMultiplication();
+		MatrixChainMultiplication obj = new MatrixChainMultiplication();
 		int result = -1;
 		int[] a = { 1, 2, 3, 4, 3 };
 		result = obj.multiplyDp(a);

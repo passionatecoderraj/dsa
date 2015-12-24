@@ -9,7 +9,7 @@ import com.interivew.graph.CommonUtil;
  * @author Raj
  *
  */
-public class _19PalindromePartition {
+public class PalindromePartition {
 
 	/**
 	 * @param args
@@ -18,7 +18,7 @@ public class _19PalindromePartition {
 		String str = "abcbb";
 
 		int result = -1;
-		_19PalindromePartition obj = new _19PalindromePartition();
+		PalindromePartition obj = new PalindromePartition();
 		// result =
 		// obj.minCutsForPalindromePartitionsBruteForce(str.toCharArray(), 0,
 		// str.length() - 1);

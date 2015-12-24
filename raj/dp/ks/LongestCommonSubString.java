@@ -1,11 +1,11 @@
 package com.raj.dp.ks;
 
-public class _01LongestCommonSubString {
+public class LongestCommonSubString {
 
 	public static void main(String[] args) {
 		String x = "abcdaf";
 		String y = "zbcdf";
-		_01LongestCommonSubString obj = new _01LongestCommonSubString();
+		LongestCommonSubString obj = new LongestCommonSubString();
 		int result = -1;
 
 		result = obj.lcsBottomUp(x.toCharArray(), y.toCharArray(), x.length(), y.length());

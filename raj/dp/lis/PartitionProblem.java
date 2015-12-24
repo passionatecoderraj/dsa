@@ -3,13 +3,13 @@
  */
 package com.raj.dp.lis;
 
-import com.raj.dp.ks._02SubsetSum;
+import com.raj.dp.ks.SubsetSum;
 
 /**
  * @author Raj
  *
  */
-public class _18PartitionProblem {
+public class PartitionProblem {
 
 	/**
 	 * @param args
@@ -18,7 +18,7 @@ public class _18PartitionProblem {
 		int a[] = { 3, 1, 1, 2, 2, 1 };
 
 		boolean result = false;
-		_18PartitionProblem obj = new _18PartitionProblem();
+		PartitionProblem obj = new PartitionProblem();
 		result = obj.is2PartitionsPossible(a);
 		System.out.println(result);
 	}
@@ -31,7 +31,7 @@ public class _18PartitionProblem {
 		}
 		if (sum % 2 != 0)
 			return false;
-		return new _02SubsetSum().isSubsetSumPresent(a, sum / 2);
+		return new SubsetSum().isSubsetSumPresent(a, sum / 2);
 	}
 
 }

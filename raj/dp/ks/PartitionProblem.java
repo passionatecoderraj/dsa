@@ -1,9 +1,7 @@
 /**
  * 
  */
-package com.raj.dp.lis;
-
-import com.raj.dp.ks.SubsetSum;
+package com.raj.dp.ks;
 
 /**
  * @author Raj

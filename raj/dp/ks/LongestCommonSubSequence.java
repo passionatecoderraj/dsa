@@ -1,14 +1,14 @@
-package com.raj.dp;
+package com.raj.dp.ks;
 
 
-public class LCS {
+public class LongestCommonSubSequence {
 
 	public static void main(String[] args) {
 		String x = "AGGTAB";
 		String y = "GXTXAYB";
 		// String x = "AG";
 		// String y = "GXX";
-		LCS obj = new LCS();
+		LongestCommonSubSequence obj = new LongestCommonSubSequence();
 		x = "baab";
 		y = "abb";
 		int result = -1;

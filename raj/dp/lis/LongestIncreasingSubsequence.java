@@ -30,7 +30,7 @@ public class LongestIncreasingSubsequence {
 				len++;
 				c[len] = i;
 				result[i] = c[len - 1];
-			} else if (a[i] < a[c[0]]) {
+			} else if (a[i] <= a[c[0]]) {
 				c[0] = i;
 			} else {
 				int index = binarySearchForIndex(a, c, -1, len, a[i]);

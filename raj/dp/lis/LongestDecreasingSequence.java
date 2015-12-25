@@ -34,7 +34,7 @@ public class LongestDecreasingSequence {
 				len++;
 				t[len] = i;
 				result[i] = t[len - 1];
-			} else if (a[i] > a[t[0]]) {
+			} else if (a[i] >= a[t[0]]) {
 				t[0] = i;
 			} else {
 				int index = binarySearchForIndex(a, t, -1, len, a[i]);
@@ -42,8 +42,8 @@ public class LongestDecreasingSequence {
 				result[i] = t[index - 1];
 			}
 		}
-//		CommonUtil.printArray(t);
-//		CommonUtil.printArray(result);
+		CommonUtil.printArray(t);
+		// CommonUtil.printArray(result);
 		printPath(a, result, t[len]);
 		System.out.println();
 		return len + 1;

@@ -1,12 +1,12 @@
 package com.raj.dp.lis;
 
-public class MaximumIncreasingSubsequence {
+public class MaximumSumForIncreasingSubSequence {
 	public static void main(String[] args) {
-		MaximumIncreasingSubsequence obj = new MaximumIncreasingSubsequence();
+		MaximumSumForIncreasingSubSequence obj = new MaximumSumForIncreasingSubSequence();
 		int result = -1;
 		// int a[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
-		// int a[] = { 1, 101, 2, 3, 100, 4, 5 };
-		int a[] = { 10, 5, 4, 3 };
+		int a[] = { 1, 101, 2, 3, 100, 4, 5 };
+		// int a[] = { 10, 5, 4, 3 };
 		result = obj.misDpOn2(a);
 		System.out.println(result);
 	}
@@ -25,11 +25,8 @@ public class MaximumIncreasingSubsequence {
 		for (int i = 1; i < n; i++) {
 			for (int j = 0; j < i; j++) {
 				if (a[i] > a[j]) {
-					if (a[i] + c[j] > c[i]) {
-						c[i] = a[i] + c[j];
-					}
-					if (c[i] > maxSum)
-						maxSum = c[i];
+					c[i] = Math.max(c[i], c[j] + a[i]);
+					maxSum = Math.max(maxSum, c[i]);
 				}
 			}
 		}

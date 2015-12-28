@@ -1,4 +1,4 @@
-package com.interivew.trees;
+package com.interivew.graph;
 
 public class BinaryTreeNode<T> {
 	public T data;

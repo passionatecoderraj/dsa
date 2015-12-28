@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.interivew.trees;
+package com.interivew.graph;
 
 /**
  * @author Raj

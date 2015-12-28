@@ -3,8 +3,8 @@ package com.raj.greedy;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.interivew.trees.BinaryTree;
-import com.interivew.trees.BinaryTreeNode;
+import com.interivew.graph.BinaryTree;
+import com.interivew.graph.BinaryTreeNode;
 
 public class HuffmanCodingsWithSortedInput {
 

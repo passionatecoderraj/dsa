@@ -1,8 +1,8 @@
 package com.raj.greedy;
 
-import com.interivew.trees.BinaryTree;
-import com.interivew.trees.BinaryTreeNode;
 import com.interivew.graph.BinaryMinHeap;
+import com.interivew.graph.BinaryTree;
+import com.interivew.graph.BinaryTreeNode;
 
 public class HuffmanCodings {
 

@@ -17,6 +17,16 @@ public class CommonUtil {
 			System.out.println();
 		}
 	}
+
+	public static void printArray(char[] a) {
+		int n = a.length;
+		if (n > 0) {
+			for (char i : a)
+				System.out.print(i + " ");
+			System.out.println();
+		}
+	}
+
 	public static void printArray(int[] a) {
 		int n = a.length;
 		if (n > 0) {

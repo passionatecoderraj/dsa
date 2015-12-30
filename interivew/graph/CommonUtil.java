@@ -3,6 +3,8 @@
  */
 package com.interivew.graph;
 
+import java.util.Set;
+
 /**
  * @author Raj
  *
@@ -70,5 +72,18 @@ public class CommonUtil {
 			}
 			System.out.println();
 		}
+	}
+
+	public static void swap(int a[], int i, int j) {
+		int temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
+	}
+
+	public static void printArray(Set<Integer> set) {
+		for(int i:set){
+			System.out.print(i+" ");
+		}
+		System.out.println();
 	}
 }

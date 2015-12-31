@@ -81,9 +81,15 @@ public class CommonUtil {
 	}
 
 	public static void printArray(Set<Integer> set) {
-		for(int i:set){
-			System.out.print(i+" ");
+		for (int i : set) {
+			System.out.print(i + " ");
 		}
+		System.out.println();
+	}
+
+	public static void printArray(int[] a, int start, int n) {
+		for (int i = start; i-start < n; i++)
+			System.out.print(a[i] + " ");
 		System.out.println();
 	}
 }

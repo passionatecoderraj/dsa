@@ -7,7 +7,7 @@ package com.raj.arrays;
  * @author Raj
  *
  */
-public class MaxAndMinWithMinimumComparisions {
+public class MinMaxWithLessComparisions {
 
 	/**
 	 * @param args
@@ -17,7 +17,7 @@ public class MaxAndMinWithMinimumComparisions {
 		int a[] = { 1000, 11, 445, 1, 330, 3000 };
 		Pair result = null;
 		int n = a.length;
-		MaxAndMinWithMinimumComparisions obj = new MaxAndMinWithMinimumComparisions();
+		MinMaxWithLessComparisions obj = new MinMaxWithLessComparisions();
 		// number of comparisons 2+2(n-2) in worse case
 		result = obj.maxAndMinWithMinimumComparisions(a, n);
 		System.out.println(result);
@@ -30,8 +30,7 @@ public class MaxAndMinWithMinimumComparisions {
 
 		// comparison in pairs
 		/*
-		 * If n is odd: 3*(n-1)/2 
-		 * If n is even: 1 Initial comparison for
+		 * If n is odd: 3*(n-1)/2 If n is even: 1 Initial comparison for
 		 * initializing min and max, and 3(n-2)/2 comparisons for rest of the
 		 * elements = 1 + 3*(n-2)/2 = 3n/2 -2
 		 */
@@ -76,35 +75,29 @@ public class MaxAndMinWithMinimumComparisions {
 		return new Pair(max, min);
 	}
 
-	public Pair minMaxUsingTournamentMethod(int[] a, int l, int r) {
-		if (l == r) {
-			return new Pair(a[l], a[l]);
-		}
-		if (l + 1 == r) {
-			if (a[l] > a[r]) {
-				return new Pair(a[l], a[r]);
+	public Pair minMaxUsingTournamentMethod(int[] a, int start, int end) {
+		int n = end - start + 1;
+		int max, min;
+		Pair leftmaxmin, rightmaxmin;
+		if (n == 1) {
+			min = max = a[start];
+			return new Pair(max, min);
+		} else if (n == 2) {
+			if (a[start] > a[end]) {
+				max = a[start];
+				min = a[end];
 			} else {
-				return new Pair(a[r], a[l]);
+				max = a[end];
+				min = a[start];
 			}
-		}
-		int mid, min, max;
-		Pair left, right;
-		mid = (l + r) / 2;
-		left = minMaxUsingTournamentMethod(a, l, mid - 1);
-		right = minMaxUsingTournamentMethod(a, mid + 1, r);
-
-		if (left.max > right.max) {
-			max = left.max;
+			return new Pair(max, min);
 		} else {
-			max = right.max;
+			int mid = start + (end - start) / 2;
+			leftmaxmin = minMaxUsingTournamentMethod(a, start, mid);
+			rightmaxmin = minMaxUsingTournamentMethod(a, mid + 1, end);
 		}
-
-		if (left.min < right.min) {
-			min = left.min;
-		} else {
-			min = right.min;
-		}
-
+		max = leftmaxmin.max > rightmaxmin.max ? leftmaxmin.max : rightmaxmin.max;
+		min = leftmaxmin.min < rightmaxmin.min ? leftmaxmin.min : rightmaxmin.min;
 		return new Pair(max, min);
 	}
 

@@ -6,7 +6,6 @@ package com.raj.arrays;
  * and right most number is always a leader.
  * 
  */
-import com.interivew.graph.CommonUtil;
 
 public class LeadersInArray {
 

@@ -80,6 +80,12 @@ public class CommonUtil {
 		a[j] = temp;
 	}
 
+	public static void swap(char a[], int i, int j) {
+		char temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
+	}
+
 	public static void printArray(Set<Integer> set) {
 		for (int i : set) {
 			System.out.print(i + " ");
@@ -88,7 +94,7 @@ public class CommonUtil {
 	}
 
 	public static void printArray(int[] a, int start, int n) {
-		for (int i = start; i-start < n; i++)
+		for (int i = start; i - start < n; i++)
 			System.out.print(a[i] + " ");
 		System.out.println();
 	}

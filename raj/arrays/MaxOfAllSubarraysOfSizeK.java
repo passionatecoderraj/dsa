@@ -16,8 +16,7 @@ public class MaxOfAllSubarraysOfSizeK {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
 		MaxOfAllSubarraysOfSizeK obj = new MaxOfAllSubarraysOfSizeK();
 		int a[] = { 12, 1, 78, 90, 57, 89, 56 };
 		int n = a.length, k = 3;

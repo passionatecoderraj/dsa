@@ -3,7 +3,7 @@ package com.raj.arrays;
 import java.util.Arrays;
 
 /*
- * element in such that i<j and a[i] > a[j]
+ *
  */
 public class TwoElementSumCloseToZero {
 

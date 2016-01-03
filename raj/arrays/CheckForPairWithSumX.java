@@ -20,7 +20,7 @@ public class CheckForPairWithSumX {
 	 */
 	public static void main(String[] args) {
 		CheckForPairWithSumX obj = new CheckForPairWithSumX();
-		int a[] = { 1, 4, 45, 6, 10, -8 };
+		int a[] = { 1, 4, 45, 6, 10, 8 };
 		int sum = 16;
 		boolean result = false;
 		// method 1 : Time : O(n2) , Space : O(1)
@@ -31,8 +31,8 @@ public class CheckForPairWithSumX {
 		System.out.println(result);
 		// method 3 : Time : O(n), Space : O(R)
 		// all values must be positive(Uses All values must be positive )
-		// result = obj.checkForPairWithSumXON(a, sum);
-		// System.out.println(result);
+		result = obj.checkForPairWithSumXON(a, sum);
+		System.out.println(result);
 		// method 4 : using hash set - set.contains() and set.add() are O(1)
 		// Time : O(n), Space : O(n)
 		result = obj.checkForPairWithSumXONUsingHashSet(a, sum);
@@ -61,21 +61,6 @@ public class CheckForPairWithSumX {
 		}
 		return isPairFound;
 
-	}
-
-	public boolean checkForPairWithSumXON2(int[] a, int sum) {
-		int n = a.length;
-		boolean isPairFound = false;
-		for (int i = 0; i < n; i++) {
-			for (int j = i + 1; j < n; j++) {
-				if (a[i] + a[j] == sum) {
-					System.out.println("(" + a[i] + "," + a[j] + ")");
-					isPairFound = true;
-
-				}
-			}
-		}
-		return isPairFound;
 	}
 
 	/**
@@ -132,6 +117,21 @@ public class CheckForPairWithSumX {
 				l++;
 			} else if (sum < total) {
 				r--;
+			}
+		}
+		return isPairFound;
+	}
+
+	public boolean checkForPairWithSumXON2(int[] a, int sum) {
+		int n = a.length;
+		boolean isPairFound = false;
+		for (int i = 0; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (a[i] + a[j] == sum) {
+					System.out.println("(" + a[i] + "," + a[j] + ")");
+					isPairFound = true;
+
+				}
 			}
 		}
 		return isPairFound;

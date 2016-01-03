@@ -75,6 +75,9 @@ public class ProductArrayPuzzle {
 				product[i] = left[i - 1] * right[i + 1];
 			}
 		}
+		CommonUtil.printArray(a);
+		CommonUtil.printArray(left);
+		CommonUtil.printArray(right);
 		CommonUtil.printArray(product);
 	}
 

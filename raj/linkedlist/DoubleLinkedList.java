@@ -57,7 +57,7 @@ public class DoubleLinkedList<T> {
 			temp = temp.next;
 			len++;
 		}
-		return len++;
+		return len;
 	}
 
 	// Time : O(n)

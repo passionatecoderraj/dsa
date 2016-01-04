@@ -10,9 +10,9 @@ import com.raj.nodes.ListNode;
  *
  */
 public class SingleLinkedList<T> {
-	ListNode<T> root;
+	public ListNode<T> root;
 
-	public void insert(T data) {
+	public ListNode<T> insert(T data) {
 		ListNode<T> newNode = new ListNode<T>(data);
 		if (root == null) {
 			root = newNode;
@@ -23,10 +23,28 @@ public class SingleLinkedList<T> {
 			}
 			temp.next = newNode;
 		}
+		return newNode;
+	}
+
+	public void print(ListNode<T> temp) {
+		if (temp == null) {
+			System.out.println("Empty");
+			return;
+		}
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
 	}
 
 	public void print() {
 		ListNode<T> temp = root;
+		if (temp == null) {
+			System.out.println("Empty");
+			return;
+		}
+
 		while (temp != null) {
 			System.out.print(temp.data + " ");
 			temp = temp.next;
@@ -42,7 +60,7 @@ public class SingleLinkedList<T> {
 			temp = temp.next;
 			len++;
 		}
-		return len++;
+		return len;
 	}
 
 	// Time : O(n)
@@ -97,6 +115,23 @@ public class SingleLinkedList<T> {
 		}
 	}
 
+	public int lengthRecursive(ListNode<T> node) {
+		if (node == null)
+			return 0;
+		return 1 + lengthRecursive(node.next);
+	}
+
+	public boolean isEvenLength() {
+		ListNode<T> fast = root;
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+		}
+		if (fast == null) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -112,7 +147,9 @@ public class SingleLinkedList<T> {
 		obj.print();
 		obj.deleteAtPosition(5);
 		obj.print();
-
+		System.out.println(obj.length());
+		System.out.println(obj.lengthRecursive(obj.root));
+		System.out.println(obj.isEvenLength());
 	}
 
 }

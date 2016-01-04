@@ -15,22 +15,58 @@ public class CircularLinkedList<T> {
 	public void insert(T data) {
 		ListNode<T> newNode = new ListNode<T>(data);
 		if (root == null) {
+			newNode.next = newNode;
 			root = newNode;
 		} else {
 			ListNode<T> temp = root;
-			while (temp.next != null) {
+			while (temp.next != root) {
 				temp = temp.next;
 			}
+			newNode.next = root;
 			temp.next = newNode;
 		}
 	}
 
 	public void print() {
 		ListNode<T> temp = root;
+		if (temp == null) {
+			System.out.println("Empty");
+			return;
+		}
+
 		while (temp != null) {
 			System.out.print(temp.data + " ");
 			temp = temp.next;
+			if (temp == root)
+				break;
 		}
+		System.out.println();
+	}
+
+	public void print(ListNode<T> curRoot) {
+		ListNode<T> temp = curRoot;
+
+		if (temp == null) {
+			System.out.println("Empty");
+			return;
+		}
+
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+			if (temp == curRoot)
+				break;
+		}
+		System.out.println();
+	}
+
+	public void printUsingDoWhile() {
+		ListNode<T> temp = root;
+		do {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		} while (temp != root);
+
 		System.out.println();
 	}
 
@@ -39,10 +75,12 @@ public class CircularLinkedList<T> {
 		int len = 0;
 		ListNode<T> temp = root;
 		while (temp != null) {
-			temp = temp.next;
 			len++;
+			temp = temp.next;
+			if (temp == root)
+				break;
 		}
-		return len++;
+		return len;
 	}
 
 	// Time : O(n)
@@ -56,17 +94,22 @@ public class CircularLinkedList<T> {
 		ListNode<T> newNode = new ListNode<T>(data);
 
 		if (pos == 1) {
+			ListNode<T> temp = root;
+			while (temp.next != root) {
+				temp = temp.next;
+			}
+			temp.next = newNode;
 			newNode.next = root;
 			root = newNode;
 		} else {
-			ListNode<T> temp = root;
 			int count = 1;
+			ListNode<T> prev = root;
 			while (count < pos - 1) {
-				temp = temp.next;
+				prev = prev.next;
 				count++;
 			}
-			newNode.next = temp.next;
-			temp.next = newNode;
+			newNode.next = prev.next;
+			prev.next = newNode;
 		}
 	}
 
@@ -79,9 +122,14 @@ public class CircularLinkedList<T> {
 		}
 
 		if (pos == 1) {
-			ListNode<T> temp = root.next;
+			ListNode<T> temp = root;
+			while (temp.next != root) {
+				temp = temp.next;
+			}
+			ListNode<T> toBeDeleted = root;
 			root = root.next;
-			temp = null;
+			temp.next = root;
+			toBeDeleted = null;
 		} else {
 			ListNode<T> prev = root;
 			int count = 1;
@@ -89,12 +137,11 @@ public class CircularLinkedList<T> {
 				prev = prev.next;
 				count++;
 			}
-			ListNode<T> temp = prev.next;
-			if (temp != null) {
-				prev.next = temp.next;
-			}
-			temp = null;
+			ListNode<T> toBeDeleted = prev.next;
+			prev.next = toBeDeleted.next;
+			toBeDeleted = null;
 		}
+
 	}
 
 	/**
@@ -109,8 +156,13 @@ public class CircularLinkedList<T> {
 		obj.insert(50);
 		obj.insertAtPosition(35, 4);
 		obj.insertAtPosition(5, 1);
+		obj.insertAtPosition(60, 8);
 		obj.print();
 		obj.deleteAtPosition(5);
+		obj.print();
+		obj.deleteAtPosition(1);
+		obj.print();
+		obj.deleteAtPosition(6);
 		obj.print();
 
 	}

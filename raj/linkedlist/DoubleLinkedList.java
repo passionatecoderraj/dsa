@@ -4,14 +4,13 @@
 package com.raj.linkedlist;
 
 import com.raj.nodes.DLLNode;
-import com.raj.nodes.ListNode;
 
 /**
  * @author Raj
  *
  */
 public class DoubleLinkedList<T> {
-	DLLNode<T> root;
+	public DLLNode<T> root;
 
 	public void insert(T data) {
 		DLLNode<T> newNode = new DLLNode<T>(data);
@@ -27,8 +26,25 @@ public class DoubleLinkedList<T> {
 		}
 	}
 
+	public void print(DLLNode<T> temp) {
+		if (temp == null) {
+			System.out.println("Empty");
+			return;
+		}
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+
 	public void print() {
 		DLLNode<T> temp = root;
+		if (temp == null) {
+			System.out.println("Empty");
+			return;
+		}
+
 		while (temp != null) {
 			System.out.print(temp.data + " ");
 			temp = temp.next;

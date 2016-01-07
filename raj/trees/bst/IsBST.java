@@ -3,6 +3,9 @@
  */
 package com.raj.trees.bst;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 import com.raj.nodes.BinaryTreeNode;
 import com.raj.trees.binary.BinaryTree;
 
@@ -63,10 +66,40 @@ public class IsBST {
 		// Time : O(n), Space : O(n)
 		result = obj.isBSTUsingInorder(tree.root);
 		System.out.println(result);
-
 		result = obj.isBSTUsingInorder(bin_tree.root);
 		System.out.println(result);
 
+		// Time : O(n), Space : O(n)
+		result = obj.isBSTUsingInorderWithoutRecursion(tree.root);
+		System.out.println(result);
+		result = obj.isBSTUsingInorderWithoutRecursion(bin_tree.root);
+		System.out.println(result);
+
+	}
+
+	public boolean isBSTUsingInorderWithoutRecursion(BinaryTreeNode<Integer> root) {
+		if (root == null)
+			return true;
+
+		Deque<BinaryTreeNode<Integer>> stack = new LinkedList<BinaryTreeNode<Integer>>();
+		BinaryTreeNode<Integer> temp = root;
+		BinaryTreeNode<Integer> pre = null;
+		while (true) {
+			if (temp != null) {
+				stack.addFirst(temp);
+				temp = temp.left;
+			} else {
+				if (stack.isEmpty())
+					return true;
+				BinaryTreeNode<Integer> pop = stack.removeFirst();
+				if (pre == null || (pre != null && pre.data < pop.data)) {
+					pre = pop;
+				} else {
+					return false;
+				}
+				temp = pop.right;
+			}
+		}
 	}
 
 	BinaryTreeNode<Integer> prev = null;

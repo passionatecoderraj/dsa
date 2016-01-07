@@ -189,4 +189,9 @@ public class BinarySearchTree {
 		return root;
 	}
 
+	public int size(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		return 1 + size(root.left) + size(root.right);
+	}
 }

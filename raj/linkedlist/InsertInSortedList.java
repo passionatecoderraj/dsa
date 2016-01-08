@@ -36,6 +36,8 @@ public class InsertInSortedList {
 		obj2.insert(50);
 		obj2.print();
 		result2 = ob.insertNodeInSortedCircularList(obj2, 9);
+		result2 = ob.insertNodeInSortedCircularList(obj2, 60);
+		result2 = ob.insertNodeInSortedCircularList(obj2, 45);
 		obj2.print();
 
 	}

@@ -46,7 +46,8 @@ public class ShowStats {
 		int count = 0, cur_dir_count = 0;
 		for (int i = 0; i < folder.listFiles().length; i++) {
 			if (listOfFiles[i].isFile()) {
-				System.out.println(spaces + listOfFiles[i].getName());
+				String name = listOfFiles[i].getName();
+				System.out.println(spaces + name.substring(0, name.length() - 5));
 				cur_dir_count++;
 			}
 		}

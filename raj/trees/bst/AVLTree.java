@@ -7,14 +7,13 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import com.raj.nodes.AVLTreeNode;
-import com.raj.nodes.BinaryTreeNode;
 
 /**
  * @author Raj
  *
  */
 public class AVLTree {
-	AVLTreeNode<Integer> root;
+	public AVLTreeNode<Integer> root;
 
 	public void inOrder(AVLTreeNode<Integer> node) {
 		if (node != null) {
@@ -193,6 +192,15 @@ public class AVLTree {
 			return root;
 		while (root.right != null) {
 			root = root.right;
+		}
+		return root;
+	}
+
+	public AVLTreeNode<Integer> findMin(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return root;
+		while (root.left != null) {
+			root = root.left;
 		}
 		return root;
 	}

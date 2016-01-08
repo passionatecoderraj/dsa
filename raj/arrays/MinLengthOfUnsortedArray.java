@@ -33,23 +33,16 @@ public class MinLengthOfUnsortedArray {
 		while (l < h && a[h] > a[h - 1]) {
 			h--;
 		}
-		if (l < h) {
+		if (l == h) {
+			len = 0;
+		} else {
+			int i = 0, j = n - 1;
 			Pair minmax = findMinMax(a, l, h);
-			for (int i = 0; i < l; i++) {
-				if (a[i] > minmax.min) {
-					l = i;
-					break;
-				}
-			}
-			for (int i = n - 1; i >= h; i--) {
-				if (a[i] < minmax.max) {
-					h = i;
-					break;
-				}
-			}
-
-			len = h - l + 1;
-			CommonUtil.printArray(a, l, len);
+			while (a[i] < minmax.min)
+				i++;
+			while (a[j] > minmax.max)
+				j--;
+			len = j - l + 1;
 		}
 		return len;
 	}

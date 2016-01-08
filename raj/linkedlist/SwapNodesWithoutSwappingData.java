@@ -74,6 +74,7 @@ public class SwapNodesWithoutSwappingData {
 			return;
 		}
 
+		// swapping previous elements next
 		// check if X if first element
 		if (prevX == null)
 			obj.root = tempY;
@@ -86,6 +87,7 @@ public class SwapNodesWithoutSwappingData {
 		else
 			prevY.next = tempX;
 
+		// swapping current elements next
 		// swap elements
 		ListNode<Integer> temp = tempX.next;
 		tempX.next = tempY.next;

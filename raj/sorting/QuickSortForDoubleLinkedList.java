@@ -1,16 +1,16 @@
 /**
  * 
  */
-package com.raj.linkedlist;
+package com.raj.sorting;
 
+import com.raj.linkedlist.DoubleLinkedList;
 import com.raj.nodes.DLLNode;
-import com.raj.nodes.ListNode;
 
 /**
  * @author Raj
  *
  */
-public class QuickSortDLL {
+public class QuickSortForDoubleLinkedList {
 
 	/**
 	 * @param args
@@ -27,7 +27,7 @@ public class QuickSortDLL {
 		obj.insert(4);
 		obj.insert(5);
 
-		QuickSortDLL ob = new QuickSortDLL();
+		QuickSortForDoubleLinkedList ob = new QuickSortForDoubleLinkedList();
 		obj.print();
 		ob.quickSort(obj);
 		obj.print();

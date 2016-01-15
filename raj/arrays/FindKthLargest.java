@@ -28,17 +28,17 @@ public class FindKthLargest {
 	}
 
 	public int quickSelectRandomPartition(int[] a, int low, int high, int k) {
-		int n = high - low + 1;
-		if (k < 0 && k >= n)
-			return -1;
-		int pivot = randomPartitionDescending(a, low, high);
-		if (pivot - low == k) {
-			return a[pivot];
-		} else if (k > pivot - low) {
-			return quickSelectFindKthLargest(a, pivot + 1, high, k - (pivot - low) - 1);
-		} else {
-			return quickSelectFindKthLargest(a, low, pivot - 1, k);
+		if (low <= high) {
+			int pivot = randomPartitionDescending(a, low, high);
+			if (pivot - low == k) {
+				return a[pivot];
+			} else if (k > pivot - low) {
+				return quickSelectFindKthLargest(a, pivot + 1, high, k - (pivot - low) - 1);
+			} else {
+				return quickSelectFindKthLargest(a, low, pivot - 1, k);
+			}
 		}
+		return -1;
 	}
 
 	public int randomPartitionDescending(int[] a, int low, int high) {
@@ -49,17 +49,17 @@ public class FindKthLargest {
 	}
 
 	public int quickSelectFindKthLargest(int[] a, int low, int high, int k) {
-		int n = high - low + 1;
-		if (k < 0 && k >= n)
-			return -1;
-		int pivot = partitionDescending(a, low, high);
-		if (pivot - low == k) {
-			return a[pivot];
-		} else if (k > pivot - low) {
-			return quickSelectFindKthLargest(a, pivot + 1, high, k - (pivot - low) - 1);
-		} else {
-			return quickSelectFindKthLargest(a, low, pivot - 1, k);
+		if (low <= high) {
+			int pivot = partitionDescending(a, low, high);
+			if (pivot - low == k) {
+				return a[pivot];
+			} else if (k > pivot - low) {
+				return quickSelectFindKthLargest(a, pivot + 1, high, k - (pivot - low) - 1);
+			} else {
+				return quickSelectFindKthLargest(a, low, pivot - 1, k);
+			}
 		}
+		return -1;
 	}
 
 	public int partitionDescending(int a[], int p, int r) {

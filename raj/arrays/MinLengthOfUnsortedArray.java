@@ -1,6 +1,6 @@
 /**
- * 
- */
+* 
+*/
 package com.raj.arrays;
 
 import com.interivew.graph.CommonUtil;
@@ -42,7 +42,7 @@ public class MinLengthOfUnsortedArray {
 				i++;
 			while (a[j] > minmax.max)
 				j--;
-			len = j - l + 1;
+			len = j - i + 1;
 		}
 		return len;
 	}

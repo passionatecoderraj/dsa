@@ -1,7 +1,9 @@
-	/**
- * 
- */
+/**
+* 
+*/
 package com.raj.dp.ks;
+
+import com.interivew.graph.CommonUtil;
 
 /**
  * @author Raj
@@ -21,43 +23,32 @@ public class RodCut {
 
 		int result = -1, n = 8;
 		RodCut obj = new RodCut();
-		result = obj.cutRod(len, profits, n);
+		result = obj.maximumProfitFromCuttinRodOfLength(len, profits, profits.length, n);
 		System.out.println(result);
 	}
 
-	public int cutRod(int[] a, int[] profits, int n) {
-		int t[][] = new int[a.length + 1][n + 1];
-
-		for (int i = 0; i < a.length + 1; i++) {	
+	public int maximumProfitFromCuttinRodOfLength(int size[], int profits[], int n, int len) {
+		int t[][] = new int[n + 1][len + 1];
+		for (int i = 0; i <= len; i++) {
+			t[0][i] = 0;
+		}
+		for (int i = 0; i <= n; i++) {
 			t[i][0] = 0;
 		}
 
-		for (int j = 0; j < n + 1; j++) {
-			t[0][j] = 0;
-		}
-
-		for (int i = 1; i < a.length + 1; i++) {
-			for (int j = 1; j < n + 1; j++) {
-				if (j >= i) {
-					t[i][j] = max(t[i - 1][j], profits[i - 1] + t[i][j - i]);
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (j >= size[i - 1]) {
+					t[i][j] = Math.max(t[i - 1][j], profits[i - 1] + t[i][j - size[i - 1]]);
 				} else {
 					t[i][j] = t[i - 1][j];
 				}
 			}
 		}
 
-		for (int i = 0; i < a.length + 1; i++) {
-			for (int j = 0; j < n + 1; j++) {
-				System.out.print(t[i][j] + " ");
-			}
-			System.out.println();
-		}
+		CommonUtil.print2DArray(t, n + 1, len + 1);
 
-		return t[a.length][n];
-	}
-
-	public int max(int i, int j) {
-		return i > j ? i : j;
+		return t[n][len];
 	}
 
 }

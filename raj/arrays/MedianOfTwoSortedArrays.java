@@ -14,10 +14,10 @@ public class MedianOfTwoSortedArrays {
 	 */
 	public static void main(String[] args) {
 		MedianOfTwoSortedArrays obj = new MedianOfTwoSortedArrays();
-		int a1[] = { 1, 12, 15, 26, 38 };
-		int a2[] = { 2, 13, 17, 30, 45 };
+		int a1[] = { 1, 12, 15, 26 };
+		int a2[] = { 2, 13, 17, 30 };
 		int result = -1;
-		result = obj.medianOfTwoSortedArrays(a1, a2, 0, a1.length, 0, a2.length);
+		result = obj.medianOfTwoSortedArrays(a1, a2, 0, a1.length - 1, 0, a2.length - 1);
 		System.out.println(result);
 		result = obj.median(a1, 0, a2.length - 1);
 		System.out.println(result);
@@ -37,28 +37,30 @@ public class MedianOfTwoSortedArrays {
 		} else {
 			m1 = median(a1, l1, r1);
 			m2 = median(a2, l2, r2);
-			
-			//TODO: complete code from here
-			
-			if(m1 == m2){
+
+
+			if (m1 < m2) {
+				int k = n / 2;
+				return medianOfTwoSortedArrays(a1, a2, l1 + k, r1, l2, r2 - k);
+			} else if (m1 > m2) {
+				int k = n / 2;
+				return medianOfTwoSortedArrays(a1, a2, l1, r1 - k, l2 + k, r2);
+
+			} else {
 				return m1;
 			}
-			if (m1 < m2) {
-				return medianOfTwoSortedArrays(a1, a2, l1, r1, l2, r2);
-			}
 		}
-
-		return 0;
 	}
 
 	public int median(int[] a, int start, int end) {
+
 		int n = end - start + 1;
-		int k = n / 2;
+		int k = start + n / 2;
 
 		if (n % 2 != 0) {
 			return a[k];
 		} else {
-			return (a[start + k] + a[start + k - 1]) / 2;
+			return (a[k] + a[k - 1]) / 2;
 		}
 
 	}

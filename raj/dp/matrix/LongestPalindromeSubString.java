@@ -3,6 +3,8 @@
  */
 package com.raj.dp.matrix;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -44,12 +46,7 @@ public class LongestPalindromeSubString {
 			}
 		}
 
-		// for (int i = 0; i < n; i++) {
-		// for (int j = 0; j < n; j++) {
-		// System.out.print(t[i][j] + " ");
-		// }
-		// System.out.println();
-		// }
+		CommonUtil.print2DArray(t, n, n);
 		return max;
 	}
 

@@ -25,7 +25,7 @@ public class UnionIntersectionOf2UnsortedArrays {
 
 		// Time : O(mlogm+nlogn),uses sorting
 		obj.union(a, b);
-		// Time : O(m+n)
+		// Time : O(mlogm+nlogn),uses sorting
 		obj.intersection(a, b);
 
 		// Another approach that is useful when difference between sizes of two

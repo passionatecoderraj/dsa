@@ -56,24 +56,18 @@ public class ProductArrayPuzzle {
 		int right[] = new int[n];
 		int product[] = new int[n];
 
-		left[0] = a[0];
-		right[n - 1] = a[n - 1];
+		left[0] = 1;
+		right[n - 1] = 1;
 		for (int i = 1; i < n; i++) {
-			left[i] = a[i] * left[i - 1];
+			left[i] = a[i - 1] * left[i - 1];
 		}
 
 		for (int i = n - 2; i >= 0; i--) {
-			right[i] = a[i] * right[i + 1];
+			right[i] = a[i + 1] * right[i + 1];
 		}
 
 		for (int i = 0; i < n; i++) {
-			if (i == 0) {
-				product[i] = right[i + 1];
-			} else if (i == n - 1) {
-				product[i] = left[i - 1];
-			} else {
-				product[i] = left[i - 1] * right[i + 1];
-			}
+			product[i] = left[i] * right[i];
 		}
 		CommonUtil.printArray(a);
 		CommonUtil.printArray(left);

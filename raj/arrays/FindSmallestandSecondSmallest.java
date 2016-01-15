@@ -40,7 +40,7 @@ public class FindSmallestandSecondSmallest {
 				min2 = a[i];
 			}
 		}
-		System.out.println("min2=" + min2);
+		System.out.println("min1=" + min1 + ", min2=" + min2);
 		return min2;
 	}
 

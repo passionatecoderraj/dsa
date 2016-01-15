@@ -27,7 +27,7 @@ public class MaxDiff {
 	}
 
 	public void maxDiffMethod2Variation2(int[] a, int n) {
-		int maxDiff = a[n - 2] - a[n - 1];
+		int maxDiff = Integer.MIN_VALUE;
 		int max_so_far = a[n - 1];
 		for (int i = n - 2; i >= 0; i--) {
 			if (max_so_far - a[i] > maxDiff) {
@@ -46,7 +46,7 @@ public class MaxDiff {
 	 * order. Returns 0 if elements are equal
 	 */
 	public void maxDiffMethod2Variation1(int[] a, int n) {
-		int maxDiff = a[1] - a[0];
+		int maxDiff = Integer.MIN_VALUE;
 		int min_so_far = a[0];
 		for (int i = 1; i < n; i++) {
 			if (a[i] - min_so_far > maxDiff) {

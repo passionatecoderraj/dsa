@@ -14,7 +14,12 @@ public class MaximumSubSquareMatrix {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int a[][] = { { 0, 1, 1, 0, 1 }, { 1, 1, 0, 1, 0 }, { 0, 1, 1, 1, 0 }, { 1, 1, 1, 1, 0 }, { 1, 1, 1, 1, 1 },
+		int a[][] = { 
+				{ 0, 1, 1, 0, 1 }, 
+				{ 1, 1, 0, 1, 0 },
+				{ 0, 1, 1, 1, 0 },
+				{ 1, 1, 1, 1, 0 }, 
+				{ 1, 1, 1, 1, 1 },
 				{ 0, 0, 0, 0, 0 } };
 
 		int result = -1, m = 6, n = 5;

@@ -26,21 +26,15 @@ public class ReverseArray {
 	public void reverseRecursive(int[] a, int l, int r) {
 		if (l > r)
 			return;
-		int temp;
-
-		temp = a[l];
-		a[l] = a[r];
-		a[r] = temp;
+		CommonUtil.swap(a, l, r);
 		reverseRecursive(a, ++l, --r);
 	}
 
 	public void reverse(int[] a) {
-		int l = 0, r = a.length - 1, temp;
+		int l = 0, r = a.length - 1;
 
 		while (l < r) {
-			temp = a[l];
-			a[l] = a[r];
-			a[r] = temp;
+			CommonUtil.swap(a, l, r);
 			l++;
 			r--;
 		}

@@ -44,6 +44,8 @@ public class MinJumpstoReachEnd {
 				}
 			}
 		}
+		CommonUtil.printArray(t);
+		CommonUtil.printArray(result);
 		printSolution(result, n - 1);
 		System.out.println();
 		return t[n - 1];

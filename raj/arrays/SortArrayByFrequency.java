@@ -57,6 +57,7 @@ public class SortArrayByFrequency {
 				elements[i - 1].count = -1;
 			}
 		}
+		CommonUtil.printArray(elements);
 		Arrays.sort(elements, customSorterByCountAndIndex);
 		CommonUtil.printArray(elements);
 		

@@ -12,13 +12,13 @@ public class CountNumberOfBinaryStrings {
 	}
 
 	public int countBinaryStringsWithoutStoring(int n) {
-		int a = 1, b = 1, temp;
-		for (int i = 1; i < n; i++) {
-			temp = a;
-			a = a + b;
+		int a = 1, b = 1, temp = a + b;
+		for (int i = 1; i <= n; i++) {
+			temp = a + b;
+			a = b;
 			b = temp;
 		}
-		return a + b;
+		return temp;
 	}
 
 	public int countBinaryStrings(int n) {

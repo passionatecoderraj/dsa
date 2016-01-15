@@ -1,5 +1,7 @@
 package com.raj.dp.ks;
 
+import com.interivew.graph.CommonUtil;
+
 public class Edit {
 
 	public static void main(String[] args) {
@@ -17,34 +19,27 @@ public class Edit {
 
 	}
 
-	public int editBottomUp(char[] x, char[] y, int i, int j) {
-		int[][] c = new int[i + 1][j + 1];
-		for (int k = 0; k < i + 1; k++) {
-			c[k][0] = k;
+	public int editBottomUp(char[] x, char[] y, int m, int n) {
+		int t[][] = new int[m + 1][n + 1];
+
+		for (int i = 0; i <= m; i++) {
+			t[i][0] = i;
+		}
+		for (int i = 0; i <= n; i++) {
+			t[0][i] = i;
 		}
 
-		for (int k = 0; k < j + 1; k++) {
-			c[0][k] = k;
-		}
-
-		for (int m = 1; m < i + 1; m++) {
-			for (int n = 1; n < j + 1; n++) {
-				if (x[m - 1] == y[n - 1]) {
-					c[m][n] = c[m - 1][n - 1];
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (x[i - 1] == y[j - 1]) {
+					t[i][j] = t[i - 1][j - 1];
 				} else {
-					c[m][n] = 1 + min(c[m - 1][n - 1], c[m][n - 1], c[m - 1][n]);
+					t[i][j] = 1 + Math.min(t[i - 1][j - 1], Math.min(t[i][j - 1], t[i - 1][j]));
 				}
 			}
 		}
-
-		for (int m = 0; m < i + 1; m++) {
-			for (int n = 0; n < j + 1; n++) {
-				System.out.print(c[m][n] + " ");
-			}
-			System.out.println();
-		}
-
-		return c[i][j];
+	//	CommonUtil.print2DArray(t, m + 1, n + 1);
+		return t[m][n];
 	}
 
 	public int editBruteForce(char[] x, char[] y, int i, int j) {

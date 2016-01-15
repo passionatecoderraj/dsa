@@ -1,7 +1,11 @@
 package com.interivew.graph;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Practice {
 
@@ -17,6 +21,19 @@ public class Practice {
 			} else {
 				r--;
 			}
+		}
+	}
+
+	void checkForPairWithSumK(int a[], int n, int k) {
+		boolean map[] = new boolean[100000];
+
+		int temp;
+		for (int i = 0; i < n; i++) {
+			temp = k - a[i];
+			if (temp >= 0 && map[temp] == true) {
+				System.out.println("1st=" + a[i] + ",2nd=" + temp);
+			}
+			map[a[i]] = true;
 		}
 	}
 
@@ -100,6 +117,18 @@ public class Practice {
 		return t - sum;
 	}
 
+	int findMissingNumberUsingBits(int a[], int n) {
+		int x1 = 0, x2 = 0;
+		for (int i = 0; i < n; i++) {
+			x1 = x1 ^ a[i];
+		}
+
+		for (int i = 1; i <= n + 1; i++) {
+			x2 = x2 ^ i;
+		}
+		return x1 ^ x2;
+	}
+
 	int findPivot(int a[], int n) {
 		if (n <= 0)
 			return -1;
@@ -114,7 +143,7 @@ public class Practice {
 				return mid + 1;
 			else if (a[mid] > a[l]) {
 				l = mid + 1;
-			} else if (a[r] > a[mid]) {
+			} else {
 				r = mid - 1;
 			}
 		}
@@ -148,11 +177,8 @@ public class Practice {
 	}
 
 	void reverse(int a[], int l, int r) {
-		int temp;
 		while (l <= r) {
-			temp = a[l];
-			a[l] = a[r];
-			a[r] = temp;
+			CommonUtil.swap(a, l, r);
 			l++;
 			r--;
 		}
@@ -307,7 +333,6 @@ public class Practice {
 	}
 
 	public boolean isMajorityInSortedArray(int a[], int n, int key) {
-
 		int p = binarySearchForFirstOccurenceOfKey(a, 0, n - 1, key);
 		if (p >= 0) {
 			int k = p + n / 2;
@@ -416,15 +441,15 @@ public class Practice {
 	}
 
 	public int quickSelectForKthSmallest(int a[], int p, int r, int k) {
-		if (p < r) {
+		if (p <= r) {
 			int q = partition(a, p, r);
 			if (q - p == k) {
 				return a[q];
 			}
 			if (k > q - p) {
-				quickSelectForKthSmallest(a, q + 1, r, k - (q - p) - 1);
+				return quickSelectForKthSmallest(a, q + 1, r, k - (q - p) - 1);
 			} else {
-				quickSelectForKthSmallest(a, p, q - 1, k);
+				return quickSelectForKthSmallest(a, p, q - 1, k);
 			}
 		}
 		return -1;
@@ -442,28 +467,54 @@ public class Practice {
 		return j;
 	}
 
+	public int maxDiff(int[] a, int n) {
+		if (n <= 0)
+			return -1;
+		int maxDiff = Integer.MIN_VALUE;
+		int minSoFar = a[0];
+		for (int i = 1; i < n; i++) {
+			if (a[i] - minSoFar > maxDiff) {
+				maxDiff = a[i] - minSoFar;
+			}
+			if (a[i] < minSoFar) {
+				minSoFar = a[i];
+			}
+		}
+		return maxDiff;
+	}
+
+	public int maxDiffVariation2(int[] a, int n) {
+		if (n <= 0)
+			return -1;
+		int maxDiff = Integer.MIN_VALUE;
+		int maxSoFar = a[n - 1];
+		for (int i = n - 2; i >= 0; i--) {
+			if (maxSoFar - a[i] > maxDiff) {
+				maxDiff = maxSoFar - a[i];
+			}
+			if (a[i] > maxSoFar) {
+				maxSoFar = a[i];
+			}
+		}
+		return maxDiff;
+	}
+
 	public void productArray(int a[], int n) {
 		int left[] = new int[n];
 		int right[] = new int[n];
 		int prod[] = new int[n];
-		left[0] = a[0];
-		right[n - 1] = a[n - 1];
+		left[0] = 1;
+		right[n - 1] = 1;
 
 		for (int i = 1; i < n; i++) {
-			left[i] = a[i] * left[i - 1];
+			left[i] = a[i - 1] * left[i - 1];
 		}
 		for (int j = n - 2; j >= 0; j--) {
-			right[j] = right[j + 1] * a[j];
+			right[j] = right[j + 1] * a[j + 1];
 		}
 
 		for (int i = 0; i < n; i++) {
-			if (i == 0) {
-				prod[i] = right[i + 1];
-			} else if (i == n - 1) {
-				prod[i] = left[i - 1];
-			} else {
-				prod[i] = left[i - 1] + right[i + 1];
-			}
+			prod[i] = left[i] + right[i];
 		}
 	}
 
@@ -483,6 +534,478 @@ public class Practice {
 		}
 	}
 
+	public void segregateEvenAndOdd(int[] a, int n) {
+		int l = 0, r = n - 1;
+		while (l < r) {
+			while (l < r && a[l] % 2 == 0) {
+				l++;
+			}
+			while (l < r && a[r] % 2 != 0) {
+				r--;
+			}
+			if (l < r) {
+				CommonUtil.swap(a, l, r);
+				l++;
+				r--;
+			}
+		}
+	}
+
+	public void findTwoRepeatingNumbersUsingSignChange(int[] a, int n) {
+		int j;
+		for (int i = 0; i < n; i++) {
+			j = Math.abs(a[i]);
+			if (a[j] < 0) {
+				System.out.println("Repeated : " + j);
+			} else {
+				a[j] = -a[j];
+			}
+		}
+	}
+
+	public void segregate0s1s2sInSinglePass(int[] a, int n) {
+		int low = 0, mid = 0, high = n - 1;
+
+		while (mid <= high) {
+			switch (a[mid]) {
+			case 0:
+				CommonUtil.swap(a, low, mid);
+				low++;
+				mid++;
+				break;
+			case 1:
+				mid++;
+				break;
+			case 2:
+				CommonUtil.swap(a, mid, high);
+				high--;
+			}
+		}
+	}
+
+	public int minLengthOfUnsortedArray(int a[], int n) {
+		if (n == 1)
+			return 0;
+		int l = 0, r = n - 1;
+		for (int i = 1; i < n; i++) {
+			if (a[i] < a[i - 1]) {
+				l = i;
+				break;
+			}
+		}
+
+		for (int i = n - 2; i >= 0; i--) {
+			if (a[i] > a[i + 1]) {
+				r = i;
+				break;
+			}
+		}
+
+		Pair minmax = findMinMaxUsingTournamentMethod(a, l, r);
+		int min = minmax.min, max = minmax.max;
+		int low = l, high = r;
+		for (int i = 0; i < l; i++) {
+			if (a[i] > min) {
+				low = i;
+				break;
+			}
+		}
+
+		for (int i = n - 1; i >= 0; i--) {
+			if (a[i] < max) {
+				high = i;
+				break;
+			}
+		}
+		return high - low + 1;
+	}
+
+	public Pair findMinMaxUsingTournamentMethod(int[] a, int l, int r) {
+		int n = r - l + 1;
+		if (n == 1) {
+			return new Pair(a[l], a[r]);
+		} else if (n == 2) {
+			if (a[l] > a[r]) {
+				return new Pair(a[l], a[r]);
+			} else {
+				return new Pair(a[r], a[l]);
+			}
+		}
+		int max, min, mid = l + (r - l) / 2;
+		Pair lmax = findMinMaxUsingTournamentMethod(a, l, mid);
+		Pair rmax = findMinMaxUsingTournamentMethod(a, mid + 1, r);
+		max = lmax.max > rmax.max ? lmax.max : rmax.max;
+		min = lmax.min < rmax.min ? lmax.min : rmax.min;
+		return new Pair(max, min);
+	}
+
+	public void findDuplicates(int a[], int n) {
+		int j;
+		for (int i = 0; i < n; i++) {
+			j = Math.abs(a[i]);
+
+			if (j == n || a[j] < 0) {
+				System.out.println("Duplicate : " + j);
+			} else if (a[j] == 0) {
+				a[j] = -n;
+			} else {
+				a[j] = -a[j];
+			}
+		}
+	}
+
+	public void nextGreatElement(int a[], int n) {
+		Deque<Integer> stack = new LinkedList<Integer>();
+		stack.push(a[0]);
+		for (int i = 1; i < n; i++) {
+
+			if (!stack.isEmpty() && a[i] > stack.peek()) {
+				System.out.println(stack.pop() + " - " + a[i]);
+			}
+			stack.push(a[i]);
+		}
+		while (!stack.isEmpty()) {
+			System.out.println(stack.pop() + " - null");
+		}
+	}
+
+	public boolean checkIfArrayelementsAreConsecutive(int a[], int n) {
+		Pair minmax = findMinMaxUsingTournamentMethod(a, 0, n - 1);
+		if (minmax.max - minmax.min + 1 != n) {
+			return false;
+		}
+
+		int j;
+		for (int i = 0; i < n; i++) {
+			j = Math.abs(a[i] - minmax.min);
+			if (j == n || a[j] < 0) {
+				return false;
+			} else if (a[j] == 0) {
+				a[j] = -n;
+			} else { // if{a[j]>0)
+				a[j] = -a[j];
+			}
+		}
+		return true;
+	}
+
+	public int maxIndexDiff(int a[], int n) {
+		int maxIndexDiff = Integer.MIN_VALUE;
+
+		if (n <= 0)
+			return maxIndexDiff;
+		int leftMin[] = new int[n];
+		int rightMax[] = new int[n];
+
+		leftMin[0] = a[0];
+		rightMax[n - 1] = a[n - 1];
+		for (int i = 1; i < n; i++) {
+			leftMin[i] = Math.min(leftMin[i - 1], a[i]);
+		}
+
+		for (int i = n - 2; i >= 0; i--) {
+			rightMax[i] = Math.max(rightMax[i + 1], a[i]);
+		}
+		int i = 0, j = 0;
+		while (i < n && j < n) {
+			if (leftMin[i] < rightMax[j]) {
+				maxIndexDiff = Math.max(j - i, maxIndexDiff);
+				j++;
+			} else {
+				i++;
+			}
+		}
+		return maxIndexDiff;
+	}
+
+	public void maxOfAllSubarraysOfSizeK(int a[], int n, int k) {
+
+		Deque<Integer> dq = new ArrayDeque<Integer>();
+		int i = 0;
+
+		for (; i < k; i++) {
+			while (!dq.isEmpty() && a[i] > a[dq.peekLast()]) {
+				dq.removeLast();
+			}
+			dq.addLast(i);
+		}
+
+		for (; i < n; i++) {
+
+			System.out.print(a[dq.peekFirst()] + " ");
+
+			while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+				dq.removeFirst();
+			}
+			while (!dq.isEmpty() && a[i] > a[dq.peekLast()]) {
+				dq.removeLast();
+			}
+			dq.addLast(i);
+		}
+	}
+
+	// Time : O(mlogm+nlogn)
+	public boolean checkWhetherBisSubSetofA(int a[], int m, int b[], int n) {
+		if (m < n)
+			return false;
+		Arrays.sort(a);
+		Arrays.sort(b);
+
+		int i = 0, j = 0;
+		while (i < m && j < n) {
+			if (a[i] < b[j]) {
+				i++;
+			} else if (a[i] > b[j]) {
+				return false;
+			} else {
+				i++;
+				j++;
+			}
+		}
+
+		if (j < n)
+			return false;
+		return true;
+	}
+
+	// Time : O(m+n), Space : O(n)
+	public boolean checkWhetherBisSubSetofAUsingHashSet(int a[], int m, int b[], int n) {
+		if (m < n)
+			return false;
+
+		HashSet<Integer> set = new HashSet<Integer>();
+		for (int i = 0; i < m; i++) {
+			set.add(a[i]);
+		}
+		for (int i = 0; i < n; i++) {
+			if (!set.contains(b[i]))
+				return false;
+		}
+		return true;
+	}
+
+	public int minDistanceBetweenTwoNumber(int a[], int n, int x, int y) {
+		int minDistance = Integer.MIN_VALUE;
+		if (n <= 0)
+			return minDistance;
+
+		int lastFound = -1, lastFoundIndex = -1;
+
+		for (int i = 0; i < n; i++) {
+			if (a[i] == x || a[i] == y) {
+				if (lastFound == -1) {
+					lastFound = a[i];
+					lastFoundIndex = i;
+				} else if (lastFound != a[i]) {
+					minDistance = Integer.min(i - lastFoundIndex, minDistance);
+					lastFound = a[i];
+					lastFoundIndex = i;
+				} else {
+					lastFoundIndex = i;
+				}
+			}
+		}
+
+		return minDistance;
+	}
+
+	public void findMissingAndRepeating(int a[], int n) {
+		int j;
+
+		for (int i = 0; i < n; i++) {
+			j = Math.abs(a[i]) - 1;
+			if (a[j] < 0) {
+				System.out.println("Repeating : " + (j + 1));
+			} else {
+				a[j] = -a[j];
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (a[i] > 0) {
+				System.out.println("Repeating : " + (i + 1));
+			}
+		}
+	}
+
+	public int maxLengthOfBitonic(int a[], int n) {
+		int lis[] = new int[n];
+		int lds[] = new int[n];
+
+		for (int i = 0; i < n; i++) {
+			lis[i] = lds[i] = 1;
+		}
+		for (int i = 1; i < n; i++) {
+			if (a[i] > a[i - 1]) {
+				lis[i] = lis[i - 1] + 1;
+			}
+		}
+
+		for (int i = n - 1; i >= 0; i--) {
+			if (a[i] < a[i + 1]) {
+				lds[i] = lds[i + 1] + 1;
+			}
+		}
+
+		int maxLen = Integer.MIN_VALUE;
+		for (int i = 0; i < n; i++) {
+			maxLen = Integer.max(maxLen, lis[i] + lds[i] - 1);
+		}
+		return maxLen;
+	}
+
+	public int minJumpsToReachEnd(int a[], int n) {
+		if (n <= 0)
+			return 0;
+		int t[] = new int[n];
+		for (int i = 0; i < n; i++) {
+			t[i] = Integer.MAX_VALUE;
+		}
+		t[0] = 0;
+		for (int i = 1; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (j + a[j] >= i) {
+					t[i] = Math.min(t[i], 1 + t[j]);
+				}
+			}
+		}
+		return t[n - 1];
+	}
+
+	public void findSubArrayWithSumK(int a[], int n, int k) {
+		int sum = 0;
+		int start = 0;
+		for (int i = 0; i < n; i++) {
+			if (a[i] == k) {
+				start = i + 1;
+				sum = 0;
+				printArray(a, i, i);
+				continue;
+			}
+			sum += a[i];
+			if (sum == a[i]) {
+				printArray(a, start, i);
+				sum = 0;
+				start++;
+			} else if (sum > a[i]) {
+				while (start <= i && sum >= a[i]) {
+					if (sum == a[i])
+						printArray(a, start, i);
+					start++;
+					sum = sum - a[i];
+				}
+			}
+		}
+	}
+
+	public void printArray(int[] a, int l, int r) {
+		for (int i = l; i <= r; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
+	}
+
+	public void findTripletWithSumK(int a[], int n, int k) {
+		int l, r, sum;
+		for (int i = 0; i < n; i++) {
+			l = i + 1;
+			r = n - 1;
+			while (l < r) {
+				sum = a[i] + a[l] + a[r];
+				if (sum > k) {
+					r--;
+				} else if (sum < k) {
+					l++;
+				} else {
+					System.out.println("1st=" + a[i] + ",2nd=" + a[l] + ",3rd=" + a[r] + ",sum=" + k);
+					l++;
+					r--;
+				}
+			}
+		}
+	}
+
+	public int celebrityProblem(int a[], int n) {
+		int l = 0;
+		int r = n - 1;
+		while (l < r) {
+			if (knows(l, r)) {
+				l++;
+			} else {
+				r--;
+			}
+		}
+		// either l or r can be remnant. let's assume n is remnant
+		for (int i = 0; i < n; i++) {
+			if (i != l) {
+				if (knows(l, i) || !knows(i, l)) {
+					return -1;
+				}
+			}
+		}
+		return l;
+	}
+
+	public boolean knows(int l, int r) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public int maxProductSubArray(int a[], int n) {
+		if (n <= 0) {
+			return Integer.MIN_VALUE;
+		}
+
+		int maxProduct, maxEndingHere, minEndingHere;
+		maxProduct = maxEndingHere = minEndingHere = a[0];
+		int tempMax, tempMin;
+		for (int i = 1; i < n; i++) {
+			tempMax = maxEndingHere;
+			tempMin = minEndingHere;
+			maxEndingHere = Math.max(a[i], Math.max(a[i] * tempMax, a[i] * tempMin));
+			minEndingHere = Math.min(a[i], Math.min(a[i] * tempMax, a[i] * tempMin));
+			maxProduct = Math.max(maxEndingHere, maxProduct);
+		}
+		return maxProduct;
+	}
+
+	public void findSortedSequenceOfLength3(int[] a, int n) {
+
+		if (n < 3)
+			return;
+
+		int smaller[] = new int[n];
+		int larger[] = new int[n];
+		int min = 0;
+		int max = n - 1;
+
+		smaller[0] = -1;
+		larger[n - 1] = -1;
+
+		for (int i = 1; i < n; i++) {
+			if (a[i] > a[min]) {
+				smaller[i] = min;
+			} else {
+				smaller[i] = -1;
+				min = i;
+			}
+		}
+
+		for (int i = n - 2; i >= 0; i--) {
+			if (a[i] < a[max]) {
+				larger[i] = max;
+			} else {
+				larger[i] = -1;
+				max = i;
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (smaller[i] != -1 && larger[i] != -1) {
+				System.out.println(a[smaller[i]] + " " + a[i] + " " + a[larger[i]]);
+			}
+		}
+	}
 }
 
 class Pair {

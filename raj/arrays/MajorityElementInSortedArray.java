@@ -3,8 +3,6 @@
  */
 package com.raj.arrays;
 
-import java.util.Arrays;
-
 /**
  * @author Raj
  *

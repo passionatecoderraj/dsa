@@ -5,8 +5,6 @@ package com.raj.arrays;
 
 import java.util.Arrays;
 
-import com.interivew.graph.CommonUtil;
-
 /**
  * @author Raj
  *

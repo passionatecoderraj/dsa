@@ -16,8 +16,8 @@ public class MaxProductSubarray {
 
 		MaxProductSubarray obj = new MaxProductSubarray();
 		// int a[] = { 1, -2, -3, 0, 7, -8, -2 };
-		// int a[] = { 12, 2, -3, -5, -6, -2 };
-		int a[] = { 0, 0, -3, 0, 0 };
+		int a[] = { 12, 2, -3, -5, -6, -2 };
+		// int a[] = { 0, 0, -3, 0, 0 };
 
 		int n = a.length, result = -1;
 		result = obj.maxProductSubarray(a, n);
@@ -31,6 +31,7 @@ public class MaxProductSubarray {
 
 		int maxEndingHere = a[0];
 		int minEndingHere = a[0];
+		maxProduct = a[0];
 
 		int tempMax, tempMin;
 		for (int i = 1; i < n; i++) {

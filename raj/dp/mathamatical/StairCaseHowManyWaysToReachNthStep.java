@@ -15,7 +15,7 @@ public class StairCaseHowManyWaysToReachNthStep {
 		System.out.println(result);
 	}
 
-	private int waysToReachNthStepWithMaxNSteps(int n, int maxSteps) {
+	public int waysToReachNthStepWithMaxNSteps(int n, int maxSteps) {
 		if (n < maxSteps)
 			return -1;
 		int t[] = new int[n];

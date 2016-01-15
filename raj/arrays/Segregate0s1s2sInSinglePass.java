@@ -30,8 +30,7 @@ public class Segregate0s1s2sInSinglePass {
 		while (mid <= high) {
 			switch (a[mid]) {
 			case 0:
-				if (a[mid] != a[low])
-					CommonUtil.swap(a, low, mid);
+				CommonUtil.swap(a, low, mid);
 				low++;
 				mid++;
 				break;
@@ -39,11 +38,10 @@ public class Segregate0s1s2sInSinglePass {
 				mid++;
 				break;
 			case 2:
-				if (a[mid] != a[high])
-					CommonUtil.swap(a, mid, high);
+				CommonUtil.swap(a, mid, high);
 				high--;
 			}
-		}
+		}	
 	}
 
 }

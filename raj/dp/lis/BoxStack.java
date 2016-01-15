@@ -3,13 +3,19 @@ package com.raj.dp.lis;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import com.interivew.graph.CommonUtil;
+
 public class BoxStack {
 
 	public static void main(String[] args) {
 		BoxStack obj = new BoxStack();
-		Box[] a = { new Box(1, 2, 4), new Box(3, 2, 5) };
+		Box[] a = { new Box(1, 2, 4), new Box(2, 3, 5) };
+
+		// {4, 6, 7}, {1, 2, 3}, {4, 5, 6}, {10, 12, 32};
 		int result = -1;
 		result = obj.maxStackHeight(a);
+		System.out.println(result);
+		result = obj.maxHeightFromBoxStacking(a, a.length);
 		System.out.println(result);
 	}
 
@@ -52,9 +58,8 @@ public class BoxStack {
 			b[k++] = new Box(other, min, max);
 			b[k++] = new Box(max, other, min);
 		}
-
+		
 		Arrays.sort(b, customSorter);
-
 		int n = b.length;
 		int[] maxHt = new int[n];
 		int[] result = new int[n];
@@ -78,6 +83,41 @@ public class BoxStack {
 		return maxHt[n - 1];
 	}
 
+	public int maxHeightFromBoxStacking(Box[] b, int n) {
+		Box[] a = getBoxesOfAllPossibleSizes(b, n);
+		CommonUtil.printArray(a);
+
+		Arrays.sort(a, new Comparator<Box>() {
+			public int compare(Box b1, Box b2) {
+				return (b2.l * b2.w) - (b1.l * b1.w);
+			}
+		});
+		int m = a.length;
+		int t[] = new int[m];
+		for (int i = 0; i < m; i++) {
+			t[i] = a[i].h;
+		}
+
+		for (int i = 1; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (a[i].l > a[j].l && a[i].w > a[j].w) {
+					t[i] = Math.max(t[j] + a[i].h, t[i]);
+				}
+			}
+		}
+		return t[n - 1];
+	}
+
+	private Box[] getBoxesOfAllPossibleSizes(Box[] b, int n) {
+		Box[] a = new Box[n * 3];
+		int j = 0;
+		for (int i = 0; i < n; i++) {
+			a[j++] = new Box(b[i].w, b[i].l, b[i].h);
+			a[j++] = new Box(b[i].w, b[i].h, b[i].l);
+			a[j++] = new Box(b[i].h, b[i].l, b[i].w);
+		}
+		return a;
+	}
 }
 
 class Box {

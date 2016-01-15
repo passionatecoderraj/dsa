@@ -23,8 +23,40 @@ public class OptimalBSTs {
 		OptimalBSTs obj = new OptimalBSTs();
 
 		result = obj.minSearchForOptimalBSTs(keys, freq);
-
 		System.out.println(result);
+		result = obj.optmalBSTs(keys, freq, keys.length);
+		System.out.println(result);
+	}
+
+	public int optmalBSTs(int keys[], int freqs[], int n) {
+		int t[][] = new int[n][n];
+		for (int i = 0; i < n; i++) {
+			t[i][i] = freqs[i];
+		}
+
+		int sum = 0, m, cur;
+		for (int l = 2; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				sum = 0;
+				m = Integer.MAX_VALUE;
+
+				for (int k = i; k <= j; k++) {
+					sum += freqs[k];
+					if (k == i) {
+						cur = t[k + 1][j];
+					} else if (k == j) {
+						cur = t[i][k - 1];
+					} else {
+						cur = t[i][k - 1] + t[k + 1][j];
+					}
+					m = Math.min(m, cur);
+				}
+				t[i][j] = sum + m;
+			}
+		}
+		CommonUtil.print2DArray(t, n, n);
+		return t[0][n - 1];
 	}
 
 	public int minSearchForOptimalBSTs(int[] keys, int[] freq) {
@@ -64,7 +96,7 @@ public class OptimalBSTs {
 			}
 		}
 
-		CommonUtil.print2DArray(result, n, n);
+		/// CommonUtil.print2DArray(result, n, n);
 		CommonUtil.print2DArray(t, n, n);
 		return t[0][n - 1];
 	}

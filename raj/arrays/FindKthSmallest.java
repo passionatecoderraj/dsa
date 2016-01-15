@@ -29,17 +29,17 @@ public class FindKthSmallest {
 	}
 
 	public int quickSelectRandomPartition(int a[], int low, int high, int k) {
-		int n = high - low + 1;
-		if (k < 0 && k >= n)
-			return -1;
-		int pivot = randomPartition(a, low, high);
-		if (pivot - low == k) {
-			return a[pivot];
-		} else if (k > pivot - low) {
-			return quickSelectRandomPartition(a, pivot + 1, high, k - (pivot - low) - 1);
-		} else {
-			return quickSelectRandomPartition(a, low, pivot - 1, k);
+		if (low <= high) {
+			int pivot = randomPartition(a, low, high);
+			if (pivot - low == k) {
+				return a[pivot];
+			} else if (k > pivot - low) {
+				return quickSelectRandomPartition(a, pivot + 1, high, k - (pivot - low) - 1);
+			} else {
+				return quickSelectRandomPartition(a, low, pivot - 1, k);
+			}
 		}
+		return -1;
 	}
 
 	public int randomPartition(int[] a, int low, int high) {
@@ -50,21 +50,21 @@ public class FindKthSmallest {
 	}
 
 	public int quickSelectFindKthSmallest(int a[], int low, int high, int k) {
-		int n = high - low + 1;
-		if (k < 0 && k >= n)
-			return -1;
-		int pivot = partition(a, low, high);
-		if (pivot - low == k) {
-			return a[pivot];
-		} else if (k > pivot - low) {
-			// right sub array
-			// position of k is changed ,it's k - length of left side - 1(pivot)
-			return quickSelectFindKthSmallest(a, pivot + 1, high, k - (pivot - low) - 1);
-		} else {
-			// lest sub array
-			return quickSelectFindKthSmallest(a, low, pivot - 1, k);
+		if (low <= high) {
+			int pivot = partition(a, low, high);
+			if (pivot - low == k) {
+				return a[pivot];
+			} else if (k > pivot - low) {
+				// right sub array
+				// position of k is changed ,it's k - length of left side -
+				// 1(pivot)
+				return quickSelectFindKthSmallest(a, pivot + 1, high, k - (pivot - low) - 1);
+			} else {
+				// lest sub array
+				return quickSelectFindKthSmallest(a, low, pivot - 1, k);
+			}
 		}
-
+		return -1;
 	}
 
 	public int partition(int a[], int p, int r) {

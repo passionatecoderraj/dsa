@@ -18,6 +18,44 @@ public class StringInterleaving {
 		StringInterleaving obj = new StringInterleaving();
 		result = obj.isStringsInterleavedDp(a.toCharArray(), b.toCharArray(), c.toCharArray());
 		System.out.println(result);
+		result = obj.stringInterLeaving(a.toCharArray(), b.toCharArray(), c.toCharArray());
+		System.out.println(result);
+	}
+
+	public boolean stringInterLeaving(char a[], char b[], char c[]) {
+		int m = a.length, n = b.length;
+		if (m + n != c.length)
+			return false;
+		boolean t[][] = new boolean[m + 1][n + 1];
+
+		t[0][0] = true;
+		for (int i = 1; i <= n; i++) {
+			if (c[i - 1] == a[i - 1]) {
+				t[0][i] = t[0][i - 1];
+			}
+		}
+
+		for (int i = 1; i <= m; i++) {
+			if (c[i - 1] == b[i - 1]) {
+				t[i][0] = t[i - 1][0];
+			}
+		}
+
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (c[i + j - 1] == a[j - 1]) {
+					t[i][j] = t[i][j - 1];
+				} else if (c[i + j - 1] == b[i - 1]) {
+					t[i][j] = t[i - 1][j];
+				} else {
+					t[i][j] = false;
+				}
+
+			}
+		}
+		CommonUtil.print2DArray(t, m + 1, n + 1);
+
+		return t[m][n];
 	}
 
 	public boolean isStringsInterleavedDp(char[] a, char[] b, char[] c) {

@@ -25,6 +25,33 @@ public class FindMinDistancebetween2Numbers {
 		result = obj.findMinDistance(a, n, x, y);
 		System.out.println(result);
 
+		result = obj.minDistanceBetweenTwoNumber(a, n, x, y);
+		System.out.println(result);
+	}
+
+	public int minDistanceBetweenTwoNumber(int a[], int n, int x, int y) {
+		int minDistance = Integer.MAX_VALUE;
+		if (n <= 0)
+			return minDistance;
+
+		int lastFound = -1, lastFoundIndex = -1;
+
+		for (int i = 0; i < n; i++) {
+			if (a[i] == x || a[i] == y) {
+				if (lastFound == -1) {
+					lastFound = a[i];
+					lastFoundIndex = i;
+				} else if (lastFound != a[i]) {
+					minDistance = Integer.min(i - lastFoundIndex, minDistance);
+					lastFound = a[i];
+					lastFoundIndex = i;
+				} else {
+					lastFoundIndex = i;
+				}
+			}
+		}
+
+		return minDistance;
 	}
 
 	public int findMinDistance(int[] a, int n, int x, int y) {

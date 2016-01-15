@@ -19,16 +19,16 @@ public class FindDuplicatesInOn {
 	 */
 	public static void main(String[] args) {
 		FindDuplicatesInOn obj = new FindDuplicatesInOn();
-		int a[] = { 1, 2, 3, 1, 3, 6, 6 };
+		int a[] = { 1, 3, 2, 0, 1, 0, 3, 6 };
 		int b[] = { 1, 6, 2, 0, 1, 0, 6, 6 };
 		int n = a.length;
 
 		// Time : O(n), Space : O(1)
 		// it's allowed only if we are allowed to modify existing values
 		// with out zeroes
-		obj.findDuplicates(a, n);
+		obj.findDuplicates(a, a.length);
 		// with zeroes
-		obj.findRepeatElements(b, b.length);
+		// obj.findRepeatElements(b, b.length);
 	}
 
 	public void findRepeatElements(int[] a, int n) {
@@ -48,12 +48,18 @@ public class FindDuplicatesInOn {
 	public void findDuplicates(int[] a, int n) {
 
 		for (int i = 0; i < n; i++) {
-			int index = Math.abs(a[i]);
-			if (a[index] > 0) {
-				a[index] = -a[index];
-			} else if (a[index] < 0) {
-				System.out.println("Repeated : " + Math.abs(a[i]));
+			int j = Math.abs(a[i]);
+
+			if (j == n) {
+				System.out.println("Repeated : " + 0);
+			} else if (a[j] < 0) {
+				System.out.println("Repeated : " + j);
+			} else if (a[j] > 0) {
+				a[j] = -a[j];
+			} else if (a[j] == 0) {
+				a[j] = -n;
 			}
+
 		}
 		CommonUtil.printArray(a);
 	}

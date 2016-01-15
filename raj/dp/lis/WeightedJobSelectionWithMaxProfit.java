@@ -20,9 +20,35 @@ public class WeightedJobSelectionWithMaxProfit {
 		// O(n2)
 		result = obj.weightedJobSelectionWithMaxProfit(a);
 		System.out.println(result);
-//		result = obj.weightedJobSelectionWithMaxProfitOnlogn(a);
-//		System.out.println(result);
+		// result = obj.weightedJobSelectionWithMaxProfitOnlogn(a);
+		// System.out.println(result);
+		result = obj.maxProfitFromWeightedJobScheduling(a, a.length);
+		System.out.println(result);
 
+	}
+
+	public int maxProfitFromWeightedJobScheduling(ActivityJob[] a, int n) {
+		Arrays.sort(a, new Comparator<ActivityJob>() {
+			public int compare(ActivityJob j1, ActivityJob j2) {
+				return j1.finish - j2.finish;
+			}
+		});
+		int maxProfit = Integer.MIN_VALUE;
+
+		int t[] = new int[n];
+		for (int i = 0; i < n; i++) {
+			t[i] = a[i].profit;
+		}
+
+		for (int i = 1; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (a[i].start >= a[j].finish) {
+					t[i] = Math.max(t[i], a[i].profit + t[j]);
+					maxProfit = Math.max(maxProfit, t[i]);
+				}
+			}
+		}
+		return maxProfit;
 	}
 
 	private static Comparator<ActivityJob> customSorter = new Comparator<ActivityJob>() {

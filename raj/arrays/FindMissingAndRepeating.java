@@ -22,11 +22,11 @@ public class FindMissingAndRepeating {
 	public void findMissingAndRepeating(int[] a, int n) {
 		int index;
 		for (int i = 0; i < n; i++) {
-			index = Math.abs(a[i]);
-			if (a[index - 1] < 0) {
-				System.out.println("Repeating : " + index);
+			index = Math.abs(a[i]) - 1;
+			if (a[index] < 0) {
+				System.out.println("Repeating : " + (index + 1));
 			} else {
-				a[index - 1] = -a[index - 1];
+				a[index] = -a[index];
 			}
 		}
 		for (int i = 0; i < n; i++) {

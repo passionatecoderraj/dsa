@@ -3,6 +3,11 @@
  */
 package com.raj.dp.lis;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -39,7 +44,10 @@ public class MaxlengthofChainOfPairs {
 		System.out.println(result);
 	}
 
-	private int maxLengthOfChainPairs(Pair[] a) {
+	public int maxLengthOfChainPairs(Pair[] a) {
+		CommonUtil.printArray(a);
+		Arrays.sort(a, customSorter);
+		CommonUtil.printArray(a);
 		int n = a.length;
 		int t[] = new int[n];
 		for (int i = 0; i < n; i++) {
@@ -54,10 +62,14 @@ public class MaxlengthofChainOfPairs {
 				}
 			}
 		}
-		for (int i : t)
-			System.out.print(i + " ");
-		System.out.println();
+		CommonUtil.printArray(t);
 		return max;
 	}
+
+	public Comparator<Pair> customSorter = new Comparator<Pair>() {
+		public int compare(Pair p1, Pair p2) {
+			return p1.a - p2.a;
+		}
+	};
 
 }

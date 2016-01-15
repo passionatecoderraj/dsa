@@ -13,131 +13,47 @@ public class WordWrap {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int a[] = { 6, 3, 5, 2, 4 };
+		int a[] = { 3, 2, 2, 5 };
 
-		int result = -1, widthOfLine = 10;
+		int result = -1, widthOfLine = 6;
 		WordWrap obj = new WordWrap();
-		result = obj.wordWrapDpOn2(a, widthOfLine);
+		result = obj.wordWrap(a, a.length, widthOfLine);
 		System.out.println(result);
-		result = obj.wordWrapDpReversePrintOn2(a, widthOfLine);
-		System.out.println(result);
+
 	}
 
-	public int wordWrapDpReversePrintOn2(int[] a, int width) {
-		int n = a.length;
-		if (n <= 0)
-			return -1;
-		int t[][] = new int[n + 1][n + 1];
-
-		for (int i = 1; i < n + 1; i++) {
-			t[i][i] = width - a[i - 1];
-			for (int j = i + 1; j < n + 1; j++) {
-				t[i][j] = t[i][j - 1] - 1 - a[j - 1];
-			}
-		}
-
-		for (int i = 1; i < n + 1; i++) {
-			for (int j = i; j < n + 1; j++) {
-				if (t[i][j] < 0) {
-					t[i][j] = Integer.MAX_VALUE;
-				} else {
-					t[i][j] = t[i][j] * t[i][j];
-				}
-			}
-		}
-
-		// for (int i = 1; i < n + 1; i++) {
-		// for (int j = 1; j < n + 1; j++) {
-		// System.out.print(t[i][j] + " ");
-		// }
-		// System.out.println();
-		// }
-
-		int c[] = new int[n + 1];
-		int p[] = new int[n + 1];
-
-		c[0] = 0;
-		for (int j = 1; j <= n; j++) {
-			c[j] = Integer.MAX_VALUE;
-			for (int i = 1; i <= j; i++) {
-				if (c[i - 1] != Integer.MAX_VALUE && t[i][j] != Integer.MAX_VALUE && (c[i - 1] + t[i][j] < c[j])) {
-					c[j] = c[i - 1] + t[i][j];
-					p[j] = i;
-				}
-			}
-		}
-		// for (int i = 0; i < n + 1; i++)
-		// System.out.print(c[i] + " ");
-		// System.out.println();
-		//
-		// for (int i = 0; i < n + 1; i++)
-		// System.out.print(p[i] + " ");
-		// System.out.println();
-
-		return c[n];
-	}
-
-	public int wordWrapDpOn2(int[] a, int width) {
-		int n = a.length;
-		if (n <= 0)
-			return -1;
-		int t[][] = new int[n][n];
+	// len is the length of the line
+	// a = array of words sized, n : size of a
+	public int wordWrap(int[] a, int n, int len) {
+		int c[][] = new int[n][n];
 
 		for (int i = 0; i < n; i++) {
-			t[i][i] = width - a[i];
+			c[i][i] = len - a[i];
 			for (int j = i + 1; j < n; j++) {
-				t[i][j] = t[i][j - 1] - 1 - a[j];
+				c[i][j] = c[i][j - 1] - 1 - a[j];
 			}
 		}
 
 		for (int i = 0; i < n; i++) {
 			for (int j = i; j < n; j++) {
-				if (t[i][j] < 0) {
-					t[i][j] = Integer.MAX_VALUE;
+				if (c[i][j] < 0) {
+					c[i][j] = Integer.MAX_VALUE;
 				} else {
-					t[i][j] = t[i][j] * t[i][j];
+					c[i][j] = c[i][j] * c[i][j];
 				}
 			}
 		}
 
-		int minCost[] = new int[n + 1];
-		int result[] = new int[n + 1];
-
-		// for (int i = n - 1; i >= 0; i--) {
-		// minCost[i] = t[i][n - 1];
-		// result[i] = n;
-		// for (int j = n - 1; j >= i; j--) {
-		// if (t[i][j - 1] != Integer.MAX_VALUE && minCost[i] > t[i][j - 1] +
-		// minCost[j]) {
-		// minCost[i] = t[i][j - 1] + minCost[j];
-		// result[i] = j;
-		// }
-		// }
-		// }
-		//
-		//
-		minCost[n] = 0;
-
+		int t[] = new int[n];
 		for (int i = n - 1; i >= 0; i--) {
-			minCost[i] = Integer.MAX_VALUE;
-			result[i] = n;
-			for (int j = n - 1; j >= i; j--) {
-				if (t[i][j] != Integer.MAX_VALUE && minCost[i] > t[i][j] + minCost[j + 1]) {
-					minCost[i] = t[i][j] + minCost[j + 1];
-					result[i] = j;
-				}
+			t[i] = c[i][n - 1];
+			for (int j = n - 1; j > i; j--) {
+				if (c[i][j - 1] == Integer.MAX_VALUE)
+					continue;
+				t[i] = Math.min(t[i], c[i][j - 1] + t[j]);
 			}
 		}
-
-		for (int i = 0; i < n + 1; i++)
-			System.out.print(minCost[i] + " ");
-		System.out.println();
-
-		for (int i = 0; i < n + 1; i++)
-			System.out.print(result[i] + " ");
-		System.out.println();
-
-		return minCost[0];
+		// CommonUtil.printArray(t);
+		return t[0];
 	}
-
 }

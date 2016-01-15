@@ -35,8 +35,6 @@ public class FindMissingNumber {
 		for (int i = 2; i <= n + 1; i++) {
 			x2 = x2 ^ i;
 		}
-		System.out.println(x1);
-		System.out.println(x2);
 		return x1 ^ x2;
 	}
 

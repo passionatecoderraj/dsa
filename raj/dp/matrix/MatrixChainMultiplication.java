@@ -26,19 +26,10 @@ public class MatrixChainMultiplication {
 				t[i][j] = Integer.MAX_VALUE;
 				for (int k = i; k <= j - 1; k++) {
 					int m = t[i][k] + t[k + 1][j] + a[i - 1] * a[k] * a[j];
-					if (t[i][j] > m) {
-						t[i][j] = m;
-					}
+					t[i][j] = Math.min(t[i][j], m);
 				}
 			}
 		}
-
-		// for (int i = 0; i < n; i++) {
-		// for (int j = 0; j < n; j++) {
-		// System.out.print(t[i][j] + " ");
-		// }
-		// System.out.println();
-		// }
 
 		return t[1][n - 1];
 	}

@@ -9,6 +9,7 @@ public class MaxSumForNonAdjascentPositiveNumbers {
 
 		MaxSumForNonAdjascentPositiveNumbers obj = new MaxSumForNonAdjascentPositiveNumbers();
 		int result = -1;
+		// Time : O(n), Space : O(1)
 		result = obj.maxSumForNonAdjascentPositiveNumbers(a);
 		System.out.println(result);
 	}

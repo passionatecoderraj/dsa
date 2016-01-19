@@ -43,12 +43,11 @@ public class ReverseInPairs {
 		obj.print();
 	}
 
-	public ListNode<Integer> reverseInPairsRecursively(ListNode<Integer> root) {
+	public void reverseInPairsRecursively(ListNode<Integer> root) {
 		if (root != null && root.next != null) {
 			swap(root, root.next);
-			root.next.next = reverseInPairsRecursively(root.next.next);
+			reverseInPairsRecursively(root.next.next);
 		}
-		return root;
 	}
 
 	public void reverseInPairs(SingleLinkedList<Integer> obj) {

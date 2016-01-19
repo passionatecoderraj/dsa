@@ -37,6 +37,19 @@ public class Reverse {
 		obj.print();
 		ob.reverse(obj);
 		obj.print();
+		obj.root = ob.reverse(obj.root, null);
+		obj.print();
+	}
+
+	public ListNode<Integer> reverse(ListNode<Integer> root, ListNode<Integer> prev) {
+		if (root == null) {
+			return root;
+		}
+		ListNode<Integer> next = root.next;
+		root.next = prev;
+		if (next == null)
+			return root;
+		return reverse(next, root);
 	}
 
 	// Time : O(n)
@@ -52,4 +65,5 @@ public class Reverse {
 		}
 		obj.root = prev;
 	}
+
 }

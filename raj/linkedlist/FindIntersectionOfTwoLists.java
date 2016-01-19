@@ -12,7 +12,7 @@ import com.raj.nodes.ListNode;
 public class FindIntersectionOfTwoLists {
 
 	// Time : O(n)
-	private ListNode<Integer> findIntersection(SingleLinkedList<Integer> list1, SingleLinkedList<Integer> list2) {
+	public ListNode<Integer> findIntersection(SingleLinkedList<Integer> list1, SingleLinkedList<Integer> list2) {
 		int n1 = list1.length(), n2 = list2.length();
 		int d = Math.abs(n1 - n2);
 		ListNode<Integer> temp1, temp2;

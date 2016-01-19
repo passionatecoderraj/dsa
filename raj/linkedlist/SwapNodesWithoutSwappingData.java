@@ -87,8 +87,7 @@ public class SwapNodesWithoutSwappingData {
 		else
 			prevY.next = tempX;
 
-		// swapping current elements next
-		// swap elements
+		// swapping next of current elements next
 		ListNode<Integer> temp = tempX.next;
 		tempX.next = tempY.next;
 		tempY.next = temp;

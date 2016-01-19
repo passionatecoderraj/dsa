@@ -10,7 +10,7 @@ import com.raj.nodes.ListNode;
  *
  */
 public class CircularLinkedList<T> {
-	ListNode<T> root;
+	public ListNode<T> root;
 
 	public void insert(T data) {
 		ListNode<T> newNode = new ListNode<T>(data);
@@ -71,6 +71,18 @@ public class CircularLinkedList<T> {
 	}
 
 	// Time : O(n)
+	public ListNode<T> getLastNodeInCLL(ListNode<T> curRoot) {
+		if (curRoot == null) {
+			return null;
+		}
+		ListNode<T> temp = curRoot;
+		while (temp.next != curRoot) {
+			temp = temp.next;
+		}
+		return temp;
+	}
+
+	// Time : O(n)
 	public int length() {
 		int len = 0;
 		ListNode<T> temp = root;
@@ -121,15 +133,18 @@ public class CircularLinkedList<T> {
 			return;
 		}
 
+		if (n == 1) {
+			root = null;
+			return;
+		}
+
 		if (pos == 1) {
 			ListNode<T> temp = root;
 			while (temp.next != root) {
 				temp = temp.next;
 			}
-			ListNode<T> toBeDeleted = root;
 			root = root.next;
 			temp.next = root;
-			toBeDeleted = null;
 		} else {
 			ListNode<T> prev = root;
 			int count = 1;

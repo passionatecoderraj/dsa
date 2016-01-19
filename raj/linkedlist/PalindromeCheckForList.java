@@ -33,9 +33,7 @@ public class PalindromeCheckForList {
 	}
 
 	public boolean isPalindrome(ListNode<Integer> root) {
-
-		
-		if (root.next == null)
+		if (root == null || root.next == null)
 			return true;
 
 		ListNode<Integer> slow, fast, root1, root2, pre = null, extraNode = null;

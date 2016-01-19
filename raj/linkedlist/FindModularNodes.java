@@ -52,21 +52,17 @@ public class FindModularNodes {
 		if (k <= 0)
 			return null;
 
-		ListNode<Integer> temp = root, modularNode = null;
-		for (int i = 1; i < k; i++) {
+		ListNode<Integer> temp = root, modularNode = root;
+		for (int i = 0; i < k; i++) {
 			if (temp != null)
 				temp = temp.next;
+			else
+				return null;
 		}
 
-		if (temp == null) {
-			return null;
-		}
 		while (temp != null) {
 			temp = temp.next;
-			if (modularNode == null) {
-				modularNode = root;
-			} else
-				modularNode = modularNode.next;
+			modularNode = modularNode.next;
 		}
 		return modularNode;
 	}
@@ -85,21 +81,4 @@ public class FindModularNodes {
 		}
 		return modularNode;
 	}
-
-	public ListNode<Integer> findModularKnodeFromEnd(SingleLinkedList<Integer> obj, int k) {
-		int n = obj.length();
-		if (k == 0 || n == 0)
-			return null;
-		ListNode<Integer> temp = obj.root, modularNode = null;
-		int count = 1;
-		while (temp != null) {
-			if (count % k == 0) {
-				modularNode = temp;
-			}
-			temp = temp.next;
-			count++;
-		}
-		return modularNode;
-	}
-
 }

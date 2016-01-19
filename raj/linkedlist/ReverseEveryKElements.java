@@ -49,7 +49,7 @@ public class ReverseEveryKElements {
 
 	public ListNode<Integer> reverseKElementsIteratively(ListNode<Integer> root, int k) {
 		ListNode<Integer> cur = root, prev = null, next, newRoot = null;
-		ListNode<Integer> newBlockRoot = null, prevBlockFirstElementBeforeSwapping = null, flag = null;
+		ListNode<Integer> prevBlockFirstElementBeforeSwapping = null, flag = null;
 		int count = 1;
 		prevBlockFirstElementBeforeSwapping = root;
 		while (cur != null) {
@@ -76,8 +76,8 @@ public class ReverseEveryKElements {
 
 	public ListNode<Integer> reverseKElementsRecursviely(ListNode<Integer> root, int k) {
 		ListNode<Integer> cur = root, prev = null, next;
-		int count = 0;
-		while (cur != null && count < k) {
+		int count = 1;
+		while (cur != null && count <= k) {
 			next = cur.next;
 			cur.next = prev;
 			prev = cur;

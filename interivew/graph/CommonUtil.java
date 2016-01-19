@@ -5,6 +5,8 @@ package com.interivew.graph;
 
 import java.util.Set;
 
+import com.raj.nodes.ListNode;
+
 /**
  * @author Raj
  *
@@ -97,5 +99,11 @@ public class CommonUtil {
 		for (int i = start; i - start < n; i++)
 			System.out.print(a[i] + " ");
 		System.out.println();
+	}
+
+	public static void swap(ListNode<Integer> a, ListNode<Integer> b) {
+		a.data = a.data ^ b.data;
+		b.data = a.data ^ b.data;
+		a.data = a.data ^ b.data;
 	}
 }

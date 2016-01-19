@@ -115,9 +115,9 @@ public class DoubleLinkedList<T> {
 		}
 
 		if (pos == 1) {
-			DLLNode<T> temp = root;
+			if (root.next != null)
+				root.next.prev = null;
 			root = root.next;
-			temp = null;
 		} else {
 			DLLNode<T> prev = root;
 			int count = 1;

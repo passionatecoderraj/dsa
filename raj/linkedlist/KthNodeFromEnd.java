@@ -52,17 +52,16 @@ public class KthNodeFromEnd {
 	// Time : O(n)
 	public ListNode<Integer> kthNodeFromEndInOneScan(SingleLinkedList<Integer> obj, int k) {
 		ListNode<Integer> fast = obj.root;
-		ListNode<Integer> slow = null;
-		for (int i = 1; i < k; i++) {
+		ListNode<Integer> slow = obj.root;
+		for (int i = 0; i < k; i++) {
 			if (fast != null)
 				fast = fast.next;
+			else
+				return null;
 		}
+
 		while (fast != null) {
-			if (slow == null) {
-				slow = obj.root;
-			} else {
-				slow = slow.next;
-			}
+			slow = slow.next;
 			fast = fast.next;
 		}
 

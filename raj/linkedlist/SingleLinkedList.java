@@ -97,9 +97,7 @@ public class SingleLinkedList<T> {
 		}
 
 		if (pos == 1) {
-			ListNode<T> temp = root.next;
 			root = root.next;
-			temp = null;
 		} else {
 			ListNode<T> prev = root;
 			int count = 1;

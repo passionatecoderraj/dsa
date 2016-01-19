@@ -382,6 +382,46 @@ public class PracticeDp {
 		return t[n][k];
 	}
 
+	/*
+	 * Given three strings A, B and C. Write a function that checks whether C is
+	 * an interleaving of A and B. C is said to be interleaving A and B, if it
+	 * contains all characters of A and B and order of all characters in
+	 * individual strings is preserved.
+	 */
+	public boolean stringInterLeaving(char a[], char b[], char c[]) {
+		int m = a.length, n = b.length;
+		if (m + n != c.length)
+			return false;
+		boolean t[][] = new boolean[m + 1][n + 1];
+
+		t[0][0] = true;
+		for (int i = 1; i <= n; i++) {
+			if (c[i - 1] == a[i - 1]) {
+				t[0][i] = t[0][i - 1];
+			}
+		}
+
+		for (int i = 1; i <= m; i++) {
+			if (c[i - 1] == b[i - 1]) {
+				t[i][0] = t[i - 1][0];
+			}
+		}
+
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (c[i + j - 1] == a[j - 1]) {
+					t[i][j] = t[i][j - 1];
+				} else if (c[i + j - 1] == b[i - 1]) {
+					t[i][j] = t[i - 1][j];
+				} else {
+					t[i][j] = false;
+				}
+
+			}
+		}
+		return t[m][n];
+	}
+
 	public int longestIncreasingSumSubSequence(int a[], int n) {
 		int t[] = new int[n];
 		for (int i = 0; i < n; i++) {
@@ -699,7 +739,7 @@ public class PracticeDp {
 		return max;
 	}
 
-	public int maxSubRectangeWithAll1s(int a[][], int m, int n) {
+	public int maxSubRectangeSizeWithAll1s(int a[][], int m, int n) {
 		int t[] = new int[n];
 		int curSize, maxSize = Integer.MIN_VALUE;
 		for (int i = 0; i < m; i++) {
@@ -916,44 +956,129 @@ public class PracticeDp {
 		return t[n - 1];
 	}
 
-	/*
-	 * Given three strings A, B and C. Write a function that checks whether C is
-	 * an interleaving of A and B. C is said to be interleaving A and B, if it
-	 * contains all characters of A and B and order of all characters in
-	 * individual strings is preserved.
-	 */
-	public boolean stringInterLeaving(char a[], char b[], char c[]) {
-		int m = a.length, n = b.length;
-		if (m + n != c.length)
-			return false;
-		boolean t[][] = new boolean[m + 1][n + 1];
+	// buy and sell utmost once
+	// Time : O(n), Space : O(1)
+	public int maxProfitWithAtMost1Transaction(int[] a, int n) {
+		if (n <= 0)
+			return -1;
+		int min_so_far = Integer.MAX_VALUE;
+		int maxProfit = Integer.MIN_VALUE;
 
-		t[0][0] = true;
-		for (int i = 1; i <= n; i++) {
-			if (c[i - 1] == a[i - 1]) {
-				t[0][i] = t[0][i - 1];
+		for (int i = 0; i < n; i++) {
+			min_so_far = Math.min(a[i], min_so_far);
+			maxProfit = Math.max(maxProfit, a[i] - min_so_far);
+		}
+		return maxProfit;
+	}
+
+	// buy and sell many times
+	// Time : O(n), Space : O(1)
+	public int maxProfitWithAnyNumberOfTransactions(int[] a, int n) {
+		int profit = 0;
+		for (int i = 1; i < n; i++) {
+			if (a[i] > a[i - 1]) {
+				profit += (a[i] - a[i - 1]);
+			}
+		}
+		return profit;
+	}
+
+	// buy and sell many times : Print solutions
+	public void maxProfitWithAnyNumberOfTransactionsPrintTransationDays(int[] a, int n) {
+		if (n <= 0)
+			return;
+		int buyDate = 0, i;
+		for (i = 1; i < n; i++) {
+			if (a[i] <= a[i - 1]) {
+				System.out.println("Buy Date : " + buyDate + ", Sell Date : " + (i - 1));
+				buyDate = i;
+			} else if (i == n - 1) {
+				System.out.println("Buy Date : " + buyDate + ", Sell Date : " + i);
 			}
 		}
 
-		for (int i = 1; i <= m; i++) {
-			if (c[i - 1] == b[i - 1]) {
-				t[i][0] = t[i - 1][0];
-			}
+	}
+
+	// MaxProfit With K Transactions : Slow Solution
+	// Time : O(n*n*k), Space : O(n*k)
+	public int maxProfitWithKTransactions(int[] a, int n, int k) {
+		int t[][] = new int[k + 1][n];
+
+		for (int i = 0; i < n; i++) {
+			t[0][i] = 0;
 		}
 
-		for (int i = 1; i <= m; i++) {
-			for (int j = 1; j <= n; j++) {
-				if (c[i + j - 1] == a[j - 1]) {
-					t[i][j] = t[i][j - 1];
-				} else if (c[i + j - 1] == b[i - 1]) {
-					t[i][j] = t[i - 1][j];
-				} else {
-					t[i][j] = false;
+		for (int i = 0; i <= k; i++) {
+			t[i][0] = 0;
+		}
+
+		int val;
+		for (int i = 1; i <= k; i++) {
+			for (int j = 1; j < n; j++) {
+				val = Integer.MIN_VALUE;
+				for (int m = 0; m < j; m++) {
+					val = Math.max(val, a[j] - a[m] + t[i - 1][m]);
 				}
-
+				t[i][j] = Math.max(t[i][j - 1], val);
 			}
 		}
-		return t[m][n];
+		return t[k][n - 1];
+	}
+
+	// buy and sell k times
+	// Time : O(n*k), Space : O(n*k)
+	public int maxProfitWithKTransactionsWithMaxDiff(int[] a, int n, int k) {
+		int t[][] = new int[k + 1][n];
+
+		for (int i = 0; i < n; i++) {
+			t[0][i] = 0;
+		}
+
+		for (int i = 0; i <= k; i++) {
+			t[i][0] = 0;
+		}
+
+		int maxDiff = 0;
+		for (int i = 1; i <= k; i++) {
+			maxDiff = t[i - 1][0] - a[0];
+			for (int j = 1; j < n; j++) {
+				t[i][j] = Math.max(t[i][j - 1], maxDiff + a[j]);
+				maxDiff = Math.max(maxDiff, t[i - 1][j] - a[j]);
+			}
+		}
+
+		// printSolution(a, t);
+		return t[k][n - 1];
+	}
+
+	// not important
+	public void printSolution(int[] a, int[][] t) {
+		Deque<Integer> stack = new LinkedList<Integer>();
+		int i = t.length - 1, j = t[0].length - 1;
+		int diff;
+		while (true) {
+			if (i == 0 || j == 0) {
+				break;
+			}
+			if (t[i][j] == t[i][j - 1]) {
+				j = j - 1;
+			} else {
+				stack.push(j);
+				diff = t[i][j] - a[j];
+				for (int k = j - 1; k >= 0; k--) {
+					if (t[i - 1][k] - a[k] == diff) {
+						stack.push(k);
+						i = i - 1;
+						j = k;
+						break;
+					}
+				}
+			}
+		}
+
+		while (!stack.isEmpty()) {
+			System.out.println("Buy at : " + stack.pop() + ", Sell at : " + stack.pop());
+		}
 	}
 
 	class Box {

@@ -16,11 +16,77 @@ public class FloorAndCeilingInSortedArray {
 		System.out.println(result);
 
 		// Time : O(log)
-		result = obj.celingOfArrayBinarySearch(a, 0, n - 1, x);
-		System.out.println(result);
 		result = obj.floorOfArrayBinarySearch(a, 0, n - 1, x);
 		System.out.println(result);
+		result = obj.celingOfArrayBinarySearch(a, 0, n - 1, x);
+		System.out.println(result);
+		result = obj.floor(a, 0, n - 1, x);
+		System.out.println(result);
+		result = obj.ceil(a, 0, n - 1, x);
+		System.out.println(result);
 
+	}
+
+	public int floor(int[] a, int l, int h, int x) {
+		int n = a.length;
+		if (n <= 0)
+			return -1;
+		if (x < a[0])
+			return Integer.MIN_VALUE;
+		else if (x > a[n - 1])
+			return a[n - 1];
+
+		int mid;
+
+		while (l <= h) {
+			mid = l + (h - l) / 2;
+			if (a[mid] == x) {
+				return a[mid];
+			}
+			if (a[mid] > x && a[mid - 1] < x) {
+				return a[mid - 1];
+			}
+
+			if (a[mid] >= x) {
+				h = mid - 1;
+			} else {
+				l = mid + 1;
+			}
+
+		}
+
+		return -1;
+	}
+
+	public int ceil(int[] a, int l, int h, int x) {
+		int n = a.length;
+		if (n <= 0)
+			return -1;
+		if (x < a[0])
+			return a[0];
+		else if (x > a[n - 1])
+			return Integer.MAX_VALUE;
+
+		int mid;
+
+		while (l <= h) {
+			mid = l + (h - l) / 2;
+			if (a[mid] == x) {
+				return a[mid];
+			}
+			if (x > a[mid] && x < a[mid + 1]) {
+				return a[mid + 1];
+			}
+
+			if (a[mid] > x) {
+				h = mid - 1;
+			} else {
+				l = mid + 1;
+			}
+
+		}
+
+		return -1;
 	}
 
 	public int floorOfArrayBinarySearch(int[] a, int l, int h, int x) {

@@ -7,6 +7,10 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import com.raj.arrays.AVLTreeWithSize;
+import com.raj.arrays.FindSubarrayOfSumK;
+import com.raj.trees.bst.AVLTree;
+
 public class Practice {
 
 	void checkForPairsWithSum(int a[], int n, int sum) {
@@ -236,7 +240,7 @@ public class Practice {
 			if (elements[i].val == elements[i - 1].val) {
 				elements[i].freq = elements[i - 1].freq + 1;
 				elements[i].index = elements[i - 1].index;
-				elements[i].freq = -1;
+				elements[i - 1].freq = -1;
 			}
 		}
 		Arrays.sort(elements, indexFreqSorter);
@@ -298,7 +302,11 @@ public class Practice {
 		return inv_count;
 	}
 
+	// Given is unsorted array
+	// Time : O(nlogn), Space: O(1)
 	public void twoElementsSumCloseToZero(int a[], int n) {
+		Arrays.sort(a);
+
 		int l = 0, r = n - 1;
 		int minX = -1, minY = -1;
 		int minSum = Integer.MAX_VALUE, sum;
@@ -440,6 +448,9 @@ public class Practice {
 		}
 	}
 
+	// if k is 4 then we pass k-1 to this function
+	// ex, { 7, 10, 4, 3, 20, 15 }, 4th smallest is 10 ,
+	// but we call function f(a,0,n-1,k-1)
 	public int quickSelectForKthSmallest(int a[], int p, int r, int k) {
 		if (p <= r) {
 			int q = partition(a, p, r);
@@ -654,6 +665,23 @@ public class Practice {
 		}
 	}
 
+	public void findEqulibriumIndexWithoutExtraSpace(int[] a, int n) {
+		int sum = 0;
+		int leftSum = 0;
+
+		for (int i = 0; i < n; i++) {
+			sum += a[i];
+		}
+
+		for (int i = 0; i < n; i++) {
+			sum -= a[i];
+			if (leftSum == sum) {
+				System.out.println("Equlibrium Index : " + i);
+			}
+			leftSum += a[i];
+		}
+	}
+
 	public void nextGreatElement(int a[], int n) {
 		Deque<Integer> stack = new LinkedList<Integer>();
 		stack.push(a[0]);
@@ -718,30 +746,29 @@ public class Practice {
 		return maxIndexDiff;
 	}
 
+	// Time : O(n)
 	public void maxOfAllSubarraysOfSizeK(int a[], int n, int k) {
 
 		Deque<Integer> dq = new ArrayDeque<Integer>();
-		int i = 0;
-
-		for (; i < k; i++) {
-			while (!dq.isEmpty() && a[i] > a[dq.peekLast()]) {
+		for (int i = 0; i < k; i++) {
+			while (!dq.isEmpty() && a[i] >= a[dq.peekLast()]) {
 				dq.removeLast();
 			}
 			dq.addLast(i);
 		}
-
-		for (; i < n; i++) {
-
+		for (int i = k; i < n; i++) {
 			System.out.print(a[dq.peekFirst()] + " ");
-
-			while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+			while (!dq.isEmpty() && i - dq.peekFirst() >= k) {
 				dq.removeFirst();
 			}
-			while (!dq.isEmpty() && a[i] > a[dq.peekLast()]) {
+
+			while (!dq.isEmpty() && a[i] >= a[dq.peekLast()]) {
 				dq.removeLast();
 			}
 			dq.addLast(i);
 		}
+		System.out.println(a[dq.peekFirst()] + " ");
+
 	}
 
 	// Time : O(mlogm+nlogn)
@@ -823,7 +850,8 @@ public class Practice {
 
 		for (int i = 0; i < n; i++) {
 			if (a[i] > 0) {
-				System.out.println("Repeating : " + (i + 1));
+				System.out.println("Missing : " + (i + 1));
+				return;
 			}
 		}
 	}
@@ -854,10 +882,26 @@ public class Practice {
 		return maxLen;
 	}
 
+	// Time : O(nlogn), Space : O(n)
+	public void countSmallerNodesOnRight(int[] a, int n) {
+		AVLTreeWithSize tree = new AVLTreeWithSize();
+		int count[] = new int[n];
+		for (int i = n - 1; i >= 0; i--) {
+			tree.root = tree.insert(tree.root, a[i]);
+			count[i] = tree.count;
+		}
+		CommonUtil.printArray(a);
+		CommonUtil.printArray(count);
+	}
+
 	public int minJumpsToReachEnd(int a[], int n) {
 		if (n <= 0)
-			return 0;
+			return Integer.MAX_VALUE;
 		int t[] = new int[n];
+
+		if (a[0] <= 0)
+			return Integer.MAX_VALUE;
+
 		for (int i = 0; i < n; i++) {
 			t[i] = Integer.MAX_VALUE;
 		}
@@ -872,33 +916,37 @@ public class Practice {
 		return t[n - 1];
 	}
 
-	public void findSubArrayWithSumK(int a[], int n, int k) {
+	public void subArraysOfSumK(int[] a, int n, int k) {
+
 		int sum = 0;
-		int start = 0;
+		int l = 0;
+
 		for (int i = 0; i < n; i++) {
 			if (a[i] == k) {
-				start = i + 1;
+				printSubarray(a, i, i);
+				l = i + 1;
 				sum = 0;
-				printArray(a, i, i);
 				continue;
 			}
+
 			sum += a[i];
-			if (sum == a[i]) {
-				printArray(a, start, i);
-				sum = 0;
-				start++;
-			} else if (sum > a[i]) {
-				while (start <= i && sum >= a[i]) {
-					if (sum == a[i])
-						printArray(a, start, i);
-					start++;
-					sum = sum - a[i];
+			if (sum == k) {
+				printSubarray(a, l, i);
+				sum = sum - a[l];
+				l++;
+			}
+
+			while (sum > k) {
+				sum -= a[l];
+				l++;
+				if (sum == k) {
+					printSubarray(a, l, i);
 				}
 			}
 		}
 	}
 
-	public void printArray(int[] a, int l, int r) {
+	public void printSubarray(int[] a, int l, int r) {
 		for (int i = l; i <= r; i++) {
 			System.out.print(a[i] + " ");
 		}
@@ -907,6 +955,7 @@ public class Practice {
 
 	public void findTripletWithSumK(int a[], int n, int k) {
 		int l, r, sum;
+		Arrays.sort(a);
 		for (int i = 0; i < n; i++) {
 			l = i + 1;
 			r = n - 1;
@@ -925,6 +974,39 @@ public class Practice {
 		}
 	}
 
+	public int findSmallestMissingPositiveNumber(int[] a, int n) {
+		int l = 0, r = n - 1;
+		while (l < r) {
+			while (l < r && a[l] > 0) {
+				l++;
+			}
+			while (l < r && a[r] < 0) {
+				r--;
+			}
+			if (l < r) {
+				CommonUtil.swap(a, l, r);
+				l++;
+				r--;
+			}
+		}
+		CommonUtil.printArray(a);
+
+		int index;
+		for (int i = 0; i < l; i++) {
+			index = Math.abs(a[i]) - 1;
+			if (index < l && a[index] > 0) {
+				a[index] = -a[index];
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (a[i] > 0) {
+				return i + 1;
+			}
+		}
+		return l;
+	}
+
 	public int celebrityProblem(int a[], int n) {
 		int l = 0;
 		int r = n - 1;
@@ -935,7 +1017,7 @@ public class Practice {
 				r--;
 			}
 		}
-		// either l or r can be remnant. let's assume n is remnant
+		// either l or r can be remnant. let's assume l is remnant
 		for (int i = 0; i < n; i++) {
 			if (i != l) {
 				if (knows(l, i) || !knows(i, l)) {
@@ -951,22 +1033,35 @@ public class Practice {
 		return false;
 	}
 
-	public int maxProductSubArray(int a[], int n) {
-		if (n <= 0) {
-			return Integer.MIN_VALUE;
-		}
-
-		int maxProduct, maxEndingHere, minEndingHere;
-		maxProduct = maxEndingHere = minEndingHere = a[0];
-		int tempMax, tempMin;
+	public void sortedSequenceOfLength3(int[] a, int n) {
+		if (n < 3)
+			return;
+		int smaller[] = new int[n];
+		int larger[] = new int[n];
+		int minIndex = 0, maxIndex = n - 1;
+		smaller[0] = 0;
+		larger[n - 1] = n - 1;
 		for (int i = 1; i < n; i++) {
-			tempMax = maxEndingHere;
-			tempMin = minEndingHere;
-			maxEndingHere = Math.max(a[i], Math.max(a[i] * tempMax, a[i] * tempMin));
-			minEndingHere = Math.min(a[i], Math.min(a[i] * tempMax, a[i] * tempMin));
-			maxProduct = Math.max(maxEndingHere, maxProduct);
+			if (a[i] <= a[minIndex]) {
+				smaller[i] = i;
+				minIndex = i;
+			} else {
+				smaller[i] = minIndex;
+			}
 		}
-		return maxProduct;
+		for (int i = n - 1; i >= 0; i--) {
+			if (a[i] >= a[maxIndex]) {
+				larger[i] = i;
+				maxIndex = i;
+			} else {
+				larger[i] = maxIndex;
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			if (smaller[i] != i && larger[i] != i) {
+				System.out.println(a[smaller[i]] + " " + a[i] + " " + a[larger[i]]);
+			}
+		}
 	}
 
 	public void findSortedSequenceOfLength3(int[] a, int n) {
@@ -1006,6 +1101,233 @@ public class Practice {
 			}
 		}
 	}
+
+	public int maxProductSubArray(int a[], int n) {
+		if (n <= 0) {
+			return Integer.MIN_VALUE;
+		}
+
+		int maxProduct, maxEndingHere, minEndingHere;
+		maxProduct = maxEndingHere = minEndingHere = a[0];
+		int tempMax, tempMin;
+		for (int i = 1; i < n; i++) {
+			tempMax = maxEndingHere;
+			tempMin = minEndingHere;
+			maxEndingHere = Math.max(a[i], Math.max(a[i] * tempMax, a[i] * tempMin));
+			minEndingHere = Math.min(a[i], Math.min(a[i] * tempMax, a[i] * tempMin));
+			maxProduct = Math.max(maxEndingHere, maxProduct);
+		}
+		return maxProduct;
+	}
+
+	public void findPairWithGivenDifferenceK(int a[], int n, int k) {
+		int l, r, diff;
+		l = r = 0;
+		while (r < n) {
+			diff = a[r] - a[l];
+			if (k > diff) {
+				r++;
+			} else if (k < diff) {
+				l++;
+			} else {
+				System.out.println(a[r] + "-" + a[l] + "=" + diff);
+				l++;
+				r++;
+			}
+		}
+	}
+
+	public void replaceWithMaxOnRight(int[] a, int n) {
+		if (n <= 0)
+			return;
+		int maxFromRight = a[n - 1];
+		a[n - 1] = -1;
+		int temp;
+		for (int i = n - 2; i >= 0; i--) {
+			temp = maxFromRight;
+			maxFromRight = Math.max(a[i], maxFromRight);
+			a[i] = temp;
+		}
+	}
+
+	// Time : O(n2logn)
+	public void fourElementsSumToK(int a[], int n, int k) {
+		if (n < 4)
+			return;
+		int size = (n * (n - 1)) / 2;
+		Elem t[] = new Elem[size];
+		int index = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
+				t[index++] = new Elem(a[i], i, j);
+			}
+		}
+		Arrays.sort(t, sortByVal);
+
+		int l = 0, r = size - 1;
+		int sum;
+		while (l < r) {
+			sum = t[l].value + t[r].value;
+			if (sum > k) {
+				r--;
+			} else if (sum < k) {
+				l++;
+			} else {
+				if (nocommonIndex(t[l], t[r])) {
+					System.out
+							.println(a[t[l].first] + " " + a[t[l].second] + " " + a[t[r].first] + " " + a[t[r].second]);
+					l++;
+					r--;
+				}
+			}
+		}
+	}
+
+	Comparator<Elem> sortByVal = new Comparator<Elem>() {
+		public int compare(Elem e1, Elem e2) {
+			return e1.value - e2.value;
+		}
+	};
+
+	public boolean nocommonIndex(Elem e1, Elem e2) {
+		if (e1.first == e2.first || e1.first == e2.second || e1.second == e2.first || e1.second == e2.second) {
+			return false;
+		}
+		return true;
+	}
+
+	// Time : O(nlogk), Space : O(k)
+	public void sortKSortedArray(int a[], int n, int k) {
+		MinHeap<Integer> minHeap = new MinHeap<>();
+		for (int i = 0; i < k; i++) {
+			minHeap.add(a[i]);
+		}
+		int val, j = 0;
+		for (int i = k; i < n; i++) {
+			val = minHeap.minValue();
+			a[j++] = val;
+			minHeap.remove();
+			minHeap.add(a[i]);
+		}
+		for (int i = 0; i < k; i++) {
+			val = minHeap.minValue();
+			a[j++] = val;
+			minHeap.remove();
+		}
+	}
+
+	// Time : O(nlogk), Space : O(k)
+	public void sortKSortedArrayUsingAvl(int a[], int n, int k) {
+		AVLTree tree = new AVLTree();
+		for (int i = 0; i < k; i++) {
+			tree.root = tree.insert(tree.root, a[i]);
+		}
+		int val, j = 0;
+		for (int i = k; i < n; i++) {
+			val = tree.findMin(tree.root).data;
+			a[j++] = val;
+			tree.root = tree.delete(tree.root, val);
+			tree.root = tree.insert(tree.root, a[i]);
+		}
+		for (int i = 0; i < k; i++) {
+			val = tree.findMin(tree.root).data;
+			a[j++] = val;
+			tree.root = tree.delete(tree.root, val);
+		}
+	}
+
+	// Time : O(n)
+	public int maxCircularSubarraySum(int a[], int n) {
+		int max_actual_kadane = largestContiguousSumUsingKadane(a, n).maxSum;
+		int flipped_total = 0;
+		for (int i = 0; i < n; i++) {
+			a[i] = -a[i];
+			flipped_total += a[i];
+		}
+		int max_flipped_kadane = largestContiguousSumUsingKadane(a, n).maxSum;
+		int max_wrap = -(flipped_total - max_flipped_kadane);
+		return max_actual_kadane > max_wrap ? max_actual_kadane : max_wrap;
+	}
+
+	public int findRowWithMax1s(int a[][], int m, int n) {
+		int maxRow = -1;
+		int j = n - 1;
+		for (int i = 0; i < m; i++) {
+			while (j >= 0 && a[i][j] == 1) {
+				j--;
+				maxRow = i;
+			}
+		}
+		return maxRow;
+	}
+
+	public int findRowWithMax0s(int a[][], int m, int n) {
+		int maxRow = -1;
+		int j = 0;
+		for (int i = 0; i < m; i++) {
+			while (j < n && a[i][j] == 0) {
+				j++;
+				maxRow = i;
+			}
+		}
+		return maxRow;
+	}
+
+	// Time :O(n)
+	public void shuffle(int a[], int n) {
+		int rand;
+		for (int i = n - 1; i > 0; i--) {
+			rand = (int) (Math.random() * (i + 1));
+			CommonUtil.swap(a, i, rand);
+		}
+	}
+
+	public int countPossibleTriangles(int a[], int n) {
+		int count = 0;
+		if (n < 3)
+			return count;
+		int k;
+		Arrays.sort(a);
+		for (int i = 0; i < n - 2; i++) {
+			k = i + 2;
+			for (int j = i + 1; j < n - 1; j++) {
+				while (k < n && a[i] + a[j] > a[k]) {
+					if (k != j) {
+						count++;
+						System.out.println(a[i] + " + " + a[j] + " > " + a[k] + "");
+					}
+					k++;
+				}
+			}
+		}
+		return count;
+	}
+
+	public int coutnPythogareanTriplets(int a[], int n) {
+		int count = 0;
+		if (n < 3)
+			return count;
+		int k;
+		Arrays.sort(a);
+		for (int i = 0; i < n - 2; i++) {
+			k = i + 2;
+			for (int j = i + 1; j < n - 1; j++) {
+				while (k < n && a[i] + a[j] > a[k]) {
+					if (k != j && isPythogarean(a[i], a[j], a[k])) {
+						count++;
+						System.out.println(a[i] + " + " + a[j] + " > " + a[k] + "");
+					}
+					k++;
+				}
+			}
+		}
+		return count;
+	}
+
+	public boolean isPythogarean(int a, int b, int c) {
+		return (a * a) + (b * b) == (c * c);
+	}
+
 }
 
 class Pair {
@@ -1022,6 +1344,25 @@ class Pair {
 		this.max = max;
 		this.min = min;
 	}
+}
+
+class Elem {
+	int value;
+	int first;
+	int second;
+
+	public Elem(int value, int first, int second) {
+		super();
+		this.value = value;
+		this.first = first;
+		this.second = second;
+	}
+
+	@Override
+	public String toString() {
+		return "Elem [value=" + value + ", first=" + first + ", second=" + second + "]";
+	}
+
 }
 
 class Element {

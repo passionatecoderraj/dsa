@@ -16,7 +16,7 @@ public class MaxOfAllSubarraysOfSizeK {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	
+
 		MaxOfAllSubarraysOfSizeK obj = new MaxOfAllSubarraysOfSizeK();
 		int a[] = { 12, 1, 78, 90, 57, 89, 56 };
 		int n = a.length, k = 3;
@@ -24,22 +24,18 @@ public class MaxOfAllSubarraysOfSizeK {
 		obj.maxOfAllSubarraysOfSizeK(a, n, k);
 	}
 
-	public void maxOfAllSubarraysOfSizeK(int[] a, int n, int k) {
-		if (k > n || n <= 0)
-			return;
+	public void maxOfAllSubarraysOfSizeK(int a[], int n, int k) {
+
 		Deque<Integer> dq = new ArrayDeque<Integer>();
-		int i;
-		for (i = 0; i < k; i++) {
+		for (int i = 0; i < k; i++) {
 			while (!dq.isEmpty() && a[i] >= a[dq.peekLast()]) {
 				dq.removeLast();
 			}
 			dq.addLast(i);
 		}
-
-		for (; i < n; i++) {
+		for (int i = k; i < n; i++) {
 			System.out.print(a[dq.peekFirst()] + " ");
-
-			while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+			while (!dq.isEmpty() && i - dq.peekFirst() >= k) {
 				dq.removeFirst();
 			}
 
@@ -48,8 +44,7 @@ public class MaxOfAllSubarraysOfSizeK {
 			}
 			dq.addLast(i);
 		}
-		System.out.print(a[dq.peekFirst()] + " ");
-		System.out.println();
-	}
+		System.out.println(a[dq.peekFirst()] + " ");
 
+	}
 }

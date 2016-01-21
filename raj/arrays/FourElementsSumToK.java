@@ -22,7 +22,7 @@ public class FourElementsSumToK {
 		// Time : O(n3), Space : O(1)
 		obj.find4NumbersSumToK(a, n, k);
 		// Time : O(n2logn), Space : O(n2)
-		obj.find4NumbersSumToKOptimized(a, n, k);
+		// obj.find4NumbersSumToKOptimized(a, n, k);
 	}
 
 	public void find4NumbersSumToKOptimized(int[] a, int n, int k) {
@@ -37,7 +37,7 @@ public class FourElementsSumToK {
 				es[count++] = new Elem(a[i] + a[j], i, j);
 			}
 		}
-	
+
 		Arrays.sort(es, sortByVal);
 		int l = 0, r = count - 1, sum;
 		while (l < r) {
@@ -71,8 +71,8 @@ public class FourElementsSumToK {
 	public void find4NumbersSumToK(int[] a, int n, int k) {
 		Arrays.sort(a);
 		int l, r, sum;
-		for (int i = 0; i < n; i++) {
-			for (int j = i + 1; j < n; j++) {
+		for (int i = 0; i < n - 3; i++) {
+			for (int j = i + 1; j < n - 2; j++) {
 				l = j + 1;
 				r = n - 1;
 				while (l < r) {

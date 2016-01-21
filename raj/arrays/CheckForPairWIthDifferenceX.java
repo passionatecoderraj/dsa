@@ -4,8 +4,6 @@
 package com.raj.arrays;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Raj
@@ -25,13 +23,12 @@ public class CheckForPairWIthDifferenceX {
 		boolean result = false;
 
 		// method 1 : Time : O(n2) , Space : O(1)
-	//	result = obj.checkForPairWithDiffXBruteForce(a, n, x);
-	//	System.out.println(result);
+		// result = obj.checkForPairWithDiffXBruteForce(a, n, x);
+		// System.out.println(result);
 
 		// method 2 : Time : O(nlogn) , Space : O(1)
 		result = obj.checkForPairWithDiffUsingSorting(a, n, x);
 		System.out.println(result);
-
 	}
 
 	public boolean checkForPairWithDiffUsingSorting(int[] a, int n, int x) {

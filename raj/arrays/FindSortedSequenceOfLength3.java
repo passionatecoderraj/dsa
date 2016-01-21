@@ -3,6 +3,8 @@
  */
 package com.raj.arrays;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -22,6 +24,40 @@ public class FindSortedSequenceOfLength3 {
 		// Time : O(n), Space:O(n)
 		obj.findSortedSequenceOfLength3(a, n);
 
+		// Time : O(n), Space:O(n)
+		obj.sortedSequenceOfLength3(a, n);
+
+	}
+
+	public void sortedSequenceOfLength3(int[] a, int n) {
+		if (n < 3)
+			return;
+		int smaller[] = new int[n];
+		int larger[] = new int[n];
+		int minIndex = 0, maxIndex = n - 1;
+		smaller[0] = 0;
+		larger[n - 1] = n - 1;
+		for (int i = 1; i < n; i++) {
+			if (a[i] <= a[minIndex]) {
+				smaller[i] = i;
+				minIndex = i;
+			} else {
+				smaller[i] = minIndex;
+			}
+		}
+		for (int i = n - 1; i >= 0; i--) {
+			if (a[i] >= a[maxIndex]) {
+				larger[i] = i;
+				maxIndex = i;
+			} else {
+				larger[i] = maxIndex;
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			if (smaller[i] != i && larger[i] != i) {
+				System.out.println(a[smaller[i]] + " " + a[i] + " " + a[larger[i]]);
+			}
+		}
 	}
 
 	public void findSortedSequenceOfLength3(int[] a, int n) {

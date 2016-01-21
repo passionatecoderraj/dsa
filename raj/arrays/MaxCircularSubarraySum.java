@@ -17,8 +17,28 @@ public class MaxCircularSubarraySum {
 		int result = -1;
 		int a[] = { 11, 10, -20, 5, -3, -5, 8, -13, 10 };
 		// Time :O(n)
-		result = obj.findMaxCircularSubarraySum(a);
+		result = obj.findMaxCirclarSubarraySum(a);
 		System.out.println(result);
+	}
+
+	public int findMaxCirclarSubarraySum(int[] a) {
+		int n = a.length;
+		KadaneResult actual_kadane = findContiguousMaxUsingKadane(a, n);
+		System.out.println(actual_kadane);
+		int flipped_total = 0;
+		for (int i = 0; i < n; i++) {
+			a[i] = -a[i];
+			flipped_total += a[i];
+		}
+
+		KadaneResult flipped_kadane = findContiguousMaxUsingKadane(a, n);
+		System.out.println(flipped_kadane);
+		System.out.println(flipped_total);
+		// max_wrap = actual_total - (-flipped_kadane.max)
+		int max_wrap = -(flipped_total - flipped_kadane.max);
+		int max_actual = actual_kadane.max;
+
+		return max_wrap > max_actual ? max_wrap : max_actual;
 	}
 
 	public int findMaxCircularSubarraySum(int[] a) {

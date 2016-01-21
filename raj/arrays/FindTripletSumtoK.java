@@ -23,9 +23,12 @@ public class FindTripletSumtoK {
 	}
 
 	public void findTriplet(int[] a, int n, int k) {
+		if (n < 3) {
+			return;
+		}
 		Arrays.sort(a);
 		int l, r, sum = 0;
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n - 2; i++) {
 			l = i + 1;
 			r = n - 1;
 			while (l < r) {

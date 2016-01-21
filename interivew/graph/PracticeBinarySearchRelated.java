@@ -73,6 +73,110 @@ public class PracticeBinarySearchRelated {
 		return -1;
 	}
 
+	public int floor(int[] a, int l, int h, int x) {
+		int n = a.length;
+		if (n <= 0)
+			return -1;
+		if (x < a[0])
+			return Integer.MIN_VALUE;
+		else if (x > a[n - 1])
+			return a[n - 1];
+
+		int mid;
+
+		while (l <= h) {
+			mid = l + (h - l) / 2;
+			if (a[mid] == x) {
+				return a[mid];
+			}
+			if (a[mid] > x && a[mid - 1] < x) {
+				return a[mid - 1];
+			}
+
+			if (a[mid] >= x) {
+				h = mid - 1;
+			} else {
+				l = mid + 1;
+			}
+
+		}
+
+		return -1;
+	}
+
+	public int ceil(int[] a, int l, int h, int x) {
+		int n = a.length;
+		if (n <= 0)
+			return -1;
+		if (x < a[0])
+			return a[0];
+		else if (x > a[n - 1])
+			return Integer.MAX_VALUE;
+
+		int mid;
+		while (l <= h) {
+			mid = l + (h - l) / 2;
+			if (a[mid] == x) {
+				return a[mid];
+			}
+			if (x > a[mid] && x < a[mid + 1]) {
+				return a[mid + 1];
+			}
+
+			if (a[mid] > x) {
+				h = mid - 1;
+			} else {
+				l = mid + 1;
+			}
+
+		}
+
+		return -1;
+	}
+
+	public int first(int[] a, int l, int r, int key) {
+		if (l > r)
+			return -1;
+		if (a[l] == key)
+			return l;
+		int m;
+		while (l <= r) {
+			m = l + (r - l) / 2;
+			if (a[m] == key && (m == 0 || a[m - 1] != key)) {
+				return m;
+			}
+			if (a[m] >= key) {
+				r = m - 1;
+			} else {
+				l = m + 1;
+			}
+		}
+
+		return -1;
+	}
+
+	public int last(int[] a, int l, int r, int key) {
+		if (l > r)
+			return -1;
+		int n = r - l + 1;
+		if (a[r] == key)
+			return r;
+		int m;
+		while (l <= r) {
+			m = l + (r - l) / 2;
+			if (a[m] == key && (m == n - 1 || a[m + 1] != key)) {
+				return m;
+			}
+			if (a[m] > key) {
+				r = m - 1;
+			} else {
+				l = m + 1;
+			}
+		}
+
+		return -1;
+	}
+
 	public int searchInRotatedArray(int a[], int n, int k) {
 		int pivot = findPivot(a, 0, n - 1);
 		if (pivot != -1) {
@@ -80,47 +184,6 @@ public class PracticeBinarySearchRelated {
 				return binarySearch(a, 0, pivot - 1, k);
 			else
 				return binarySearch(a, pivot, n - 1, k);
-		}
-		return -1;
-	}
-
-	public int first(int a[], int l, int h, int key) {
-		if (l > h)
-			return -1;
-		if (a[l] == key) {
-			return l;
-		}
-		int mid;
-		while (l <= h) {
-			mid = l + (h - l) / 2;
-			if (a[mid] == key && (mid == 0 || a[mid] > a[mid - 1]))
-				return mid;
-			if (a[mid] >= key) {
-				l = mid - 1;
-			} else {
-				h = mid + 1;
-			}
-		}
-		return -1;
-	}
-
-	public int last(int a[], int l, int h, int key) {
-		int n = h - l + 1;
-		if (l > h)
-			return -1;
-		if (a[h] == key) {
-			return h;
-		}
-		int mid;
-		while (l <= h) {
-			mid = l + (h - l) / 2;
-			if (a[mid] == key && (mid == n - 1 || a[mid] < a[mid + 1]))
-				return mid;
-			if (a[mid] > key) {
-				l = mid - 1;
-			} else {
-				h = mid + 1;
-			}
 		}
 		return -1;
 	}
@@ -133,6 +196,21 @@ public class PracticeBinarySearchRelated {
 				return true;
 		}
 		return false;
+	}
+
+	public int findSmallestMissingNumberUsingBinarySearch(int[] a, int l, int r) {
+		int mid, n = r - l + 1;
+		while (l <= r) {
+			mid = l + (r - l) / 2;
+			if (a[mid] != mid && (mid == 0 || a[mid - 1] == mid - 1)) {
+				return mid;
+			} else if (a[mid] == mid) {
+				l = mid + 1;
+			} else {
+				r = mid - 1;
+			}
+		}
+		return n;
 	}
 
 	public int countNumberofOccurencesInSortedArray(int a[], int n, int key) {
@@ -157,43 +235,28 @@ public class PracticeBinarySearchRelated {
 		return -1;
 	}
 
-	public int floor(int a[], int l, int h, int key) {
-		if (l > h)
-			return -1;
-		if (key < a[l])
-			return Integer.MIN_VALUE;
-		if (key > a[h])
-			return a[h];
-
+	public int findMaxInBitonicUsingBinarySearch(int[] a, int l, int r) {
 		int mid;
-		while (l <= h) {
-			mid = l + (h - l) / 2;
-			if (a[mid] == key) {
+
+		while (l <= r) {
+			// if there are only two elements
+			if (l == r) {
+				return a[l];
+			}
+			if (l + 1 == r) {
+				return a[l] > a[r] ? a[l] : a[r];
+			}
+
+			mid = l + (r - l) / 2;
+			if (a[mid] > a[mid + 1] && a[mid] > a[mid - 1]) {
 				return a[mid];
-			} else if (a[mid] > key) {
-				if (l < mid && key > a[mid - 1])
-					return a[mid - 1];
-				h = mid - 1;
+			} else if (a[mid] > a[mid + 1]) {
+				r = mid - 1;
 			} else {
 				l = mid + 1;
 			}
-
 		}
 		return -1;
 	}
 
-	public int ceil(int a[], int l, int h, int key) {
-		if (l > h)
-			return -1;
-		if (key > a[h])
-			return Integer.MAX_VALUE;
-		if (key < a[l])
-			return a[l];
-		int mid;
-		while(l<=h){
-			mid = l+(h-l)/2;
-			if(a[mid]>=key)
-		}
-		return -1;
-	}
 }

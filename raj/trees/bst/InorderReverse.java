@@ -32,11 +32,20 @@ public class InorderReverse {
 		System.out.println();
 		InorderReverse obj = new InorderReverse();
 
-		obj.inorderReverse(tree.root);
+		obj.inOrderReverse(tree.root);
 		System.out.println();
+		obj.inorderReverseWithoutRecursion(tree.root);
 	}
 
-	public void inorderReverse(BinaryTreeNode<Integer> root) {
+	public void inOrderReverse(BinaryTreeNode<Integer> node) {
+		if (node != null) {
+			inOrderReverse(node.right);
+			System.out.print(node.data + " ");
+			inOrderReverse(node.left);
+		}
+	}
+
+	public void inorderReverseWithoutRecursion(BinaryTreeNode<Integer> root) {
 		if (null == root) {
 			return;
 		}

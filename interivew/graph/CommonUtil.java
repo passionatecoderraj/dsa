@@ -5,6 +5,7 @@ package com.interivew.graph;
 
 import java.util.Set;
 
+import com.raj.nodes.BinaryTreeNode;
 import com.raj.nodes.ListNode;
 
 /**
@@ -106,4 +107,12 @@ public class CommonUtil {
 		b.data = a.data ^ b.data;
 		a.data = a.data ^ b.data;
 	}
+
+	public static BinaryTreeNode<Integer> swapLeftRight(BinaryTreeNode<Integer> cur) {
+		BinaryTreeNode<Integer> temp = cur.left;
+		cur.left = cur.right;
+		cur.right = temp;
+		return cur;
+	}
+
 }

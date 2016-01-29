@@ -6,6 +6,7 @@ package com.raj.trees.binary;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.interivew.graph.CommonUtil;
 import com.raj.nodes.BinaryTreeNode;
 
 /**
@@ -76,7 +77,7 @@ public class MirrorOfBinaryTree {
 			return;
 		mirror(root.left);
 		mirror(root.right);
-		root = swapLeftRight(root);
+		root = CommonUtil.swapLeftRight(root);
 	}
 
 	public void mirrorWithoutRecursion(BinaryTreeNode<Integer> root) {
@@ -92,15 +93,9 @@ public class MirrorOfBinaryTree {
 				queue.addLast(cur.left);
 			if (cur.right != null)
 				queue.addLast(cur.right);
-			cur = swapLeftRight(cur);
+			cur = CommonUtil.swapLeftRight(cur);
 		}
 	}
 
-	public BinaryTreeNode<Integer> swapLeftRight(BinaryTreeNode<Integer> cur) {
-		BinaryTreeNode<Integer> temp = cur.left;
-		cur.left = cur.right;
-		cur.right = temp;
-		return cur;
-	}
 
 }

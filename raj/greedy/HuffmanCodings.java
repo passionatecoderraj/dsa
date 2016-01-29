@@ -1,8 +1,8 @@
 package com.raj.greedy;
 
 import com.interivew.graph.BinaryMinHeap;
-import com.interivew.graph.BinaryTree;
-import com.interivew.graph.BinaryTreeNode;
+import com.raj.nodes.BinaryTreeNode;
+import com.raj.trees.binary.BinaryTree;
 
 public class HuffmanCodings {
 
@@ -16,7 +16,7 @@ public class HuffmanCodings {
 	public void huffmanCodes(char[] arr, int[] freq) {
 		BinaryTreeNode<Integer> root = buildHuffmanCode(freq);
 
-		int[] codes = new int[BinaryTree.height(root)];
+		int[] codes = new int[new BinaryTree().height(root)];
 		printCodes(root, 0, codes);
 	}
 
@@ -31,7 +31,7 @@ public class HuffmanCodings {
 			BinaryTreeNode<Integer> l = heap.extractMin();
 			BinaryTreeNode<Integer> r = heap.extractMin();
 			int total = l.data + r.data;
-			BinaryTreeNode<Integer> node = new BinaryTreeNode<>(total, l, r);
+			BinaryTreeNode<Integer> node = new BinaryTreeNode<Integer>(total, l, r);
 			heap.add(total, node);
 		}
 		return heap.extractMin();

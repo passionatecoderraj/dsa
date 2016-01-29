@@ -17,50 +17,49 @@ public class NQueen {
 	public static void main(String[] args) {
 		NQueen obj = new NQueen();
 
-		// TODO: Not complete
 		obj.solveNQueen(4);
 	}
 
 	public void solveNQueen(int n) {
 		int a[][] = new int[n][n];
-		if (solveNQueenUtil(a, n, 0, 1)) {
+
+		int row = 0;
+		if (solveNQueenUtil(a, n, row)) {
 			CommonUtil.print2DArray(a, n, n);
 		} else {
 			System.out.println("no solution");
 		}
 	}
 
-	public boolean solveNQueenUtil(int[][] a, int n, int x, int count) {
-		if (count > n) {
+	public boolean solveNQueenUtil(int[][] a, int n, int row) {
+		if (row == n) {
 			return true;
 		}
-		for (int i = 0; i < n; i++) {
-			a[x][i] = count;
-			if (isSafe(a, n, x + 1, count + 1)) {
-				return true;
+		for (int col = 0; col < n; col++) {
+			if (isSafe(a, n, row, col)) {
+				a[row][col] = 1;
+				if (solveNQueenUtil(a, n, row + 1))
+					return true;
+				else
+					a[row][col] = 0;
 			}
-			a[x][i] = 0;
 		}
 
 		return false;
 	}
 
-	public boolean isSafe(int a[][], int n, int x, int y) {
-		for (int i = 0; i < n; i++) {
-			if (a[i][y] > 0 || a[x][i] > 0) {
+	public boolean isSafe(int[][] a, int n, int row, int col) {
+		for (int i = 0; i <row; i++) {
+			if (a[i][col] == 1)
 				return false;
-			}
 		}
-
-		int reset = Math.min(x, y) - 1;
-
-		for (int i = reset - x, j = reset - y; i < n && j < n; i++, j++) {
-			if (a[i][j] > 0)
+		for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+			if (a[i][j] == 1)
 				return false;
 		}
 
-		for (int i = reset - x, j = reset + y; i < n && j >= 0; i++, j--) {
-			if (a[i][j] > 0)
+		for (int i = row, j = col; i >= 0 && j < n; i--, j++) {
+			if (a[i][j] == 1)
 				return false;
 		}
 

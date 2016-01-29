@@ -106,10 +106,7 @@ public class SingleLinkedList<T> {
 				count++;
 			}
 			ListNode<T> temp = prev.next;
-			if (temp != null) {
-				prev.next = temp.next;
-			}
-			temp = null;
+			prev.next = temp.next;
 		}
 	}
 
@@ -143,7 +140,7 @@ public class SingleLinkedList<T> {
 		obj.insertAtPosition(35, 4);
 		obj.insertAtPosition(5, 1);
 		obj.print();
-		obj.deleteAtPosition(5);
+		obj.deleteAtPosition(7);
 		obj.print();
 		System.out.println(obj.length());
 		System.out.println(obj.lengthRecursive(obj.root));

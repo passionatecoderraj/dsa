@@ -61,10 +61,10 @@ public class PracticeLinkedLists {
 			temp = null;
 		}
 	}
+
 	// double linked Lists
 	// 1) insert at position
 	// 2) delete at position
-
 	public <T> void insertAtPosition(DoubleLinkedList<T> list, T data, int pos) {
 		int n = list.length();
 		if (pos <= 0 || pos > n + 1) {
@@ -113,11 +113,9 @@ public class PracticeLinkedLists {
 				count++;
 			}
 			DLLNode<T> temp = prev.next;
-			if (temp != null) {
-				prev.next = temp.next;
-				if (prev.next != null) {
-					prev.next.prev = prev;
-				}
+			prev.next = temp.next;
+			if (temp.next != null) {
+				temp.next.prev = prev;
 			}
 			temp = null;
 		}
@@ -167,6 +165,12 @@ public class PracticeLinkedLists {
 		ListNode<T> newNode = new ListNode<T>(data);
 
 		if (pos == 1) {
+			if (list.root == null) {
+				newNode.next = newNode;
+				list.root = newNode;
+				return;
+			}
+
 			ListNode<T> lastNode = list.getLastNodeInCLL(list.root);
 			lastNode.next = newNode;
 			newNode.next = list.root;
@@ -195,12 +199,9 @@ public class PracticeLinkedLists {
 			return;
 		}
 		if (pos == 1) {
-			ListNode<T> temp = list.root;
-			while (temp.next != list.root) {
-				temp = temp.next;
-			}
+			ListNode<T> lastNode = list.getLastNodeInCLL(list.root);
+			lastNode.next = list.root.next;
 			list.root = list.root.next;
-			temp.next = list.root;
 		} else {
 			ListNode<T> prev = list.root;
 			int count = 1;
@@ -343,7 +344,7 @@ public class PracticeLinkedLists {
 			ListNode<Integer> temp = obj.root;
 			ListNode<Integer> prev = null;
 
-			while (temp != null && newNode.data > temp.data) {
+			while (temp != null && newNode.data >= temp.data) {
 				prev = temp;
 				temp = temp.next;
 			}
@@ -368,7 +369,7 @@ public class PracticeLinkedLists {
 			ListNode<Integer> temp = obj.root;
 			ListNode<Integer> prev = null;
 
-			while (temp.next != null && newNode.data > temp.data) {
+			while (temp.next != null && newNode.data >= temp.data) {
 				prev = temp;
 				temp = temp.next;
 				if (temp == obj.root)
@@ -642,26 +643,23 @@ public class PracticeLinkedLists {
 
 	public int getJosephusPosition(ListNode<Integer> root, int m) {
 		ListNode<Integer> node = root;
-		int count = 1;
 		while (node.next != node) {
-			while (node.next != node && count < m - 1) {
-				node = node.next;
-				count++;
-			}
-			if (node.next != node) {
-				node.next = node.next.next;
+			for (int i = 1; i < m - 1; i++) {
 				node = node.next;
 			}
-
-			count = 1;
+			node.next = node.next.next;
+			node = node.next;
 		}
 
 		return node.data;
 	}
 
+	// find the last element from beginning whose n%k ==0
+	// if n=19,and k = 3, then find 18th node
 	public ListNode<Integer> findModularKnodeFromStart(ListNode<Integer> root, int k) {
 		if (k <= 0)
 			return null;
+
 		ListNode<Integer> temp = root, modularNode = null;
 		int count = 1;
 		while (temp != null) {
@@ -674,6 +672,8 @@ public class PracticeLinkedLists {
 		return modularNode;
 	}
 
+	// find the last element from end whose n%k ==0
+	// if n=19,and k = 3, then find 16th node
 	public ListNode<Integer> findModularKnodeFromEnd(ListNode<Integer> root, int k) {
 		if (k <= 0)
 			return null;

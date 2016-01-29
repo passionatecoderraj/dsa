@@ -16,6 +16,15 @@ public class BinaryTreeNode<T> {
 
 	}
 
+	
+	public BinaryTreeNode(T data, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
+		super();
+		this.data = data;
+		this.left = left;
+		this.right = right;
+	}
+
+
 	public BinaryTreeNode(T data) {
 		super();
 		this.data = data;

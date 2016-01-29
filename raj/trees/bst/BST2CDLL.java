@@ -126,8 +126,9 @@ public class BST2CDLL {
 			headOfDLL = root;
 		} else {
 			prevOfDLL.right = root;
-			root.left = prevOfDLL;
 		}
+		root.left = prevOfDLL;
+
 		prevOfDLL = root;
 		bstToDLLWithoutExtraSpace(right);
 	}
@@ -143,12 +144,11 @@ public class BST2CDLL {
 		BinaryTreeNode<Integer> right = root.right;
 		if (null == headOfCDLL) {
 			headOfCDLL = root;
-			root.right = headOfCDLL;
 		} else {
 			prevOfCDLL.right = root;
-			root.left = prevOfCDLL;
-			root.right = headOfCDLL;
 		}
+		root.left = prevOfCDLL;
+		root.right = headOfCDLL;
 		prevOfCDLL = root;
 		bstToCDLLWithoutExtraSpace(right);
 	}

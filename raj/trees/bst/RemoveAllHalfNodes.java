@@ -44,13 +44,7 @@ public class RemoveAllHalfNodes {
 		root.left = removeAllHalfNodes(root.left);
 		root.right = removeAllHalfNodes(root.right);
 		if (isHalfNode(root)) {
-			if (root.right != null) {
-				root.data = root.right.data;
-				root.right = null;
-			} else if (root.left != null) {
-				root.data = root.left.data;
-				root.left = null;
-			}
+			return root.left != null ? root.left : root.right;
 		}
 		return root;
 	}

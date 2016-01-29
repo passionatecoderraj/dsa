@@ -3,9 +3,6 @@
  */
 package com.raj.trees.binary;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 import com.raj.nodes.BinaryTreeNode;
 
 /**
@@ -49,39 +46,6 @@ public class FindAllAncestors {
 		if (printAllAncestors(root.left, k) || printAllAncestors(root.right, k)) {
 			System.out.println(root.data);
 			return true;
-		}
-		return false;
-	}
-
-	public boolean search(BinaryTreeNode<Integer> root, int k) {
-		if (null == root) {
-			return false;
-		}
-		if (root.data == k) {
-			return true;
-		}
-		return search(root.left, k) || search(root.right, k);
-	}
-
-	public boolean searchWithoutRecursion(BinaryTreeNode<Integer> node, int k) {
-		if (null == node) {
-			return false;
-		}
-
-		Deque<BinaryTreeNode<Integer>> queue = new LinkedList<BinaryTreeNode<Integer>>();
-		queue.addLast(node);
-
-		while (!queue.isEmpty()) {
-			BinaryTreeNode<Integer> cur = queue.removeFirst();
-			if (cur.data == k)
-				return true;
-
-			if (cur.left != null) {
-				queue.addLast(cur.left);
-			}
-			if (cur.right != null) {
-				queue.addLast(cur.right);
-			}
 		}
 		return false;
 	}

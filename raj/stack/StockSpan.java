@@ -21,9 +21,7 @@ public class StockSpan {
 
 		int t[] = new int[n];
 		Deque<Integer> stack = new LinkedList<Integer>();
-		t[0] = 1;
-		stack.push(0);
-		for (int i = 1; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			while (!stack.isEmpty() && a[i] >= a[stack.peekFirst()]) {
 				stack.pop();
 			}

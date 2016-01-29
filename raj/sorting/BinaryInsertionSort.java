@@ -36,6 +36,7 @@ public class BinaryInsertionSort {
 		}
 	}
 
+	// we can use ceil search using binary search to find
 	public int binarySearchindex(int[] a, int l, int r, int key) {
 		int mid;
 		while (r - l > 1) {

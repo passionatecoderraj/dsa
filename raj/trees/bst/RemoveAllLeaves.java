@@ -26,7 +26,6 @@ public class RemoveAllLeaves {
 		tree.root = tree.insert(tree.root, 7);
 		tree.root = tree.insert(tree.root, 13);
 		tree.levelOrder(tree.root);
-		System.out.println();
 		RemoveAllLeaves obj = new RemoveAllLeaves();
 
 		// Time :O(n)

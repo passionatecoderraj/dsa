@@ -3,8 +3,8 @@ package com.raj.greedy;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.interivew.graph.BinaryTree;
-import com.interivew.graph.BinaryTreeNode;
+import com.raj.nodes.BinaryTreeNode;
+import com.raj.trees.binary.BinaryTree;
 
 public class HuffmanCodingsWithSortedInput {
 
@@ -18,7 +18,7 @@ public class HuffmanCodingsWithSortedInput {
 	public void huffmanCodes(char[] arr, int[] freq) {
 		BinaryTreeNode<Integer> root = buildHuffmanCode(freq);
 
-		int[] codes = new int[BinaryTree.height(root)];
+		int[] codes = new int[new BinaryTree().height(root)];
 		printCodes(root, 0, codes);
 	}
 
@@ -55,7 +55,7 @@ public class HuffmanCodingsWithSortedInput {
 			int total = l.data + r.data;
 			BinaryTreeNode<Integer> node = new BinaryTreeNode<>(total, l, r);
 			q2.add(node);
-			
+
 		}
 		return q2.remove();
 	}

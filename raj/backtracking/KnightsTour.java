@@ -21,7 +21,7 @@ public class KnightsTour {
 	}
 
 	public void solveKT() {
-		int n = 8;
+		int n = 6;
 		int a[][] = new int[n][n];
 
 		for (int i = 0; i < n; i++) {
@@ -62,17 +62,6 @@ public class KnightsTour {
 			}
 		}
 		return false;
-	}
-
-	public boolean isSolved(int a[][], int n) {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (a[i][j] == -1) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	public boolean isSafeToMove(int a[][], int n, int x, int y) {

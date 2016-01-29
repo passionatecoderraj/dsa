@@ -88,7 +88,10 @@ public class DoubleLinkedList<T> {
 
 		if (pos == 1) {
 			newNode.next = root;
+			if (root != null)
+				root.prev = newNode;
 			root = newNode;
+
 		} else {
 			DLLNode<T> prev = root;
 			int count = 1;
@@ -126,11 +129,9 @@ public class DoubleLinkedList<T> {
 				count++;
 			}
 			DLLNode<T> temp = prev.next;
-			if (temp != null) {
-				prev.next = temp.next;
-				if (prev.next != null) {
-					prev.next.prev = prev;
-				}
+			prev.next = temp.next;
+			if (prev.next != null) {
+				prev.next.prev = prev;
 			}
 			temp = null;
 		}
@@ -148,7 +149,8 @@ public class DoubleLinkedList<T> {
 		obj.insert(50);
 		obj.insertAtPosition(35, 4);
 		obj.insertAtPosition(5, 1);
-		obj.deleteAtPosition(5);
+		obj.print();
+		obj.deleteAtPosition(7);
 		obj.print();
 		obj.printFromEnd();
 	}

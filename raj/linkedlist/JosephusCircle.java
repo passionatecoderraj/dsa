@@ -16,7 +16,7 @@ public class JosephusCircle {
 	 */
 	public static void main(String[] args) {
 		CircularLinkedList<Integer> list = new CircularLinkedList<Integer>();
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 10; i++) {
 			list.insert(i);
 		}
 		int result = -1, m = 2;
@@ -28,18 +28,12 @@ public class JosephusCircle {
 
 	public int getJosephusPosition(ListNode<Integer> root, int m) {
 		ListNode<Integer> node = root;
-		int count = 1;
 		while (node.next != node) {
-			while (node.next != node && count < m - 1) {
-				node = node.next;
-				count++;
-			}
-			if (node.next != node) {
-				node.next = node.next.next;
+			for (int i = 1; i < m - 1; i++) {
 				node = node.next;
 			}
-			
-			count = 1;
+			node.next = node.next.next;
+			node = node.next;
 		}
 
 		return node.data;

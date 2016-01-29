@@ -43,8 +43,7 @@ public class QuickSort {
 		int key = a[r], j = p;
 		for (int i = p; i < r; i++) {
 			if (a[i] <= key) {
-				CommonUtil.swap(a, i, j);
-				j++;
+				CommonUtil.swap(a, i, j++);
 			}
 		}
 		CommonUtil.swap(a, r, j);
@@ -55,8 +54,7 @@ public class QuickSort {
 		int j = p, key = a[r];
 		for (int i = p; i < r; i++) {
 			if (a[i] >= key) {
-				CommonUtil.swap(a, i, j);
-				j++;
+				CommonUtil.swap(a, i, j++);
 			}
 		}
 		CommonUtil.swap(a, r, j);

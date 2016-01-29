@@ -25,30 +25,30 @@ public class RangeCount {
 		tree.root = tree.insert(tree.root, 4);
 		tree.root = tree.insert(tree.root, 7);
 		tree.root = tree.insert(tree.root, 13);
-		tree.postOrder(tree.root);
+		tree.inOrder(tree.root);
 		System.out.println();
 		RangeCount obj = new RangeCount();
 
-		int result = -1, k1 = 1, k2 = 7;
-		result = obj.rangeCount(tree.root, k1, k2);
-		System.out.println(result);
-		// obj.printRangeWithoutRecursion(tree.root, k1, k2);
+		int k1 = 10, k2 = 20;
+		obj.rangeCount(tree.root, k1, k2);
+		System.out.println(obj.count);
 
 	}
 
-	// k1 < k2
-	public int rangeCount(BinaryTreeNode<Integer> root, int k1, int k2) {
-		if (null == root)
-			return 0;
-		if (root.data >= k1 && root.data <= k2) {
-			return 1 + rangeCount(root.left, k1, k2) + rangeCount(root.right, k1, k2);
-		} else if (root.data > k2) {
-			return rangeCount(root.left, k1, k2);
-		} else if (root.data < k1) {
-			return rangeCount(root.right, k1, k2);
-		}
-		return 0;
+	int count = 0;
 
+	// k1 < k2
+	public void rangeCount(BinaryTreeNode<Integer> root, int k1, int k2) {
+		if (null == root)
+			return;
+		if (root.data >= k1)
+			rangeCount(root.left, k1, k2);
+
+		if (root.data >= k1 && root.data <= k2)
+			count++;
+
+		if (root.data <= k2)
+			rangeCount(root.right, k1, k2);
 	}
 
 }

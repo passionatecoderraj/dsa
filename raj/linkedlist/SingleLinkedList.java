@@ -9,8 +9,19 @@ import com.raj.nodes.ListNode;
  * @author Raj
  *
  */
-public class SingleLinkedList<T> {
+public class SingleLinkedList<T> implements Cloneable {
 	public ListNode<T> root;
+
+	@SuppressWarnings("unchecked")
+	public Object clone() {
+		try {
+			return (SingleLinkedList<T>) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public ListNode<T> insert(T data) {
 		ListNode<T> newNode = new ListNode<T>(data);
@@ -26,6 +37,15 @@ public class SingleLinkedList<T> {
 		return newNode;
 	}
 
+	public ListNode<T> getLastNode(ListNode<T> temp) {
+		if(temp==null)
+			return temp;
+		while(temp.next!=null)
+			temp = temp.next;
+		return temp;
+	}
+
+	
 	public void print(ListNode<T> temp) {
 		if (temp == null) {
 			System.out.println("Empty");

@@ -17,8 +17,7 @@ public class RatMaze {
 	public static void main(String[] args) {
 		int a[][] = { { 1, 0, 0, 0 }, { 1, 1, 0, 1 }, { 0, 1, 0, 0 }, { 1, 1, 1, 1 } };
 		int m = a.length, n = a[0].length;
-		;
-
+	
 		RatMaze obj = new RatMaze();
 	//	obj.solveMaze(a, m, n);
 		obj.solveMazel(a, m, n);

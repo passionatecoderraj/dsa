@@ -30,14 +30,11 @@ public class HeapSort {
 		heap.size = n;
 		heap.buildMinHeap(a);
 
-		int temp = n;
-		while (n > 1) {
-			CommonUtil.swap(a, 0, n - 1);
-			n--;
-			heap.size = n;
+		for (int i = n - 1; i > 0; i--) {
+			CommonUtil.swap(a, 0, i);
+			heap.size = i;
 			heap.minHeapify(a, 0);
 		}
-		n = temp;
 	}
 
 	public void heapSort(int[] a, int n) {
@@ -45,14 +42,11 @@ public class HeapSort {
 		heap.size = n;
 		heap.buildMaxHeap(a);
 
-		int temp = n;
-		while (n > 1) {
-			CommonUtil.swap(a, 0, n - 1);
-			n--;
-			heap.size = n;
+		for (int i = n - 1; i > 0; i--) {
+			CommonUtil.swap(a, 0, i);
+			heap.size = i;
 			heap.maxHeapify(a, 0);
 		}
-		n = temp;
 	}
 
 }

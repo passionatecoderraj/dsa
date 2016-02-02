@@ -14,7 +14,7 @@ public class FindPeak {
 	 */
 	public static void main(String[] args) {
 		FindPeak obj = new FindPeak();
-		int a[] = { 5, 10, 15, 25, 30, 45, 65, 50, 30, 1 };
+		int a[] = { 5, 10, 15, 25, 80, 75, 65, 50, 30, 3 };
 		int n = a.length, result = -1;
 
 		// Time :O(n), Space : O(1)
@@ -22,28 +22,24 @@ public class FindPeak {
 		System.out.println(result);
 
 		// Time :O(logn), Space : O(1)
-		result = obj.findPeak(a, n);
+		result = obj.findPeak(a, 0, n - 1, n);
 		System.out.println(result);
 
 	}
 
 	// Time :O(logn), Space : O(1)
-	public int findPeak(int[] a, int n) {
-		if (n <= 0)
-			return Integer.MIN_VALUE;
-		int l = 0, r = n - 1, mid;
+	public int findPeak(int a[], int l, int r, int n) {
+		int m;
 		while (l <= r) {
-			mid = l + (r - l) / 2;
-			if ((mid == 0 || a[mid] >= a[mid - 1]) && (mid == n - 1 || a[mid] >= a[mid + 1])) {
-				return a[mid];
-			}
-			if (a[mid] > a[mid - 1]) {
-				l = mid + 1;
-			} else {
-				r = mid - 1;
-			}
+			m = l + (r - l) / 2;
+			if ((m == 0 || a[m] >= a[m - 1]) && (m == n - 1 || a[m] >= a[m + 1]))
+				return a[m];
+			if (m < n - 1 && a[m + 1] > a[m])
+				l = m + 1;
+			else
+				r = m - 1;
 		}
-		return Integer.MIN_VALUE;
+		return -1;
 	}
 
 	// Time :O(n), Space : O(1)

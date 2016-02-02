@@ -3,6 +3,7 @@
  */
 package com.raj.sorting;
 
+import com.interivew.graph.CommonUtil;
 import com.raj.linkedlist.DoubleLinkedList;
 import com.raj.nodes.DLLNode;
 
@@ -47,7 +48,7 @@ public class QuickSortForDoubleLinkedList {
 	public void quickSort(DLLNode<Integer> root, DLLNode<Integer> lastNode) {
 		if (root != lastNode && lastNode != null && root != lastNode.next) {
 			DLLNode<Integer> p = partition(root, lastNode);
-	//		new DoubleLinkedList<Integer>().print(root);
+			// new DoubleLinkedList<Integer>().print(root);
 			quickSort(root, p.prev);
 			quickSort(p.next, lastNode);
 		}
@@ -59,19 +60,13 @@ public class QuickSortForDoubleLinkedList {
 		DLLNode<Integer> i = root;
 		while (i != lastNode) {
 			if (i.data <= key) {
-				swap(i, j);
+				CommonUtil.swap(i, j);
 				j = j.next;
 			}
 			i = i.next;
 		}
-		swap(j, lastNode);
+		CommonUtil.swap(j, lastNode);
 		return j;
-	}
-
-	public void swap(DLLNode<Integer> i, DLLNode<Integer> j) {
-		int temp = i.data;
-		i.data = j.data;
-		j.data = temp;
 	}
 
 }

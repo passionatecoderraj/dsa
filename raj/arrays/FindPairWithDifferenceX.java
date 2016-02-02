@@ -11,13 +11,13 @@ import java.util.Arrays;
  *         Check for Pair of numbers with sum X
  * 
  */
-public class CheckForPairWIthDifferenceX {
+public class FindPairWithDifferenceX {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CheckForPairWIthDifferenceX obj = new CheckForPairWIthDifferenceX();
+		FindPairWithDifferenceX obj = new FindPairWithDifferenceX();
 		int a[] = { 8, 12, 16, 4, 0, 20 };
 		int x = 4, n = a.length;
 		boolean result = false;

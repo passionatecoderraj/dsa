@@ -59,9 +59,11 @@ public class FindNumbeRepeatingMoreTimes {
 
 	// Time: O(n), Space : O(1)
 	public int findNumberRepeatingMoreTimes(int[] a, int n, int k) {
+		CommonUtil.printArray(a);
 		for (int i = 0; i < n; i++) {
 			a[a[i] % k] = a[a[i] % k] + k;
 		}
+		CommonUtil.printArray(a);
 		for (int i = 0; i < n; i++) {
 			a[i] = a[i] / k;
 		}

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import com.raj.arrays.AVLTreeWithSize;
 import com.raj.trees.bst.AVLTree;
 
-public class Practice {
+public class PracticeArrays {
 
 	void checkForPairsWithSum(int a[], int n, int sum) {
 		Arrays.sort(a);
@@ -716,6 +716,9 @@ public class Practice {
 		return true;
 	}
 
+	// insert and delete k values at end(like stack)
+	// delete max from front always(like queue)
+	// Time : O(n), Space : O(k)
 	public int maxIndexDiff(int a[], int n) {
 		int maxIndexDiff = Integer.MIN_VALUE;
 
@@ -1017,14 +1020,14 @@ public class Practice {
 			}
 		}
 		// either l or r can be remnant. let's assume l is remnant
+		int celebrity = knows(l, r) ? r : l;
 		for (int i = 0; i < n; i++) {
-			if (i != l) {
-				if (knows(l, i) || !knows(i, l)) {
+			if (celebrity != i) {
+				if (knows(celebrity, i) || !knows(i, celebrity))
 					return -1;
-				}
 			}
 		}
-		return l;
+		return celebrity;
 	}
 
 	public boolean knows(int l, int r) {
@@ -1317,6 +1320,32 @@ public class Practice {
 						System.out.println(a[i] + " + " + a[j] + " > " + a[k] + "");
 					}
 					k++;
+				}
+			}
+		}
+		return count;
+	}
+
+	public int coutnPythogareanTripletsMethod2(int a[], int n) {
+		for (int i = 0; i < n; i++) {
+			a[i] = a[i] * a[i];
+		}
+		Arrays.sort(a);
+		int l, r, sum;
+		int count = 0;
+		for (int i = n - 1; i >= 2; i--) {
+			l = 0;
+			r = i - 1;
+			while (l < r) {
+				sum = a[l] + a[r];
+				if (sum > a[i]) {
+					r--;
+				} else if (sum < a[i]) {
+					l++;
+				} else {
+					count++;
+					l++;
+					r--;
 				}
 			}
 		}

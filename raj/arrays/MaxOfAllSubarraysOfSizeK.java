@@ -20,7 +20,7 @@ public class MaxOfAllSubarraysOfSizeK {
 		MaxOfAllSubarraysOfSizeK obj = new MaxOfAllSubarraysOfSizeK();
 		int a[] = { 12, 1, 78, 90, 57, 89, 56 };
 		int n = a.length, k = 3;
-
+		// Time : O(n), Space : O(k)
 		obj.maxOfAllSubarraysOfSizeK(a, n, k);
 	}
 

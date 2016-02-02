@@ -5,23 +5,20 @@ import java.util.Arrays;
 /*
  *
  */
-public class TwoElementSumCloseToZero {
+public class FindPairSumCloseToX {
 
 	public static void main(String[] args) {
-		int a[] = { 1, 60, -10, 70, -80, 85 };
-		int n = a.length, result = -1;
-		TwoElementSumCloseToZero obj = new TwoElementSumCloseToZero();
-		// Time : O(n2), Space: O(1)
-		result = obj.twoElementSumCloseToZeroBruteForce(a, n);
-		System.out.println(result);
+		int a[] = { 10, 22, 28, 29, 30, 40 };
+		int n = a.length, result = -1, x = 54;
+		FindPairSumCloseToX obj = new FindPairSumCloseToX();
 
 		// Time : O(nlogn), Space: O(1)
-		result = obj.twoElementSumCloseToZeroUsingSorting(a, n);
+		result = obj.twoElementSumCloseToZeroUsingSorting(a, n, x);
 		System.out.println(result);
 
 	}
 
-	public int twoElementSumCloseToZeroUsingSorting(int[] a, int n) {
+	public int twoElementSumCloseToZeroUsingSorting(int[] a, int n,int x) {
 		Arrays.sort(a);
 
 		int sum, min1, min2;
@@ -29,7 +26,7 @@ public class TwoElementSumCloseToZero {
 		int l = 0, r = n - 1;
 		int t;
 		while (l < r) {
-			t = a[l] + a[r];
+			t = a[l] + a[r]-x;
 			if (Math.abs(t) < Math.abs(sum)) {
 				sum = t;
 				min1 = a[l];

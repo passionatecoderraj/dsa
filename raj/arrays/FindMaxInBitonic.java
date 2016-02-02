@@ -36,12 +36,13 @@ public class FindMaxInBitonic {
 
 	public int findMaxInBitonicUsingBinarySearch(int[] a, int l, int r) {
 		int mid;
-	
+
 		while (l <= r) {
-			// if there are only two elements
+			// if there is only one element
 			if (l == r) {
 				return a[l];
 			}
+			// if there are only two elements
 			if (l + 1 == r) {
 				return a[l] > a[r] ? a[l] : a[r];
 			}

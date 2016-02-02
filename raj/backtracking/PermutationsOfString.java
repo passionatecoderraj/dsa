@@ -16,7 +16,7 @@ public class PermutationsOfString {
 	 */
 	public static void main(String[] args) {
 		PermutationsOfString obj = new PermutationsOfString();
-		String str = "abc";
+		String str = "abcd";
 		int n = str.length();
 		obj.permuations(str.toCharArray(), 0, n - 1);
 	}

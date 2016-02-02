@@ -25,15 +25,12 @@ public class BubbleSort {
 	}
 
 	public void bubbleSortDescending(int[] a, int n) {
-		int temp;
 		boolean isSwapped = false;
 		for (int i = 1; i <= n; i++) {
 			isSwapped = false;
 			for (int j = n - 1; j >= i; j--) {
 				if (a[j] > a[j - 1]) {
-					temp = a[j];
-					a[j] = a[j - 1];
-					a[j - 1] = temp;
+					CommonUtil.swap(a, j, j - 1);
 					isSwapped = true;
 
 				}
@@ -44,15 +41,12 @@ public class BubbleSort {
 	}
 
 	public void bubbleSort(int[] a, int n) {
-		int temp;
 		boolean isSwapped = false;
 		for (int i = 1; i <= n; i++) {
 			isSwapped = false;
 			for (int j = 0; j < n - i; j++) {
 				if (a[j] > a[j + 1]) {
-					temp = a[j];
-					a[j] = a[j + 1];
-					a[j + 1] = temp;
+					CommonUtil.swap(a, j, j + 1);
 					isSwapped = true;
 				}
 			}

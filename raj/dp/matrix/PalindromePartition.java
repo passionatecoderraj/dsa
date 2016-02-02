@@ -3,6 +3,9 @@
  */
 package com.raj.dp.matrix;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.interivew.graph.CommonUtil;
 
 /**
@@ -23,10 +26,38 @@ public class PalindromePartition {
 		// obj.minCutsForPalindromePartitionsBruteForce(str.toCharArray(), 0,
 		// str.length() - 1);
 		// System.out.println(result);
-		result = obj.minCutsForPalindromePartitionsDpOn3(str.toCharArray());
+		// result = obj.minCutsForPalindromePartitionsDpOn3(str.toCharArray());
+		// System.out.println(result);
+		// result = obj.minCutsForPalindromePartitionsDpOn2(str.toCharArray());
+		// System.out.println(result);
+		result = obj.numberOfPalindromes(str);
 		System.out.println(result);
-		result = obj.minCutsForPalindromePartitionsDpOn2(str.toCharArray());
-		System.out.println(result);
+	}
+
+	public int numberOfPalindromes(String str) {
+		int n = str.length();
+		Set<String> set = new HashSet<String>();
+		boolean p[][] = new boolean[n][n];
+		for (int i = 0; i < n; i++) {
+			p[i][i] = true;
+			set.add(str.substring(i, i + 1));
+		}
+		for (int l = 2; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				if (l == 2) {
+					p[i][j] = str.charAt(i) == str.charAt(j);
+					if (p[i][j])
+						set.add(str.substring(i, j + 1));
+				} else {
+					p[i][j] = str.charAt(i) == str.charAt(j) && p[i + 1][j - 1];
+					if (p[i][j])
+						set.add(str.substring(i, j + 1));
+				}
+			}
+		}
+
+		return set.size();
 	}
 
 	public int minCutsForPalindromePartitionsDpOn2(char[] str) {

@@ -39,7 +39,7 @@ public class CountPythogareanTriplets {
 	}
 
 	public int countPythogareanTripletsMethod2(int[] a, int n) {
-		int count = 0, k;
+		int count = 0;
 		for (int i = 0; i < n; i++) {
 			a[i] = a[i] * a[i];
 		}

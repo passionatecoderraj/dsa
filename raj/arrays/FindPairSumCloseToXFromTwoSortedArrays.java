@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.sorting;
+package com.raj.arrays;
 
 /**
  * @author Raj
@@ -13,7 +13,7 @@ package com.raj.sorting;
  * x and the pair has an element from each array
  */
 
-public class FindPairFromTwoSortedArraysSumCloseToX {
+public class FindPairSumCloseToXFromTwoSortedArrays {
 
 	/**
 	 * @param args
@@ -21,7 +21,7 @@ public class FindPairFromTwoSortedArraysSumCloseToX {
 	public static void main(String[] args) {
 		int a1[] = { 1, 4, 5, 7 };
 		int a2[] = { 10, 20, 30, 40 };
-		FindPairFromTwoSortedArraysSumCloseToX obj = new FindPairFromTwoSortedArraysSumCloseToX();
+		FindPairSumCloseToXFromTwoSortedArrays obj = new FindPairSumCloseToXFromTwoSortedArrays();
 
 		int m = a1.length, n = a2.length;
 		int x = 31;

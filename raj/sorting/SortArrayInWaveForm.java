@@ -3,6 +3,8 @@
  */
 package com.raj.sorting;
 
+import java.util.Arrays;
+
 import com.interivew.graph.CommonUtil;
 
 /**
@@ -41,6 +43,21 @@ public class SortArrayInWaveForm {
 		CommonUtil.printArray(b);
 	}
 
+	public void sort(int a[], int n) {
+		for (int i = 0; i < n - 1; i += 2) {
+			if (i == 0) {
+
+			}
+
+		}
+	}
+
+	/*
+	 * The idea is based on the fact that if we make sure that all even
+	 * positioned (at index 0, 2, 4, ..) elements are greater than their
+	 * adjacent odd elements, we don’t need to worry about odd positioned
+	 * element.
+	 */
 	public void sortInWaveForm(int[] a, int n) {
 		for (int i = 0; i < n - 1; i = i + 2) {
 			if (i - 1 >= 0 && a[i] < a[i - 1]) {
@@ -53,6 +70,7 @@ public class SortArrayInWaveForm {
 	}
 
 	public void sortInWaveFormUsingSorting(int[] a, int n) {
+		Arrays.sort(a);
 		for (int i = 0; i < n - 1; i = i + 2) {
 			CommonUtil.swap(a, i, i + 1);
 		}

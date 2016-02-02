@@ -1,5 +1,7 @@
 package com.raj.arrays;
 
+import com.interivew.graph.CommonUtil;
+
 public class FindTwoRepeatingNumbers {
 
 	public static void main(String[] args) {
@@ -31,9 +33,11 @@ public class FindTwoRepeatingNumbers {
 
 	public void findTwoRepeatingNumbers(int[] a, int n) {
 
+		CommonUtil.printArray(a);
 		for (int i = 0; i < n; i++) {
 			a[a[i] % n] += n;
 		}
+		CommonUtil.printArray(a);
 		for (int i = 0; i < n; i++) {
 			if (a[i] / n > 1) {
 				System.out.println("Repeated : " + i);

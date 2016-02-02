@@ -13,13 +13,13 @@ import java.util.Set;
  *         Check for Pair of numbers with sum X
  * 
  */
-public class CheckForPairWithSumX {
+public class FindPairWithSumX {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CheckForPairWithSumX obj = new CheckForPairWithSumX();
+		FindPairWithSumX obj = new FindPairWithSumX();
 		int a[] = { 1, 4, 45, 6, 10, 8 };
 		int sum = 16;
 		boolean result = false;

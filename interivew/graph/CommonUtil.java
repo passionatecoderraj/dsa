@@ -6,6 +6,7 @@ package com.interivew.graph;
 import java.util.Set;
 
 import com.raj.nodes.BinaryTreeNode;
+import com.raj.nodes.DLLNode;
 import com.raj.nodes.ListNode;
 
 /**
@@ -115,4 +116,9 @@ public class CommonUtil {
 		return cur;
 	}
 
+	public static void swap(DLLNode<Integer> i, DLLNode<Integer> j) {
+		int temp = i.data;
+		i.data = j.data;
+		j.data = temp;
+	}
 }

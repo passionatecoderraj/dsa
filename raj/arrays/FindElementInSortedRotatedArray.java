@@ -3,7 +3,8 @@ package com.raj.arrays;
 public class FindElementInSortedRotatedArray {
 
 	public static void main(String[] args) {
-		int a[] = { 2, 3, 4, 5, 1 };
+		// int a[] = { 2, 3, 4, 5, 1 };
+		int a[] = { 5, 1, 2, 3, 4 };
 		// int a[] = { 73, 85, 94, 21, 27, 34, 47, 54, 66 };
 		// int a[] = { 156, 235, 457, 21, 32, 43, 74, 75, 86, 97, 108, 149 };
 		int result = -1, n = a.length, k = 3;

@@ -1,10 +1,10 @@
-package com.raj.dp;
+package com.raj.arrays;
 
 import java.util.Arrays;
 
-public class FindMinimumInDifferencePairsOfArray {
+public class FindPairsWithMinDifference {
 	public static void main(String[] args) {
-		FindMinimumInDifferencePairsOfArray obj = new FindMinimumInDifferencePairsOfArray();
+		FindPairsWithMinDifference obj = new FindPairsWithMinDifference();
 		int result = -1;
 		// int a[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
 		// int a[] = { 1, 101, 2, 3, 100, 4, 5 };

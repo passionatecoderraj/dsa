@@ -24,6 +24,8 @@ public class RearrangePositiveNegativeNumbers {
 				CommonUtil.swap(a, i, j++);
 			}
 		}
+		CommonUtil.printArray(a);
+		
 		// it breaks when l>r so, l is the starting point of negative numbers
 
 		int len_1sthalf = 0, len_2ndhalf = 0;

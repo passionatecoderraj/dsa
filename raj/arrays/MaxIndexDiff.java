@@ -3,6 +3,8 @@
  */
 package com.raj.arrays;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -59,6 +61,10 @@ public class MaxIndexDiff {
 				i++;
 			}
 		}
+		
+		CommonUtil.printArray(leftMin);
+		CommonUtil.printArray(rightMax);
+		
 		System.out
 				.println("maxLeft:" + maxLeft + ", " + "maxRight:" + maxRight + ":: " + "maxIndexDiff:" + maxIndexDiff);
 

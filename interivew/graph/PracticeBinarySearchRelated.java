@@ -1,5 +1,7 @@
 package com.interivew.graph;
 
+import java.util.Arrays;
+
 public class PracticeBinarySearchRelated {
 
 	public int binarySearch(int[] a, int l, int h, int key) {
@@ -277,4 +279,120 @@ public class PracticeBinarySearchRelated {
 		}
 		return Integer.MIN_VALUE;
 	}
+
+	/*
+	 * Given an array which is sorted, but after sorting some elements are moved
+	 * to either of the adjacent positions, i.e., arr[i] may be present at
+	 * arr[i+1] or arr[i-1]. Write an efficient function to search an element in
+	 * this array. Basically the element arr[i] can only be swapped with either
+	 * arr[i+1] or arr[i-1].
+	 */
+	// Time : O(logn)
+	public int searchInAlmostSortedArray(int[] a, int l, int h, int key) {
+		int mid;
+		while (l <= h) {
+			mid = l + (h - l) / 2;
+			if (a[mid] == key)
+				return mid;
+			if (mid > l && a[mid - 1] == key)
+				return mid - 1;
+			if (mid < h && a[mid + 1] == key)
+				return mid + 1;
+			if (a[mid] > key)
+				h = mid - 2;
+			else
+				l = mid + 2;
+		}
+		return -1;
+	}
+
+	public void sortArrayInWaveFormUsingSorting(int a[], int n) {
+		Arrays.sort(a);
+		for (int i = 0; i < n - 1; i += 2) {
+			CommonUtil.swap(a, i, i + 1);
+		}
+	}
+
+	public void sortArrayInWaveForm(int a[], int n) {
+		for (int i = 0; i < n; i += 2) {
+			if (i > 0 && a[i - 1] > a[i]) {
+				CommonUtil.swap(a, i, i - 1);
+			}
+			if (i < n - 1 && a[i + 1] > a[i]) {
+				CommonUtil.swap(a, i, i + 1);
+			}
+		}
+	}
+
+	public void findPairFromTwoArraysWhoseSumIsCloseToX(int[] a1, int[] a2, int m, int n, int x) {
+		int x1 = Integer.MAX_VALUE, x2 = Integer.MAX_VALUE;
+		int l1 = 0;// left of 1st array
+		int r2 = n - 1; // right of 2nd array
+		int minDiff = Integer.MAX_VALUE;
+		int curDiff;
+		while (l1 < m && r2 >= 0) {
+			curDiff = a1[l1] + a2[r2] - x;
+			if (Math.abs(curDiff) < minDiff) {
+				minDiff = curDiff;
+				x1 = a1[l1];
+				x2 = a2[r2];
+			}
+			if (curDiff < 0) {
+				l1++;
+			} else {
+				r2--;
+			}
+
+		}
+		System.out.println("x1=" + x1 + ", x2=" + x2 + ", close To : " + x);
+	}
+
+	// Time : O(n1+n2+n3), Space : O(1)
+	public void intersectionWithoutExtraSpace(int[] a, int[] b, int[] c) {
+		int n1 = a.length, n2 = b.length, n3 = c.length;
+		int i, j, k;
+		i = j = k = 0;
+
+		while (i < n1 && j < n2 && k < n3) {
+			if (a[i] == b[j] && b[j] == c[k]) {
+				System.out.print(a[i] + " ");
+				i++;
+				j++;
+				k++;
+			}
+			// a[i]
+			else if (a[i] < b[j]) {
+				i++;
+			} else if (b[j] < c[k]) {
+				j++;
+			} else {
+				// we reach here when a[i]>b[j] && b[j] > c[k]
+				// it means c[k] is the smallest
+				k++;
+			}
+		}
+		System.out.println();
+	}
+
+	public void findPairWithSumCloseToK(int a[], int n, int k) {
+		int l = 0, r = n - 1;
+		int diff;
+		int minDiff = Integer.MAX_VALUE;
+		int x = -1, y = -1;
+		while (l < r) {
+			diff = a[l] + a[r] - k;
+			if (Math.abs(diff) < minDiff) {
+				minDiff = diff;
+				x = a[l];
+				y = a[r];
+			}
+			if (diff < 0) {
+				l++;
+			} else {
+				r--;
+			}
+		}
+		System.out.println("x=" + x + ",y=" + y);
+	}
+
 }

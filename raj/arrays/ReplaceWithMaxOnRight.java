@@ -36,23 +36,4 @@ public class ReplaceWithMaxOnRight {
 			a[i] = temp;
 		}
 	}
-
-	public void leadersInArrayBruteForce(int[] a, int n) {
-		boolean isNotLeader;
-		for (int i = 0; i < n; i++) {
-			isNotLeader = false;
-			for (int j = n - 1; j > i && !isNotLeader; j--) {
-				if (a[i] > a[j]) {
-
-				} else {
-					isNotLeader = true;
-				}
-			}
-			if (!isNotLeader) {
-				System.out.print(a[i] + " ");
-			}
-		}
-		System.out.println();
-	}
-
 }

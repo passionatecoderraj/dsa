@@ -59,7 +59,7 @@ public class CountingSort {
 		for (int i = 1; i < m; i++) {
 			count[i] = count[i] + count[i - 1];
 		}
-		// CommonUtil.printArray(count);
+		CommonUtil.printArray(count);
 
 		for (int i = n - 1; i >= 0; i--) {
 			result[count[a[i]] - 1] = a[i];

@@ -727,7 +727,7 @@ public class PracticeDp {
 					t[i] += a[i][j];
 				}
 
-				KadaneResult kadane = new Practice().largestContiguousSumUsingKadane(t, t.length);
+				KadaneResult kadane = new PracticeArrays().largestContiguousSumUsingKadane(t, t.length);
 				if (kadane.maxSum > max) {
 					maxLeft = l;
 					maxRight = j;

@@ -1,4 +1,4 @@
-package com.interivew.graph;
+package com.interivew.practice;
 
 import java.util.Deque;
 import java.util.LinkedList;

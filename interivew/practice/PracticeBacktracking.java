@@ -1,4 +1,6 @@
-package com.interivew.graph;
+package com.interivew.practice;
+
+import com.interivew.graph.CommonUtil;
 
 public class PracticeBacktracking {
 

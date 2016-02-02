@@ -1,6 +1,8 @@
-package com.interivew.graph;
+package com.interivew.practice;
 
 import java.util.Arrays;
+
+import com.interivew.graph.CommonUtil;
 
 public class PracticeBinarySearchRelated {
 

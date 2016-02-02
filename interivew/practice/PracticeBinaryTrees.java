@@ -1,8 +1,9 @@
-package com.interivew.graph;
+package com.interivew.practice;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.interivew.graph.CommonUtil;
 import com.raj.nodes.BinaryTreeNode;
 
 public class PracticeBinaryTrees {

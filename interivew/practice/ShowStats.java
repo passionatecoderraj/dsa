@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.interivew.graph;
+package com.interivew.practice;
 
 import java.io.File;
 

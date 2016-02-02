@@ -1,5 +1,6 @@
-package com.interivew.graph;
+package com.interivew.practice;
 
+import com.interivew.graph.CommonUtil;
 import com.raj.linkedlist.CircularLinkedList;
 import com.raj.linkedlist.DoubleLinkedList;
 import com.raj.linkedlist.PalindromeCheckForList;

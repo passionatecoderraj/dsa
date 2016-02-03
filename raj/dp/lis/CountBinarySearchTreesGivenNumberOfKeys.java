@@ -16,7 +16,7 @@ public class CountBinarySearchTreesGivenNumberOfKeys {
 	// it means when we need for 'n' then calculate all possible sums for 'n-1'
 	// and multiply them
 	// for example, n=4 then for n=3 possible sums are{(3,0),(2,1),(1,2),(0,3)}
-	// result = t[3]*t[0] + t[2]*t[1] + t[1]*t[2] + t[0]*t[3]
+	// result = t[0]*t[3] + t[1]*t[2] + t[2]*t[1] + t[3]*t[0]
 	public int countBinarySearchTreesGivenNumberOfKeys(int n) {
 		if (n < 0)
 			return -1;

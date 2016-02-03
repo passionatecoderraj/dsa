@@ -355,6 +355,8 @@ public class PracticeBinarySearchTrees {
 
 	// k1<k2
 	public BinaryTreeNode<Integer> pruneBstOutsideRange(BinaryTreeNode<Integer> root, int k1, int k2) {
+		if (null == root)
+			return root;
 		root.left = pruneBstOutsideRange(root.left, k1, k2);
 		root.right = pruneBstOutsideRange(root.right, k1, k2);
 		if (root.data >= k1 && root.data <= k2)
@@ -450,6 +452,7 @@ public class PracticeBinarySearchTrees {
 	public void findInorderPredSuccWithoutRecurison(BinaryTreeNode<Integer> root, int data) {
 		if (root == null)
 			return;
+		BinaryTreeNode<Integer> predessor, successor;
 		while (root != null) {
 			if (root.data > data) {
 				successor = root;
@@ -470,59 +473,6 @@ public class PracticeBinarySearchTrees {
 				return;
 			}
 		}
-	}
-
-	public AVLTreeNode<Integer> rotateRight(AVLTreeNode<Integer> root) {
-		AVLTreeNode<Integer> temp = root.left;
-		root.left = temp.right;
-		temp.right = root;
-		temp.height = 1 + Math.max(height(temp.right), height(temp.left));
-		root.height = 1 + Math.max(height(root.right), height(root.left));
-		return temp;
-	}
-
-	public AVLTreeNode<Integer> rotateLeft(AVLTreeNode<Integer> root) {
-		AVLTreeNode<Integer> temp = root.right;
-		root.right = temp.left;
-		temp.left = root;
-
-		temp.height = 1 + Math.max(height(temp.right), height(temp.left));
-		root.height = 1 + Math.max(height(root.right), height(root.left));
-		return temp;
-	}
-
-	public int height(AVLTreeNode<Integer> root) {
-		return root == null ? 0 : root.height;
-	}
-
-	public AVLTreeNode<Integer> insert(AVLTreeNode<Integer> root, int data) {
-		if (null == root) {
-			root = new AVLTreeNode<Integer>(data, 1);
-		}
-		if (root.data > data) {
-			root.left = insert(root.left, data);
-			if (Math.abs(height(root.left) - height(root.right)) == 2) {
-				// LL imbalance
-				if (root.left.data > data) {
-					root = rotateRight(root);
-				} else {
-					root.left = rotateLeft(root.left);
-					root = rotateRight(root);
-				}
-			}
-		} else {
-			root.right = insert(root.right, data);
-			// RL imbalance
-			if (root.right.data > data) {
-				root = rotateLeft(root);
-
-			} else {
-				root.right = rotateRight(root.right);
-				root = rotateLeft(root);
-			}
-		}
-		root.height = 1 + Math.max(height(root.right), height(root.left));
-		return root;
 	}
 
 	public void findPairWithSumK(BinaryTreeNode<Integer> root, int k) {
@@ -565,162 +515,6 @@ public class PracticeBinarySearchTrees {
 				}
 			}
 
-		}
-	}
-
-	public AVLTreeNode<Integer> delete(AVLTreeNode<Integer> root, int data) {
-		if (root == null)
-			return root;
-		if (root.data > data) {
-			root.left = insert(root.left, data);
-			if (Math.abs(height(root.left) - height(root.right)) == 2) {
-				// LL imbalance
-				if (root.left.data > data) {
-					root = rotateRight(root);
-				} else {
-					root.left = rotateLeft(root.left);
-					root = rotateRight(root);
-				}
-			}
-		} else if (root.data < data) {
-			root.right = insert(root.right, data);
-			// RL imbalance
-			if (root.right.data > data) {
-				root = rotateLeft(root);
-
-			} else {
-				root.right = rotateRight(root.right);
-				root = rotateLeft(root);
-			}
-		} else {
-			if (AVLTree.isFullNode(root)) {
-				AVLTreeNode<Integer> predec = AVLTree.findMax(root.left);
-				root.data = predec.data;
-				root.left = delete(root.left, predec.data);
-			}
-		}
-		if (root != null)
-			root.height = 1 + Math.max(height(root.right), height(root.left));
-		return root;
-	}
-
-	// method 1
-	public boolean isAvl(AVLTreeNode<Integer> root) {
-		if (null == root)
-			return true;
-		return Math.abs(height(root.left) - height(root.right)) < 2 && isAvl(root.left) && isAvl(root.right);
-	}
-
-	// method 2
-	// using height function
-	// returns -1 if it's not avl; if its avl anything(0 to n) but -1
-	public int isAvlUsingHeight(AVLTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-		int left, right;
-		left = isAvlUsingHeight(root.left);
-		if (left == -1)
-			return -1;
-		right = isAvlUsingHeight(root.right);
-		if (right == -1)
-			return -1;
-		if (Math.abs(left - right) >= 2)
-			return -1;
-
-		return 1 + Math.max(left, right);
-	}
-
-	// method 1
-	public AVLTreeNode<Integer> mergeTwoBSTsUsingInorder(AVLTreeNode<Integer> r1, AVLTreeNode<Integer> r2) {
-		int m = AVLTree.size(r1);
-		int n = AVLTree.size(r2);
-		int a[] = new int[m + n];
-		inOrder(r1, a);
-		inOrder(r2, a);
-		new MergeSort().merge(a, 0, m - 1, m + n);
-		return arrayToAvl(a, 0, m + n - 1);
-	}
-
-	public AVLTreeNode<Integer> arrayToAvl(int[] a, int l, int r) {
-		if (l > r)
-			return null;
-		int mid = l + (r - l) / 2;
-		AVLTreeNode<Integer> node = new AVLTreeNode<>(a[mid]);
-		node.left = arrayToAvl(a, l, mid - 1);
-		node.right = arrayToAvl(a, mid + 1, r);
-		return node;
-	}
-
-	int index = 0;
-
-	public void inOrder(AVLTreeNode<Integer> root, int[] a) {
-		if (root != null) {
-			inOrder(root.left, a);
-			a[index++] = root.data;
-			inOrder(root.right, a);
-		}
-	}
-
-	// method 2
-	// mergeTwoBalancedBsts using dll
-	public AVLTreeNode<Integer> mergeTwoBSTsUsingDLLs(AVLTreeNode<Integer> r1, AVLTreeNode<Integer> r2) {
-		AVLTreeNode<Integer> head1, head2;
-		avl2Dll(r1);
-		head1 = headOfAvl;
-		avl2Dll(r1);
-		head2 = headOfAvl;
-		AVLTreeNode<Integer> head = merge(head1, head2);
-		return dll2Avl(head);
-	}
-
-	public AVLTreeNode<Integer> dll2Avl(AVLTreeNode<Integer> root) {
-		if (null == root || root.right == null)
-			return root;
-		AVLTreeNode<Integer> slow, fast;
-		slow = fast = root;
-		while (fast.right != null && fast.right.right != null) {
-			fast = fast.right.right;
-			slow = slow.right;
-		}
-		AVLTreeNode<Integer> mid = slow;
-		mid.right = null;
-		mid.left = dll2Avl(root);
-		mid.right.left = null;
-		mid.right = dll2Avl(mid.right);
-		return mid;
-	}
-
-	AVLTreeNode<Integer> headOfAvl = null, prevOfAvl = null;
-
-	public void avl2Dll(AVLTreeNode<Integer> root) {
-		if (null == root)
-			return;
-		avl2Dll(root.left);
-		if (headOfAvl == null) {
-			headOfAvl = root;
-		} else {
-			root.left = prevOfAvl;
-			prevOfAvl.right = root;
-		}
-		prevOfAvl = root;
-		avl2Dll(root.right);
-	}
-
-	public AVLTreeNode<Integer> merge(AVLTreeNode<Integer> head1, AVLTreeNode<Integer> head2) {
-		if (head1 == null)
-			return head2;
-		if (head2 == null)
-			return head1;
-		if (head1.data <= head2.data) {
-			head1.right = merge(head1.right, head2);
-			head1.right.left = head1;
-			head1.left = null;
-			return head1;
-		} else {
-			head2.right = merge(head1, head2.right);
-			head2.right.left = head2;
-			head2.left = null;
-			return head2;
 		}
 	}
 
@@ -818,5 +612,218 @@ public class PracticeBinarySearchTrees {
 			}
 		}
 		return t[n];
+	}
+
+	// AVL related
+
+	public AVLTreeNode<Integer> rotateRight(AVLTreeNode<Integer> root) {
+		AVLTreeNode<Integer> temp = root.left;
+		root.left = temp.right;
+		temp.right = root;
+		temp.height = 1 + Math.max(height(temp.right), height(temp.left));
+		root.height = 1 + Math.max(height(root.right), height(root.left));
+		return temp;
+	}
+
+	public AVLTreeNode<Integer> rotateLeft(AVLTreeNode<Integer> root) {
+		AVLTreeNode<Integer> temp = root.right;
+		root.right = temp.left;
+		temp.left = root;
+
+		temp.height = 1 + Math.max(height(temp.right), height(temp.left));
+		root.height = 1 + Math.max(height(root.right), height(root.left));
+		return temp;
+	}
+
+	public int height(AVLTreeNode<Integer> root) {
+		return root == null ? 0 : root.height;
+	}
+
+	public AVLTreeNode<Integer> insert(AVLTreeNode<Integer> root, int data) {
+		if (null == root) {
+			root = new AVLTreeNode<Integer>(data, 1);
+		}
+		if (root.data > data) {
+			root.left = insert(root.left, data);
+			if (Math.abs(height(root.left) - height(root.right)) == 2) {
+				// LL imbalance
+				if (root.left.data > data) {
+					root = rotateRight(root);
+				} else {
+					root.left = rotateLeft(root.left);
+					root = rotateRight(root);
+				}
+			}
+		} else {
+			root.right = insert(root.right, data);
+			// RL imbalance
+			if (root.right.data > data) {
+				root = rotateLeft(root);
+
+			} else {
+				root.right = rotateRight(root.right);
+				root = rotateLeft(root);
+			}
+		}
+		root.height = 1 + Math.max(height(root.right), height(root.left));
+		return root;
+	}
+
+	public AVLTreeNode<Integer> delete(AVLTreeNode<Integer> root, int data) {
+		if (root == null)
+			return root;
+		if (root.data > data) {
+			root.left = insert(root.left, data);
+			if (Math.abs(height(root.left) - height(root.right)) == 2) {
+				// LL imbalance
+				if (root.left.data > data) {
+					root = rotateRight(root);
+				} else {
+					root.left = rotateLeft(root.left);
+					root = rotateRight(root);
+				}
+			}
+		} else if (root.data < data) {
+			root.right = insert(root.right, data);
+			// RL imbalance
+			if (root.right.data > data) {
+				root = rotateLeft(root);
+
+			} else {
+				root.right = rotateRight(root.right);
+				root = rotateLeft(root);
+			}
+		} else {
+			if (AVLTree.isFullNode(root)) {
+				AVLTreeNode<Integer> predec = AVLTree.findMax(root.left);
+				root.data = predec.data;
+				root.left = delete(root.left, predec.data);
+			}
+		}
+		if (root != null)
+			root.height = 1 + Math.max(height(root.right), height(root.left));
+		return root;
+	}
+
+	// method 1
+	public boolean isAvl(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return true;
+		return Math.abs(height(root.left) - height(root.right)) < 2 && isAvl(root.left) && isAvl(root.right);
+	}
+
+	// method 2
+	// using height function
+	// returns -1 if it's not avl; if its avl anything(0 to n) but -1
+	public int isAvlUsingHeight(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		int left, right;
+		left = isAvlUsingHeight(root.left);
+		if (left == -1)
+			return -1;
+		right = isAvlUsingHeight(root.right);
+		if (right == -1)
+			return -1;
+		if (Math.abs(left - right) >= 2)
+			return -1;
+
+		return 1 + Math.max(left, right);
+	}
+
+	// method 1
+	// Time : O(m+n), Space : O(m+n)
+	public AVLTreeNode<Integer> mergeTwoBSTsUsingInorder(AVLTreeNode<Integer> r1, AVLTreeNode<Integer> r2) {
+		int m = AVLTree.size(r1);
+		int n = AVLTree.size(r2);
+		int a[] = new int[m + n];
+		inOrder(r1, a);
+		inOrder(r2, a);
+		new MergeSort().merge(a, 0, m - 1, m + n);
+		return arrayToAvl(a, 0, m + n - 1);
+	}
+
+	public AVLTreeNode<Integer> arrayToAvl(int[] a, int l, int r) {
+		if (l > r)
+			return null;
+		int mid = l + (r - l) / 2;
+		AVLTreeNode<Integer> node = new AVLTreeNode<>(a[mid]);
+		node.left = arrayToAvl(a, l, mid - 1);
+		node.right = arrayToAvl(a, mid + 1, r);
+		return node;
+	}
+
+	int index = 0;
+
+	public void inOrder(AVLTreeNode<Integer> root, int[] a) {
+		if (root != null) {
+			inOrder(root.left, a);
+			a[index++] = root.data;
+			inOrder(root.right, a);
+		}
+	}
+
+	// method 2
+	// mergeTwoBalancedBsts using dll
+	// Time : O(m+n), Space : O(1)
+	public AVLTreeNode<Integer> mergeTwoBSTsUsingDLLs(AVLTreeNode<Integer> r1, AVLTreeNode<Integer> r2) {
+		AVLTreeNode<Integer> head1, head2;
+		avl2Dll(r1);
+		head1 = headOfAvl;
+		avl2Dll(r1);
+		head2 = headOfAvl;
+		AVLTreeNode<Integer> head = merge(head1, head2);
+		return dll2Avl(head);
+	}
+
+	public AVLTreeNode<Integer> dll2Avl(AVLTreeNode<Integer> root) {
+		if (null == root || root.right == null)
+			return root;
+		AVLTreeNode<Integer> slow, fast;
+		slow = fast = root;
+		while (fast.right != null && fast.right.right != null) {
+			fast = fast.right.right;
+			slow = slow.right;
+		}
+		AVLTreeNode<Integer> mid = slow;
+		mid.right = null;
+		mid.left = dll2Avl(root);
+		mid.right.left = null;
+		mid.right = dll2Avl(mid.right);
+		return mid;
+	}
+
+	AVLTreeNode<Integer> headOfAvl = null, prevOfAvl = null;
+
+	public void avl2Dll(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return;
+		avl2Dll(root.left);
+		if (headOfAvl == null) {
+			headOfAvl = root;
+		} else {
+			root.left = prevOfAvl;
+			prevOfAvl.right = root;
+		}
+		prevOfAvl = root;
+		avl2Dll(root.right);
+	}
+
+	public AVLTreeNode<Integer> merge(AVLTreeNode<Integer> head1, AVLTreeNode<Integer> head2) {
+		if (head1 == null)
+			return head2;
+		if (head2 == null)
+			return head1;
+		if (head1.data <= head2.data) {
+			head1.right = merge(head1.right, head2);
+			head1.right.left = head1;
+			head1.left = null;
+			return head1;
+		} else {
+			head2.right = merge(head1, head2.right);
+			head2.right.left = head2;
+			head2.left = null;
+			return head2;
+		}
 	}
 }

@@ -9,7 +9,7 @@ import com.raj.nodes.BinaryTreeNode;
  * @author Raj
  *
  */
-public class PruneBSTIfNotInRange {
+public class PruneBSTOutsideRange {
 
 	/**
 	 * @param args
@@ -27,7 +27,7 @@ public class PruneBSTIfNotInRange {
 		tree.root = tree.insert(tree.root, 13);
 		tree.inOrder(tree.root);
 		System.out.println();
-		PruneBSTIfNotInRange obj = new PruneBSTIfNotInRange();
+		PruneBSTOutsideRange obj = new PruneBSTOutsideRange();
 
 		// remove keys from bst if they are not in the ranges
 

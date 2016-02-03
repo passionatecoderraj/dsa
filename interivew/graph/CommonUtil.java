@@ -121,4 +121,11 @@ public class CommonUtil {
 		i.data = j.data;
 		j.data = temp;
 	}
+
+	public static void swap(BinaryTreeNode<Integer> a, BinaryTreeNode<Integer> b) {
+		a.data = a.data ^ b.data;
+		b.data = a.data ^ b.data;
+		a.data = a.data ^ b.data;
+
+	}
 }

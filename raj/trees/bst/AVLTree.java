@@ -187,7 +187,7 @@ public class AVLTree {
 		return root;
 	}
 
-	public AVLTreeNode<Integer> findMax(AVLTreeNode<Integer> root) {
+	public static AVLTreeNode<Integer> findMax(AVLTreeNode<Integer> root) {
 		if (null == root)
 			return root;
 		while (root.right != null) {
@@ -231,11 +231,11 @@ public class AVLTree {
 		return root.height;
 	}
 
-	public boolean isFullNode(AVLTreeNode<Integer> root) {
+	public static boolean isFullNode(AVLTreeNode<Integer> root) {
 		return root.left != null && root.right != null;
 	}
 
-	public int size(AVLTreeNode<Integer> root2) {
+	public static int size(AVLTreeNode<Integer> root2) {
 		if (null == root2)
 			return 0;
 		return 1 + size(root2.left) + size(root2.right);

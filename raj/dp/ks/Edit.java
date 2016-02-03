@@ -1,12 +1,10 @@
 package com.raj.dp.ks;
 
-import com.interivew.graph.CommonUtil;
-
 public class Edit {
 
 	public static void main(String[] args) {
-		String x = "saturday";
-		String y = "sunday";
+		String x = "banana";
+		String y = "bananab";
 		// String x = "AG";
 		// String y = "GXX";
 		Edit obj = new Edit();
@@ -38,7 +36,7 @@ public class Edit {
 				}
 			}
 		}
-	//	CommonUtil.print2DArray(t, m + 1, n + 1);
+		// CommonUtil.print2DArray(t, m + 1, n + 1);
 		return t[m][n];
 	}
 

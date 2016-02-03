@@ -1,10 +1,16 @@
 package com.interivew.practice;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.interivew.graph.CommonUtil;
+import com.raj.nodes.AVLTreeNode;
 import com.raj.nodes.BinaryTreeNode;
 import com.raj.nodes.DLLNode;
+import com.raj.sorting.MergeSort;
+import com.raj.trees.binary.BinaryTree;
+import com.raj.trees.bst.AVLTree;
 
 public class PracticeBinarySearchTrees {
 	public BinaryTreeNode<Integer> findMax(BinaryTreeNode<Integer> root) {
@@ -464,5 +470,332 @@ public class PracticeBinarySearchTrees {
 				return;
 			}
 		}
+	}
+
+	public AVLTreeNode<Integer> rotateRight(AVLTreeNode<Integer> root) {
+		AVLTreeNode<Integer> temp = root.left;
+		root.left = temp.right;
+		temp.right = root;
+		temp.height = 1 + Math.max(height(temp.right), height(temp.left));
+		root.height = 1 + Math.max(height(root.right), height(root.left));
+		return temp;
+	}
+
+	public AVLTreeNode<Integer> rotateLeft(AVLTreeNode<Integer> root) {
+		AVLTreeNode<Integer> temp = root.right;
+		root.right = temp.left;
+		temp.left = root;
+
+		temp.height = 1 + Math.max(height(temp.right), height(temp.left));
+		root.height = 1 + Math.max(height(root.right), height(root.left));
+		return temp;
+	}
+
+	public int height(AVLTreeNode<Integer> root) {
+		return root == null ? 0 : root.height;
+	}
+
+	public AVLTreeNode<Integer> insert(AVLTreeNode<Integer> root, int data) {
+		if (null == root) {
+			root = new AVLTreeNode<Integer>(data, 1);
+		}
+		if (root.data > data) {
+			root.left = insert(root.left, data);
+			if (Math.abs(height(root.left) - height(root.right)) == 2) {
+				// LL imbalance
+				if (root.left.data > data) {
+					root = rotateRight(root);
+				} else {
+					root.left = rotateLeft(root.left);
+					root = rotateRight(root);
+				}
+			}
+		} else {
+			root.right = insert(root.right, data);
+			// RL imbalance
+			if (root.right.data > data) {
+				root = rotateLeft(root);
+
+			} else {
+				root.right = rotateRight(root.right);
+				root = rotateLeft(root);
+			}
+		}
+		root.height = 1 + Math.max(height(root.right), height(root.left));
+		return root;
+	}
+
+	public void findPairWithSumK(BinaryTreeNode<Integer> root, int k) {
+		if (null == root) {
+			return;
+		}
+
+		Deque<BinaryTreeNode<Integer>> stack1 = new LinkedList<BinaryTreeNode<Integer>>();
+		Deque<BinaryTreeNode<Integer>> stack2 = new LinkedList<BinaryTreeNode<Integer>>();
+		BinaryTreeNode<Integer> temp1, temp2, pop1 = null, pop2 = null;
+		temp1 = temp2 = root;
+		while (true) {
+			if (temp1 != null || temp2 != null) {
+				if (temp1 != null) {
+					stack1.push(temp1);
+					temp1 = temp1.left;
+				}
+				if (temp2 != null) {
+					stack2.push(temp2);
+					temp2 = temp2.left;
+				}
+
+			} else {
+				if (stack1.isEmpty() || stack2.isEmpty())
+					break;
+				pop1 = stack1.pop();
+				pop2 = stack2.pop();
+
+				int sum = pop1.data + pop2.data;
+				if (sum > k) {
+					temp1 = pop1.right;
+					stack2.push(pop2);
+				} else if (sum < k) {
+					temp2 = pop2.right;
+					stack1.push(pop1);
+				} else {
+					System.out.println(pop1.data + "+" + pop2.data + "=" + k);
+					temp1 = pop1.right;
+					temp2 = pop2.right;
+				}
+			}
+
+		}
+	}
+
+	public AVLTreeNode<Integer> delete(AVLTreeNode<Integer> root, int data) {
+		if (root == null)
+			return root;
+		if (root.data > data) {
+			root.left = insert(root.left, data);
+			if (Math.abs(height(root.left) - height(root.right)) == 2) {
+				// LL imbalance
+				if (root.left.data > data) {
+					root = rotateRight(root);
+				} else {
+					root.left = rotateLeft(root.left);
+					root = rotateRight(root);
+				}
+			}
+		} else if (root.data < data) {
+			root.right = insert(root.right, data);
+			// RL imbalance
+			if (root.right.data > data) {
+				root = rotateLeft(root);
+
+			} else {
+				root.right = rotateRight(root.right);
+				root = rotateLeft(root);
+			}
+		} else {
+			if (AVLTree.isFullNode(root)) {
+				AVLTreeNode<Integer> predec = AVLTree.findMax(root.left);
+				root.data = predec.data;
+				root.left = delete(root.left, predec.data);
+			}
+		}
+		if (root != null)
+			root.height = 1 + Math.max(height(root.right), height(root.left));
+		return root;
+	}
+
+	// method 1
+	public boolean isAvl(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return true;
+		return Math.abs(height(root.left) - height(root.right)) < 2 && isAvl(root.left) && isAvl(root.right);
+	}
+
+	// method 2
+	// using height function
+	// returns -1 if it's not avl; if its avl anything(0 to n) but -1
+	public int isAvlUsingHeight(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		int left, right;
+		left = isAvlUsingHeight(root.left);
+		if (left == -1)
+			return -1;
+		right = isAvlUsingHeight(root.right);
+		if (right == -1)
+			return -1;
+		if (Math.abs(left - right) >= 2)
+			return -1;
+
+		return 1 + Math.max(left, right);
+	}
+
+	// method 1
+	public AVLTreeNode<Integer> mergeTwoBSTsUsingInorder(AVLTreeNode<Integer> r1, AVLTreeNode<Integer> r2) {
+		int m = AVLTree.size(r1);
+		int n = AVLTree.size(r2);
+		int a[] = new int[m + n];
+		inOrder(r1, a);
+		inOrder(r2, a);
+		new MergeSort().merge(a, 0, m - 1, m + n);
+		return arrayToAvl(a, 0, m + n - 1);
+	}
+
+	public AVLTreeNode<Integer> arrayToAvl(int[] a, int l, int r) {
+		if (l > r)
+			return null;
+		int mid = l + (r - l) / 2;
+		AVLTreeNode<Integer> node = new AVLTreeNode<>(a[mid]);
+		node.left = arrayToAvl(a, l, mid - 1);
+		node.right = arrayToAvl(a, mid + 1, r);
+		return node;
+	}
+
+	int index = 0;
+
+	public void inOrder(AVLTreeNode<Integer> root, int[] a) {
+		if (root != null) {
+			inOrder(root.left, a);
+			a[index++] = root.data;
+			inOrder(root.right, a);
+		}
+	}
+
+	// method 2
+	// mergeTwoBalancedBsts using dll
+	public AVLTreeNode<Integer> mergeTwoBSTsUsingDLLs(AVLTreeNode<Integer> r1, AVLTreeNode<Integer> r2) {
+		AVLTreeNode<Integer> head1, head2;
+		avl2Dll(r1);
+		head1 = headOfAvl;
+		avl2Dll(r1);
+		head2 = headOfAvl;
+		AVLTreeNode<Integer> head = merge(head1, head2);
+		return dll2Avl(head);
+	}
+
+	public AVLTreeNode<Integer> dll2Avl(AVLTreeNode<Integer> root) {
+		if (null == root || root.right == null)
+			return root;
+		AVLTreeNode<Integer> slow, fast;
+		slow = fast = root;
+		while (fast.right != null && fast.right.right != null) {
+			fast = fast.right.right;
+			slow = slow.right;
+		}
+		AVLTreeNode<Integer> mid = slow;
+		mid.right = null;
+		mid.left = dll2Avl(root);
+		mid.right.left = null;
+		mid.right = dll2Avl(mid.right);
+		return mid;
+	}
+
+	AVLTreeNode<Integer> headOfAvl = null, prevOfAvl = null;
+
+	public void avl2Dll(AVLTreeNode<Integer> root) {
+		if (null == root)
+			return;
+		avl2Dll(root.left);
+		if (headOfAvl == null) {
+			headOfAvl = root;
+		} else {
+			root.left = prevOfAvl;
+			prevOfAvl.right = root;
+		}
+		prevOfAvl = root;
+		avl2Dll(root.right);
+	}
+
+	public AVLTreeNode<Integer> merge(AVLTreeNode<Integer> head1, AVLTreeNode<Integer> head2) {
+		if (head1 == null)
+			return head2;
+		if (head2 == null)
+			return head1;
+		if (head1.data <= head2.data) {
+			head1.right = merge(head1.right, head2);
+			head1.right.left = head1;
+			head1.left = null;
+			return head1;
+		} else {
+			head2.right = merge(head1, head2.right);
+			head2.right.left = head2;
+			head2.left = null;
+			return head2;
+		}
+	}
+
+	// Two nodes of a BST are swapped, correct the BST
+	// two cases :
+	// case 1 : two numbers are not in order (10,2)
+	// 10 and 2 are swapped
+	// {1,10,3,6,10,7,2,12}
+	// case 2 : two swapped can be not adjacent
+	// case 2 : only one number is misplaced that is 2
+	// (or adjacent elements are misplaced)
+	// {1,3,2,6,7,10, 12}
+	// Time : O(n)
+	public BinaryTreeNode<Integer> correctBst(BinaryTreeNode<Integer> root) {
+		first = firstPrev = second = secondPrev = null;
+		findSwappedNodes(root);
+		if (first == null) {
+			System.out.println("No swapped nodes");
+		} else {
+			// nodes are adjacent
+			if (second == null) {
+				CommonUtil.swap(first, firstPrev);
+			} else {
+				CommonUtil.swap(firstPrev, second);
+			}
+		}
+		return root;
+	}
+
+	BinaryTreeNode<Integer> first, firstPrev, second, secondPrev;
+
+	public void findSwappedNodes(BinaryTreeNode<Integer> root) {
+		findSwappedNodes(root.left);
+		if (first == null) {
+			if (firstPrev == null) {
+				firstPrev = root;
+			} else if (firstPrev != null && root.data <= firstPrev.data) {
+				first = root;
+			}
+		}
+		if (second == null) {
+			if (secondPrev == null) {
+				secondPrev = root;
+			} else if (secondPrev != null && root.data <= secondPrev.data) {
+				second = root;
+			}
+		}
+
+		findSwappedNodes(root.right);
+	}
+
+	public void constructBstFromBinaryTree(BinaryTreeNode<Integer> root) {
+		int a[] = new int[BinaryTree.size(root)];
+		inOrderToCopyInArrayFromTree(root, a);
+		Arrays.sort(a);
+		inOrderToCopyInTreeFromArray(root, a);
+	}
+
+	int idx = 0;
+
+	public void inOrderToCopyInArrayFromTree(BinaryTreeNode<Integer> root, int a[]) {
+		if (null == root)
+			return;
+		inOrderToCopyInArrayFromTree(root.left, a);
+		a[idx++] = root.data;
+		inOrderToCopyInArrayFromTree(root.right, a);
+	}
+
+	int indx = 0;
+
+	public void inOrderToCopyInTreeFromArray(BinaryTreeNode<Integer> root, int a[]) {
+		if (null == root)
+			return;
+		inOrderToCopyInTreeFromArray(root.left, a);
+		root.data = a[indx++];
+		inOrderToCopyInTreeFromArray(root.right, a);
 	}
 }

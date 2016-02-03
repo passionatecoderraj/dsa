@@ -12,18 +12,6 @@ import com.raj.sorting.MergeSort;
  */
 public class MergeTwoBalancedBSTs {
 
-	public void printDLL(AVLTreeNode<Integer> head) {
-		if (null == head) {
-			System.out.println("Empty");
-			return;
-		}
-		while (head != null) {
-			System.out.print(head.data + " ");
-			head = head.right;
-		}
-		System.out.println();
-	}
-
 	/**
 	 * @param args
 	 */
@@ -47,6 +35,8 @@ public class MergeTwoBalancedBSTs {
 		AVLTreeNode<Integer> result = null;
 		// Time : O(m+n), Space : O(m+n)
 		result = obj.mergeUsingInorder(tree, tree2);
+		tree.inOrder(result);
+		System.out.println();
 		// it uses inplace conversions to change from dll to bst and vice versa
 		// Time : O(m+n) if balanced bst, Space : O(log(m+n))
 		result = obj.mergeUsingDLL(tree, tree2);
@@ -134,16 +124,16 @@ public class MergeTwoBalancedBSTs {
 		// CommonUtil.printArray(a);
 		new MergeSort().merge(a, 0, m - 1, m + n - 1);
 
-		return sortedArrayToBST(a, 0, m + n - 1);
+		return sortedArrayToAvl(a, 0, m + n - 1);
 	}
 
-	public AVLTreeNode<Integer> sortedArrayToBST(int[] a, int start, int end) {
+	public AVLTreeNode<Integer> sortedArrayToAvl(int[] a, int start, int end) {
 		if (start > end)
 			return null;
 		int mid = start + (end - start) / 2;
 		AVLTreeNode<Integer> node = new AVLTreeNode<Integer>(a[mid]);
-		node.left = sortedArrayToBST(a, start, mid - 1);
-		node.right = sortedArrayToBST(a, mid + 1, end);
+		node.left = sortedArrayToAvl(a, start, mid - 1);
+		node.right = sortedArrayToAvl(a, mid + 1, end);
 		return node;
 	}
 
@@ -157,4 +147,5 @@ public class MergeTwoBalancedBSTs {
 		}
 	}
 
+	
 }

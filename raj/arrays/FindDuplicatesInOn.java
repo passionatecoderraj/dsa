@@ -20,13 +20,13 @@ public class FindDuplicatesInOn {
 	public static void main(String[] args) {
 		FindDuplicatesInOn obj = new FindDuplicatesInOn();
 		int a[] = { 1, 3, 2, 0, 1, 0, 3, 6 };
-		int b[] = { 1, 6, 2, 0, 1, 0, 6, 6 };
+		// int b[] = { 1, 6, 2, 0, 1, 0, 6, 6 };
 		int n = a.length;
 
 		// Time : O(n), Space : O(1)
 		// it's allowed only if we are allowed to modify existing values
 		// with out zeroes
-		obj.findDuplicates(a, a.length);
+		obj.findDuplicates(a, n);
 		// with zeroes
 		// obj.findRepeatElements(b, b.length);
 	}

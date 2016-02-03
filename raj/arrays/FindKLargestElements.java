@@ -5,8 +5,6 @@ package com.raj.arrays;
 
 import java.util.Arrays;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
 import com.raj.ds.MaxHeap;
 
 /**

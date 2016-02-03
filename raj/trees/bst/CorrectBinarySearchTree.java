@@ -10,6 +10,9 @@ import com.raj.trees.binary.BinaryTree;
  * @author Raj
  *
  */
+/*
+ * Two nodes of a BST are swapped, correct the BST
+ */
 public class CorrectBinarySearchTree {
 
 	/**
@@ -36,7 +39,7 @@ public class CorrectBinarySearchTree {
 		System.out.println();
 
 		// case 2 : only one number is misplaced that is 2
-		// (or adjascent elements are misplaced)
+		// (or adjacent elements are misplaced)
 		// {1,3,2,6,7,10, 12}
 		BinaryTree tree2 = new BinaryTree();
 		tree2.insert(6);

@@ -12,7 +12,7 @@ import com.raj.nodes.BinaryTreeNode;
  * @author Raj
  *
  */
-public class CheckPairWithSumK {
+public class FindPairWithSumK {
 
 	/**
 	 * @param args
@@ -28,7 +28,7 @@ public class CheckPairWithSumK {
 		tree.root = tree.insert(tree.root, 25);
 		tree.inOrder(tree.root);
 		System.out.println();
-		CheckPairWithSumK obj = new CheckPairWithSumK();
+		FindPairWithSumK obj = new FindPairWithSumK();
 
 		int k = 26;
 		obj.checkPairWithSumK(tree.root, k);

@@ -13,8 +13,8 @@ public class MinNumberOfOpertionsToConvertToPalindrome {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String str = "abcd";
-
+		String str = "ananab";
+		// this program may be wrong
 		int result = -1;
 		MinNumberOfOpertionsToConvertToPalindrome obj = new MinNumberOfOpertionsToConvertToPalindrome();
 		result = obj.numberOfOperations(str);
@@ -27,9 +27,8 @@ public class MinNumberOfOpertionsToConvertToPalindrome {
 		int total = 0, v;
 		while (l < r) {
 			if (str.charAt(l) != str.charAt(r)) {
-				v = Character.getNumericValue(str.charAt(r)) - Character.getNumericValue(str.charAt(l));
-				if (v > 0)
-					total += v;
+				v = Math.abs(Character.getNumericValue(str.charAt(r)) - Character.getNumericValue(str.charAt(l)));
+				total += v;
 			}
 			l++;
 			r--;

@@ -566,11 +566,11 @@ public class PracticeBinaryTrees {
 			System.out.print(root.data + " ");
 		} else {
 			if (ltr) {
-				printNodesAtGivenLevel(root.left, level + 1, ltr);
-				printNodesAtGivenLevel(root.right, level + 1, ltr);
+				printNodesAtGivenLevel(root.left, level - 1, ltr);
+				printNodesAtGivenLevel(root.right, level - 1, ltr);
 			} else {
-				printNodesAtGivenLevel(root.right, level + 1, ltr);
-				printNodesAtGivenLevel(root.left, level + 1, ltr);
+				printNodesAtGivenLevel(root.right, level - 1, ltr);
+				printNodesAtGivenLevel(root.left, level - 1, ltr);
 			}
 		}
 	}
@@ -644,8 +644,8 @@ public class PracticeBinaryTrees {
 		if (level == 1) {
 			System.out.print(root.data + " ");
 		} else {
-			printNodesAtGivenLevel(root.left, level + 1);
-			printNodesAtGivenLevel(root.right, level + 1);
+			printNodesAtGivenLevel(root.left, level - 1);
+			printNodesAtGivenLevel(root.right, level - 1);
 		}
 	}
 

@@ -1,5 +1,8 @@
 package com.interivew.practice;
 
+import java.util.List;
+
+import com.interivew.graph.BinaryMinHeap;
 import com.interivew.graph.CommonUtil;
 import com.raj.linkedlist.CircularLinkedList;
 import com.raj.linkedlist.DoubleLinkedList;
@@ -796,4 +799,137 @@ public class PracticeLinkedLists {
 
 		return result.root;
 	}
+
+	// Time : O(n)
+	public void removeDuplicatesInSortedList(ListNode<Integer> root) {
+		if (root == null || root.next == null)
+			return;
+		while (root.next != null) {
+			if (root.next.data == root.data)
+				root.next = root.next.next;
+			else
+				root = root.next.next;
+		}
+	}
+
+	// Time : O(n)
+	public void removeDuplicatesInSortedCircularList(ListNode<Integer> root) {
+		if (root == null || root.next == null)
+			return;
+		ListNode<Integer> cur = root;
+
+		while (cur.next != root) {
+			if (cur.next.data == cur.data)
+				cur.next = cur.next.next;
+			else
+				cur = cur.next.next;
+		}
+	}
+
+	// Time : O(n2)
+	public void removeDuplicatesInUnsortedList(ListNode<Integer> root) {
+		if (root == null || root.next == null)
+			return;
+		ListNode<Integer> cur1, cur2;
+		cur1 = root;
+		while (cur1 != null && cur1.next != null) {
+			cur2 = cur1;
+			while (cur2.next != null) {
+				if (cur1.data == cur2.next.data)
+					cur2.next = cur2.next.next;
+				else
+					cur2 = cur2.next;
+			}
+			cur1 = cur1.next;
+		}
+	}
+
+	// Time : O(nlogn)
+	public ListNode<Integer> removeDuplicatesInUnsortedListUsingSorting(ListNode<Integer> root) {
+		if (root == null || root.next == null)
+			return root;
+		root = mergeSort(root);
+		removeDuplicatesInSortedList(root);
+		return root;
+	}
+
+	// Time : O(n2)
+	public void removeDuplicatesInUnsortedCircularList(ListNode<Integer> root) {
+		if (root == null || root.next == null)
+			return;
+		ListNode<Integer> cur1, cur2;
+		cur1 = root;
+		while (cur1 != null && cur1.next != root) {
+			cur2 = cur1;
+			while (cur2.next != root) {
+				if (cur1.data == cur2.next.data)
+					cur2.next = cur2.next.next;
+				else
+					cur2 = cur2.next;
+			}
+			cur1 = cur1.next;
+		}
+	}
+
+	// Time : O(nlogn)
+	public ListNode<Integer> removeDuplicatesInUnsortedCircularListUsingSorting(ListNode<Integer> root) {
+		if (root == null || root.next == root)
+			return root;
+		ListNode<Integer> last;
+		last = new CircularLinkedList<Integer>().getLastNodeInCLL(root);
+		last.next = null;
+		root = mergeSort(root);
+		removeDuplicatesInSortedCircularList(root);
+		last = new CircularLinkedList<Integer>().getLastNodeInCLL(root);
+		last.next = root;
+		return root;
+	}
+
+	public ListNode<Integer> removeAllNodesOfData(ListNode<Integer> root, int data) {
+		if (root == null)
+			return root;
+		ListNode<Integer> cur, head;
+		head = new ListNode<Integer>(0);
+		head.next = root;
+		cur = head;
+		while (cur.next != null) {
+			if (cur.next.data == data)
+				cur.next = cur.next.next;
+			else
+				cur = cur.next;
+		}
+		return head.next;
+	}
+
+	public ListNode<Integer> mergeKSortedLists(List<ListNode<Integer>> list) {
+		if (null == list)
+			return null;
+		BinaryMinHeap<ListNode<Integer>> heap = new BinaryMinHeap<>();
+
+		int k = list.size();
+		ListNode<Integer> temp = null;
+
+		for (int i = 0; i < k; i++) {
+			temp = list.get(i);
+			if (temp != null)
+				heap.add(temp.data, temp);
+		}
+		ListNode<Integer> head = null, cur = null;
+
+		while (heap.size() > 0) {
+			temp = heap.extractMin();
+			if (null == head) {
+				head = temp;
+				cur = head;
+			} else {
+				cur.next = temp;
+				cur = cur.next;
+			}
+			if (temp.next != null) {
+				heap.add(temp.next.data, temp.next);
+			}
+		}
+		return head;
+	}
+
 }

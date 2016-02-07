@@ -62,14 +62,14 @@ public class MaximizeStockProfitWithKTransactions {
 
 	// buy and sell utmost once
 	public int maxProfitWithAtMost1Transaction(int[] a, int n) {
-		if (n <= 0)
+		if (n <= 1)
 			return -1;
-		int min_so_far = Integer.MAX_VALUE;
+		int min_so_far = a[0];
 		int maxProfit = Integer.MIN_VALUE;
 
-		for (int i = 0; i < n; i++) {
-			min_so_far = Math.min(a[i], min_so_far);
+		for (int i = 1; i < n; i++) {
 			maxProfit = Math.max(maxProfit, a[i] - min_so_far);
+			min_so_far = Math.min(a[i], min_so_far);
 		}
 		return maxProfit;
 	}

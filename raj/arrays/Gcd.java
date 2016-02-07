@@ -17,10 +17,16 @@ public class Gcd {
 		int result = -1;
 		int l = 468, m = 24;
 
-		// Time :O(rows*cols), Space : O(rows*cols)
 		result = obj.gcd(l, m);
 		System.out.println(result);
+		
+		result = obj.gcdd(l, m);
+		System.out.println(result);
 
+	}
+
+	public int gcdd(int a, int b) {
+		return b != 0 ? gcdd(b, a % b) : a;
 	}
 
 	public int gcd(int l, int m) {
@@ -32,7 +38,7 @@ public class Gcd {
 			a = m;
 			b = l;
 		}
-		
+
 		int r;
 		while (a % b != 0) {
 			r = a % b;

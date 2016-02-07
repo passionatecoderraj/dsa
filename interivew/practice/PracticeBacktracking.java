@@ -222,8 +222,8 @@ public class PracticeBacktracking {
 		}
 		return true;
 	}
-	
-// m coloring
+
+	// m coloring
 	public void solveMColoring(int[][] a, int m) {
 		int n = a.length;
 		int sol[] = new int[n];
@@ -239,7 +239,7 @@ public class PracticeBacktracking {
 		if (ver == n)
 			return true;
 		for (int color = 1; color <= m; color++) {
-			if (isSafe(a, n, ver, color, sol)) {
+			if (isSafeForMColoring(a, n, ver, color, sol)) {
 				sol[ver] = color;
 				if (solveMColoringUtil(a, n, ver + 1, sol, m))
 					return true;
@@ -250,7 +250,7 @@ public class PracticeBacktracking {
 		return false;
 	}
 
-	public boolean isSafe(int[][] a, int n, int ver, int color, int[] sol) {
+	public boolean isSafeForMColoring(int[][] a, int n, int ver, int color, int[] sol) {
 		for (int i = 0; i < ver; i++) {
 			if (a[ver][i] == 1 && sol[i] == color)
 				return false;
@@ -258,5 +258,38 @@ public class PracticeBacktracking {
 		return true;
 	}
 
-	
+	public int countIslands(int a[][], int m, int n) {
+
+		int moves[][] = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { -1, 1 }, { -1, -1 }, { 1, 1 }, { -1, 1 } };
+		int count = 0;
+
+		boolean t[][] = new boolean[m][n];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (!t[i][j]) {
+					dfs(a, m, n, t, i, j, moves);
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+	public void dfs(int[][] a, int m, int n, boolean[][] t, int x, int y, int[][] moves) {
+
+		t[x][y] = true;
+		int _x, _y;
+		for (int i = 0; i < moves.length; i++) {
+			_x = x + moves[i][0];
+			_y = y + moves[i][1];
+			if (isSafeToMoveInIsland(a, m, n, _x, _y)) {
+				t[_x][_y] = true;
+			}
+		}
+	}
+
+	public boolean isSafeToMoveInIsland(int[][] a, int m, int n, int x, int y) {
+		return x >= 0 && x < m && y >= 0 && y < n && a[x][y] == 1;
+	}
+
 }

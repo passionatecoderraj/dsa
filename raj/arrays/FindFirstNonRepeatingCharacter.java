@@ -38,8 +38,7 @@ public class FindFirstNonRepeatingCharacter {
 		}
 
 		CommonUtil.printArray(count);
-		for (int i = 0; i < n; i++) {
-			index = Character.getNumericValue(a[i]);
+		for (int i = 0; i < 26; i++) {
 			if (count[i] == 1)
 				return a[i];
 		}

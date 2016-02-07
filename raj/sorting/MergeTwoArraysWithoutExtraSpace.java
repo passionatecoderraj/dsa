@@ -12,7 +12,7 @@ import com.interivew.graph.CommonUtil;
 /*
  * We have two sorted array. Without using additional memory we need to merge
  * these two arrays(longer array is having more space for merging). Output
- * should return through second arra
+ * should return through second arraY
  */
 public class MergeTwoArraysWithoutExtraSpace {
 

@@ -40,6 +40,13 @@ public class PruneBSTOutsideRange {
 	}
 
 	// k1 < k2
+	/**
+	 * 
+	 * @param root
+	 * @param k1
+	 * @param k2
+	 * @return
+	 */
 	public BinaryTreeNode<Integer> pruneBST(BinaryTreeNode<Integer> root, int k1, int k2) {
 		if (null == root)
 			return null;

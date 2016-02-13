@@ -89,9 +89,8 @@ public class IntersectionOf3SortedArrays {
 
 		// removing all other elements and creating new array
 		int result[] = new int[l];
-		for (i = 0; i < result.length; i++) {
-			result[i] = res[i];
-		}
+		System.arraycopy(res, 0, result, 0, l);
+		
 		return result;
 	}
 

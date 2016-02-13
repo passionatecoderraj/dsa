@@ -21,7 +21,7 @@ public class KnightsTour {
 	}
 
 	public void solveKT() {
-		int n = 6;
+		int n = 8;
 		int a[][] = new int[n][n];
 
 		for (int i = 0; i < n; i++) {

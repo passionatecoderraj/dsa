@@ -7,6 +7,11 @@ package com.raj.arrays;
  * @author Raj
  *
  */
+
+/*
+ * Given an unsorted array of nonnegative integers, find a continous subarray
+ * which adds to a given number.
+ */
 public class FindSubarrayOfSumK {
 
 	/**
@@ -53,7 +58,6 @@ public class FindSubarrayOfSumK {
 		}
 	}
 
-	
 	private void printSubarray(int[] a, int l, int r) {
 		for (int i = l; i <= r; i++) {
 			System.out.print(a[i] + " ");

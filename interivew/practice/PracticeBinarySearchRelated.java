@@ -184,10 +184,10 @@ public class PracticeBinarySearchRelated {
 	public int searchInRotatedArray(int a[], int n, int k) {
 		int pivot = findPivot(a, 0, n - 1);
 		if (pivot != -1) {
-			if (k > a[0] && k <= a[pivot - 1])
-				return binarySearch(a, 0, pivot - 1, k);
-			else
+			if (k >= a[pivot] && k <= a[n - 1])
 				return binarySearch(a, pivot, n - 1, k);
+			else
+				return binarySearch(a, 0, pivot - 1, k);
 		}
 		return -1;
 	}
@@ -196,7 +196,7 @@ public class PracticeBinarySearchRelated {
 		int first = first(a, 0, n - 1, key);
 		if (first != -1) {
 			int k = first + n / 2;
-			if (k <= n && a[k] == key)
+			if (k < n && a[k] == key)
 				return true;
 		}
 		return false;

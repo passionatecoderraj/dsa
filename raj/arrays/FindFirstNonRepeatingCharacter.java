@@ -8,8 +8,6 @@ import com.interivew.graph.CommonUtil;
 /**
  * @author Raj
  *
- *         Fixed Point in an array is an index i such that arr[i] is equal to i.
- *         Note that integers in array can be negative.
  */
 public class FindFirstNonRepeatingCharacter {
 

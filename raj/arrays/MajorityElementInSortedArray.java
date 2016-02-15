@@ -32,7 +32,7 @@ public class MajorityElementInSortedArray {
 		int i = binarySearch(a, 0, n - 1, x);
 		if (i >= 0) {
 			int k = i + n / 2;
-			if (k <= n && a[k] == x)
+			if (k < n && a[k] == x)
 				return true;
 
 		}

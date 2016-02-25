@@ -22,42 +22,6 @@ public class PracticeBinarySearchRelated {
 		return -1;
 	}
 
-	/*
-	 * The main idea for finding pivot is – for a sorted (in increasing order)
-	 * and pivoted array, pivot element is the only only element for which next
-	 * element to it is smaller than it.
-	 */
-	// {60,70,80, 10,20,30,40}
-	// it return index 2(of 80) in above example
-	public int findPivotInSortedArray(int a[], int l, int h) {
-		if (l > h)
-			return -1;
-		if (l == h)
-			return l;
-		if (h == l + 1) {
-			if (a[h] >= a[l]) {
-				return h;
-			} else {
-				return l;
-			}
-		}
-
-		int mid = l + (h - l) / 2;
-
-		if (mid < h && a[mid] > a[mid + 1]) {
-			return mid;
-		}
-
-		if (l < mid && a[mid - 1] > a[mid]) {
-			return mid - 1;
-		}
-		if (a[mid] > a[l]) {
-			return findPivotInSortedArray(a, mid + 1, h);
-		} else {
-			return findPivotInSortedArray(a, l, mid - 1);
-		}
-	}
-
 	public int findPivot(int a[], int l, int h) {
 		if (l > h)
 			return -1;

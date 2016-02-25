@@ -19,7 +19,7 @@ public class FindDuplicatesInOn {
 	 */
 	public static void main(String[] args) {
 		FindDuplicatesInOn obj = new FindDuplicatesInOn();
-		int a[] = { 1, 3, 2, 0, 1, 0, 3, 6 };
+		int a[] = { 0, 3, 5, 5, 1, 0, 3, 6 };
 		// int b[] = { 1, 6, 2, 0, 1, 0, 6, 6 };
 		int n = a.length;
 
@@ -51,8 +51,10 @@ public class FindDuplicatesInOn {
 			int j = Math.abs(a[i]);
 
 			if (j == n) {
-				System.out.println("Repeated : " + 0);
-			} else if (a[j] < 0) {
+				j = 0;
+			}
+
+			if (a[j] < 0) {
 				System.out.println("Repeated : " + j);
 			} else if (a[j] > 0) {
 				a[j] = -a[j];

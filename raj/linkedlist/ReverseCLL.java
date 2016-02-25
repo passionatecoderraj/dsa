@@ -35,21 +35,24 @@ public class ReverseCLL<T> {
 		obj.print();
 	}
 
+	// Time : O(n)
 	public void reverse(CircularLinkedList<Integer> obj) {
 		if (null == obj.root)
 			return;
-
 		ListNode<Integer> cur, prev, next;
 		cur = obj.root;
+
 		prev = null;
-		while (cur.next != obj.root) {
+		while (cur != null) {
 			next = cur.next;
 			cur.next = prev;
 			prev = cur;
 			cur = next;
+			if (cur == obj.root)
+				break;
 		}
-		cur.next = prev;
-		obj.root.next = cur;
-		obj.root = cur;
+		obj.root.next = prev;
+		obj.root = prev;
 	}
+
 }

@@ -564,14 +564,19 @@ public class PracticeArrays {
 		}
 	}
 
+	// range 1 to n
 	public void findTwoRepeatingNumbersUsingSignChange(int[] a, int n) {
 		int j;
 		for (int i = 0; i < n; i++) {
-			j = Math.abs(a[i]);
+			j = Math.abs(a[i]) - 1;
+			if (j == n)
+				j = 0;
 			if (a[j] < 0) {
 				System.out.println("Repeated : " + j);
-			} else {
+			} else if (a[j] > 0) {
 				a[j] = -a[j];
+			} else {
+				a[j] = -n;
 			}
 		}
 	}
@@ -656,8 +661,9 @@ public class PracticeArrays {
 		int j;
 		for (int i = 0; i < n; i++) {
 			j = Math.abs(a[i]);
-
-			if (j == n || a[j] < 0) {
+			if (j == n)
+				j = 0;
+			if (a[j] < 0) {
 				System.out.println("Duplicate : " + j);
 			} else if (a[j] == 0) {
 				a[j] = -n;
@@ -708,7 +714,9 @@ public class PracticeArrays {
 		int j;
 		for (int i = 0; i < n; i++) {
 			j = Math.abs(a[i] - minmax.min);
-			if (j == n || a[j] < 0) {
+			if (j == n)
+				j = 0;
+			if (a[j] < 0) {
 				return false;
 			} else if (a[j] == 0) {
 				a[j] = -n;
@@ -719,9 +727,7 @@ public class PracticeArrays {
 		return true;
 	}
 
-	// insert and delete k values at end(like stack)
-	// delete max from front always(like queue)
-	// Time : O(n), Space : O(k)
+	// Time : O(n), Space : O(n)
 	public int maxIndexDiff(int a[], int n) {
 		int maxIndexDiff = Integer.MIN_VALUE;
 
@@ -751,6 +757,8 @@ public class PracticeArrays {
 		return maxIndexDiff;
 	}
 
+	// insert and delete k values at end(like stack)
+	// delete max from front always(like queue)
 	// Time : O(n)
 	public void maxOfAllSubarraysOfSizeK(int a[], int n, int k) {
 
@@ -821,20 +829,14 @@ public class PracticeArrays {
 		if (n <= 0)
 			return minDistance;
 
-		int lastFound = -1, lastFoundIndex = -1;
+		int lastFoundIndex = -1;
 
 		for (int i = 0; i < n; i++) {
 			if (a[i] == x || a[i] == y) {
-				if (lastFound == -1) {
-					lastFound = a[i];
-					lastFoundIndex = i;
-				} else if (lastFound != a[i]) {
-					minDistance = Integer.min(i - lastFoundIndex, minDistance);
-					lastFound = a[i];
-					lastFoundIndex = i;
-				} else {
-					lastFoundIndex = i;
+				if (lastFoundIndex != -1 && a[i] != a[lastFoundIndex]) {
+					minDistance = Math.min(minDistance, i - lastFoundIndex);
 				}
+				lastFoundIndex = i;
 			}
 		}
 
@@ -935,19 +937,17 @@ public class PracticeArrays {
 			}
 
 			sum += a[i];
-			if (sum == k) {
-				printSubarray(a, l, i);
-				sum = sum - a[l];
-				l++;
+
+			while (l <= i && sum > k) {
+				sum -= a[l++];
 			}
 
-			while (sum > k) {
-				sum -= a[l];
-				l++;
-				if (sum == k) {
-					printSubarray(a, l, i);
-				}
+			if (sum == k) {
+				printSubarray(a, l, i);
+				sum = 0;
+				l = i + 1;
 			}
+
 		}
 	}
 

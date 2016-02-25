@@ -31,11 +31,14 @@ public class FindKthLargest {
 		if (low <= high) {
 			int pivot = randomPartitionDescending(a, low, high);
 			if (pivot - low == k) {
+				for (int i = pivot; i < a.length; i++)
+					System.out.print(a[i] + " ");
+				System.out.println();
 				return a[pivot];
 			} else if (k > pivot - low) {
-				return quickSelectFindKthLargest(a, pivot + 1, high, k - (pivot - low) - 1);
+				return quickSelectRandomPartition(a, pivot + 1, high, k - (pivot - low) - 1);
 			} else {
-				return quickSelectFindKthLargest(a, low, pivot - 1, k);
+				return quickSelectRandomPartition(a, low, pivot - 1, k);
 			}
 		}
 		return -1;

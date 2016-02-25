@@ -414,40 +414,38 @@ public class PracticeLinkedLists {
 
 	// Time : O(n)
 	public void reverse(DoubleLinkedList<Integer> obj) {
-		DLLNode<Integer> cur = obj.root, next;
+		DLLNode<Integer> cur = obj.root, prev = null;
 
 		if (cur == null) {
 			return;
 		}
-		while (cur.next != null) {
-			next = cur.next;
-			cur.next = cur.prev;
-			cur.prev = next;
-			cur = next;
-		}
-		cur.next = cur.prev;
-		cur.prev = null;
 
-		obj.root = cur;
+		while (cur != null) {
+			CommonUtil.swapLeftRight(cur);
+			prev = cur;
+			cur = cur.prev;
+		}
+		obj.root = prev;
 	}
 
 	// Time : O(n)
 	public void reverse(CircularLinkedList<Integer> obj) {
 		if (null == obj.root)
 			return;
-
 		ListNode<Integer> cur, prev, next;
 		cur = obj.root;
+
 		prev = null;
-		while (cur.next != obj.root) {
+		while (cur != null) {
 			next = cur.next;
 			cur.next = prev;
 			prev = cur;
 			cur = next;
+			if (cur == obj.root)
+				break;
 		}
-		cur.next = prev;
-		obj.root.next = cur;
-		obj.root = cur;
+		obj.root.next = prev;
+		obj.root = prev;
 	}
 
 	// Time : O(n)

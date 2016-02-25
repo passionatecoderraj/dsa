@@ -42,19 +42,17 @@ public class FindSubarrayOfSumK {
 			}
 
 			sum += a[i];
-			if (sum == k) {
-				printSubarray(a, l, i);
-				sum = sum - a[l];
-				l++;
+
+			while (l <= i && sum > k) {
+				sum -= a[l++];
 			}
 
-			while (sum > k) {
-				sum -= a[l];
-				l++;
-				if (sum == k) {
-					printSubarray(a, l, i);
-				}
+			if (sum == k) {
+				printSubarray(a, l, i);
+				sum = 0;
+				l = i + 1;
 			}
+
 		}
 	}
 

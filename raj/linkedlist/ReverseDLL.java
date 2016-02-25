@@ -3,6 +3,7 @@
  */
 package com.raj.linkedlist;
 
+import com.interivew.graph.CommonUtil;
 import com.raj.nodes.DLLNode;
 
 /**
@@ -36,24 +37,23 @@ public class ReverseDLL {
 		obj.print();
 		ob.reverse(obj);
 		obj.print();
+
 	}
 
 	// Time : O(n)
 	public void reverse(DoubleLinkedList<Integer> obj) {
-		DLLNode<Integer> cur = obj.root	, next;
+		DLLNode<Integer> cur = obj.root, prev = null;
 
 		if (cur == null) {
 			return;
 		}
-		while (cur.next != null) {
-			next = cur.next;
-			cur.next = cur.prev;
-			cur.prev = next;
-			cur = next;
-		}
-		cur.next = cur.prev;
-		cur.prev = null;
 
-		obj.root = cur;
+		while (cur != null) {
+			CommonUtil.swapLeftRight(cur);
+			prev = cur;
+			cur = cur.prev;
+		}
+		obj.root = prev;
 	}
+
 }

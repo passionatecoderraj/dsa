@@ -24,6 +24,7 @@ public class MaxSumForNonAdjascentPositiveNumbers {
 			temp = incl;
 			incl = Math.max(excl + a[i], incl);
 			excl = temp;
+	//		System.out.println("incl=" + incl + ",excl=" + excl);
 		}
 		return incl;
 	}

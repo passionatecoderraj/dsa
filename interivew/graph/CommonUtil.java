@@ -128,4 +128,10 @@ public class CommonUtil {
 		a.data = a.data ^ b.data;
 
 	}
+
+	public static void swapLeftRight(DLLNode<Integer> cur) {
+		DLLNode<Integer> temp = cur.next;
+		cur.next = cur.prev;
+		cur.prev = temp;
+	}
 }

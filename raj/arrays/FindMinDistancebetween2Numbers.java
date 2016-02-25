@@ -27,6 +27,29 @@ public class FindMinDistancebetween2Numbers {
 
 		result = obj.minDistanceBetweenTwoNumber(a, n, x, y);
 		System.out.println(result);
+
+		result = obj.minDistanceBetweenTwoNumber2(a, n, x, y);
+		System.out.println(result);
+
+	}
+
+	public int minDistanceBetweenTwoNumber2(int a[], int n, int x, int y) {
+		int minDistance = Integer.MAX_VALUE;
+		if (n <= 0)
+			return minDistance;
+
+		int lastFoundIndex = -1;
+
+		for (int i = 0; i < n; i++) {
+			if (a[i] == x || a[i] == y) {
+				if (lastFoundIndex != -1 && a[i] != a[lastFoundIndex]) {
+					minDistance = Math.min(minDistance, i - lastFoundIndex);
+				}
+				lastFoundIndex = i;
+			}
+		}
+
+		return minDistance;
 	}
 
 	public int minDistanceBetweenTwoNumber(int a[], int n, int x, int y) {

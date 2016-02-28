@@ -31,21 +31,19 @@ public class PetrolPump {
 	}
 
 	public int indexToStartForPetrolPump(int[][] a, int n) {
-
 		int cur_petrol = a[0][0] - a[0][1];
-		int start = 0, end = 1;
-		while (start != end || cur_petrol < 0) {
-			while (start != end && cur_petrol < 0) {
-				cur_petrol -= (a[start][0] - a[start][1]);
-				start = (start + 1) % n;
-				if (start == 0)
+		int front = 0, rear = 1;
+		while (front != rear) {
+			if (cur_petrol >= 0) {
+				cur_petrol += a[rear][0] - a[rear][1];
+				rear = (rear + 1) % n;
+			} else {
+				cur_petrol += a[front][0] - a[front][1];
+				front++;
+				if (front == n)
 					return -1;
 			}
-			cur_petrol += (a[end][0] - a[end][1]);
-			end = (end + 1) % n;
-
 		}
-		return start;
+		return front;
 	}
-
 }

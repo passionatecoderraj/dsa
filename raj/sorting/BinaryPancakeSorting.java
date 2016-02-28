@@ -16,20 +16,6 @@ import com.interivew.graph.CommonUtil;
  */
 public class BinaryPancakeSorting {
 
-	public int findMaxIndex(int a[], int l, int r) {
-		int max_index = -1;
-		for (int i = l; i <= r; i++) {
-			if (max_index == -1) {
-				max_index = i;
-				continue;
-			}
-			if (a[i] > a[max_index]) {
-				max_index = i;
-			}
-		}
-		return max_index;
-	}
-
 	public void flip(int a[], int l, int r) {
 		while (l < r) {
 			CommonUtil.swap(a, l++, r--);
@@ -40,7 +26,8 @@ public class BinaryPancakeSorting {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int a[] = { 9, 6, 5, 0, 8, 2, 7, 1 };
+		// int a[] = { 9, 6, 5, 0, 8, 2, 7, 1 };
+		int a[] = { 23, 10, 20, 11, 12, 6, 7 };
 		BinaryPancakeSorting obj = new BinaryPancakeSorting();
 
 		// given assumption is flip(0,i) takes O(1)

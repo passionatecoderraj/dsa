@@ -19,8 +19,19 @@ public class Segregate0s1sInSinglePass {
 
 		Segregate0s1sInSinglePass obj = new Segregate0s1sInSinglePass();
 		// Of course O(n)
-		obj.segregate0s1sInSinglePass(a, a.length);
+		// obj.segregate0s1sInSinglePass(a, a.length);
+		// CommonUtil.printArray(a);
+		obj.seg(a, a.length);
 		CommonUtil.printArray(a);
+	}
+
+	public void seg(int a[], int n) {
+		int l = 0;
+		for (int i = 0; i < n; i++) {
+			if (a[i] == 0) {
+				CommonUtil.swap(a, l++, i);
+			}
+		}
 	}
 
 	public void segregate0s1sInSinglePass(int[] a, int n) {

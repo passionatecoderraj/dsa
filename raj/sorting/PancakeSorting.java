@@ -42,8 +42,8 @@ public class PancakeSorting {
 		CommonUtil.printArray(a);
 
 		// Time : O(n2), Space : O(1)
-		obj.pancakeSortDescending(a, a.length);
-		CommonUtil.printArray(a);
+		// obj.pancakeSortDescending(a, a.length);
+		// CommonUtil.printArray(a);
 
 	}
 
@@ -52,23 +52,26 @@ public class PancakeSorting {
 		int max_index = -1;
 		for (int i = 0; i < n - 1; i++) {
 			max_index = findMaxIndex(a, i, n - 1);
-	
+
 			if (i != max_index) {
 				flip(a, max_index, n - 1);
 				flip(a, i, n - 1);
 			}
+			CommonUtil.printArray(a);
 		}
 	}
 
 	// Time : O(n2), Space : O(1)
 	public void pancakeSort(int[] a, int n) {
 		int max_index = -1;
-		for (int i = n - 1; i > 1; i--) {
+		CommonUtil.printArray(a);
+		for (int i = n - 1; i > 0; i--) {
 			max_index = findMaxIndex(a, 0, i);
 			if (i != max_index) {
 				flip(a, 0, max_index);
 				flip(a, 0, i);
 			}
+			CommonUtil.printArray(a);
 		}
 	}
 

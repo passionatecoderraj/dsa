@@ -9,7 +9,7 @@ import com.interivew.graph.CommonUtil;
  * @author Raj
  */
 /*
- * Find number repeated more times in range 1 to k; k<=n
+ * Find number repeated more times in range 0 to k-1; k<=n
  */
 public class FindNumbeRepeatingMoreTimes {
 

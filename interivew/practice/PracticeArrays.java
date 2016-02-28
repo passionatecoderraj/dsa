@@ -1359,71 +1359,59 @@ public class PracticeArrays {
 		return (a * a) + (b * b) == (c * c);
 	}
 
-	// new size of array, after removing duplicates
-	// Time : O(n2)
-	public int removeDuplicatesInArray(int a[], int n) {
-		int key, removed;
+	public int indexToStartForPetrolPump(int[][] a, int n) {
+		int cur_petrol = a[0][0] - a[0][1];
+		int front = 0, rear = 1;
+		while (front != rear) {
+			if (cur_petrol >= 0) {
+				cur_petrol += a[rear][0] - a[rear][1];
+				rear = (rear + 1) % n;
+			} else {
+				cur_petrol += a[front][0] - a[front][1];
+				front++;
+				if (front == n)
+					return -1;
+			}
+		}
+		return front;
+	}
+
+	public void sortArrayToFormBiggestNumber(int a[], int n) {
+		String[] s = new String[n];
 		for (int i = 0; i < n; i++) {
-			key = a[i];
-			removed = 0;
-			for (int j = i + 1, k = i + 1; j < n; j++) {
-				if (a[j] == key) {
-					removed++;
-				} else {
-					a[k++] = a[j];
-				}
-			}
-			n = n - removed;
+			s[i] = Integer.toString(a[i]);
 		}
-		return n;
+
+		Arrays.sort(s, sortByBiggestNumber);
+		for (int i = 0; i < n; i++) {
+			a[i] = Integer.parseInt(s[i]);
+		}
 	}
 
-	// Time : O(nlogn)
-	public int removeDuplicateInArrayUsingSorting(int a[], int n) {
-		Arrays.sort(a);
-		for (int i = 1; i < n; i++) {
-			if (a[i] == a[i - 1])
-				a[i - 1] = 0;
+	private Comparator<String> sortByBiggestNumber = new Comparator<String>() {
+		public int compare(String s1, String s2) {
+			String xy = s1 + s2;
+			String yx = s2 + s1;
+			return yx.compareTo(xy);
 		}
-		int l = 0, r = n - 1;
-		while (l < r) {
-			while (l < r && a[l] != 0)
-				l++;
-			while (l < r && a[r] == 0)
-				r--;
-			if (l < r)
-				CommonUtil.swap(a, l++, r--);
+	};
+
+	// Find number repeated more times in range 0 to k-1; k<=n
+	// Time : O(n)
+	public void findAllNumbersRepeatingMoreTimes(int a[], int n, int k) {
+		for (int i = 0; i < n; i++) {
+			a[a[i] % k] += k;
 		}
-		return l;
-	}
-
-	public int rainWaterTrapped(int a[], int n) {
-		if (n <= 1)
-			return 0;
-		int lMax[] = new int[n];
-		int rMax[] = new int[n];
-
-		int max_on_left = a[0];
-		int max_on_right = a[n - 1];
-
-		for (int i = 1; i < n; i++) {
-			lMax[i] = max_on_left;
-			max_on_left = Math.max(a[i], max_on_left);
+		for (int i = 0; i < n; i++) {
+			a[i] = a[i] / n;
 		}
-
-		for (int i = n - 2; i >= 0; i--) {
-			rMax[i] = max_on_right;
-			max_on_right = Math.max(a[i], max_on_right);
+		int maxRepeated = 0;
+		for (int i = 0; i < n; i++) {
+			maxRepeated = Math.max(maxRepeated, a[i]);
 		}
-
-		int t = 0;
-
-		for (int i = 1; i < n - 1; i++) {
-			if (a[i] < lMax[i] && a[i] < rMax[i]) {
-				t += Math.min(lMax[i], rMax[i]) - a[i];
-			}
+		for (int i = 0; i < n; i++) {
+			System.out.print(i + " ");
 		}
-		return t;
 	}
 
 	public int maxProfitWith1Transactions(int a[], int n) {
@@ -1490,6 +1478,73 @@ public class PracticeArrays {
 			}
 		}
 		return t[k][n - 1];
+	}
+
+	// new size of array, after removing duplicates
+	// Time : O(n2)
+	public int removeDuplicatesInArray(int a[], int n) {
+		int key, removed;
+		for (int i = 0; i < n; i++) {
+			key = a[i];
+			removed = 0;
+			for (int j = i + 1, k = i + 1; j < n; j++) {
+				if (a[j] == key) {
+					removed++;
+				} else {
+					a[k++] = a[j];
+				}
+			}
+			n = n - removed;
+		}
+		return n;
+	}
+
+	// Time : O(nlogn)
+	public int removeDuplicateInArrayUsingSorting(int a[], int n) {
+		Arrays.sort(a);
+		for (int i = 1; i < n; i++) {
+			if (a[i] == a[i - 1])
+				a[i - 1] = 0;
+		}
+		int l = 0, r = n - 1;
+		while (l < r) {
+			while (l < r && a[l] != 0)
+				l++;
+			while (l < r && a[r] == 0)
+				r--;
+			if (l < r)
+				CommonUtil.swap(a, l++, r--);
+		}
+		return l;
+	}
+
+	public int rainWaterTrapped(int a[], int n) {
+		if (n <= 1)
+			return 0;
+		int lMax[] = new int[n];
+		int rMax[] = new int[n];
+
+		int max_on_left = a[0];
+		int max_on_right = a[n - 1];
+
+		for (int i = 1; i < n; i++) {
+			lMax[i] = max_on_left;
+			max_on_left = Math.max(a[i], max_on_left);
+		}
+
+		for (int i = n - 2; i >= 0; i--) {
+			rMax[i] = max_on_right;
+			max_on_right = Math.max(a[i], max_on_right);
+		}
+
+		int t = 0;
+
+		for (int i = 1; i < n - 1; i++) {
+			if (a[i] < lMax[i] && a[i] < rMax[i]) {
+				t += Math.min(lMax[i], rMax[i]) - a[i];
+			}
+		}
+		return t;
 	}
 
 	public char findMostFrequentCharacter(char[] a, int n) {

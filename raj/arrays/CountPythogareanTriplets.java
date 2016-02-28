@@ -69,17 +69,19 @@ public class CountPythogareanTriplets {
 
 	public int countPythogareanTriplets(int[] a, int n) {
 		int count = 0, k;
+
+		for (int i = 0; i < n; i++) {
+			a[i] = a[i] * a[i];
+		}
 		Arrays.sort(a);
 
 		for (int i = 0; i < n - 2; i++) {
 			k = i + 2;
 			for (int j = i + 1; j < n - 1; j++) {
-				while (k < n && a[i] + a[j] > a[k]) {
+				while (k < n && a[i] + a[j] == a[k]) {
 					if (j != k) {
-						if (isPythogarean(a[i], a[j], a[k])) {
-							System.out.println("a=" + a[i] + ",b=" + a[j] + ",c=" + a[k]);
-							count++;
-						}
+						System.out.println("a=" + Math.sqrt(a[i]) + ",b=" + Math.sqrt(a[j]) + ",c=" + Math.sqrt(a[k]));
+						count++;
 					}
 					k++;
 				}

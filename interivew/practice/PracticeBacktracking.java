@@ -19,7 +19,7 @@ public class PracticeBacktracking {
 		}
 	}
 
-	// combinaions of string
+	// combinations of string
 	public void combinationsOfString(char[] a, int n) {
 		StringBuilder op = new StringBuilder(n);
 		combinationsOfStringUtil(a, 0, n, op);

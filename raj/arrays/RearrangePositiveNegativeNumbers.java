@@ -19,32 +19,6 @@ public class RearrangePositiveNegativeNumbers {
 		// CommonUtil.printArray(a);
 	}
 
-	public void rearrangePostiveNegative(int a[], int n) {
-		int left = 0;
-		for (int i = 0; i < n; i++) {
-			if (a[i] > 0)
-				CommonUtil.swap(a, i, left++);
-		}
-		CommonUtil.printArray(a);
-		// there are left positive numbers
-		// p = number of positive numbers
-		// m = number of negative numbers
-
-		int p, m;
-		p = left;
-		m = n - p;
-		if (p > m) {
-			for (int j = 1, i = left; i < n; i++, j += 2) {
-				CommonUtil.swap(a, i, j);
-			}
-		} else {
-
-			for (int i = 0, j = left; i < p; i += 2, j++) {
-				CommonUtil.swap(a, i, j);
-			}
-		}
-	}
-
 	public void rearrangePositiveNegativeNumbers(int[] a, int n) {
 		int left = 0;
 		for (int i = 0; i < n; i++) {

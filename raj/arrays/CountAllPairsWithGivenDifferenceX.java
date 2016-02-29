@@ -40,9 +40,9 @@ public class CountAllPairsWithGivenDifferenceX {
 			} else if (d < x) {
 				r++;
 			} else {
-				System.out.println("1st=" + a[r] + ",2nd=" + a[l]);
+				System.out.println("1st=" + a[l] + ",2nd=" + a[r]);
 				l++;
-				r++;
+			//	r++;
 				count++;
 			}
 		}

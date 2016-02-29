@@ -27,6 +27,11 @@ public class FindSmallestSubarraySumGreatherThanK {
 
 		result = obj.smallestSubArraysOfSumGreatherThanK(a, n, k);
 		System.out.println(result);
+
+		int a3[] = { 1, 11, 100, 1, 0, 200, 3, 2, 35, 250 };
+		result = obj.smallestSubArraysOfSumGreatherThanK(a3, a3.length, 280);
+		System.out.println(result);
+
 	}
 
 	public int smallestSubArraysOfSumGreatherThanK(int[] a, int n, int k) {
@@ -42,7 +47,7 @@ public class FindSmallestSubarraySumGreatherThanK {
 				return 1;
 			}
 			sum += a[i];
-			while (sum > k) {
+			while (sum > k && l <= i) {
 				if (i - l + 1 < minSize) {
 					minSize = i - l + 1;
 					minSizeLeft = l;

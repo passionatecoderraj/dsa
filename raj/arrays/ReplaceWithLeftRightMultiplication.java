@@ -2,14 +2,16 @@ package com.raj.arrays;
 
 import com.interivew.graph.CommonUtil;
 
-/*
+/**
  * @Author Raj
  * 
- *Given an array of integers, update every element with multiplication of previous and next elements with following exceptions. 
-a) First element is replaced by multiplication of first and second.
-b) Last element is replaced by multiplication of last and second last.
- * */
-
+ */
+/*
+ * Given an array of integers, update every element with multiplication of
+ * previous and next elements with following exceptions. a) First element is
+ * replaced by multiplication of first and second. b) Last element is replaced
+ * by multiplication of last and second last.
+ */
 public class ReplaceWithLeftRightMultiplication {
 
 	public static void main(String[] args) {
@@ -23,6 +25,12 @@ public class ReplaceWithLeftRightMultiplication {
 
 	}
 
+	/*
+	 * Given an array of integers, update every element with multiplication of
+	 * previous and next elements with following exceptions. a) First element is
+	 * replaced by multiplication of first and second. b) Last element is
+	 * replaced by multiplication of last and second last.
+	 */
 	public void replaceWithLeftRightMultiplication(int[] a, int n) {
 		if (n <= 1)
 			return;

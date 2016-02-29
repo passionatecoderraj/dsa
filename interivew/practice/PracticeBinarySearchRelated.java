@@ -361,4 +361,52 @@ public class PracticeBinarySearchRelated {
 		System.out.println("x=" + x + ",y=" + y);
 	}
 
+	// Given a binary array sorted in non-increasing order, count the number of
+	// 1’s in it.
+	// Time : O(logn)
+	public int count1sInSortedBinaryArray(int[] a, int n) {
+		if (n <= 0) {
+			return 0;
+		}
+		if (a[0] == 0)
+			return 0;
+		else if (a[n - 1] == 1)
+			return n;
+		else {
+			int k = lastOccurenceOf1(a, 0, n - 1);
+			if (k != -1)
+				return k - 0 + 1;
+		}
+		return 0;
+	}
+
+	public int lastOccurenceOf1(int a[], int l, int r) {
+		int m;
+		int n = r - l + 1;
+		while (l <= r) {
+			m = l + (r - l) / 2;
+			if (a[m] == 1 && (m == n - 1 || a[m + 1] == 0))
+				return m;
+			if (a[m] == 1)
+				l = m + 1;
+			else
+				r = m - 1;
+		}
+
+		return -1;
+	}
+
+	public int findKeyInInfiniteSeries(int[] a, int key) {
+		int l, r;
+		l = 0;
+		r = 1;
+		int val = a[0];
+		while (val < key) {
+			l = r;
+			r = 2 * r;
+			val = a[r];
+		}
+		return binarySearch(a, l, r, key);
+	}
+
 }

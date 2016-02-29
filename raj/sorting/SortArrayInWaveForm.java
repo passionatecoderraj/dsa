@@ -39,17 +39,8 @@ public class SortArrayInWaveForm {
 		// Time : O(n)
 		// for every even index keep max value of if it's left, right and itself
 		int b[] = { 10, 90, 49, 2, 1, 5, 23 };
-		obj.sortInWaveForm(b, n);
+		obj.sortInWaveForm(b, b.length);
 		CommonUtil.printArray(b);
-	}
-
-	public void sort(int a[], int n) {
-		for (int i = 0; i < n - 1; i += 2) {
-			if (i == 0) {
-
-			}
-
-		}
 	}
 
 	/*

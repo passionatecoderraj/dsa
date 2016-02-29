@@ -22,14 +22,17 @@ public class FindSubarrayOfSumZero {
 	public static void main(String[] args) {
 
 		FindSubarrayOfSumZero obj = new FindSubarrayOfSumZero();
-		int a[] = { 4, 2, -3, 1, 6 };
+		int a[] = { 6, 2, 4, 3, -2, -2, -2, -1, -1, 3 };
 
 		int n = a.length;
 		boolean result = false;
+		// Time : O(n), Space : O(n)
 		result = obj.subArraysOfSumZero(a, n);
 		System.out.println(result);
+		new FindSubarrayOfSumK().subArraysOfSumK(a, n, 0);
 	}
 
+	// Time : O(n), Space : O(n)
 	public boolean subArraysOfSumZero(int[] a, int n) {
 
 		int sum = 0;
@@ -41,6 +44,7 @@ public class FindSubarrayOfSumZero {
 				return true;
 			}
 			set.add(sum);
+		//	System.out.println(set);
 		}
 		return false;
 	}

@@ -1,11 +1,16 @@
 package com.interivew.practice;
 
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 import com.interivew.graph.BinaryMinHeap;
 import com.interivew.graph.CommonUtil;
@@ -1480,6 +1485,518 @@ public class PracticeArrays {
 		return t[k][n - 1];
 	}
 
+	public void rearrangePositiveNegativeNumbers(int[] a, int n) {
+		int left = 0;
+		for (int i = 0; i < n; i++) {
+			if (a[i] > 0) {
+				CommonUtil.swap(a, i, left++);
+			}
+		}
+		CommonUtil.printArray(a);
+
+		// it breaks when l>r so, l is the starting point of negative numbers
+
+		int len_1sthalf = 0, len_2ndhalf = 0;
+		// length of first half
+		len_1sthalf = left - 0 + 1;
+		len_2ndhalf = n - left;
+
+		int index_1st_half = 1;
+		int index_2nd_half = left;
+
+		if (len_1sthalf > len_2ndhalf) {
+			int i = 0;
+			while (i < len_2ndhalf) {
+				CommonUtil.swap(a, index_1st_half, index_2nd_half);
+				index_1st_half += 2;
+				index_2nd_half++;
+				i++;
+			}
+		} else {
+			int i = 0;
+			while (i < len_1sthalf) {
+				CommonUtil.swap(a, index_1st_half, index_2nd_half);
+				index_1st_half += 2;
+				index_2nd_half++;
+				i++;
+			}
+		}
+	}
+
+	/*
+	 * Given a sequence of non-negative integers, find the subsequence of length
+	 * 3 having maximum product with the numbers of the subsequence being in
+	 * ascending order.
+	 */
+	// Time :O(n), Space : O(n)
+	public void findIncreasingSubsequenceOfLengthThreeWithMaxProduct(int a[], int n) {
+
+		if (n < 3)
+			return;
+		// left greater elements
+		int lg[] = new int[n];
+
+		// right greater elements
+		int rg[] = new int[n];
+
+		int max = a[n - 1];
+		for (int i = n - 2; i >= 0; i--) {
+			if (max > a[i]) {
+				rg[i] = max;
+			} else {
+				max = a[i];
+				rg[i] = -1;
+			}
+		}
+
+		Stack<Integer> s = new Stack<>();
+		for (int i = 0; i < n; i++) {
+			if (rg[i] == -1) {
+				lg[i] = -1;
+				continue;
+			}
+			max = -1;
+			while (!s.isEmpty() && a[i] > s.peek()) {
+				max = s.pop();
+			}
+			lg[i] = max;
+			s.push(a[i]);
+		}
+
+		int maxProduct = 0, curProd = 0;
+		int b, c, d;
+		b = c = d = 0;
+		for (int i = 0; i < n; i++) {
+			curProd = lg[i] * rg[i] * a[i];
+			if (curProd > maxProduct) {
+				maxProduct = curProd;
+				b = lg[i];
+				c = a[i];
+				d = rg[i];
+			}
+		}
+		System.out.println("1st=" + b + ",2nd=" + c + ",3rd=" + d);
+	}
+
+	/*
+	 * We have two sorted array. Without using additional memory we need to
+	 * merge these two arrays(longer array is having more space for merging).
+	 * Output should return through second arraY
+	 */
+	public void mergeTwoArraysWithoutExtraSpace(int longArr[], int longUsed, int shortArr[], int shortArrLen) {
+		int longArrTail = longUsed - 1;
+		int shortArrTail = shortArrLen - 1;
+		while (shortArrTail >= 0 && longArrTail >= 0) {
+			if (longArr[longArrTail] > shortArr[shortArrTail]) {
+				longArr[longArrTail + shortArrTail + 1] = longArr[longArrTail];
+				longArrTail--;
+			} else {
+				longArr[longArrTail + shortArrTail + 1] = shortArr[shortArrTail];
+				shortArrTail--;
+			}
+		}
+
+		while (shortArrTail >= 0) {
+			longArr[shortArrTail] = shortArr[shortArrTail];
+			shortArrTail--;
+		}
+	}
+
+	// array is of k*n size
+	// k sorted array and each array has length of n
+	// O(nklogk), space : O(k)
+	public int[] mergeKSortedArrays(int a[][], int n, int k) {
+		int ptr[] = new int[k];
+		// pointers of each array
+		for (int i = 0; i < k; i++) {
+			ptr[i] = 0;
+		}
+		BinaryMinHeap<HeapNode> heap = new BinaryMinHeap<>();
+		for (int i = 0; i < k; i++) {
+			if (ptr[i] < n) {
+				HeapNode node = new HeapNode(a[i][ptr[i]], i);
+				heap.add(a[i][ptr[i]], node);
+			} else {
+				HeapNode node = new HeapNode(Integer.MAX_VALUE, i);
+				heap.add(Integer.MAX_VALUE, node);
+			}
+		}
+
+		int res[] = new int[n * k];
+
+		HeapNode temp;
+		for (int i = 0; i < n * k; i++) {
+			temp = heap.extractMin();
+			res[i] = temp.value;
+			ptr[temp.listNumber]++;
+			if (ptr[temp.listNumber] < n) {
+				HeapNode node = new HeapNode(a[temp.listNumber][ptr[temp.listNumber]], temp.listNumber);
+				heap.add(a[temp.listNumber][ptr[temp.listNumber]], node);
+			} else {
+				HeapNode node = new HeapNode(Integer.MAX_VALUE, temp.listNumber);
+				heap.add(Integer.MAX_VALUE, node);
+			}
+		}
+		return res;
+	}
+
+	// Time : O(nk2), Space: it becomes more
+	public int[] mergeKSortedArraysUsingMergeProcedure(int a[][], int n, int k) {
+		if (k <= 0)
+			return null;
+		int[] p;
+		p = a[0];
+		for (int i = 1; i < k; i++) {
+			p = merge(p, p.length, a[i], a[i].length);
+		}
+
+		return p;
+	}
+
+	public int[] merge(int a[], int m, int b[], int n) {
+		int c[] = new int[m + n];
+		int i = 0, j = 0, k = 0;
+		while (i < m && j < n) {
+			if (a[i] <= b[j]) {
+				c[k++] = a[i++];
+			} else {
+				c[k++] = b[j++];
+			}
+		}
+
+		while (i < m) {
+			c[k++] = a[i++];
+		}
+
+		while (j < n) {
+			c[k++] = b[j++];
+		}
+
+		return c;
+	}
+
+	public int countAllPairsWithGivenDifferenceX(int[] a, int n, int x) {
+		Arrays.sort(a);
+		int count, l, r;
+		l = r = count = 0;
+		int d;
+		while (r < n) {
+			d = a[r] - a[l];
+			if (d > x) {
+				l++;
+			} else if (d < x) {
+				r++;
+			} else {
+				System.out.println("1st=" + a[l] + ",2nd=" + a[r]);
+				l++;
+				// r++;
+				count++;
+			}
+		}
+		return count;
+	}
+
+	// Time : O(n), Space : O(n)
+	public boolean subArraysOfSumZero(int a[], int n) {
+		Set<Integer> set = new HashSet<Integer>();
+		int sum = 0;
+		for (int i = 0; i < n; i++) {
+			sum += a[i];
+			if (a[i] == 0 || sum == 0 || set.contains(sum)) {
+				return true;
+			}
+			set.add(sum);
+		}
+		return false;
+	}
+
+	public int smallestSubarrayLengthWithSumGreaterThanK(int a[], int n, int k) {
+		int sum = 0;
+		int l = 0;
+		int minSize, subArrLeft, subArrRight;
+		minSize = subArrLeft = subArrRight = Integer.MAX_VALUE;
+		for (int i = 0; i < n; i++) {
+			if (a[i] > k) {
+				subArrLeft = subArrRight = i;
+				return 1;
+			}
+			sum += a[l];
+			while (sum > k && l <= i) {
+				if (i + l - 1 < minSize) {
+					minSize = i + l - 1;
+					subArrLeft = l;
+					subArrRight = i;
+				}
+				sum -= a[l++];
+			}
+		}
+		return minSize;
+	}
+
+	// Time : O(m+n+plogp)
+	// plogp : sort uncommon values
+	public void sortArrayByAnotherArray(int a[], int m, int b[], int n) {
+
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < m; i++) {
+			if (map.containsKey(a[i])) {
+				map.put(a[i], map.get(a[i]) + 1);
+			} else {
+				map.put(a[i], 1);
+			}
+		}
+
+		int k = 0;
+		for (int i = 0; i < n; i++) {
+			if (map.containsKey(b[i])) {
+				for (int j = 0; j < map.get(b[i]); j++) {
+					a[k++] = b[i];
+				}
+				map.put(b[i], 0);
+			}
+		}
+
+		// there are un-common values in two arrays
+		if (k < n) {
+			int c[] = new int[n - k];
+			int index = 0;
+			for (int key : map.keySet()) {
+				if (map.get(key) != 0) {
+					c[index++] = key;
+				}
+			}
+
+			// sorting uncommon values
+			Arrays.sort(a);
+
+			for (int i = 0; i < c.length; i++) {
+				a[k++] = c[i];
+			}
+		}
+
+	}
+
+	// Time :O(m+n)
+	public int maxSumPathInTwoArrays(int a[], int m, int b[], int n) {
+		int i, j;
+		int sum, aSum, bSum;
+		i = j = aSum = bSum = sum = 0;
+
+		while (i < m && j < n) {
+			if (a[i] < b[j]) {
+				aSum += a[i++];
+			} else if (a[i] > b[j]) {
+				bSum += b[j++];
+			} else {
+				aSum += a[i++];
+				bSum += b[j++];
+				sum += aSum > bSum ? aSum : bSum;
+				aSum = bSum = 0;
+			}
+		}
+
+		while (i < m) {
+			aSum += a[i++];
+		}
+
+		while (j < n) {
+			bSum += b[j++];
+		}
+		sum += aSum > bSum ? aSum : bSum;
+
+		return sum;
+	}
+
+	// Time : O(n) , Space : O(k)
+	public boolean checkForDuplicatesWithInKDistance(int a[], int n, int k) {
+		Set<Integer> set = new HashSet<Integer>();
+
+		for (int i = 0; i < n; i++) {
+			if (set.contains(a[i])) {
+				return true;
+			} else {
+				set.add(a[i]);
+				if (i >= k)
+					set.remove(a[i - k]);
+			}
+		}
+
+		return false;
+	}
+
+	// Time : O(nlogn)
+	public void sortArrayInWaveformUsingSorting(int a[], int n) {
+		Arrays.sort(a);
+		for (int i = 0; i < n - 1; i += 2) {
+			CommonUtil.swap(a, i, i + 1);
+		}
+	}
+
+	/*
+	 * The idea is based on the fact that if we make sure that all even
+	 * positioned (at index 0, 2, 4, ..) elements are greater than their
+	 * adjacent odd elements, we don’t need to worry about odd positioned
+	 * element.
+	 */
+
+	// Time : O(n)
+	public void sortArrayInWaveform(int a[], int n) {
+		for (int i = 0; i < n; i += 2) {
+			if (i - 1 >= 0 && a[i] < a[i - 1]) {
+				CommonUtil.swap(a, i, i - 1);
+			}
+			if (i + 1 < n && a[i] < a[i + 1]) {
+				CommonUtil.swap(a, i, i + 1);
+			}
+
+		}
+	}
+
+	// Time : O(m+n)
+	public void findPairSumCloseToKInTwoSortedArrays(int a[], int m, int b[], int n, int k) {
+		int l1, r2, x, y;
+		l1 = 0;
+		r2 = n - 1;
+
+		int diff, minDiff = Integer.MAX_VALUE;
+		x = y = Integer.MAX_VALUE;
+		while (l1 < m && r2 >= 0) {
+			diff = a[l1] + b[r2] - k;
+
+			if (Math.abs(diff) < minDiff) {
+				minDiff = diff;
+				x = a[l1];
+				y = b[r2];
+			}
+
+			if (diff > 0)
+				r2--;
+			else if (diff < 0)
+				l1++;
+			else {
+				System.out.println("x=" + x + ",y=" + y);
+				return;
+			}
+		}
+		System.out.println("x=" + x + ",y=" + y + ", diff = " + minDiff);
+	}
+
+	// Time : O(n)
+	public void findPairSumCloseToK(int a[], int n, int k) {
+		int l, r, x, y;
+		l = 0;
+		r = n - 1;
+
+		int diff, minDiff = Integer.MAX_VALUE;
+		x = y = Integer.MAX_VALUE;
+		while (l < r) {
+			diff = a[l] + a[r] - k;
+
+			if (Math.abs(diff) < minDiff) {
+				minDiff = diff;
+				x = a[l];
+				y = a[r];
+			}
+
+			if (diff > 0)
+				r--;
+			else if (diff < 0)
+				l++;
+			else {
+				System.out.println("x=" + x + ",y=" + y);
+				return;
+			}
+		}
+		System.out.println("x=" + x + ",y=" + y + ", diff = " + minDiff);
+	}
+
+	// Time: O(n), Space : O(1)
+	public void constructArrayFromPairSumArray(int[] pairs, int[] a, int n) {
+		a[0] = (pairs[0] + pairs[1] - pairs[n - 1]) / 2;
+		for (int i = 1; i < n; i++) {
+			a[i] = pairs[i - 1] - a[0];
+		}
+	}
+
+	// Time : O(p+q+r)
+	public void findCommonElementsInThreeSortedArrays(int a[], int p, int b[], int q, int c[], int r) {
+		int i, j, k;
+		i = j = k = 0;
+		while (i < p && j < q && k < r) {
+			if (a[i] == b[j] && b[j] == a[k]) {
+				System.out.print(a[i]);
+				i++;
+				j++;
+				k++;
+			}
+			if (a[i] < b[j])
+				i++;
+			else if (b[j] < c[k])
+				j++;
+			// We reach here when x > y and z < y, i.e., z is smallest
+			else
+				k++;
+		}
+	}
+
+	public int findFirstRepeatingNumberUsingHashSet(int[] a, int n) {
+		Set<Integer> set = new HashSet<Integer>();
+		int repeated = -1;
+		for (int i = n - 1; i >= 0; i--) {
+			if (set.contains(a[i]))
+				repeated = a[i];
+			else
+				set.add(a[i]);
+		}
+		return repeated;
+	}
+
+	// Time : O(n) , Space : O(1)
+	public int findNumberThatApearOnce(int[] a, int n) {
+		if (n <= 0)
+			return -1;
+		int k = a[0];
+		for (int i = 1; i < n; i++) {
+			k = k ^ a[i];
+		}
+		return k;
+	}
+
+	// Time : O(n) , Space : O(1)
+	public void replaceWithLeftRightMultiplication(int a[], int n) {
+		if (n <= 1)
+			return;
+		int cur, prev;
+		prev = a[0];
+		a[0] = a[0] * a[1];
+
+		for (int i = 1; i < n - 1; i++) {
+			cur = a[i];
+			a[i] = prev * a[i + 1];
+			prev = cur;
+		}
+		a[n - 1] = a[n - 1] * prev;
+	}
+
+	// Time : O(n)
+	public int findLargestPairSumInArray(int a[], int n) {
+		if (n < 2)
+			return Integer.MIN_VALUE;
+		int firstMax, secondMax;
+		firstMax = a[0];
+		secondMax = Integer.MIN_VALUE;
+
+		for (int i = 1; i < n; i++) {
+			if (a[i] > firstMax) {
+				secondMax = firstMax;
+				firstMax = a[i];
+			} else if (a[i] > secondMax) {
+				secondMax = a[i];
+			}
+		}
+		return firstMax + secondMax;
+	}
+
 	// new size of array, after removing duplicates
 	// Time : O(n2)
 	public int removeDuplicatesInArray(int a[], int n) {
@@ -1600,102 +2117,6 @@ public class PracticeArrays {
 		return sb.toString();
 	}
 
-	/*
-	 * We have two sorted array. Without using additional memory we need to
-	 * merge these two arrays(longer array is having more space for merging).
-	 * Output should return through second arraY
-	 */
-	public void mergeTwoArraysWithoutExtraSpace(int longArr[], int longUsed, int shortArr[], int shortArrLen) {
-		int longArrTail = longUsed - 1;
-		int shortArrTail = shortArrLen - 1;
-		while (shortArrTail >= 0 && longArrTail >= 0) {
-			if (longArr[longArrTail] > shortArr[shortArrTail]) {
-				longArr[longArrTail + shortArrTail + 1] = longArr[longArrTail];
-				longArrTail--;
-			} else {
-				longArr[longArrTail + shortArrTail + 1] = shortArr[shortArrTail];
-				shortArrTail--;
-			}
-		}
-
-		while (shortArrTail >= 0) {
-			longArr[shortArrTail] = shortArr[shortArrTail];
-			shortArrTail--;
-		}
-	}
-
-	// array is of k*n size
-	// k sorted array and each array has length of n
-	// O(nklogk), space : O(k)
-	public int[] mergeKSortedArrays(int a[][], int n, int k) {
-		int ptr[] = new int[k];
-		// pointers of each array
-		for (int i = 0; i < k; i++) {
-			ptr[i] = 0;
-		}
-		BinaryMinHeap<HeapNode> heap = new BinaryMinHeap<>();
-		for (int i = 0; i < k; i++) {
-			if (ptr[i] < n) {
-				HeapNode node = new HeapNode(a[i][ptr[i]], i);
-				heap.add(a[i][ptr[i]], node);
-			} else {
-				HeapNode node = new HeapNode(Integer.MAX_VALUE, i);
-				heap.add(Integer.MAX_VALUE, node);
-			}
-		}
-
-		int res[] = new int[n * k];
-
-		HeapNode temp;
-		for (int i = 0; i < n * k; i++) {
-			temp = heap.extractMin();
-			res[i] = temp.value;
-			ptr[temp.listNumber]++;
-			if (ptr[temp.listNumber] < n) {
-				HeapNode node = new HeapNode(a[temp.listNumber][ptr[temp.listNumber]], temp.listNumber);
-				heap.add(a[temp.listNumber][ptr[temp.listNumber]], node);
-			} else {
-				HeapNode node = new HeapNode(Integer.MAX_VALUE, temp.listNumber);
-				heap.add(Integer.MAX_VALUE, node);
-			}
-		}
-		return res;
-	}
-
-	// Time : O(nk2), Space: it becomes more
-	public int[] mergeKSortedArraysUsingMergeProcedure(int a[][], int n, int k) {
-		if (k <= 0)
-			return null;
-		int[] p;
-		p = a[0];
-		for (int i = 1; i < k; i++) {
-			p = merge(p, p.length, a[i], a[i].length);
-		}
-
-		return p;
-	}
-
-	public int[] merge(int a[], int m, int b[], int n) {
-		int c[] = new int[m + n];
-		int i = 0, j = 0, k = 0;
-		while (i < m && j < n) {
-			if (a[i] <= b[j]) {
-				c[k++] = a[i++];
-			} else {
-				c[k++] = b[j++];
-			}
-		}
-
-		while (i < m) {
-			c[k++] = a[i++];
-		}
-
-		while (j < n) {
-			c[k++] = b[j++];
-		}
-
-		return c;
-	}
 }
 
 class HeapNode {

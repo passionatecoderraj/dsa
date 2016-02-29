@@ -28,6 +28,7 @@ public class FindSubarrayOfSumK {
 		obj.subArraysOfSumK(a, n, k);
 	}
 
+	// assumption is k >=1
 	public void subArraysOfSumK(int[] a, int n, int k) {
 
 		int sum = 0;

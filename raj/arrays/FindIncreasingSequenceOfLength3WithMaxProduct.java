@@ -3,6 +3,10 @@
  */
 package com.raj.arrays;
 
+import java.util.Stack;
+
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -20,7 +24,8 @@ public class FindIncreasingSequenceOfLength3WithMaxProduct {
 	 */
 	public static void main(String[] args) {
 		FindIncreasingSequenceOfLength3WithMaxProduct obj = new FindIncreasingSequenceOfLength3WithMaxProduct();
-		int a[] = {6, 7, 8, 1, 2, 3, 9, 10} ;
+		int a[] = { 1, 5, 10, 8, 9 };
+		// int a[] = { 6, 7, 8, 1, 2, 3, 9, 9, 9 };
 		int n = a.length;
 
 		// Time : O(n), Space:O(n)
@@ -36,17 +41,33 @@ public class FindIncreasingSequenceOfLength3WithMaxProduct {
 		// The largest greater element on right of given element.
 		int lgr[] = new int[n];
 
-		int largestMinOnLeft = a[0], largestMaxOnRight = a[n - 1];
-
-		for (int i = 1; i < n; i++) {
-			lsl[i] = largestMinOnLeft;
-			largestMinOnLeft = Math.max(largestMinOnLeft, a[i]);
+		int max = -1;
+		for (int i = n - 1; i >= 0; i--) {
+			if (a[i] > max) {
+				max = a[i];
+				lgr[i] = -1;
+			} else {
+				lgr[i] = max;
+			}
 		}
 
-		for (int i = n - 2; i >= 0; i--) {
-			lgr[i] = largestMaxOnRight;
-			largestMaxOnRight = Math.max(largestMaxOnRight, a[i]);
+		Stack<Integer> stack = new Stack<>();
+		for (int i = 0; i < n; i++) {
+			if (lgr[i] == -1) {
+				lsl[i] = -1;
+				continue;
+			}
+			max = -1;
+			while (!stack.isEmpty() && a[i] > stack.peek()) {
+				max = stack.pop();
+			}
+			lsl[i] = max;
+			stack.push(a[i]);
 		}
+
+		CommonUtil.printArray(lsl);
+		CommonUtil.printArray(a);
+		CommonUtil.printArray(lgr);
 		int maxProduct = 0, curProd = 0;
 		int b, c, d;
 		b = c = d = 0;
@@ -55,8 +76,8 @@ public class FindIncreasingSequenceOfLength3WithMaxProduct {
 			if (curProd > maxProduct) {
 				maxProduct = curProd;
 				b = lsl[i];
-				c = lgr[i];
-				d = a[i];
+				c = a[i];
+				d = lgr[i];
 			}
 		}
 		System.out.println("1st=" + b + ",2nd=" + c + ",3rd=" + d);

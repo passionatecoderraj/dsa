@@ -3,6 +3,7 @@
  */
 package com.raj.sorting;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public class SortArrayByAnotherArray {
 		int a[] = { 2, 1, 2, 5, 7, 1, 9, 3, 6, 8, 8 };
 		int b[] = { 2, 1, 8, 3 };
 		SortArrayByAnotherArray obj = new SortArrayByAnotherArray();
+
 		// Time : O(m+n+plogp), Space : O(n)
 		// plogp - is to sort un-common values in two arrays
 		// I did not do it but if it's required it can be done
@@ -96,9 +98,24 @@ public class SortArrayByAnotherArray {
 			}
 		}
 
-		for (int key : map.keySet()) {
-			if (map.get(key) != 0)
-				a[k++] = key;
+		// there are un-common values in two arrays
+		if (k < n) {
+
+			int c[] = new int[n - k];
+			int index = 0;
+
+			for (int key : map.keySet()) {
+				if (map.get(key) != 0)
+					c[index++] = key;
+			}
+
+			// sorting uncommon values
+			Arrays.sort(c);
+
+			for (int i = 0; i < c.length; i++) {
+				a[k++] = c[i];
+			}
+
 		}
 
 	}

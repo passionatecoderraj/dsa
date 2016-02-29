@@ -40,7 +40,7 @@ public class FindPairSumCloseToXFromTwoSortedArrays {
 		int curDiff;
 		while (l1 < m && r2 >= 0) {
 			curDiff = a1[l1] + a2[r2] - x;
-			if (Math.abs(curDiff) < minDiff) {
+			if (Math.abs(curDiff) < Math.abs(minDiff)) {
 				minDiff = curDiff;
 				x1 = a1[l1];
 				x2 = a2[r2];

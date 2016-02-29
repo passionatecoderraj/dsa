@@ -38,7 +38,7 @@ public class FindLargesParisSumInUnsortedArray {
 				secondmax = firstmax;
 				firstmax = a[i];
 			}
-			if (a[i] > secondmax && a[i] != firstmax) {
+			else if (a[i] > secondmax) {
 				secondmax = a[i];
 			}
 		}

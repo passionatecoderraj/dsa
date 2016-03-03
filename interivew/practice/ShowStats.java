@@ -18,7 +18,7 @@ public class ShowStats {
 		String path = "C:\\Users\\Raj\\workspace\\prac\\src\\com\\raj\\";
 		int result = -1;
 		result = showStats(path, 0);
-		System.out.println(result);
+		System.out.println(result );
 	}
 
 	public static String getSpaces(int level) {

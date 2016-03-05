@@ -27,18 +27,15 @@ public class FindFirstNonRepeatingCharacter {
 	}
 
 	public char findFirstNonRepeatingCharacter(char[] a, int n) {
-
-		int count[] = new int[26];
-		int index;
+		int count[] = new int[256];
 		for (int i = 0; i < n; i++) {
-			index = Character.getNumericValue(a[i]) - 10;
-			count[index]++;
+			count[a[i]]++;
 		}
 
 		CommonUtil.printArray(count);
-		for (int i = 0; i < 26; i++) {
+		for (int i = 0; i < 256; i++) {
 			if (count[i] == 1)
-				return a[i];
+				return (char) i;
 		}
 
 		return 0;

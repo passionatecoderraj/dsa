@@ -25,7 +25,7 @@ public class ShortestPalindrome {
 		// prefix array , kmp logic
 		int f[] = new int[l.length()];
 		makePrefixArray(l.toCharArray(), f, l.length());
-		// CommonUtil.printArray(f);
+		CommonUtil.printArray(f);
 		return rev_s.substring(0, s.length() - f[l.length() - 1]) + s;
 	}
 

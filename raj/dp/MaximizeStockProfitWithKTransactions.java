@@ -6,11 +6,21 @@ import java.util.LinkedList;
 public class MaximizeStockProfitWithKTransactions {
 
 	public static void main(String[] args) {
-		// int a[] = { 2, 5, 7, 1, 4, 3, 1, 3 };
-		int a[] = { 100, 80, 120, 130, 70, 60, 100, 125 };
+		int a[] = { 2, 5, 7, 1, 4, 3, 1, 3 };
+		// int a[] = { 100, 80, 120, 130, 70, 60, 100, 125 };
 
 		MaximizeStockProfitWithKTransactions obj = new MaximizeStockProfitWithKTransactions();
 		int result = -1, n = a.length, k = 3;
+		// buy and sell utmost once
+		// Time : O(n), Space : O(1)
+		result = obj.maxProfitWithAtMost1Transaction(a, n);
+		System.out.println(result);
+
+		// buy and sell utmost once
+		// Time : O(n), Space : O(1)
+		result = obj.maxProfitWithAtMost2Transactions(a, n);
+		System.out.println(result);
+
 		// Time : O(n*n*k), Space : O(n*k)
 		result = obj.maxProfitWithKTransactions(a, n, k);
 		System.out.println(result);
@@ -19,45 +29,14 @@ public class MaximizeStockProfitWithKTransactions {
 		result = obj.maxProfitWithKTransactionsWithMaxDiff(a, n, k);
 		System.out.println(result);
 
-		// buy and sell utmost once
-		// Time : O(n), Space : O(1)
-		result = obj.maxProfitWithAtMost1Transaction(a, n);
-		System.out.println(result);
-
 		// buy and sell many times
 		// Time : O(n), Space : O(1)
 		result = obj.maxProfitWithAnyNumberOfTransactions(a, n);
 		System.out.println(result);
 
 		// TODO: print solution, for buy and sell multiple times
-		obj.maxProfitWithAnyNumberOfTransactionsPrintTransationDays(a, n);
+		// obj.maxProfitWithAnyNumberOfTransactionsPrintTransationDays(a, n);
 
-	}
-
-	public void maxProfitWithAnyNumberOfTransactionsPrintTransationDays(int[] a, int n) {
-		if (n <= 0)
-			return;
-		int buyDate = 0, i;
-		for (i = 1; i < n; i++) {
-			if (a[i] <= a[i - 1]) {
-				System.out.println("Buy Date : " + buyDate + ", Sell Date : " + (i - 1));
-				buyDate = i;
-			} else if (i == n - 1) {
-				System.out.println("Buy Date : " + buyDate + ", Sell Date : " + i);
-			}
-		}
-
-	}
-
-	// buy and sell many times
-	public int maxProfitWithAnyNumberOfTransactions(int[] a, int n) {
-		int profit = 0;
-		for (int i = 1; i < n; i++) {
-			if (a[i] > a[i - 1]) {
-				profit += (a[i] - a[i - 1]);
-			}
-		}
-		return profit;
 	}
 
 	// buy and sell utmost once
@@ -72,6 +51,51 @@ public class MaximizeStockProfitWithKTransactions {
 			min_so_far = Math.min(a[i], min_so_far);
 		}
 		return maxProfit;
+	}
+
+	// buy and sell utmost twice
+	public int maxProfitWithAtMost2Transactions(int[] a, int n) {
+		int profit[] = new int[n];
+
+		int max_so_far = a[n - 1];
+
+		for (int i = n - 2; i >= 0; i--) {
+			profit[i] = Math.max(profit[i + 1], a[i] - max_so_far);
+			max_so_far = Math.max(a[i], max_so_far);
+		}
+
+		int min_so_far = a[0];
+		for (int i = 1; i < n; i++) {
+			profit[i] = Math.max(profit[i - 1], profit[i] + a[i] - min_so_far);
+			min_so_far = Math.min(a[i], min_so_far);
+		}
+		return profit[n - 1];
+	}
+
+	// MaxProfit With K Transactions : Slow Solution
+	// Time : O(n*n*k), Space : O(n*k)
+	public int maxProfitWithKTransactions(int[] a, int n, int k) {
+		int t[][] = new int[k + 1][n];
+
+		for (int i = 0; i < n; i++) {
+			t[0][i] = 0;
+		}
+
+		for (int i = 0; i <= k; i++) {
+			t[i][0] = 0;
+		}
+
+		int val;
+		for (int i = 1; i <= k; i++) {
+			for (int j = 1; j < n; j++) {
+				val = Integer.MIN_VALUE;
+				for (int m = 0; m < j; m++) {
+					val = Math.max(val, a[j] - a[m] + t[i - 1][m]);
+				}
+				t[i][j] = Math.max(t[i][j - 1], val);
+			}
+		}
+		return t[k][n - 1];
 	}
 
 	// buy and sell k times
@@ -96,7 +120,7 @@ public class MaximizeStockProfitWithKTransactions {
 			}
 		}
 
-		printSolution(a, t);
+		// printSolution(a, t);
 		return t[k][n - 1];
 	}
 
@@ -129,29 +153,29 @@ public class MaximizeStockProfitWithKTransactions {
 		}
 	}
 
-	// MaxProfit With K Transactions : Slow Solution
-	// Time : O(n*n*k), Space : O(n*k)
-	public int maxProfitWithKTransactions(int[] a, int n, int k) {
-		int t[][] = new int[k + 1][n];
-
-		for (int i = 0; i < n; i++) {
-			t[0][i] = 0;
-		}
-
-		for (int i = 0; i <= k; i++) {
-			t[i][0] = 0;
-		}
-
-		int val;
-		for (int i = 1; i <= k; i++) {
-			for (int j = 1; j < n; j++) {
-				val = Integer.MIN_VALUE;
-				for (int m = 0; m < j; m++) {
-					val = Math.max(val, a[j] - a[m] + t[i - 1][m]);
-				}
-				t[i][j] = Math.max(t[i][j - 1], val);
+	// buy and sell many times
+	public int maxProfitWithAnyNumberOfTransactions(int[] a, int n) {
+		int profit = 0;
+		for (int i = 1; i < n; i++) {
+			if (a[i] > a[i - 1]) {
+				profit += (a[i] - a[i - 1]);
 			}
 		}
-		return t[k][n - 1];
+		return profit;
+	}
+
+	public void maxProfitWithAnyNumberOfTransactionsPrintTransationDays(int[] a, int n) {
+		if (n <= 0)
+			return;
+		int buyDate = 0, i;
+		for (i = 1; i < n; i++) {
+			if (a[i] <= a[i - 1]) {
+				System.out.println("Buy Date : " + buyDate + ", Sell Date : " + (i - 1));
+				buyDate = i;
+			} else if (i == n - 1) {
+				System.out.println("Buy Date : " + buyDate + ", Sell Date : " + i);
+			}
+		}
+
 	}
 }

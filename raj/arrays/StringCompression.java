@@ -15,7 +15,7 @@ public class StringCompression {
 	public static void main(String[] args) {
 		StringCompression obj = new StringCompression();
 		String result = null;
-		String str = "aaacccbbde";
+		String str = "aaacccbbdee";
 
 		result = obj.compressString(str);
 		System.out.println(result);
@@ -30,19 +30,20 @@ public class StringCompression {
 		int n = str.length();
 		char cur = 0, pre = str.charAt(0);
 		int count = 1;
+
+		sb.append(str.charAt(0));
 		for (int i = 1; i < n; i++) {
 			cur = str.charAt(i);
 			if (cur == pre) {
 				count++;
 			} else {
-				sb.append(pre);
 				if (count > 1)
 					sb.append(count);
+				sb.append(str.charAt(i));
 				pre = cur;
 				count = 1;
 			}
 		}
-		sb.append(pre);
 		if (count > 1)
 			sb.append(count);
 

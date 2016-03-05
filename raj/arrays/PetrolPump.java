@@ -22,7 +22,7 @@ public class PetrolPump {
 	public static void main(String[] args) {
 		PetrolPump obj = new PetrolPump();
 		int result = -1;
-		int a[][] = { { 4, 6 }, { 6, 5 }, { 7, 3 }, { 4, 5 } };
+		int a[][] = { { 6, 4 }, { 3, 6 }, { 7, 3 } };
 		int n = a.length;
 		// Time : O(n), Space : O(1)
 		result = obj.indexToStartForPetrolPump(a, n);
@@ -33,16 +33,15 @@ public class PetrolPump {
 	public int indexToStartForPetrolPump(int[][] a, int n) {
 		int cur_petrol = a[0][0] - a[0][1];
 		int front = 0, rear = 1;
-		while (front != rear) {
-			if (cur_petrol >= 0) {
-				cur_petrol += a[rear][0] - a[rear][1];
-				rear = (rear + 1) % n;
-			} else {
-				cur_petrol += a[front][0] - a[front][1];
+		while (front != rear || cur_petrol < 0) {
+			while (cur_petrol < 0 && front != rear) {
+				cur_petrol -= a[front][0] - a[front][1];
 				front++;
 				if (front == n)
 					return -1;
 			}
+			cur_petrol += a[rear][0] - a[rear][1];
+			rear = (rear + 1) % n;
 		}
 		return front;
 	}

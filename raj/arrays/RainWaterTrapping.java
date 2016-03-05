@@ -57,9 +57,11 @@ public class RainWaterTrapping {
 		CommonUtil.printArray(a);
 		CommonUtil.printArray(rMax);
 
+		int min;
 		for (int i = 1; i < n - 1; i++) {
-			if (a[i] < lMax[i] && a[i] < rMax[i]) {
-				t += Math.min(lMax[i], rMax[i]) - a[i];
+			min = Math.min(lMax[i], rMax[i]);
+			if (a[i] < min) {
+				t += min - a[i];
 			}
 		}
 		return t;

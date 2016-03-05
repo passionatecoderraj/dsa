@@ -77,7 +77,7 @@ public class MergeKSortedArrays {
 			r = temp.listNumber;
 			c = ptrs[temp.listNumber];
 
-			if (ptrs[temp.listNumber] < n) {
+			if (c < n) {
 				heap.add(a[r][c], new HeapNode(a[r][c], r));
 			} else {
 				// if any of this list burns out,

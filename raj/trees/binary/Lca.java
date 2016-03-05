@@ -29,7 +29,7 @@ public class Lca {
 
 		BinaryTreeNode<Integer> root = ob.root;
 
-		int x = 8, y = 5;
+		int x = 8, y = 9;
 		BinaryTreeNode<Integer> result = null;
 		result = obj.lca(root, x, y);
 		System.out.println(result);

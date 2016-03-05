@@ -34,22 +34,13 @@ public class RemoveDuplicates {
 
 	public int removeDuplicatesUsingSorting(int[] a, int n) {
 		Arrays.sort(a);
+		int l = 1;
 		for (int i = 1; i < n; i++) {
-			if (a[i] == a[i - 1]) {
-				a[i - 1] = 0;
+			if (a[i] != a[i - 1]) {
+				a[l++] = a[i];
 			}
 		}
-		
-		int l = 0;
-		int r = n - 1;
-		while (l < r) {
-			while (l < r && a[l] != 0)
-				l++;
-			while (l < r && a[r] == 0)
-				r--;
-			if (l < r)
-				CommonUtil.swap(a, l++, r--);
-		}
+
 		return l;
 	}
 

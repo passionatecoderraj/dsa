@@ -24,8 +24,7 @@ public class Trie {
 			temp = node.getNode(ch);
 			if (temp == null) {
 				TrieNode newNode = new TrieNode(ch);
-				int index = Character.getNumericValue(ch) - 10;
-				node.child[index] = newNode;
+				node.child[ch] = newNode;
 				node = newNode;
 			} else {
 				node = temp;

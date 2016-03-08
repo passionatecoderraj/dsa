@@ -16,13 +16,12 @@ public class TrieNode {
 		super();
 		this.data = data;
 		this.is_end_of_string = false;
-		child = new TrieNode[26];
+		child = new TrieNode[256];
 	}
 
 	public TrieNode getNode(char c) {
 		if (child != null) {
-			int index = Character.getNumericValue(c) - 10;
-			return child[index];
+			return child[c];
 		}
 		return null;
 	}

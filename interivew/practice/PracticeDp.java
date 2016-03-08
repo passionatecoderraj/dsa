@@ -384,6 +384,36 @@ public class PracticeDp {
 		return t[n][k];
 	}
 
+	// Time : O(n*r), Space : O(n*r)
+	public int binomialCoefficientUsingDp(int n, int r) {
+		int t[][] = new int[n + 1][r + 1];
+		for (int i = 0; i <= n; i++) {
+			for (int j = 0; j <= Math.min(i, r); j++) {
+				if (j == 0 || j == i) {
+					t[i][j] = 1;
+				} else {
+					t[i][j] = t[i - 1][j - 1] + t[i - 1][j];
+				}
+			}
+		}
+		CommonUtil.print2DArray(t, n + 1, r + 1);
+		return t[n][r];
+	}
+
+	public void printPascalTriangle(int n) {
+		int t[][] = new int[n][n];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j <= i; j++) {
+				if (j == 0 || j == i) {
+					t[i][j] = 1;
+				} else {
+					t[i][j] = t[i - 1][j] + t[i - 1][j - 1];
+				}
+			}
+		}
+		CommonUtil.print2DArray(t, n, n);
+	}
+
 	/*
 	 * Given three strings A, B and C. Write a function that checks whether C is
 	 * an interleaving of A and B. C is said to be interleaving A and B, if it

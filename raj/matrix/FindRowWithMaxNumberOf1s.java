@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.arrays;
+package com.raj.matrix;
 
 /**
  * @author Raj

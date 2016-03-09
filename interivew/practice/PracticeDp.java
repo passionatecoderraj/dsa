@@ -569,10 +569,19 @@ public class PracticeDp {
 	private Box[] getBoxesOfAllPossibleSizes(Box[] b, int n) {
 		Box[] a = new Box[n * 3];
 		int j = 0;
+		int max, min, other;
 		for (int i = 0; i < n; i++) {
-			a[j++] = new Box(b[i].w, b[i].l, b[i].h);
-			a[j++] = new Box(b[i].w, b[i].h, b[i].l);
-			a[j++] = new Box(b[i].h, b[i].l, b[i].w);
+			max = Math.max(b[i].l, Math.max(b[i].w, b[i].h));
+			min = Math.min(b[i].l, Math.min(b[i].w, b[i].h));
+			if (b[i].l != max && b[i].l != min)
+				other = b[i].l;
+			else if (b[i].w != max && b[i].w != min)
+				other = b[i].w;
+			else
+				other = b[i].h;
+			a[j++] = new Box(max, min, other);
+			a[j++] = new Box(max, other, min);
+			a[j++] = new Box(other, min, max);
 		}
 		return a;
 	}

@@ -15,8 +15,8 @@ public class BoxStack {
 		int result = -1;
 		result = obj.maxStackHeight(a);
 		System.out.println(result);
-		result = obj.maxHeightFromBoxStacking(a, a.length);
-		System.out.println(result);
+		// result = obj.maxHeightFromBoxStacking(a, a.length);
+		// System.out.println(result);
 	}
 
 	public static Comparator<Box> customSorter = new Comparator<Box>() {
@@ -58,7 +58,7 @@ public class BoxStack {
 			b[k++] = new Box(other, min, max);
 			b[k++] = new Box(max, other, min);
 		}
-		
+
 		Arrays.sort(b, customSorter);
 		int n = b.length;
 		int[] maxHt = new int[n];

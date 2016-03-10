@@ -36,8 +36,9 @@ public class ActivitySelection {
 	};
 
 	public void printMaxAcitiviesBySinglePerson(List<ActivityJob> jobs) {
+		System.out.println(jobs);
 		Collections.sort(jobs, customSorter);
-
+		System.out.println(jobs);
 		ActivityJob prev = null;
 		for (int i = 0; i < jobs.size(); i++) {
 			if (0 == i) {
@@ -67,7 +68,7 @@ class ActivityJob {
 
 	@Override
 	public String toString() {
-		return "ActivityJob [id=" + id + ", start=" + start + ", finish=" + finish + "]";
+		return "[id=" + id + ", start=" + start + ", finish=" + finish + "]";
 	}
 
 }

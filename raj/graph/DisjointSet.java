@@ -3,8 +3,6 @@ package com.raj.graph;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 public class DisjointSet {
 
 	private Map<Long, Node> map = new HashMap<>();
@@ -27,12 +25,11 @@ public class DisjointSet {
 		return findSet(map.get(data)).data;
 	}
 
-	private Node findSet(Node node) {
+	public Node findSet(Node node) {
 		if (node.parent == node) {
 			return node;
 		}
-		node.parent = findSet(node.parent);
-		return node.parent;
+		return findSet(node.parent);
 	}
 
 	public void union(long x, long y) {

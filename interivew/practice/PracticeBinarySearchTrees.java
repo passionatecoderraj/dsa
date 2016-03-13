@@ -528,42 +528,34 @@ public class PracticeBinarySearchTrees {
 	// (or adjacent elements are misplaced)
 	// {1,3,2,6,7,10, 12}
 	// Time : O(n)
-	public BinaryTreeNode<Integer> correctBst(BinaryTreeNode<Integer> root) {
-		first = firstPrev = second = secondPrev = null;
-		findSwappedNodes(root);
-		if (first == null) {
-			System.out.println("No swapped nodes");
-		} else {
-			// nodes are adjacent
-			if (second == null) {
-				CommonUtil.swap(first, firstPrev);
-			} else {
-				CommonUtil.swap(firstPrev, second);
-			}
-		}
-		return root;
+
+	public void fixSwappedNodesInBSTOptimized(BinaryTree tree) {
+		n1 = null;
+		n2 = null;
+		prev = null;
+		findSwappedNodesOptimized(tree.root);
+		CommonUtil.swap(n1, n2);
 	}
 
-	BinaryTreeNode<Integer> first, firstPrev, second, secondPrev;
+	BinaryTreeNode<Integer> n1;
+	BinaryTreeNode<Integer> n2;
+	BinaryTreeNode<Integer> prev;
 
-	public void findSwappedNodes(BinaryTreeNode<Integer> root) {
-		findSwappedNodes(root.left);
-		if (first == null) {
-			if (firstPrev == null) {
-				firstPrev = root;
-			} else if (firstPrev != null && root.data <= firstPrev.data) {
-				first = root;
+	public void findSwappedNodesOptimized(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return;
+		findSwappedNodesOptimized(root.left);
+		if (prev != null) {
+			if (root.data < prev.data) {
+				if (n1 == null) {
+					n1 = prev;
+				}
+				n2 = root;
 			}
 		}
-		if (second == null) {
-			if (secondPrev == null) {
-				secondPrev = root;
-			} else if (secondPrev != null && root.data <= secondPrev.data) {
-				second = root;
-			}
-		}
+		prev = root;
 
-		findSwappedNodes(root.right);
+		findSwappedNodesOptimized(root.right);
 	}
 
 	public void constructBstFromBinaryTree(BinaryTreeNode<Integer> root) {
@@ -686,7 +678,7 @@ public class PracticeBinarySearchTrees {
 		} else if (root.data < data) {
 			root.right = insert(root.right, data);
 			// RL imbalance
-			if (root.right.data > data) {
+			if (root.right.data < data) {
 				root = rotateLeft(root);
 
 			} else {
@@ -739,7 +731,7 @@ public class PracticeBinarySearchTrees {
 		int a[] = new int[m + n];
 		inOrder(r1, a);
 		inOrder(r2, a);
-		new MergeSort().merge(a, 0, m - 1, m + n);
+		new MergeSort().merge(a, 0, m - 1, m + n-1);
 		return arrayToAvl(a, 0, m + n - 1);
 	}
 

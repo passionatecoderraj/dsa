@@ -20,7 +20,11 @@ public class RegExDemo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		demoExample8();
+		demoExample3();
+
+	}
+
+	public static void reverseSentence() {
 
 	}
 

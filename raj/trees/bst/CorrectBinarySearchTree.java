@@ -34,7 +34,9 @@ public class CorrectBinarySearchTree {
 		// case 1 : two numbers are not in order (10,2)
 		// 10 and 2 are swapped
 		// {1,10,3,6,10,7,2,12}
-		obj.fixSwappedNodesInBST(tree);
+		// obj.fixSwappedNodesInBST(tree);
+		obj.fixSwappedNodesInBSTOptimized(tree);
+
 		tree.inOrder(tree.root);
 		System.out.println();
 
@@ -51,7 +53,7 @@ public class CorrectBinarySearchTree {
 		tree2.insert(12);
 		tree2.inOrder(tree2.root);
 		System.out.println();
-		obj.fixSwappedNodesInBST(tree2);
+		obj.fixSwappedNodesInBSTOptimized(tree2);
 		tree2.inOrder(tree2.root);
 		System.out.println();
 
@@ -103,5 +105,34 @@ public class CorrectBinarySearchTree {
 			}
 		}
 		findSwappedNodes(root.right);
+	}
+
+	public void fixSwappedNodesInBSTOptimized(BinaryTree tree) {
+		n1 = null;
+		n2 = null;
+		prev = null;
+		findSwappedNodesOptimized(tree.root);
+		swap(n1, n2);
+	}
+
+	BinaryTreeNode<Integer> n1;
+	BinaryTreeNode<Integer> n2;
+	BinaryTreeNode<Integer> prev;
+
+	public void findSwappedNodesOptimized(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return;
+		findSwappedNodesOptimized(root.left);
+		if (prev != null) {
+			if (root.data < prev.data) {
+				if (n1 == null) {
+					n1 = prev;
+				}
+				n2 = root;
+			}
+		}
+		prev = root;
+
+		findSwappedNodesOptimized(root.right);
 	}
 }

@@ -7,7 +7,8 @@ public class MaxAreaOfHistogram {
 
 	public static void main(String[] args) {
 		MaxAreaOfHistogram obj = new MaxAreaOfHistogram();
-		int a[] = { 2, 1, 2, 3, 1 };
+		// int a[] = { 2, 1, 2, 3, 1 };
+		int a[] = { 2, 1, 4, 5, 1, 3, 3 };
 		int result = -1;
 		result = obj.maxAreaOfHistogram(a);
 		System.out.println(result);
@@ -16,8 +17,8 @@ public class MaxAreaOfHistogram {
 	public int maxAreaOfHistogram(int[] a) {
 		Deque<Integer> stack = new LinkedList<Integer>();
 		int maxArea = -1;
-		int top, area, i;
-		for (i = 0; i < a.length;) {
+		int top, area, i = 0;
+		while (i < a.length) {
 			if (stack.isEmpty() || a[i] >= a[stack.peekFirst()]) {
 				stack.offerFirst(i);
 				i++;

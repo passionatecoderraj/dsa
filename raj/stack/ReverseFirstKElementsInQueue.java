@@ -36,7 +36,7 @@ public class ReverseFirstKElementsInQueue {
 
 		while (!stack.isEmpty())
 			q.addLast((Integer) stack.pop());
-		for (int i = 0; i < (n - k); i++) {
+		for (int i = k; i < n; i++) {
 			q.addLast(q.removeFirst());
 		}
 	}

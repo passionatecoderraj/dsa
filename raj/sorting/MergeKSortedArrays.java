@@ -25,7 +25,7 @@ public class MergeKSortedArrays {
 		List<Integer[]> arrays = new ArrayList<Integer[]>();
 		arrays.add(new Integer[] { 10, 15, 17, 20 });
 		arrays.add(new Integer[] { 5, 7, 11, 19, 22 });
-		arrays.add(new Integer[] { 1, 8, 12 });
+		arrays.	add(new Integer[] { 1, 8, 12 });
 
 		Integer[] result = null;
 		int[] res = null;

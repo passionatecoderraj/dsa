@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /*
- * copy queue to stack so that queue also maintains the same order of queue
+ * copy queue to stack so that stack also maintains the same order of queue
  * Use stack - push, pop, Queue - enque,deque operations
  *  - should do it in constant space
  */

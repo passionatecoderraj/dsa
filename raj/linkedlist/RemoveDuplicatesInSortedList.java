@@ -57,11 +57,14 @@ public class RemoveDuplicatesInSortedList {
 	public void removeDuplicatesInSortedLinkedList(ListNode<Integer> root) {
 		if (null == root || root.next == null)
 			return;
-		ListNode<Integer> cur = root;
-		while (cur.next != null) {
-			if (cur.data == cur.next.data) {
-				cur.next = cur.next.next;
+		ListNode<Integer> prev = root;
+		ListNode<Integer> cur = root.next;
+		while (cur != null) {
+			if (prev.data == cur.data) {
+				prev.next = cur.next;
+				cur = cur.next;
 			} else {
+				prev = cur;
 				cur = cur.next;
 			}
 		}
@@ -70,15 +73,18 @@ public class RemoveDuplicatesInSortedList {
 	public void removeDuplicatesInSortedCircularList(ListNode<Integer> root) {
 		if (root == null || root.next == root)
 			return;
-		ListNode<Integer> cur = root;
-		while (cur != null && cur.next != null) {
-			if (cur.data == cur.next.data)
-				cur.next = cur.next.next;
-			else
+		ListNode<Integer> prev = root;
+		ListNode<Integer> cur = root.next;
+		while (cur != root) {
+			if (prev.data == cur.data) {
+				prev.next = cur.next;
 				cur = cur.next;
-			if (cur.next == root)
-				break;
+			} else {
+				prev = cur;
+				cur = cur.next;
+			}
 		}
+
 	}
 
 }

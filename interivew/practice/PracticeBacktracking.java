@@ -266,7 +266,7 @@ public class PracticeBacktracking {
 		boolean t[][] = new boolean[m][n];
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
-				if (!t[i][j]) {
+				if (a[i][j] == 1 && !t[i][j]) {
 					dfs(a, m, n, t, i, j, moves);
 					count++;
 				}
@@ -292,4 +292,40 @@ public class PracticeBacktracking {
 		return x >= 0 && x < m && y >= 0 && y < n && a[x][y] == 1;
 	}
 
+	public boolean searchWordInDictionary(char a[][], int m, int n, String word) {
+
+		int moves[][] = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { 1, 1 }, { 1, -1 }, { 1, 1 }, { -1, 1 } };
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (a[i][j] == word.charAt(0)) {
+					if (searchWordUtil(a, m, n, i, j, word, 1, moves)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean searchWordUtil(char[][] a, int m, int n, int x, int y, String word, int index, int[][] moves) {
+		if (index == word.length())
+			return true;
+
+		for (int i = 0; i < moves.length; i++) {
+			int next_x = x + moves[i][0];
+			int next_y = y + moves[i][1];
+			if (isSafeForSearchWordInDictionary(a, m, n, next_x, next_y, word, index)) {
+				if (searchWordUtil(a, m, n, next_x, next_y, word, index + 1, moves))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isSafeForSearchWordInDictionary(char[][] a, int m, int n, int x, int y, String word, int index) {
+		return x >= 0 && x < m && y >= 0 && y < n && word.charAt(index) == a[x][y];
+	}
+
+	
+	
 }

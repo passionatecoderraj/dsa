@@ -1366,16 +1366,16 @@ public class PracticeArrays {
 	public int indexToStartForPetrolPump(int[][] a, int n) {
 		int cur_petrol = a[0][0] - a[0][1];
 		int front = 0, rear = 1;
-		while (front != rear) {
-			if (cur_petrol >= 0) {
-				cur_petrol += a[rear][0] - a[rear][1];
-				rear = (rear + 1) % n;
-			} else {
-				cur_petrol += a[front][0] - a[front][1];
+		while (front != rear || cur_petrol < 0) {
+			while (front != rear || cur_petrol < 0) {
+				cur_petrol -= a[front][0] - a[front][1];
 				front++;
 				if (front == n)
 					return -1;
 			}
+			cur_petrol += a[rear][0] - a[rear][1];
+			rear = (rear + 1) % n;
+
 		}
 		return front;
 	}
@@ -1407,7 +1407,7 @@ public class PracticeArrays {
 			a[a[i] % k] += k;
 		}
 		for (int i = 0; i < n; i++) {
-			a[i] = a[i] / n;
+			a[i] = a[i] / k;
 		}
 		int maxRepeated = 0;
 		for (int i = 0; i < n; i++) {

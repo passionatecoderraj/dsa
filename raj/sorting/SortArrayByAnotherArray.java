@@ -94,19 +94,21 @@ public class SortArrayByAnotherArray {
 				for (int j = 0; j < map.get(b[i]); j++) {
 					a[k++] = b[i];
 				}
-				map.put(b[i], 0);
+				map.remove(b[i]);
+				// map.put(b[i], 0);
 			}
 		}
 
 		// there are un-common values in two arrays
-		if (k < n) {
+		if (k < m) {
 
-			int c[] = new int[n - k];
+			int c[] = new int[m - k];
 			int index = 0;
 
 			for (int key : map.keySet()) {
-				if (map.get(key) != 0)
+				for (int j = 0; j < map.get(key); j++) {
 					c[index++] = key;
+				}
 			}
 
 			// sorting uncommon values

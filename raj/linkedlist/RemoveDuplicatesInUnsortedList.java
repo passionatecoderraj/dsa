@@ -60,14 +60,17 @@ public class RemoveDuplicatesInUnsortedList {
 	public void removeDuplicatesFromUnsortedLinkedList(ListNode<Integer> root) {
 		if (null == root || root.next == null)
 			return;
-		ListNode<Integer> cur1, cur2 = null;
+		ListNode<Integer> cur1, cur2 = null, prev = null;
 		cur1 = root;
-		while (cur1 != null && cur1.next != null) {
-			cur2 = cur1;
-			while (cur2.next != null) {
-				if (cur1.data == cur2.next.data) {
-					cur2.next = cur2.next.next;
+		while (cur1 != null) {
+			cur2 = cur1.next;
+			prev = cur1;
+			while (cur2 != null) {
+				if (cur1.data == cur2.data) {
+					prev.next = cur2.next;
+					cur2 = cur2.next;
 				} else {
+					prev = cur2;
 					cur2 = cur2.next;
 				}
 			}

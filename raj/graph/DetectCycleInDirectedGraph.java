@@ -34,11 +34,8 @@ public class DetectCycleInDirectedGraph {
 			whiteSet.add(v);
 		}
 		g.display();
-		Vertex<Integer> current = null;
 		while (whiteSet.size() > 0) {
 			Vertex<Integer> cur = whiteSet.iterator().next();
-			current = cur;
-			System.out.println(current.getEdges());
 			if (dfs(cur, whiteSet, graySet, blackSet))
 				return true;
 		}
@@ -51,6 +48,8 @@ public class DetectCycleInDirectedGraph {
 		// move cur vertex to gray from white set and start exploring it
 		graySet.add(cur);
 		whiteSet.remove(cur);
+		System.out.println("To gray" + cur);
+
 		for (Vertex<Integer> neighbour : cur.getAdjacentVertexes()) {
 			if (blackSet.contains(neighbour))
 				continue;
@@ -62,6 +61,7 @@ public class DetectCycleInDirectedGraph {
 		}
 
 		// move vertex from gray set to black set when done exploring
+		System.out.println("To black" + cur);
 		graySet.remove(cur);
 		blackSet.add(cur);
 		return false;

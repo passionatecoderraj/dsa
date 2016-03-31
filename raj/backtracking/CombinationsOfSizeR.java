@@ -11,8 +11,8 @@ import com.interivew.graph.CommonUtil;
 public class CombinationsOfSizeR {
 
 	public static void main(String[] args) {
-		int a[] = { 1, 2, 3, 4, 5 };
-		int n = a.length, r = 3;
+		int a[] = { 1, 2, 3, 4 };
+		int n = a.length, r = 2;
 		CombinationsOfSizeR obj = new CombinationsOfSizeR();
 		obj.combinationsOfSizeR(a, n, r);
 

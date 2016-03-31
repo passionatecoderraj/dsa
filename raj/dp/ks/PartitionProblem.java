@@ -29,7 +29,7 @@ public class PartitionProblem {
 		}
 		if (sum % 2 != 0)
 			return false;
-		return new SubsetSum().isSubsetSumPresent(a, sum / 2);
+		return new SubsetSum().isSubsetSum(a, a.length, sum / 2);
 	}
 
 }

@@ -19,7 +19,7 @@ public class RemoveDuplicatesInUnsortedCircularList {
 	public static void main(String[] args) {
 
 		RemoveDuplicatesInUnsortedCircularList obj = new RemoveDuplicatesInUnsortedCircularList();
-		
+
 		CircularLinkedList<Integer> clist = new CircularLinkedList<Integer>();
 		clist.insert(12);
 		clist.insert(11);
@@ -65,14 +65,19 @@ public class RemoveDuplicatesInUnsortedCircularList {
 	public void removeDuplicatesFromUnsortedCircularList(ListNode<Integer> root) {
 		if (null == root || root.next == root)
 			return;
-		ListNode<Integer> cur1, cur2 = null;
+		ListNode<Integer> cur1, cur2 = null, prev = null;
 		cur1 = root;
-		while (cur1 != null && cur1.next != root) {
-			cur2 = cur1;
-			while (cur2.next != root) {
-				if (cur1.data == cur2.next.data) {
-					cur2.next = cur2.next.next;
+		while (cur1 != null) {
+			cur2 = cur1.next;
+			prev = cur1;
+			if (cur2 == root)
+				break;
+			while (cur2 != root) {
+				if (cur1.data == cur2.data) {
+					prev.next = cur2.next;
+					cur2 = cur2.next;
 				} else {
+					prev = cur2;
 					cur2 = cur2.next;
 				}
 			}

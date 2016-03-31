@@ -44,7 +44,7 @@ public class FindSubarrayOfSumZero {
 				return true;
 			}
 			set.add(sum);
-		//	System.out.println(set);
+			System.out.println(set);
 		}
 		return false;
 	}

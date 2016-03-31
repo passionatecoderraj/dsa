@@ -185,7 +185,7 @@ public class PracticeBinaryTrees {
 			return false;
 		if (root.data == data)
 			return true;
-		return search(root.left, data) && search(root.right, data);
+		return search(root.left, data) || search(root.right, data);
 	}
 
 	public boolean searchWithoutRecursion(BinaryTreeNode<Integer> root, int data) {
@@ -659,10 +659,10 @@ public class PracticeBinaryTrees {
 		while (!q.isEmpty()) {
 			temp = q.removeFirst();
 			stack.push(temp);
-			if (temp.left != null)
-				q.addLast(temp.left);
 			if (temp.right != null)
 				q.addLast(temp.right);
+			if (temp.left != null)
+				q.addLast(temp.left);
 		}
 		while (!stack.isEmpty())
 			System.out.print(stack.pop().data + " ");

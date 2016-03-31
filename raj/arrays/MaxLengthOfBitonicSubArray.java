@@ -3,6 +3,8 @@
  */
 package com.raj.arrays;
 
+import java.util.Arrays;
+
 import com.interivew.graph.CommonUtil;
 
 /**
@@ -30,10 +32,9 @@ public class MaxLengthOfBitonicSubArray {
 		int lis[] = new int[n];
 		int lds[] = new int[n];
 
-		for (int i = 0; i < n; i++) {
-			lis[i] = 1;
-			lds[i] = 1;
-		}
+		Arrays.fill(lis, 1);
+		Arrays.fill(lds, 1);
+
 		for (int i = 1; i < n; i++) {
 			if (a[i] > a[i - 1]) {
 				lis[i] = lis[i - 1] + 1;
@@ -48,7 +49,7 @@ public class MaxLengthOfBitonicSubArray {
 
 		CommonUtil.printArray(lis);
 		CommonUtil.printArray(lds);
-		
+
 		int maxLength = Integer.MIN_VALUE;
 		for (int i = 0; i < n; i++) {
 			maxLength = Math.max(maxLength, lis[i] + lds[i] - 1);

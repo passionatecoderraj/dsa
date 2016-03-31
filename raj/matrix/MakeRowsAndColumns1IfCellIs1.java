@@ -18,6 +18,8 @@ public class MakeRowsAndColumns1IfCellIs1 {
 		int m1 = b.length, n1 = b[0].length;
 		System.out.println("Before");
 		CommonUtil.print2DArray(b, m1, n1);
+
+		// Time : O(m*n) , Space : O(1)
 		makeRowsAndColumns1IfCellIs1WithSpaceOptimized(b, m1, n1);
 		System.out.println("After");
 		CommonUtil.print2DArray(b, m1, n1);
@@ -52,7 +54,7 @@ public class MakeRowsAndColumns1IfCellIs1 {
 				}
 			}
 		}
-		
+
 		if (rowFlag) {
 			for (int i = 0; i < m; i++)
 				a[i][0] = 1;

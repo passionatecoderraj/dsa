@@ -89,6 +89,7 @@ public class LRUCache {
 			LRUCacheDLLNode<Integer, Integer> node = map.get(key);
 			remove(node);
 			setHead(node);
+			return node.value;
 		}
 		return -1;
 	}
@@ -96,7 +97,6 @@ public class LRUCache {
 	public void put(int key, int value) {
 		if (map.containsKey(key)) {
 			LRUCacheDLLNode<Integer, Integer> node = map.get(key);
-			node.value = value;
 			remove(node);
 			setHead(node);
 		} else {

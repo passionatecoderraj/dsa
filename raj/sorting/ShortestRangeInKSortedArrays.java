@@ -3,9 +3,6 @@
  */
 package com.raj.sorting;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.interivew.graph.BinaryMinHeap;
 
 /**

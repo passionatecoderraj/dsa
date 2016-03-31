@@ -31,7 +31,7 @@ public class XPowerN {
 		// Time :O(logn)
 		// for negative values also
 		double res = 0;
-		res = obj.pow(2, -5);
+		res = obj.pow(2, -3);
 		System.out.println(res);
 	}
 

@@ -8,7 +8,7 @@ public class FindTwoRepeatingNumbers {
 		FindTwoRepeatingNumbers obj = new FindTwoRepeatingNumbers();
 		int a[] = { 4, 2, 4, 5, 2, 3, 1 };
 		int n = a.length;
-		// assuming number are ranging from 0...n-1
+		// assuming number are ranging from 1...n
 		obj.findTwoRepeatingNumbers(a, n);
 
 		// using sign change

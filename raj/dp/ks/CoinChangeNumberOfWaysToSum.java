@@ -53,7 +53,7 @@ public class CoinChangeNumberOfWaysToSum {
 			}
 		}
 
-		// CommonUtil.print2DArray(t, m + 1, n + 1);
+		CommonUtil.print2DArray(t, m + 1, n + 1);
 		return t[m][n];
 	}
 

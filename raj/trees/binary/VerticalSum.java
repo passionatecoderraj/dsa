@@ -35,15 +35,16 @@ public class VerticalSum {
 		ob.insert(6);
 		ob.insert(7);
 		ob.insert(8);
-		ob.insert(9);
-		ob.insert(10);
-		
 
 		BinaryTreeNode<Integer> root = ob.root;
 
 		Map<Integer, Integer> result = null;
 		result = obj.verticalSumOfNodes(root, result);
 		System.out.println(result);
+
+		Map<Integer, Integer> res = new TreeMap<Integer, Integer>();
+		obj.bottomView(root, 0, res);
+		System.out.println(res);
 	}
 
 	public Map<Integer, Integer> verticalSumOfNodes(BinaryTreeNode<Integer> root, Map<Integer, Integer> result) {
@@ -62,6 +63,14 @@ public class VerticalSum {
 			map.put(level, root.data);
 		}
 		verticalSum(root.right, level + 1, map);
+	}
+
+	public void bottomView(BinaryTreeNode<Integer> root, int level, Map<Integer, Integer> map) {
+		if (null == root)
+			return;
+		map.put(level, root.data);
+		bottomView(root.right, level + 1, map);
+		bottomView(root.left, level - 1, map);
 	}
 
 }

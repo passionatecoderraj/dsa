@@ -16,7 +16,7 @@ public class CareerCup {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// reverseSetence("Prithviraj Kumar Dasari. $Hello");
+		reverseSetence("Prithviraj Kumar Dasari. $Hello");
 		signedIntegerToStringWithoutUsingBuiltInFunctions(-123);
 	}
 
@@ -27,6 +27,7 @@ public class CareerCup {
 		while (m.find()) {
 			reverse(sb, m.start(), m.end() - 1);
 		}
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 

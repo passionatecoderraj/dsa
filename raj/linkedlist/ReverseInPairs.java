@@ -21,26 +21,35 @@ public class ReverseInPairs {
 		obj.insert(13);
 		obj.insert(14);
 		obj.insert(15);
-		obj.insert(16);
-		obj.insert(17);
-		obj.insert(18);
-		obj.insert(19);
-		obj.insert(20);
-		obj.insert(21);
-		obj.insert(22);
-		obj.insert(23);
-		obj.insert(24);
-		obj.insert(25);
-		obj.insert(26);
+//		obj.insert(16);
+//		obj.insert(17);
+//		obj.insert(18);
+//		obj.insert(19);
+//		obj.insert(20);
+//		obj.insert(21);
+//		obj.insert(22);
+//		obj.insert(23);
+//		obj.insert(24);
+//		obj.insert(25);
+//		obj.insert(26);
 
 		ReverseInPairs ob = new ReverseInPairs();
 		obj.print();
 		// Time : O(n)
-		ob.reverseInPairs(obj);
-		obj.print();
+		ListNode<Integer> root = ob.reverseInPair(obj.root);
+		obj.print(root);
 		// Time : O(n)
-		ob.reverseInPairsRecursively(obj.root);
-		obj.print();
+	//	ob.reverseInPairsRecursively(obj.root);
+	//	obj.print();
+	}
+
+	public ListNode<Integer> reverseInPair(ListNode<Integer> root) {
+		if (root == null || root.next == null)
+			return root;
+		ListNode<Integer> temp = root.next.next, temp2 = root.next;
+		root.next.next = root;
+		root.next = reverseInPair(temp);
+		return temp2;
 	}
 
 	public void reverseInPairsRecursively(ListNode<Integer> root) {

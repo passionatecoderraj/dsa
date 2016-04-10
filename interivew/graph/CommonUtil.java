@@ -134,4 +134,10 @@ public class CommonUtil {
 		cur.next = cur.prev;
 		cur.prev = temp;
 	}
+
+	public static void swap(int[][] a, int x1, int y1, int x2, int y2) {
+		int temp = a[x1][y1];
+		a[x1][y1] = a[x2][y2];
+		a[x2][y2] = temp;
+	}
 }

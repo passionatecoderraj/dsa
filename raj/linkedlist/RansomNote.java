@@ -1,7 +1,5 @@
 package com.raj.linkedlist;
 
-import java.util.Arrays;
-
 public class RansomNote {
 
 	public static void main(String[] args) {

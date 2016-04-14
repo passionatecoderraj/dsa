@@ -27,7 +27,7 @@ public class MaxSumRectangle {
 				for (int i = 0; i < m; i++) {
 					b[i] = b[i] + a[i][j];
 				}
-				KadaneResult kadane = new MaxConitguousSumKadane().maxContiguousSumWithKadaneResult(b);
+				KadaneResult kadane = new MaxSubarraySumKadane().maxContiguousSumWithKadaneResult(b);
 				if (kadane.max > maxSum) {
 					maxSum = kadane.max;
 					maxLeft = l;

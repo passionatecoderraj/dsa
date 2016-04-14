@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.dp;
+package com.raj.dp.lis;
 
 /**
  * @author Raj

@@ -1,4 +1,4 @@
-package com.raj.dp;
+package com.raj.dp.ks;
 
 import com.interivew.graph.CommonUtil;
 

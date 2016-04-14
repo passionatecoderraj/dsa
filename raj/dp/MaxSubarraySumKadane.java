@@ -2,13 +2,13 @@ package com.raj.dp;
 
 import com.interivew.graph.CommonUtil;
 
-public class MaxConitguousSumKadane {
+public class MaxSubarraySumKadane {
 
 	public static void main(String[] args) {
 		// int a[] ={-2, 11, -4, 13, -5, -2};
 		int a[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
 		// int a[] ={1,2,3,4};
-		MaxConitguousSumKadane obj = new MaxConitguousSumKadane();
+		MaxSubarraySumKadane obj = new MaxSubarraySumKadane();
 		int result = -1;
 		result = obj.maxContiguousSumBruteForceOn3(a);
 		System.out.println(result);

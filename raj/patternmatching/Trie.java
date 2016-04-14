@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.string;
+package com.raj.patternmatching;
 
 import com.raj.nodes.TrieNode;
 

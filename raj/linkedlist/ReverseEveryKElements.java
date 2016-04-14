@@ -42,8 +42,8 @@ public class ReverseEveryKElements {
 		obj.root = ob.reverseKElementsRecursviely(obj.root, k);
 		obj.print();
 
-		obj.root = ob.reverseKElementsIteratively(obj.root, k);
-		obj.print();
+//		obj.root = ob.reverseKElementsIteratively(obj.root, k);
+//		obj.print();
 
 	}
 

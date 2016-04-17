@@ -663,6 +663,23 @@ public class PracticeDp {
 		return t[n];
 	}
 
+	public int minCoinsToMakeSum(int[] a, int m) {
+		int n = a.length;
+
+		int t[] = new int[m + 1];
+		Arrays.fill(t, Integer.MAX_VALUE);
+		t[0] = 0;
+		for (int i = 1; i <= m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i >= a[j]) {
+					t[i] = Math.min(1 + t[a[j] - i], t[i]);
+				}
+			}
+		}
+		CommonUtil.printArray(t);
+		return t[n];
+	}
+
 	/*
 	 * Given a cost matrix cost[][] and a position (m, n) in cost[][], write a
 	 * function that returns cost of minimum cost path to reach (m, n) from (0,

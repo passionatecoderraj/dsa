@@ -121,7 +121,7 @@ public class BinaryTree {
 		return 1 + size(root.left) + size(root.right);
 	}
 
-	public int height(BinaryTreeNode<Integer> root) {
+	public static int height(BinaryTreeNode<Integer> root) {
 		if (null == root)
 			return 0;
 		return 1 + Math.max(height(root.left), height(root.right));

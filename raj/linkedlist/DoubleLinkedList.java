@@ -137,6 +137,19 @@ public class DoubleLinkedList<T> {
 		}
 	}
 
+	// Time : O(1)
+	public void deleteHead() {
+		if (null == root) {
+			return;
+		}
+		DLLNode<T> temp = root;
+		root = root.next;
+		if (root != null) {
+			root.prev = null;
+		}
+		temp = null;
+	}
+
 	/**
 	 * @param args
 	 */

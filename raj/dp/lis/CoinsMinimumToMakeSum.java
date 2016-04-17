@@ -1,4 +1,6 @@
-package com.raj.dp.ks;
+package com.raj.dp.lis;
+
+import java.util.Arrays;
 
 import com.interivew.graph.CommonUtil;
 
@@ -10,12 +12,11 @@ public class CoinsMinimumToMakeSum {
 		int result = -1, sum = 11;
 		result = obj.minCoinsToMakeSum(a, sum);
 		System.out.println(result);
-		// with space complexity of O(n)
-		// result = obj.coinChangeNumberOfWaysToSumWithSCOn(a, sum);
-		// System.out.println(result);
+		result = obj.minCoinsToMakeSum(a, sum);
+		System.out.println(result);
 	}
 
-	private int minCoinsToMakeSum(int[] a, int n) {
+	public int minCoinsToMakeSum(int[] a, int n) {
 		int m = a.length;
 		if (m <= 0)
 			return -1;
@@ -30,6 +31,23 @@ public class CoinsMinimumToMakeSum {
 			for (int j = 1; j < n + 1; j++) {
 				if (j >= a[i]) {
 					t[j] = Math.min(t[j], 1 + t[j - a[i]]);
+				}
+			}
+		}
+		CommonUtil.printArray(t);
+		return t[n];
+	}
+
+	public int minCoinsToMakeSum2(int[] a, int m) {
+		int n = a.length;
+
+		int t[] = new int[m + 1];
+		Arrays.fill(t, Integer.MAX_VALUE);
+		t[0] = 0;
+		for (int i = 1; i <= m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i >= a[j]) {
+					t[i] = Math.min(1 + t[a[j] - i], t[i]);
 				}
 			}
 		}

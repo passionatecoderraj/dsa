@@ -47,8 +47,10 @@ public class FindPairSumCloseToXFromTwoSortedArrays {
 			}
 			if (curDiff < 0) {
 				l1++;
-			} else {
+			} else if (curDiff > 0) {
 				r2--;
+			} else {
+				break;
 			}
 
 		}

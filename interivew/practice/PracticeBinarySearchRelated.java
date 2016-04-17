@@ -281,10 +281,10 @@ public class PracticeBinarySearchRelated {
 
 	public void sortArrayInWaveForm(int a[], int n) {
 		for (int i = 0; i < n; i += 2) {
-			if (i > 0 && a[i - 1] > a[i]) {
+			if (i - 1 >= 0 && a[i - 1] > a[i]) {
 				CommonUtil.swap(a, i, i - 1);
 			}
-			if (i < n - 1 && a[i + 1] > a[i]) {
+			if (i + 1 < n && a[i + 1] > a[i]) {
 				CommonUtil.swap(a, i, i + 1);
 			}
 		}

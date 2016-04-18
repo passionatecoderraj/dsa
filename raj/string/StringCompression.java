@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.arrays;
+package com.raj.string;
 
 /**
  * @author Raj
@@ -15,7 +15,7 @@ public class StringCompression {
 	public static void main(String[] args) {
 		StringCompression obj = new StringCompression();
 		String result = null;
-		String str = "aaacccbbdee";
+		String str = "aaacccbbde";
 
 		result = obj.compressString(str);
 		System.out.println(result);

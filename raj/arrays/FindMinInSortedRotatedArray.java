@@ -4,6 +4,7 @@ public class FindMinInSortedRotatedArray {
 
 	public static void main(String[] args) {
 		int a[] = { 5, 1, 2, 3, 4 };
+		// int a[] = { 5,5,5,0,1,2,5};
 		int result = -1, n = a.length;
 		FindMinInSortedRotatedArray obj = new FindMinInSortedRotatedArray();
 		result = obj.findMinInSortedRotatedArray(a, n);

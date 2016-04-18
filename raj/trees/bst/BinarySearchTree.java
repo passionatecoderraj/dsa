@@ -13,7 +13,7 @@ import com.raj.nodes.BinaryTreeNode;
  *
  */
 public class BinarySearchTree {
-	BinaryTreeNode<Integer> root;
+	public BinaryTreeNode<Integer> root;
 
 	public void inOrder(BinaryTreeNode<Integer> node) {
 		if (node != null) {

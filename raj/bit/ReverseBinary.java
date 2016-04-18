@@ -19,7 +19,7 @@ public class ReverseBinary {
 		System.out.println(result);
 	}
 
-	private int reverseBinary(int n) {
+	public int reverseBinary(int n) {
 		int res = 0;
 		while (n > 0) {
 			res = res << 1;

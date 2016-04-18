@@ -68,7 +68,7 @@ public class BinaryTree {
 		return node;
 	}
 
-	public void inOrder(BinaryTreeNode<Integer> node) {
+	public static void inOrder(BinaryTreeNode<Integer> node) {
 		if (node != null) {
 			inOrder(node.left);
 			System.out.print(node.data + " ");
@@ -76,7 +76,7 @@ public class BinaryTree {
 		}
 	}
 
-	public void preOrder(BinaryTreeNode<Integer> node) {
+	public static void preOrder(BinaryTreeNode<Integer> node) {
 		if (node != null) {
 			System.out.print(node.data + " ");
 			preOrder(node.left);
@@ -84,7 +84,7 @@ public class BinaryTree {
 		}
 	}
 
-	public void postOrder(BinaryTreeNode<Integer> node) {
+	public static void postOrder(BinaryTreeNode<Integer> node) {
 		if (node != null) {
 			postOrder(node.left);
 			postOrder(node.right);

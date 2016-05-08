@@ -32,7 +32,7 @@ public class RemoveDuplicatesInSortedList {
 		RemoveDuplicatesInSortedList obj = new RemoveDuplicatesInSortedList();
 
 		// Time :O(n)
-		obj.removeDuplicatesInSortedLinkedList(list.root);
+		obj.removeDuplicatesInSortedList(list.root);
 		list.print();
 
 		CircularLinkedList<Integer> clist = new CircularLinkedList<Integer>();
@@ -54,37 +54,28 @@ public class RemoveDuplicatesInSortedList {
 		clist.print();
 	}
 
-	public void removeDuplicatesInSortedLinkedList(ListNode<Integer> root) {
-		if (null == root || root.next == null)
+	public void removeDuplicatesInSortedList(ListNode<Integer> root) {
+		if (root == null || root.next == null)
 			return;
-		ListNode<Integer> prev = root;
-		ListNode<Integer> cur = root.next;
-		while (cur != null) {
-			if (prev.data == cur.data) {
-				prev.next = cur.next;
-				cur = cur.next;
-			} else {
-				prev = cur;
-				cur = cur.next;
-			}
+		while (root.next != null) {
+			if (root.next.data == root.data)
+				root.next = root.next.next;
+			else
+				root = root.next;
 		}
 	}
 
 	public void removeDuplicatesInSortedCircularList(ListNode<Integer> root) {
-		if (root == null || root.next == root)
+		if (root == null || root.next == null)
 			return;
-		ListNode<Integer> prev = root;
-		ListNode<Integer> cur = root.next;
-		while (cur != root) {
-			if (prev.data == cur.data) {
-				prev.next = cur.next;
-				cur = cur.next;
-			} else {
-				prev = cur;
-				cur = cur.next;
-			}
-		}
+		ListNode<Integer> cur = root;
 
+		while (cur.next != root) {
+			if (cur.next.data == cur.data)
+				cur.next = cur.next.next;
+			else
+				cur = cur.next;
+		}
 	}
 
 }

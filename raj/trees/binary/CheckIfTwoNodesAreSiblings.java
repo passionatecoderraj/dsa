@@ -52,11 +52,8 @@ public class CheckIfTwoNodesAreSiblings {
 					return true;
 			}
 		}
-		boolean left = checkIfTwoNodesAreSiblings(root.left, a, b);
-		if (left)
-			return left;
 
-		return checkIfTwoNodesAreSiblings(root.right, a, b);
+		return checkIfTwoNodesAreSiblings(root.left, a, b) || checkIfTwoNodesAreSiblings(root.right, a, b);
 	}
 
 }

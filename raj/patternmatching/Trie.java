@@ -71,16 +71,57 @@ public class Trie {
 		obj.insertInTrie("kanasu");
 
 		boolean result;
-		result = obj.search("raj");
-		System.out.println(result);
-		result = obj.search("rajaj");
-		System.out.println(result);
-		result = obj.hasPrefix("rajaj");
-		System.out.println(result);
+		// result = obj.search("raj");
+		// System.out.println(result);
+		// result = obj.search("rajaj");
+		// System.out.println(result);
+		// result = obj.hasPrefix("rajaj");
+		// System.out.println(result);
 
 		char c[] = new char[100];
-		obj.printRootToLeavePaths(0, obj.root, c);
+		// obj.printRootToLeavePaths(0, obj.root, c);
 
+		obj.searchStringsStartsWith("k");
+	}
+
+	public void searchStringsStartsWith(String str) {
+		TrieNode node = root, temp;
+		for (int i = 0; i < str.length(); i++) {
+			temp = node.getNode(str.charAt(i));
+			if (null == temp)
+				return;
+			node = temp;
+		}
+
+		char c[] = new char[100];
+		int i = 0;
+		for (i = 0; i < str.length()-1; i++) {
+			c[i] = str.charAt(i);
+		}
+		printRootToLeavePath(i, node, c);
+	}
+
+	public void printRootToLeavePath(int level, TrieNode node, char[] ch) {
+		if (node == null)
+			return;
+		ch[level] = node.data;
+		if (node.is_end_of_string) {
+			printArray(ch, 0, level);
+			System.out.println();
+		}
+		if (isLeaf(node)) {
+			return;
+		}
+
+		for (int i = 0; i < node.child.length; i++) {
+			printRootToLeavePath(level + 1, node.child[i], ch);
+		}
+	}
+
+	public void printArray(char a[], int l, int r) {
+		for (int i = l; i <= r; i++) {
+			System.out.print(a[i]);
+		}
 	}
 
 	public void printRootToLeavePaths(int level, TrieNode node, char[] ch) {

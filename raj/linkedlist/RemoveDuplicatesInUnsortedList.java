@@ -53,7 +53,7 @@ public class RemoveDuplicatesInUnsortedList {
 
 	public ListNode<Integer> removeDuplicatesFromUnsortedLinkedListUsingSorting(ListNode<Integer> root) {
 		root = new MergeSortForSingleLinkedList().mergeSort(root);
-		new RemoveDuplicatesInSortedList().removeDuplicatesInSortedLinkedList(root);
+		new RemoveDuplicatesInSortedList().removeDuplicatesInSortedList(root);
 		return root;
 	}
 

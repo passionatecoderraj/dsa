@@ -806,7 +806,7 @@ public class PracticeLinkedLists {
 			if (root.next.data == root.data)
 				root.next = root.next.next;
 			else
-				root = root.next.next;
+				root = root.next;
 		}
 	}
 
@@ -820,7 +820,7 @@ public class PracticeLinkedLists {
 			if (cur.next.data == cur.data)
 				cur.next = cur.next.next;
 			else
-				cur = cur.next.next;
+				cur = cur.next;
 		}
 	}
 

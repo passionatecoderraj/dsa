@@ -6,6 +6,7 @@ public class SpiralTraversal {
 	public static void main(String args[]) throws Exception {
 
 		int a[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, { 32, 33, 39, 50 }, };
+
 		int m = a.length, n = a[0].length;
 		CommonUtil.print2DArray(a, m, n);
 		// Time : O(m+n)
@@ -28,14 +29,20 @@ public class SpiralTraversal {
 				System.out.print(a[i][right] + " ");
 			}
 			right--;
-			for (int i = right; i >= left; i--) {
-				System.out.print(a[bottom][i] + " ");
+
+			if (top <= bottom) {
+				for (int i = right; i >= left; i--) {
+					System.out.print(a[bottom][i] + " ");
+				}
+				bottom--;
 			}
-			bottom--;
-			for (int i = bottom; i >= top; i--) {
-				System.out.print(a[i][left] + " ");
+
+			if (left <= right) {
+				for (int i = bottom; i >= top; i--) {
+					System.out.print(a[i][left] + " ");
+				}
+				left++;
 			}
-			left++;
 		}
 	}
 

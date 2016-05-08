@@ -3,6 +3,11 @@
  */
 package com.raj.dp.ks;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.raj.sorting.SortArrayByAnotherArray;
+
 /**
  * @author Raj
  *
@@ -20,6 +25,58 @@ public class Knapsack {
 		Knapsack obj = new Knapsack();
 		result = obj.knapSack(wt, profits, 50);
 		System.out.println(result);
+
+		int w[] = { 7, 8, 9, 11, 12 };
+		int p[] = { 13, 15, 16, 23, 24 };
+		double res = obj.bruteFoce(w, p, 26);
+		System.out.println(res);
+	}
+
+	public double bruteFoce(int[] wts, int[] profits, int ks) {
+		List<ArrayList<Integer>> list = new ArrayList<>();
+		int res[] = new int[wts.length];
+		permute(list, res, 0, wts.length);
+		double curProfit = 0, maxProfit = Double.MIN_VALUE;
+		int curWt = 0;
+		int a[] = { 3, 4, 1, 0, 2 };
+
+		for (ArrayList<Integer> item : list) {
+			curWt = ks;
+			curProfit = 0;
+
+			for (int j = 0, i = 0; j < item.size(); j++) {
+				i = item.get(a[j]);
+				if (i == 1)
+					if (curWt > 0 && wts[a[j]] <= curWt) {
+						curProfit += profits[a[j]];
+						curWt -= wts[a[j]];
+					} else {
+						double p = ((curWt / wts[a[j]]) * profits[a[j]]);
+						curWt = 0;
+						curProfit += p;
+					}
+			}
+
+			maxProfit = Math.max(maxProfit, curProfit);
+			System.out.println(item + " = " + curProfit);
+		}
+		return maxProfit;
+
+	}
+
+	public void permute(List<ArrayList<Integer>> list, int a[], int l, int n) {
+		if (l == n) {
+			ArrayList<Integer> lst = new ArrayList<>();
+			for (int i = 0; i < a.length; i++)
+				lst.add(a[i]);
+			list.add(lst);
+			return;
+		}
+		for (int i = 0; i < 2; i++) {
+			a[l] = i;
+			permute(list, a, l + 1, n);
+		}
+
 	}
 
 	public int knapSack(int[] wts, int[] profits, int w) {

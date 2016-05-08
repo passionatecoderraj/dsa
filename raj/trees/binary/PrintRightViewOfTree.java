@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import com.raj.nodes.BinaryTreeNode;
+import com.raj.trees.bst.BinarySearchTree;
 
 /**
  * @author Raj
@@ -25,17 +26,33 @@ public class PrintRightViewOfTree {
 	public static void main(String[] args) {
 		PrintRightViewOfTree obj = new PrintRightViewOfTree();
 
-		BinaryTree ob = new BinaryTree();
-		ob.insert(1);
-		ob.insert(2);
-		ob.insert(3);
-		ob.insert(4);
-		ob.insert(5);
-		ob.insert(6);
-		ob.insert(7);
-		ob.insert(8);
+		BinarySearchTree tree = new BinarySearchTree();
+		tree.root = tree.insert(tree.root, 8);
+		tree.root = tree.insert(tree.root, 2);
+		tree.root = tree.insert(tree.root, 10);
+		tree.root = tree.insert(tree.root, 1);
+		tree.root = tree.insert(tree.root, 6);
+		tree.root = tree.insert(tree.root, 14);
+		tree.root = tree.insert(tree.root, 4);
+		tree.root = tree.insert(tree.root, 7);
+		tree.root = tree.insert(tree.root, 13);
+		tree.root = tree.insert(tree.root, 3);
 
-		obj.printRighViewOfTree(ob.root);
+		obj.printRighViewOfTree(tree.root);
+	}
+
+	int max_level = 0;
+
+	public void printRightViewRecursively(BinaryTreeNode<Integer> root, int level) {
+		if (null == root)
+			return;
+		if (max_level < level) {
+			System.out.print(root.data + " ");
+			max_level = level;
+		}
+		printRightViewRecursively(root.left, level + 1);
+		printRightViewRecursively(root.right, level + 1);
+
 	}
 
 	// Time : O(n)

@@ -9,6 +9,8 @@ import com.raj.nodes.BinaryTreeNode;
  * @author Raj
  *
  */
+
+// this is actually diameter of a tree
 public class MaxSumPathBetweenAnyTwoLeaves {
 
 	/**

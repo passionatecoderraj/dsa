@@ -1,4 +1,4 @@
-package com.raj.linkedlist;
+package com.raj.pramp;
 
 public class RansomNote {
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.arrays;
+package com.raj.string;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +13,13 @@ import java.util.Map;
  *         unique characters. For example, given "abcbbbbcccbdddadacb", the
  *         longest substring that contains 2 unique character is "bcbbbbcccb"
  */
-public class FindLongestSubstringContains2UniqueCharacters {
+public class LongestSubstringContainsKUniqueCharacters {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		FindLongestSubstringContains2UniqueCharacters obj = new FindLongestSubstringContains2UniqueCharacters();
+		LongestSubstringContainsKUniqueCharacters obj = new LongestSubstringContainsKUniqueCharacters();
 
 		String str = "abcbbbbcccbdddadacb";
 		System.out.println(str);

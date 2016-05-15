@@ -24,7 +24,6 @@ public class LookAndSaySequence {
 		int n = 5;
 		result = obj.lookAndSaySequence(n);
 		System.out.println(result);
-
 	}
 
 	public String lookAndSaySequence(int n) {

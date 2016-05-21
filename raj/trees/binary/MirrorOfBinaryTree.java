@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import com.interivew.graph.CommonUtil;
 import com.raj.nodes.BinaryTreeNode;
+import com.raj.trees.bst.IsBST;
 
 /**
  * @author Raj
@@ -47,7 +48,7 @@ public class MirrorOfBinaryTree {
 		obj.mirrorWithoutRecursion(ob.root);
 		ob.inOrder(ob.root);
 		System.out.println();
-	
+
 		obj.mirror(ob.root);
 		ob.inOrder(ob.root);
 		System.out.println();
@@ -55,21 +56,33 @@ public class MirrorOfBinaryTree {
 		boolean result = obj.areMirrors(ob.root, ob2.root);
 		System.out.println(result);
 
+		BinaryTree ob3 = new BinaryTree();
+		ob3.insert(1);
+		ob3.insert(2);
+		ob3.insert(2);
+		ob3.insert(3);
+		ob3.insert(4);
+		ob3.insert(4);
+		ob3.insert(3);
+		ob3.levelOrder(ob3.root);
+		System.out.println(obj.isSymmetric(ob3.root));
 	}
 
-	
+	public boolean isSymmetric(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return true;
+		return areMirrors(root.left, root.right);
+	}
+
 	public boolean areMirrors(BinaryTreeNode<Integer> root1, BinaryTreeNode<Integer> root2) {
+
 		if (root1 == null && root2 == null) {
 			return true;
-		} else if ((root1 == null && root2 != null) || (root1 != null && root2 == null)) {
+		} else if (root1 == null || root2 == null) {
 			return false;
-		} else {
-			if (root1.data == root2.data) {
-				return areMirrors(root1.left, root2.right) && areMirrors(root1.right, root2.left);
-			}
 		}
+		return root1.data == root2.data && areMirrors(root1.left, root2.right) && areMirrors(root1.right, root2.left);
 
-		return false;
 	}
 
 	public void mirror(BinaryTreeNode<Integer> root) {
@@ -96,6 +109,5 @@ public class MirrorOfBinaryTree {
 			cur = CommonUtil.swapLeftRight(cur);
 		}
 	}
-
 
 }

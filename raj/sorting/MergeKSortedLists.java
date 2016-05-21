@@ -4,7 +4,9 @@
 package com.raj.sorting;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import com.interivew.graph.BinaryMinHeap;
 import com.raj.linkedlist.SingleLinkedList;
@@ -61,8 +63,12 @@ public class MergeKSortedLists {
 		list.add(list4.root);
 		list.add(list5.root);
 
-		result = obj.merge(list);
+		// result = obj.merge(list);
+		// new SingleLinkedList<Integer>().print(result);
+
+		result = obj.mergeKSortedLists(list);
 		new SingleLinkedList<Integer>().print(result);
+
 	}
 
 	public ListNode<Integer> merge(List<ListNode<Integer>> list) {
@@ -92,6 +98,46 @@ public class MergeKSortedLists {
 			if (temp.next != null)
 				heap.add(temp.next.data, temp.next);
 
+		}
+		return head;
+	}
+
+	public ListNode<Integer> mergeKSortedLists(List<ListNode<Integer>> list) {
+		class Node {
+			int id;
+			ListNode<Integer> node;
+
+			public Node(int id, ListNode<Integer> node) {
+				super();
+				this.id = id;
+				this.node = node;
+			}
+		}
+		PriorityQueue<Node> pq = new PriorityQueue<>(list.size(), new Comparator<Node>() {
+			@Override
+			public int compare(Node n1, Node n2) {
+				return n1.id - n2.id;
+			}
+		});
+
+		for (ListNode<Integer> node : list) {
+			if (node != null)
+				pq.offer(new Node(node.data, node));
+		}
+
+		ListNode<Integer> head = null, cur = null;
+		while (!pq.isEmpty()) {
+			Node temp = pq.poll();
+			if (head == null) {
+				head = temp.node;
+				cur = head;
+			} else {
+				cur.next = temp.node;
+				cur = cur.next;
+			}
+			if (temp.node.next != null) {
+				pq.offer(new Node(temp.node.next.data, temp.node.next));
+			}
 		}
 		return head;
 	}

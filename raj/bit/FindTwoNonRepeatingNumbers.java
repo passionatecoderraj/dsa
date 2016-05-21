@@ -1,5 +1,8 @@
 package com.raj.bit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Find the two non-repeating elements in an array of repeating elements
  */
@@ -15,7 +18,6 @@ public class FindTwoNonRepeatingNumbers {
 		int n = a.length;
 
 		obj.findTwoNonRepeatingNumbers(a, n);
-
 	}
 
 	public void findTwoNonRepeatingNumbers(int[] a, int n) {

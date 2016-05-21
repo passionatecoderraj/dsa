@@ -36,9 +36,13 @@ public class CompareVersionNumbers {
 		str2 = "10.3.4";
 		result = obj.compareVersionNumbers(str1, str2);
 		System.out.println(result);
-		str1 = "10.3.2.0";
+		result = obj.compareVersionNumbers2(str1, str2);
+		System.out.println(result);
+		str1 = "10.3.2.0.1";
 		str2 = "10.3.2";
 		result = obj.compareVersionNumbers(str1, str2);
+		System.out.println(result);
+		result = obj.compareVersionNumbers2(str1, str2);
 		System.out.println(result);
 
 	}
@@ -66,4 +70,19 @@ public class CompareVersionNumbers {
 		return 0;
 	}
 
+	public int compareVersionNumbers2(String str1, String str2) {
+		String a[] = str1.split("\\.");
+		String b[] = str2.split("\\.");
+		int i = 0, j = 0, v1, v2;
+		while (i < a.length || j < b.length) {
+			v1 = i < a.length ? Integer.parseInt(a[i++]) : 0;
+			v2 = j < b.length ? Integer.parseInt(b[j++]) : 0;
+			if (v1 > v2) {
+				return 1;
+			} else if (v1 < v2) {
+				return -1;
+			}
+		}
+		return 0;
+	}
 }

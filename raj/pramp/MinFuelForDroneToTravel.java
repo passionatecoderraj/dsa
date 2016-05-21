@@ -42,6 +42,8 @@ public class MinFuelForDroneToTravel {
 			} else {
 				d += z[i - 1] - z[i];
 			}
+			System.out.println(a+"-"+d);
+			
 			if (a > d)
 				minFuel = Math.max(minFuel, (a - d));
 		}

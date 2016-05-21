@@ -29,21 +29,22 @@ public class FindNumberOccuringOnceOtherOccuringThreeTimes {
 		int result = -1;
 		int a[] = { 12, 1, 12, 3, 12, 1, 1, 2, 3, 3 };
 
-		// Time :O(n), Time :O(1)
+		// Time :O(n), Space :O(1)
 		result = obj.singleNumber(a, a.length);
 		System.out.println(result);
 
-		// Time :O(n), Time :O(1)
+		// Time :O(n), Space :O(1)
 		result = obj.singleNumberByCounting1sAtEachDigit(a, a.length);
 		System.out.println(result);
 
 	}
 
 	public int singleNumberByCounting1sAtEachDigit(int[] a, int n) {
-		int sum, x, k, result = 0;
+		int sum, x = 1, k, result = 0;
 		for (int i = 0; i < 32; i++) {
 			sum = 0;
-			x = (1 << i);
+			if (i > 0)
+				x = x << 1;
 			for (int j = 0; j < n; j++) {
 				k = a[j] & x;
 				if (k > 0) {

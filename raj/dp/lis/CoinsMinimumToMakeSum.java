@@ -12,7 +12,7 @@ public class CoinsMinimumToMakeSum {
 		int result = -1, sum = 11;
 		result = obj.minCoinsToMakeSum(a, sum);
 		System.out.println(result);
-		result = obj.minCoinsToMakeSum(a, sum);
+		result = obj.minCoinsToMakeSum2(a, sum);
 		System.out.println(result);
 	}
 
@@ -42,17 +42,17 @@ public class CoinsMinimumToMakeSum {
 		int n = a.length;
 
 		int t[] = new int[m + 1];
-		Arrays.fill(t, Integer.MAX_VALUE);
+		Arrays.fill(t, Integer.MAX_VALUE-1);
 		t[0] = 0;
 		for (int i = 1; i <= m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (i >= a[j]) {
-					t[i] = Math.min(1 + t[a[j] - i], t[i]);
+					t[i] = Math.min(1 + t[i - a[j]], t[i]);
 				}
 			}
 		}
 		CommonUtil.printArray(t);
-		return t[n];
+		return t[m];
 	}
 
 }

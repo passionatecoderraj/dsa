@@ -60,6 +60,15 @@ public class CommonUtil {
 		}
 	}
 
+	public static void print2DArray(char[][] t, int m, int n) {
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				System.out.print(t[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+
 	public static void print2DArray(int[][] t, int m, int n) {
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {

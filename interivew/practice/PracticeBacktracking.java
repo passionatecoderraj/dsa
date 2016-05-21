@@ -76,17 +76,19 @@ public class PracticeBacktracking {
 	}
 
 	public boolean solveKT(int[][] a, int n, int x, int y, int move_no, int[][] moves) {
-		if (move_no == n * n)
+		if (move_no > n * n)
 			return true;
 		int nxt_x, nxt_y;
-		for (int i = 0; i < n; i++) {
+	
+		for (int i = 0; i < moves.length; i++) {
 			nxt_x = x + moves[i][0];
 			nxt_y = y + moves[i][0];
 			if (isSafeToMoveForKT(a, n, nxt_x, nxt_y)) {
 				a[nxt_x][nxt_y] = move_no;
 				if (solveKT(a, n, nxt_x, nxt_y, move_no + 1, moves)) {
 					return true;
-				} else {
+				}
+				else {
 					a[nxt_x][nxt_y] = -1;
 				}
 			}

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
 /**
  * @author Raj
@@ -139,7 +139,7 @@ class ToppingsOnions extends PizzaDecorator {
 
 }
 
-public class DecoratorPatternDemo {
+public class DecoratorPatternDemoStructural {
 
 	/**
 	 * @param args

@@ -1,4 +1,4 @@
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
 //Adaptee; default it gives '0' volts
 class Volt {
@@ -61,7 +61,7 @@ class SocketObjectAdapterImpl implements SocketAdapter {
 	}
 }
 
-public class AdapterPatternDemo {
+public class AdapterPatternDemoCreational {
 	public static void main(String[] args) {
 		SocketAdapter sockAdapter = new SocketObjectAdapterImpl();
 		Volt v3 = getVolt(sockAdapter, 3);

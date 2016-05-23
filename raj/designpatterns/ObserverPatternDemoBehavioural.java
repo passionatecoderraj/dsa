@@ -1,4 +1,4 @@
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ class HexaObserver extends Observer {
 	}
 }
 
-public class ObserverPatternDemo {
+public class ObserverPatternDemoBehavioural {
 
 	public static void main(String[] args) {
 		Subject subject = new Subject();

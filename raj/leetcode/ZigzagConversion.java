@@ -11,9 +11,9 @@ public class ZigzagConversion {
 
 	public static void main(String args[]) {
 		ZigzagConversion s = new ZigzagConversion();
-		String str = "PAYPALISHIRING";
+		String str = "prithvirajkumar";
 
-		int rows = 3;
+		int rows = 4;
 		String result = null;
 		System.out.println(str);
 		result = s.convertToZigZag(str, rows);
@@ -37,6 +37,9 @@ public class ZigzagConversion {
 				int step1 = 2 * (rows - 1 - i);
 				int step2 = 2 * i;
 				// or int step2 = step1 - step;
+				System.out.println(step1);
+				System.out.println(step2);
+
 				int j = i;
 				boolean flag = true;
 				while (j < str.length()) {

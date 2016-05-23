@@ -1,4 +1,4 @@
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
 class Computer {
 	// required parameters
@@ -64,7 +64,7 @@ class Computer {
 	}
 }
 
-public class BuilderPatternDemo {
+public class BuilderPatternDemoCreational {
 	public static void main(String args[]) {
 		Computer comp = new Computer.ComputerBuilder("500 GB", "2 GB").setBluetoothEnabled(true)
 				.setGraphicsCardEnabled(true).build();

@@ -16,7 +16,7 @@ package com.raj.mathamatical;
  * 
  * Power of Two
  * 
- * This program generically checks whehter x is power of n
+ * This program generically checks whether x is power of n
  * 
  */
 public class IsXPowerOfN {

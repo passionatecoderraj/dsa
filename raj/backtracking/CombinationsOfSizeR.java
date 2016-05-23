@@ -14,8 +14,9 @@ public class CombinationsOfSizeR {
 		int a[] = { 1, 2, 3, 4 };
 		int n = a.length, r = 2;
 		CombinationsOfSizeR obj = new CombinationsOfSizeR();
-		obj.combinationsOfSizeR(a, n, r);
-
+		// obj.combinationsOfSizeR(a, n, r);
+		char t[] = new char[2];
+		obj.combinationsOfSizeK("rajd".toCharArray(), 0, 2, t, 0);
 	}
 
 	public void combinationsOfSizeR(int[] a, int n, int r) {
@@ -33,4 +34,17 @@ public class CombinationsOfSizeR {
 			combinationsOfSizeRUtil(a, i + 1, n, t, index + 1, r);
 		}
 	}
+
+	public void combinationsOfSizeK(char word[], int curPosition, int k, char[] res, int resIndex) {
+		if (resIndex == k) {
+			CommonUtil.printArray(res);
+			return;
+		}
+		for (int i = curPosition; i < word.length; i++) {
+			res[resIndex] = word[i];
+			combinationsOfSizeK(word, i + 1, k, res, resIndex + 1);
+		}
+	}
+	
+	
 }

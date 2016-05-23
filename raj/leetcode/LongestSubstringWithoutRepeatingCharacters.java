@@ -82,4 +82,25 @@ public class LongestSubstringWithoutRepeatingCharacters {
 		return maxLen;
 	}
 
+	public void longestSubstringWithUniqueCharactersUsingTwoIndices(String a) {
+		if (null == a || a.length() == 0)
+			return;
+		Set<Character> visited = new HashSet<>();
+		int l = 0, r = 0;
+		String substring = "";
+		char ch;
+		while (r < a.length()) {
+			ch = a.charAt(r);
+			if (!visited.contains(ch)) {
+				visited.add(ch);
+				if (r - l + 1 > substring.length()) {
+					substring = a.substring(l, r + 1);
+				}
+				r++;
+			} else {
+				visited.remove(a.charAt(l++));
+			}
+		}
+		System.out.println(substring);
+	}
 }

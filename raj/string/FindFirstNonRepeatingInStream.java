@@ -65,16 +65,13 @@ public class FindFirstNonRepeatingInStream {
 
 		public void insert(char data) {
 			DLLNode nn = new DLLNode(data);
-			tail = nn;
 			if (null == head) {
 				head = nn;
+				tail = nn;
 			} else {
-				DLLNode temp = head;
-				while (temp.next != null) {
-					temp = temp.next;
-				}
-				temp.next = nn;
-				nn.prev = temp;
+				tail.next = nn;
+				nn.prev = tail;
+				tail = tail.next;
 			}
 		}
 

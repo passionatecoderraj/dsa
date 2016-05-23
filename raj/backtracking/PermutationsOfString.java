@@ -16,10 +16,10 @@ public class PermutationsOfString {
 	 */
 	public static void main(String[] args) {
 		PermutationsOfString obj = new PermutationsOfString();
-		String str = "alga";
+		String str = "aba";
 		int n = str.length();
-		obj.permuations(str.toCharArray(), 0, n - 1);
-		obj.permuationsOfLengthK(str.toCharArray(), 0, 2);
+	//	obj.permuations(str.toCharArray(), 0, n - 1);
+	//	obj.permuationsOfLengthK(str.toCharArray(), 0, 2);
 		System.out.println();
 		obj.permuationsUnique(str.toCharArray(), 0);
 	}
@@ -31,7 +31,7 @@ public class PermutationsOfString {
 		for (int j = i; j < a.length; j++) {
 			if (!containsDuplicate(a, i, j - 1, a[j])) {
 				CommonUtil.swap(a, i, j);
-				permuations(a, i + 1);
+				permuationsUnique(a, i + 1);
 				CommonUtil.swap(a, i, j);
 			}
 		}

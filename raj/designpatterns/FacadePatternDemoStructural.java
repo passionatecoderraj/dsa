@@ -1,4 +1,4 @@
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
 interface Shape {
 	void draw();
@@ -59,7 +59,7 @@ class ShapeMaker {
  * interface to existing system to hide its complexities.
  * 
  */
-public class FacadePatternDemo {
+public class FacadePatternDemoStructural {
 	public static void main(String[] args) {
 		ShapeMaker shapeMaker = new ShapeMaker();
 

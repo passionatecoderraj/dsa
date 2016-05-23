@@ -1,6 +1,6 @@
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
-public class SingletonDemo {
+public class SingletonDemoCreational {
 
 }
 

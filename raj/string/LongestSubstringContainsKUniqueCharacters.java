@@ -21,7 +21,7 @@ public class LongestSubstringContainsKUniqueCharacters {
 	public static void main(String[] args) {
 		LongestSubstringContainsKUniqueCharacters obj = new LongestSubstringContainsKUniqueCharacters();
 
-		String str = "abcbbbbcccbdddadacb";
+		String str = "abababa";
 		System.out.println(str);
 		String result;
 

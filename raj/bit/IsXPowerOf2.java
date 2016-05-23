@@ -24,9 +24,13 @@ public class IsXPowerOf2 {
 
 		result = obj.isXPowerOf2(64);
 		System.out.println(result);
+		result = obj.isX2PowerOf2(94);
+		System.out.println(result);
 
 	}
 
+	// Time : O(n); n=no.of bits
+	// but it can do better in best/average case
 	public boolean isXPowerOf2(int x) {
 		if (x <= 0)
 			return false;
@@ -41,4 +45,15 @@ public class IsXPowerOf2 {
 		return true;
 	}
 
+	// Time : O(n); n=no.of bits
+	public boolean isX2PowerOf2(int x) {
+		if (x <= 0)
+			return false;
+		int count = 0;
+		while (x > 0) {
+			count += (x & 1);
+			x = x >> 1;
+		}
+		return count == 1;
+	}
 }

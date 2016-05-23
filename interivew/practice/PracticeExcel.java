@@ -930,4 +930,204 @@ public class PracticeExcel {
 			return -1;
 		}
 	}
+
+	class MedianInStream {
+		int n;
+		PriorityQueue<Integer> maxHeap;
+		PriorityQueue<Integer> minHeap;
+
+		public MedianInStream() {
+			super();
+			maxHeap = new PriorityQueue<>(new Comparator<Integer>() {
+				public int compare(Integer i1, Integer i2) {
+					return i2 - i1;
+				}
+			});
+			minHeap = new PriorityQueue<>();
+		}
+
+		public double insertInStream(int data) {
+			maxHeap.add(data);
+
+			if (n % 2 != 0) {
+				minHeap.add(maxHeap.poll());
+			} else {
+				if (!minHeap.isEmpty() && minHeap.peek() < maxHeap.peek()) {
+					int temp1 = minHeap.poll();
+					int temp2 = maxHeap.poll();
+					minHeap.offer(temp2);
+					maxHeap.offer(temp1);
+				}
+			}
+			n++;
+			return median();
+		}
+
+		public double median() {
+			if (maxHeap.isEmpty())
+				return -1;
+			if (n % 2 != 0)
+				return maxHeap.peek();
+			else {
+				return (maxHeap.peek() + minHeap.peek()) / 2.0;
+			}
+		}
+
+	}
+
+	static class FindFirstNonRepeatingInStream {
+		class DLLNode {
+			char data;
+			DLLNode next, prev;
+		}
+
+		DLLNode front = null, rear = null;
+		DLLNode links[] = new DLLNode[256];
+		boolean[] visited = new boolean[256];
+
+		public void insertInStream(char ch) {
+			if (visited[ch]) {
+				remove(links[ch]);
+				links[ch] = null;
+			} else {
+				visited[ch] = true;
+				add(ch);
+				links[ch] = rear;
+			}
+		}
+
+		public void add(char ch) {
+			DLLNode node = new DLLNode();
+			node.data = ch;
+			if (front == null) {
+				front = node;
+				rear = node;
+			} else {
+				rear.next = node;
+				node.prev = rear;
+				rear = rear.next;
+			}
+		}
+
+		public void remove(DLLNode nn) {
+			if (nn == null)
+				return;
+			if (nn.prev != null) {
+				nn.prev.next = nn.next;
+			} else {
+				front = nn.next;
+			}
+
+			if (nn.next != null) {
+				nn.next.prev = nn.prev;
+			} else {
+				rear = nn.prev;
+			}
+		}
+
+		public char firstNonRepeatingCharacter() {
+			return front == null ? 0 : front.data;
+		}
+	}
+
+	public static void longestSubstringWithUniqueCharacters(String a) {
+		if (null == a || a.length() == 0)
+			return;
+		Set<Character> visited = new HashSet<>();
+		int l = 0, r = 0;
+		String substring = "";
+		char ch;
+		while (r < a.length()) {
+			ch = a.charAt(r);
+			if (!visited.contains(ch)) {
+				visited.add(ch);
+				if (r - l + 1 > substring.length()) {
+					substring = a.substring(l, r + 1);
+				}
+				r++;
+			} else {
+				visited.remove(a.charAt(l++));
+			}
+		}
+		System.out.println(substring);
+	}
+
+	public static void longestSubstringWithKUniqueCharacters(String string, int k) {
+		Map<Character, Integer> countMap = new HashMap<>();
+		int l = 0, r = 0;
+		char ch, leftch;
+		String substring = "";
+		while (r < string.length()) {
+			ch = string.charAt(r);
+			if (countMap.size() < k) {
+				if (countMap.containsKey(ch)) {
+					countMap.put(ch, countMap.get(ch) + 1);
+				} else {
+					countMap.put(ch, 1);
+				}
+
+			} else {
+				if (countMap.containsKey(ch)) {
+					countMap.put(ch, countMap.get(ch) + 1);
+					if (r - l + 1 > substring.length()) {
+						substring = string.substring(l, r + 1);
+					}
+				} else {
+					while (countMap.size() >= k) {
+						leftch = string.charAt(l++);
+						if (countMap.get(leftch) == 1)
+							countMap.remove(leftch);
+						else
+							countMap.put(leftch, countMap.get(leftch) - 1);
+					}
+					countMap.put(ch, 1);
+					if (r - l + 1 > substring.length()) {
+						substring = string.substring(l, r + 1);
+					}
+				}
+			}
+			r++;
+		}
+		System.out.println(substring);
+	}
+
+	public static void longestSubstringWithKUniqueCharacters2(String string, int k) {
+		Map<Character, Integer> countMap = new HashMap<>();
+		int l = 0, r = 0;
+		char ch, leftch;
+		String substring = "";
+		while (r < string.length()) {
+			ch = string.charAt(r);
+			if (countMap.containsKey(ch)) {
+				countMap.put(ch, countMap.get(ch) + 1);
+			} else {
+				countMap.put(ch, 1);
+			}
+
+			if (countMap.size() > k) {
+				if (r - l > substring.length()) {
+					substring = string.substring(l, r);
+				}
+
+				while (countMap.size() > k) {
+					leftch = string.charAt(l++);
+					if (countMap.get(leftch) == 1)
+						countMap.remove(leftch);
+					else
+						countMap.put(leftch, countMap.get(leftch) - 1);
+				}
+			}
+			r++;
+		}
+		if (countMap.size() == k && substring.length() == 0)
+			substring = string;
+		System.out.println(substring);
+	}
+
+	public static void main(String args[]) {
+		longestSubstringWithUniqueCharacters("pwwkew");
+		longestSubstringWithKUniqueCharacters("ababababa", 2);
+		longestSubstringWithKUniqueCharacters2("ababababa", 2);
+	}
+
 }

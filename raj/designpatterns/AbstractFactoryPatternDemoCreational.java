@@ -1,4 +1,4 @@
-package com.interivew.designpatterns;
+package com.raj.designpatterns;
 
 abstract class Computer2 {
 	abstract String getRAM();
@@ -115,7 +115,7 @@ class ComputerFactory2 {
 	}
 }
 
-public class AbstractFactoryPatternDemo {
+public class AbstractFactoryPatternDemoCreational {
 	static void main(String[] args) {
 		testAbstractFactory();
 	}

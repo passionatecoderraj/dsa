@@ -1130,4 +1130,34 @@ public class PracticeExcel {
 		longestSubstringWithKUniqueCharacters2("ababababa", 2);
 	}
 
+	class URLShortener {
+		String a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+		public String idToShorturl(int id) {
+			StringBuilder url = new StringBuilder();
+			while (id > 0) {
+				url.append(a.charAt(id % 62));
+				id = id / 62;
+			}
+			return url.reverse().toString();
+		}
+
+		public int shortUrlToId(String url) {
+			char ch;
+			int id = 0;
+			for (int i = 0; i < url.length(); i++) {
+				ch = url.charAt(i);
+				if (ch >= 'a' && ch <= 'z') {
+					id = (id * 62) + (ch - 'a');
+				} else if (ch >= 'A' && ch <= 'Z') {
+					id = (id * 62) + (ch - 'A' + 26);
+				} else if (ch >= '0' && ch <= '9') {
+					id = (id * 62) + (ch - '0' + 52);
+
+				}
+			}
+			return id;
+		}
+
+	}
 }

@@ -1,78 +1,16 @@
 package com.interivew.practice;
 
+import java.util.Arrays;
+
 import com.interivew.graph.CommonUtil;
+import com.raj.backtracking.SudokuSolver;
 
 public class JustPractice {
 
-	public void permute(char[] word, int cur) {
-		if (word.length == cur) {
-			System.out.println(word);
-			return;
-		}
-		for (int i = cur; i < word.length; i++) {
-			CommonUtil.swap(word, i, cur);
-			permute(word, cur + 1);
-			CommonUtil.swap(word, i, cur);
-		}
-	}
-
-	public void permuteLengthK(char[] word, int cur, int k) {
-		if (k == cur) {
-			System.out.println(word);
-			return;
-		}
-		for (int i = cur; i < word.length; i++) {
-			CommonUtil.swap(word, i, cur);
-			permuteLengthK(word, cur + 1, k);
-			CommonUtil.swap(word, i, cur);
-		}
-	}
-
-	public void permuteUnique(char[] word, int cur) {
-		if (word.length == cur) {
-			System.out.println(word);
-			return;
-		}
-		for (int i = cur; i < word.length; i++) {
-			if (!containsDuplicate(word, cur, i - 1, word[i])) {
-				CommonUtil.swap(word, i, cur);
-				permuteUnique(word, cur + 1);
-				CommonUtil.swap(word, i, cur);
-			}
-		}
-	}
-
-	private boolean containsDuplicate(char[] a, int start, int end, int k) {
-		for (int i = start; i <= end; i++) {
-			if (a[i] == k)
-				return true;
-		}
-		return false;
-	}
-
-	public void combinations(char word[], int curPosition, StringBuilder sb) {
-		if (curPosition == word.length)
-			return;
-		for (int i = curPosition; i < word.length; i++) {
-			sb.append(word[i]);
-			System.out.println(sb);
-			combinations(word, i + 1, sb);
-			sb.deleteCharAt(sb.length() - 1);
-		}
-	}
-
-	public void combinationsOfSizeK(char word[], int curPosition, int k, char[] res, int resIndex) {
-		if (resIndex == k) {
-			CommonUtil.printArray(res);
-			return;
-		}
-		for (int i = curPosition; i < word.length; i++) {
-			res[resIndex] = word[i];
-			combinationsOfSizeK(word, i + 1, k, res, resIndex + 1);
-		}
-	}
 	
-	
+	public static void main(String args[]) {
+		JustPractice obj = new JustPractice();
+	}
 
 }
 

@@ -20,7 +20,31 @@ public class RegExDemo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		demoExample3();
+		// demoExample5();
+		isValidDomain("prithivrajwww.gmail.com");
+		isValidDomain("www.gmail.raj.com");
+	}
+
+	public static boolean isValidEmail(String str) {
+		String pat = "[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+";
+		Pattern p = Pattern.compile(pat);
+		Matcher m = p.matcher(str);
+		return m.matches();
+	}
+
+	public static void isValidDomain(String str) {
+		String pat = "[www.|ww2.|web.][a-zA-Z0-9]+([.][a-zA-Z]+)+";
+		// String pat
+		// ="[https|http]?:((?:[-a-zA-Z0-9]+\.)*[\-a-zA-Z0-9]+\.[a-zA-Z0-9]+(?:[a-zA-Z0-9]+)?)";
+		Pattern p = Pattern.compile(pat);
+		Matcher m = p.matcher(str);
+		StringBuilder sb = new StringBuilder();
+
+		while (m.find()) {
+			System.out.println("start=" + m.start() + ", end=" + m.end() + ", group=" + m.group());
+			sb.append(m.group());
+		}
+		System.out.println(sb.toString());
 
 	}
 

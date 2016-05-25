@@ -71,4 +71,53 @@ public class SmallestSubStringOfAllCharacters {
 		return substring;
 	}
 
+	public String smallestSubStringOfAllCharacters2(char[] a, String str) {
+		String substring = null;
+		int l = 0, r = 0;
+		Map<Character, Integer> countMap = new HashMap<>();
+		int totalCharacters = 0;
+		int minLength = Integer.MAX_VALUE;
+		char ch;
+		for (r = 0; r < a.length; r++) {
+			ch = str.charAt(r);
+			if (countMap.containsKey(ch)) {
+				countMap.put(ch, countMap.get(ch) + 1);
+			} else {
+				countMap.put(ch, 1);
+			}
+			if (countMap.size() > a.length) {
+				
+			}
+		}
+		while (true) {
+			if (totalCharacters < a.length) {
+				if (r == str.length())
+					break;
+
+				ch = str.charAt(r);
+				if (countMap.containsKey(ch)) {
+					countMap.put(ch, countMap.get(ch) + 1);
+				} else {
+					countMap.put(ch, 1);
+					totalCharacters++;
+				}
+				r++;
+			} else {
+				if (r - l < minLength) {
+					substring = str.substring(l, r);
+					minLength = substring.length();
+				}
+
+				ch = str.charAt(l);
+				countMap.put(ch, countMap.get(ch) - 1);
+				if (countMap.get(str.charAt(l)) == 0) {
+					totalCharacters--;
+					countMap.remove(ch);
+				}
+				l++;
+			}
+		}
+		return substring;
+	}
+
 }

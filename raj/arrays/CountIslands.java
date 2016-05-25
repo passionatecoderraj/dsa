@@ -44,14 +44,14 @@ public class CountIslands {
 		for (int i = 0; i < moves.length; i++) {
 			x1 = x + moves[i][0];
 			y1 = y + moves[i][1];
-			if (isSafe(a, m, n, x1, y1)) {
-				visited[x1][y1] = true;
+			if (isSafe(a, m, n, x1, y1, visited)) {
+				dfsForNeighbours(a, m, n, visited, x1, y1, moves);
 			}
 		}
 	}
 
-	public boolean isSafe(int[][] a, int m, int n, int x, int y) {
-		return x >= 0 && x < m && y >= 0 && y < n && a[x][y] == 1;
+	public boolean isSafe(int[][] a, int m, int n, int x, int y, boolean[][] visited) {
+		return x >= 0 && x < m && y >= 0 && y < n && a[x][y] == 1 && !visited[x][y];
 	}
 
 }

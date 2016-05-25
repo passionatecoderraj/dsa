@@ -1,8 +1,5 @@
 package com.raj.bit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * Find the two non-repeating elements in an array of repeating elements
  */

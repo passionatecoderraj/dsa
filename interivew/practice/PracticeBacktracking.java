@@ -4,43 +4,72 @@ import com.interivew.graph.CommonUtil;
 
 public class PracticeBacktracking {
 
-	public void permutationsOfString(char[] a, int n) {
-		permutationsOfStringUtil(a, 0, n - 1);
-	}
-
-	public void permutationsOfStringUtil(char[] a, int l, int r) {
-		if (l == r) {
-			CommonUtil.printArray(a);
-		}
-		for (int i = l; i <= r; i++) {
-			CommonUtil.swap(a, i, l);
-			permutationsOfStringUtil(a, l + 1, r);
-			CommonUtil.swap(a, i, l);
-		}
-	}
-
-	// combinations of string
-	public void combinationsOfString(char[] a, int n) {
-		StringBuilder op = new StringBuilder(n);
-		combinationsOfStringUtil(a, 0, n, op);
-	}
-
-	public void combinationsOfStringUtil(char[] a, int start, int n, StringBuilder op) {
-		if (start == n)
+	public void permute(char[] word, int cur) {
+		if (word.length == cur) {
+			System.out.println(word);
 			return;
-		for (int i = start; i < n; i++) {
-			op.append(a[i]);
-			System.out.println(op.toString());
-			combinationsOfStringUtil(a, start + 1, n, op);
-			// deleting last character or just added character
-			op.deleteCharAt(op.length() - 1);
+		}
+		for (int i = cur; i < word.length; i++) {
+			CommonUtil.swap(word, i, cur);
+			permute(word, cur + 1);
+			CommonUtil.swap(word, i, cur);
 		}
 	}
 
-	// combinations of size r
-	public void combinationsOfSizeR(char[] a, int n, int r) {
-		char[] t = new char[r];
-		combinationsOfSizeRUtil(a, 0, n, t, 0, r);
+	public void permuteLengthK(char[] word, int cur, int k) {
+		if (k == cur) {
+			System.out.println(word);
+			return;
+		}
+		for (int i = cur; i < word.length; i++) {
+			CommonUtil.swap(word, i, cur);
+			permuteLengthK(word, cur + 1, k);
+			CommonUtil.swap(word, i, cur);
+		}
+	}
+
+	public void permuteUnique(char[] word, int cur) {
+		if (word.length == cur) {
+			System.out.println(word);
+			return;
+		}
+		for (int i = cur; i < word.length; i++) {
+			if (!containsDuplicate(word, cur, i - 1, word[i])) {
+				CommonUtil.swap(word, i, cur);
+				permuteUnique(word, cur + 1);
+				CommonUtil.swap(word, i, cur);
+			}
+		}
+	}
+
+	private boolean containsDuplicate(char[] a, int start, int end, int k) {
+		for (int i = start; i <= end; i++) {
+			if (a[i] == k)
+				return true;
+		}
+		return false;
+	}
+
+	public void combinations(char word[], int curPosition, StringBuilder sb) {
+		if (curPosition == word.length)
+			return;
+		for (int i = curPosition; i < word.length; i++) {
+			sb.append(word[i]);
+			System.out.println(sb);
+			combinations(word, i + 1, sb);
+			sb.deleteCharAt(sb.length() - 1);
+		}
+	}
+
+	public void combinationsOfSizeK(char word[], int curPosition, int k, char[] res, int resIndex) {
+		if (resIndex == k) {
+			CommonUtil.printArray(res);
+			return;
+		}
+		for (int i = curPosition; i < word.length; i++) {
+			res[resIndex] = word[i];
+			combinationsOfSizeK(word, i + 1, k, res, resIndex + 1);
+		}
 	}
 
 	public void combinationsOfSizeRUtil(char[] a, int start, int n, char[] t, int index, int r) {
@@ -79,7 +108,7 @@ public class PracticeBacktracking {
 		if (move_no > n * n)
 			return true;
 		int nxt_x, nxt_y;
-	
+
 		for (int i = 0; i < moves.length; i++) {
 			nxt_x = x + moves[i][0];
 			nxt_y = y + moves[i][0];
@@ -87,8 +116,7 @@ public class PracticeBacktracking {
 				a[nxt_x][nxt_y] = move_no;
 				if (solveKT(a, n, nxt_x, nxt_y, move_no + 1, moves)) {
 					return true;
-				}
-				else {
+				} else {
 					a[nxt_x][nxt_y] = -1;
 				}
 			}
@@ -226,72 +254,68 @@ public class PracticeBacktracking {
 	}
 
 	// m coloring
-	public void solveMColoring(int[][] a, int m) {
-		int n = a.length;
-		int sol[] = new int[n];
-		int ver = 0;
-		if (solveMColoringUtil(a, n, ver, sol, m)) {
+	public void mColoring(int a[][], int m) {
+		int sol[] = new int[a.length];
+		if (mColoringUtil(a, 0, sol, m)) {
 			CommonUtil.printArray(sol);
 		} else {
-			System.out.println("no solution");
+			System.out.println("No solution");
 		}
 	}
 
-	public boolean solveMColoringUtil(int[][] a, int n, int ver, int[] sol, int m) {
-		if (ver == n)
+	public boolean mColoringUtil(int[][] a, int vertex, int[] sol, int m) {
+		if (vertex == a.length)
 			return true;
-		for (int color = 1; color <= m; color++) {
-			if (isSafeForMColoring(a, n, ver, color, sol)) {
-				sol[ver] = color;
-				if (solveMColoringUtil(a, n, ver + 1, sol, m))
+		for (int i = 1; i <= m; i++) {
+			if (isSafeToColor(a, vertex, i, sol)) {
+				sol[vertex] = i;
+				if (mColoringUtil(a, vertex + 1, sol, m)) {
 					return true;
-				else
-					sol[ver] = 0;
+				}
+				sol[vertex] = 0;
 			}
 		}
 		return false;
 	}
 
-	public boolean isSafeForMColoring(int[][] a, int n, int ver, int color, int[] sol) {
-		for (int i = 0; i < ver; i++) {
-			if (a[ver][i] == 1 && sol[i] == color)
+	public boolean isSafeToColor(int[][] a, int vertex, int color, int[] sol) {
+		for (int i = 0; i < a[vertex].length; i++) {
+			if (a[vertex][i] == 1 && sol[i] == color)
 				return false;
 		}
 		return true;
 	}
 
-	public int countIslands(int a[][], int m, int n) {
-
-		int moves[][] = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { -1, 1 }, { -1, -1 }, { 1, 1 }, { -1, 1 } };
+	public int countIslands(int a[][]) {
 		int count = 0;
-
-		boolean t[][] = new boolean[m][n];
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				if (a[i][j] == 1 && !t[i][j]) {
-					dfs(a, m, n, t, i, j, moves);
+		int moves[][] = { { 0, 1 }, { 1, 0 }, { 1, 1 }, { 1, -1 } };
+		boolean[][] visited = new boolean[a.length][a[0].length];
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[0].length; j++) {
+				if (a[i][j] == 1 && visited[i][j] == false) {
 					count++;
+					dfs(a, i, j, visited, moves);
 				}
+
 			}
 		}
+		System.out.println(count);
 		return count;
 	}
 
-	public void dfs(int[][] a, int m, int n, boolean[][] t, int x, int y, int[][] moves) {
-
-		t[x][y] = true;
-		int _x, _y;
+	public void dfs(int[][] a, int x, int y, boolean[][] visited, int[][] moves) {
+		visited[x][y] = true;
 		for (int i = 0; i < moves.length; i++) {
-			_x = x + moves[i][0];
-			_y = y + moves[i][1];
-			if (isSafeToMoveInIsland(a, m, n, _x, _y)) {
-				t[_x][_y] = true;
+			int _x = moves[i][0] + x;
+			int _y = moves[i][1] + y;
+			if (isSafe(a, _x, _y, visited)) {
+				dfs(a, _x, _y, visited, moves);
 			}
 		}
 	}
 
-	public boolean isSafeToMoveInIsland(int[][] a, int m, int n, int x, int y) {
-		return x >= 0 && x < m && y >= 0 && y < n && a[x][y] == 1;
+	public boolean isSafe(int[][] a, int x, int y, boolean[][] visited) {
+		return x >= 0 && y >= 0 && x < a.length && y < a.length && a[x][y] == 1 && !visited[x][y];
 	}
 
 	public boolean searchWordInDictionary(char a[][], int m, int n, String word) {
@@ -328,6 +352,74 @@ public class PracticeBacktracking {
 		return x >= 0 && x < m && y >= 0 && y < n && word.charAt(index) == a[x][y];
 	}
 
-	
-	
+	public boolean sudokuSolver(int a[][]) {
+		Cell cell = getUnassignedLocation(a);
+		if (null == cell)
+			return true;
+		for (int i = 1; i <= 9; i++) {
+			if (isSafeToPlace(a, cell.x, cell.y, i)) {
+				a[cell.x][cell.y] = i;
+				if (sudokuSolver(a)) {
+					return true;
+				}
+				a[cell.x][cell.y] = 0;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSafeToPlace(int[][] a, int x, int y, int n) {
+		return isSafeRow(a, x, y, n) && isSafeColumn(a, x, y, n) && isSafeBlock(a, x - x % 3, y - y % 3, n);
+	}
+
+	public boolean isSafeRow(int[][] a, int x, int y, int n) {
+		for (int i = 0; i < a[0].length; i++) {
+			if (a[x][i] == n) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean isSafeColumn(int[][] a, int x, int y, int n) {
+		for (int i = 0; i < a.length; i++) {
+			if (a[i][y] == n) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean isSafeBlock(int[][] a, int x, int y, int n) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (a[i + x][j + y] == n) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public Cell getUnassignedLocation(int a[][]) {
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[0].length; j++) {
+				if (a[i][j] == 0)
+					return new Cell(i, j);
+			}
+		}
+		return null;
+	}
+
+	class Cell {
+		int x;
+		int y;
+
+		public Cell(int x, int y) {
+			super();
+			this.x = x;
+			this.y = y;
+		}
+	}
+
 }

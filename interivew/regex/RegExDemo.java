@@ -6,6 +6,7 @@ package com.interivew.regex;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,9 +21,27 @@ public class RegExDemo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// demoExample5();
-		isValidDomain("prithivrajwww.gmail.com");
-		isValidDomain("www.gmail.raj.com");
+		// strings("Prithvi raj! kumar. dasari?");
+		replace();
+	}
+
+	public static void replace() {
+		String[] symbols = { "I", "Am", "cro", "Na", "le", "abc" };
+		String[] arr = { "Amazon", "Microsoft", "Google" };
+		for (int i = 0; i < arr.length; i++) {
+			String name = arr[i];
+			String selectedSymbol = "";
+			for (String symbol : symbols) {
+				if (name.contains(symbol)) {
+					if (symbol.length() > selectedSymbol.length())
+						selectedSymbol = symbol;
+				}
+			}
+			if (selectedSymbol.length() > 0) {
+				arr[i] = name.replace(selectedSymbol, "[" + selectedSymbol + "]");
+			}
+		}
+		System.out.println(Arrays.toString(arr));
 	}
 
 	public static boolean isValidEmail(String str) {
@@ -30,6 +49,20 @@ public class RegExDemo {
 		Pattern p = Pattern.compile(pat);
 		Matcher m = p.matcher(str);
 		return m.matches();
+	}
+
+	public static void strings(String str) {
+		String pat = "[a-zA-Z0-9]+";
+		Pattern p = Pattern.compile(pat);
+		Matcher m = p.matcher(str);
+		StringBuilder sb = new StringBuilder();
+
+		while (m.find()) {
+			System.out.println("start=" + m.start() + ", end=" + m.end() + ", group=" + m.group());
+			sb.append(m.group());
+		}
+		System.out.println(sb.toString());
+
 	}
 
 	public static void isValidDomain(String str) {

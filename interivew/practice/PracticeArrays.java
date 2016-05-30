@@ -458,16 +458,14 @@ public class PracticeArrays {
 	// ex, { 7, 10, 4, 3, 20, 15 }, 4th smallest is 10 ,
 	// but we call function f(a,0,n-1,k-1)
 	public int quickSelectForKthSmallest(int a[], int p, int r, int k) {
-		if (p <= r) {
+		while (p <= r) {
 			int q = partition(a, p, r);
-			if (q - p == k) {
+			if (q == k)
 				return a[q];
-			}
-			if (k > q - p) {
-				return quickSelectForKthSmallest(a, q + 1, r, k - (q - p) - 1);
-			} else {
-				return quickSelectForKthSmallest(a, p, q - 1, k);
-			}
+			if (q > k)
+				r = q - 1;
+			else
+				p = q + 1;
 		}
 		return -1;
 	}

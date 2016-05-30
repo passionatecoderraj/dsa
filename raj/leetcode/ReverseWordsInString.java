@@ -1,5 +1,7 @@
 package com.raj.leetcode;
 
+import java.util.HashMap;
+
 import com.interivew.graph.CommonUtil;
 
 /*
@@ -12,7 +14,8 @@ import com.interivew.graph.CommonUtil;
 	return "blue is sky the".
  */
 public class ReverseWordsInString {
-
+	HashMap<Integer,Integer> map;
+	
 	public static void main(String args[]) {
 		ReverseWordsInString s = new ReverseWordsInString();
 		String string = "the sky is blue";

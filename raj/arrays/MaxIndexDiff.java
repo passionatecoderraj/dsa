@@ -61,10 +61,11 @@ public class MaxIndexDiff {
 				i++;
 			}
 		}
-		
+
+		CommonUtil.printArray(a);
 		CommonUtil.printArray(leftMin);
 		CommonUtil.printArray(rightMax);
-		
+
 		System.out
 				.println("maxLeft:" + maxLeft + ", " + "maxRight:" + maxRight + ":: " + "maxIndexDiff:" + maxIndexDiff);
 

@@ -61,7 +61,7 @@ class SocketObjectAdapterImpl implements SocketAdapter {
 	}
 }
 
-public class AdapterPatternDemoCreational {
+public class Structural_AdapterPatternDemo {
 	public static void main(String[] args) {
 		SocketAdapter sockAdapter = new SocketObjectAdapterImpl();
 		Volt v3 = getVolt(sockAdapter, 3);

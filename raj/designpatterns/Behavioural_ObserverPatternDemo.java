@@ -76,7 +76,7 @@ class HexaObserver extends Observer {
 	}
 }
 
-public class ObserverPatternDemoBehavioural {
+public class Behavioural_ObserverPatternDemo {
 
 	public static void main(String[] args) {
 		Subject subject = new Subject();

@@ -139,7 +139,7 @@ class ToppingsOnions extends PizzaDecorator {
 
 }
 
-public class DecoratorPatternDemoStructural {
+public class Structural_DecoratorPatternDemo {
 
 	/**
 	 * @param args

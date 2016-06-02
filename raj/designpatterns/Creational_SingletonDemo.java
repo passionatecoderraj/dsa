@@ -1,6 +1,6 @@
 package com.raj.designpatterns;
 
-public class SingletonDemoCreational {
+public class Creational_SingletonDemo {
 
 }
 

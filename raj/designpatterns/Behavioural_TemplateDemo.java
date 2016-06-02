@@ -57,7 +57,7 @@ class Football extends Game {
 	}
 }
 
-public class TemplateDemoBehavioural {
+public class Behavioural_TemplateDemo {
 	public static void main(String args[]) {
 		Game game = new Cricket();
 		game.play();

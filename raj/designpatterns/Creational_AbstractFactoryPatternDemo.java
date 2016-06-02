@@ -115,7 +115,7 @@ class ComputerFactory2 {
 	}
 }
 
-public class AbstractFactoryPatternDemoCreational {
+public class Creational_AbstractFactoryPatternDemo {
 	static void main(String[] args) {
 		testAbstractFactory();
 	}

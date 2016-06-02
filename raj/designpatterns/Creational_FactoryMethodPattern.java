@@ -81,7 +81,7 @@ class ComputerFactory {
 	}
 }
 
-public class FactoryMethodPatternCreational {
+public class Creational_FactoryMethodPattern {
 	public static void main(String[] args) {
 		Computer1 pc = ComputerFactory.getComputer("pc", "2 GB", "500 GB", "2.4 GHz");
 		Computer1 server = ComputerFactory.getComputer("server", "16 GB", "1 TB", "2.9 GHz");

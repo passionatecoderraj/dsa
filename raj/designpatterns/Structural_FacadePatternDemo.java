@@ -59,7 +59,7 @@ class ShapeMaker {
  * interface to existing system to hide its complexities.
  * 
  */
-public class FacadePatternDemoStructural {
+public class Structural_FacadePatternDemo {
 	public static void main(String[] args) {
 		ShapeMaker shapeMaker = new ShapeMaker();
 

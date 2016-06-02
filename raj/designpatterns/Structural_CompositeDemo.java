@@ -50,7 +50,7 @@ class Composite implements Component {
 	}
 }
 
-public class CompositeDemoStructural {
+public class Structural_CompositeDemo {
 	public static void main(String args[]) {
 		Employee e1 = new Employee("Raj", 12);
 		Employee e2 = new Employee("Prithvi", 34);

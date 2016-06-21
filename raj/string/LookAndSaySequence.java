@@ -3,6 +3,10 @@
  */
 package com.raj.string;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * @author Raj
  *
@@ -24,6 +28,29 @@ public class LookAndSaySequence {
 		int n = 5;
 		result = obj.lookAndSaySequence(n);
 		System.out.println(result);
+		result = obj.lookAndSaySequence("abcca");
+		System.out.println(result);
+	}
+
+	// input abcca, output 2a1b2c
+	public String lookAndSaySequence(String st) {
+		Map<Character, Integer> countMap = new HashMap<>();
+		for (char ch : st.toCharArray()) {
+			countMap.compute(ch, (key, value) -> {
+				if (value == null)
+					return 1;
+				return value + 1;
+			});
+		}
+		StringBuilder sb = new StringBuilder();
+		Iterator<Character> it = countMap.keySet().iterator();
+		while (it.hasNext()) {
+			char ch = it.next();
+			sb.append(countMap.get(ch));
+			sb.append(ch);
+			it.remove();
+		}
+		return sb.toString();
 	}
 
 	public String lookAndSaySequence(int n) {

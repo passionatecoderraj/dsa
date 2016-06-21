@@ -6,6 +6,8 @@ package com.raj.dp.matrix;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -46,12 +48,13 @@ public class WordBreak {
 				if (dictionary.contains(str.substring(i, j + 1))) {
 					t[i][j] = true;
 				} else {
-					for (int k = i; k <= j; k++) {
+					for (int k = i; k < j; k++) {
 						t[i][j] = t[i][j] || (t[i][k] && t[k + 1][j]);
 					}
 				}
 			}
 		}
+		CommonUtil.print2DArray(t, n, n);
 		return t[0][n - 1];
 	}
 

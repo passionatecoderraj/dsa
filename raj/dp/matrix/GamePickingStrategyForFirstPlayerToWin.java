@@ -6,8 +6,8 @@ public class GamePickingStrategyForFirstPlayerToWin {
 	public static void main(String[] args) {
 		GamePickingStrategyForFirstPlayerToWin obj = new GamePickingStrategyForFirstPlayerToWin();
 		int result = -1;
-		// int[] a = { 3, 9, 1, 2 };
-		int[] a = { 20, 30, 2, 2, 2, 10 };
+		 int[] a = { 3, 9, 1, 2 };
+		//int[] a = { 20, 30, 2, 2, 2, 10 };
 		result = obj.gamePickingStrategyForFirstPlayerToWin(a);
 		System.out.println(result);
 

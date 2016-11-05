@@ -16,12 +16,12 @@ public class PermutationsOfString {
 	 */
 	public static void main(String[] args) {
 		PermutationsOfString obj = new PermutationsOfString();
-		String str = "aba";
+		String str = "ACEG";
 		int n = str.length();
-	//	obj.permuations(str.toCharArray(), 0, n - 1);
+		obj.permuations(str.toCharArray(), 0, n - 1);
 	//	obj.permuationsOfLengthK(str.toCharArray(), 0, 2);
 		System.out.println();
-		obj.permuationsUnique(str.toCharArray(), 0);
+	//	obj.permuationsUnique(str.toCharArray(), 0);
 	}
 
 	public void permuationsUnique(char a[], int i) {

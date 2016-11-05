@@ -17,6 +17,8 @@ public class Count1sInBinary {
 		int result = -1, n = 30;
 		result = obj.count1sInBinary(n);
 		System.out.println(result);
+		
+		System.out.println(Integer.toBinaryString(-2));
 	}
 
 	public int count1sInBinary(int n) {

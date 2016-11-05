@@ -49,7 +49,7 @@ public class IsValidTicTacToe {
 
 		if (countX == countO || countX == countO + 1) {
 			boolean isOWon = isWin(possibleWinningArrangements, a, 'O');
-			boolean isXWon = isWin(possibleWinningArrangements, a, 'O');
+			boolean isXWon = isWin(possibleWinningArrangements, a, 'X');
 			if (isOWon && isXWon)
 				return false;
 			if (!isOWon && !isXWon)

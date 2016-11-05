@@ -241,7 +241,13 @@ public class PracticeArrays {
 		for (int i = 0; i < n; i++) {
 			elements[i] = new Element(i, a[i], 1);
 		}
-		Arrays.sort(elements, valSorter);
+		Arrays.sort(elements, new Comparator<Element>() {
+			public int compare(Element e1, Element e2) {
+				if (e1.val == e2.val)
+					return e1.index - e2.index;
+				return e1.val - e2.val;
+			}
+		});
 		for (int i = 1; i < n; i++) {
 			if (elements[i].val == elements[i - 1].val) {
 				elements[i].freq = elements[i - 1].freq + 1;
@@ -249,23 +255,14 @@ public class PracticeArrays {
 				elements[i - 1].freq = -1;
 			}
 		}
-		Arrays.sort(elements, indexFreqSorter);
-	}
-
-	Comparator<Element> valSorter = new Comparator<Element>() {
-		public int compare(Element e1, Element e2) {
-			return e2.val - e1.val;
-		}
-	};
-
-	Comparator<Element> indexFreqSorter = new Comparator<Element>() {
-		public int compare(Element e1, Element e2) {
-			if (e1.freq == e2.freq) {
-				return e1.index - e2.index;
+		Arrays.sort(elements, new Comparator<Element>() {
+			public int compare(Element e1, Element e2) {
+				if (e1.freq == e2.freq)
+					return e1.index - e2.index;
+				return e2.freq - e1.freq;
 			}
-			return e2.val - e1.val;
-		}
-	};
+		});
+	}
 
 	public int countInversions(int a[], int l, int h) {
 		int lcount, rcount, mcount;
@@ -571,14 +568,33 @@ public class PracticeArrays {
 		int j;
 		for (int i = 0; i < n; i++) {
 			j = Math.abs(a[i]) - 1;
-			if (j == n)
-				j = 0;
 			if (a[j] < 0) {
-				System.out.println("Repeated : " + j);
-			} else if (a[j] > 0) {
-				a[j] = -a[j];
+				System.out.println("Repeated : " + (j + 1));
 			} else {
-				a[j] = -n;
+				a[j] = -a[j];
+			}
+		}
+	}
+
+	public void findTwoRepeatingNumbers(int[] a, int n) {
+
+		CommonUtil.printArray(a);
+		for (int i = 0; i < n; i++) {
+			a[(a[i] - 1) % n] += n;
+		}
+		CommonUtil.printArray(a);
+		for (int i = 0; i < n; i++) {
+			if (a[i] / n > 1) {
+				System.out.println("Repeated : " + (i + 1));
+			}
+		}
+	}
+
+	public void rotateImageBy90degrees(int[][] a, int m, int n) {
+		int t[][] = new int[n][m];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				t[j][m - i - 1] = a[i][j];
 			}
 		}
 	}

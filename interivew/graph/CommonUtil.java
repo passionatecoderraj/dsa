@@ -81,7 +81,7 @@ public class CommonUtil {
 	public static void print2DArray(boolean[][] t, int m, int n) {
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
-				System.out.print(t[i][j] + " ");
+				System.out.print((t[i][j]?"T":"F") + " ");
 			}
 			System.out.println();
 		}

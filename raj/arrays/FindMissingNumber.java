@@ -47,5 +47,4 @@ public class FindMissingNumber {
 		int sum = (n * (n + 1)) / 2;
 		return sum - tot;
 	}
-
 }

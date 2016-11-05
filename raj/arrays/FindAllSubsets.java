@@ -25,9 +25,7 @@ public class FindAllSubsets {
 		List<List<Integer>> list = new ArrayList<List<Integer>>();
 		list.add(new ArrayList<Integer>());
 		for (int n : nums) {
-			int size = list.size();
-			for (int i = 0; i < size; i++) {
-				List<Integer> temp = new ArrayList<Integer>(list.get(i));
+			for(List<Integer> temp:list){
 				temp.add(n);
 				list.add(temp);
 			}

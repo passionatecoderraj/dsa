@@ -25,7 +25,48 @@ public class FindSubarrayOfSumK {
 		// int a[] = { 1, 4, 20, 3, 10, 5 };
 		int n = a.length, k = 23;
 
-		obj.subArraysOfSumK(a, n, k);
+		obj.subArraysOfSum2(a, k);
+	}
+
+	public void subArraysOfSum2(int[] a, int k) {
+
+		int l = 0, r = 0;
+		int sum = a[r];
+
+		while (true) {
+			if (sum < k) {
+				r++;
+				if (r == a.length)
+					return;
+				sum += a[r];
+			} else if (sum > k) {
+				sum -= a[l++];
+			} else {
+				printSubarray(a, l, r);
+				sum = 0;
+				l = r + 1;
+			}
+		}
+
+	}
+
+	// assumption is k >=1
+	public void subArraysOfSum(int[] a, int k) {
+
+		int sum = 0;
+		int l = 0;
+
+		for (int r = 0; r < a.length; r++) {
+			sum += a[r];
+			while (sum > k && l <= r) {
+				sum -= a[l++];
+			}
+			if (sum == k) {
+				printSubarray(a, l, r);
+				sum = 0;
+				l = r + 1;
+			}
+		}
 	}
 
 	// assumption is k >=1

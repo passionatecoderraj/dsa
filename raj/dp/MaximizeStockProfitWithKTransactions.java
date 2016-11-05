@@ -3,6 +3,8 @@ package com.raj.dp;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.interivew.graph.CommonUtil;
+
 public class MaximizeStockProfitWithKTransactions {
 
 	public static void main(String[] args) {
@@ -63,13 +65,14 @@ public class MaximizeStockProfitWithKTransactions {
 			profit[i] = Math.max(profit[i + 1], a[i] - max_so_far);
 			max_so_far = Math.max(a[i], max_so_far);
 		}
-
+		CommonUtil.printArray(profit);
 		int min_so_far = a[0];
 		for (int i = 1; i < n; i++) {
 			profit[i] = Math.max(profit[i - 1], profit[i] + a[i] - min_so_far);
 			min_so_far = Math.min(a[i], min_so_far);
 		}
-		return profit[n - 1];
+		CommonUtil.printArray(profit);
+			return profit[n - 1];
 	}
 
 	// MaxProfit With K Transactions : Slow Solution

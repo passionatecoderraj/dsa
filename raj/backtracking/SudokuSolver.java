@@ -49,7 +49,7 @@ public class SudokuSolver {
 	}
 
 	private boolean safeToPlace(int[][] a, int x, int y, int val) {
-		return isSafeRow(a, x, y, val) && isSafeColumn(a, x, y, val) && isSafeBlock(a, x - x % 3, y - y % 3, val);
+		return isSafeRow(a, x, y, val) && isSafeColumn(a, x, y, val) && isSafeBlock(a, x - x % 3, y - y % 3, x, y, val);
 	}
 
 	public boolean isSafeRow(int[][] a, int x, int y, int val) {
@@ -68,10 +68,10 @@ public class SudokuSolver {
 		return true;
 	}
 
-	public boolean isSafeBlock(int[][] a, int x, int y, int val) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (a[i + x][j + y] == val)
+	public boolean isSafeBlock(int[][] a, int startBlockX, int startBlockY, int x, int y, int val) {
+		for (int i = startBlockX; i < startBlockX + 3; i++) {
+			for (int j = startBlockY; j < startBlockY + 3; j++) {
+				if (a[i][j] == val)
 					return false;
 			}
 		}

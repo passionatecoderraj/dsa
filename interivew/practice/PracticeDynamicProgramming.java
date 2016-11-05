@@ -2,6 +2,7 @@ package com.interivew.practice;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Set;
 
 import com.interivew.graph.CommonUtil;
 import com.interivew.practice.PracticeDp.Pair;
@@ -675,6 +676,213 @@ public class PracticeDynamicProgramming {
 		return max;
 	}
 
+	public boolean wordBreak(String str, int n, Set<String> dictionary) {
+		boolean t[][] = new boolean[n][n];
+
+		for (int l = 1; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				if (dictionary.contains(str.substring(i, j + 1))) {
+					t[i][j] = true;
+				} else {
+					for (int k = i; k < j; k++) {
+						t[i][j] = t[i][j] || (t[i][k] && t[k + 1][j]);
+					}
+				}
+			}
+		}
+		CommonUtil.print2DArray(t, n, n);
+		return t[0][n - 1];
+	}
+
+	public int minCutsForPalindromePartitionsDpOn3(char[] str) {
+		int n = str.length;
+		if (n <= 0)
+			return -1;
+		int[][] t = new int[n][n];
+		boolean[][] p = new boolean[n][n];
+
+		for (int i = 0; i < n; i++) {
+			t[i][i] = 0;
+			p[i][i] = true;
+		}
+
+		for (int l = 2; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				if (l == 2) {
+					p[i][j] = str[i] == str[j];
+				} else {
+					p[i][j] = str[i] == str[j] && p[i + 1][j - 1];
+				}
+
+				if (p[i][j]) {
+					t[i][j] = 0;
+					// System.out.println(i + "-" + j);
+
+				} else {
+					t[i][j] = Integer.MAX_VALUE;
+					for (int k = i; k <= j - 1; k++) {
+						int m = 1 + t[i][k] + t[k + 1][j];
+						if (m < t[i][j]) {
+							t[i][j] = m;
+						}
+					}
+				}
+			}
+		}
+
+		return t[0][n - 1];
+	}
+
+	public int minCutsForPalindromePartition(char a[], int n) {
+		boolean p[][] = new boolean[n][n];
+		for (int i = 0; i < n; i++) {
+			p[i][i] = true;
+		}
+		for (int l = 2; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				if (a[i] == a[j]) {
+					if (l == 2)
+						p[i][j] = true;
+					else
+						p[i][j] = p[i + 1][j - 1];
+				} else {
+					p[i][j] = false;
+				}
+			}
+		}
+
+		int t[] = new int[n];
+
+		for (int i = 0; i < n; i++) {
+			t[i] = Integer.MAX_VALUE;
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (p[0][i] == true) {
+				t[i] = 0;
+			} else {
+				for (int j = 0; j < i; j++) {
+					if (p[j + 1][i] == true) {
+						t[i] = Math.min(1 + t[j], t[i]);
+					}
+				}
+			}
+		}
+		return t[n - 1];
+	}
+
+	public int optimalGamePickingToMaximizeFirstPlayerSum(int a[], int n) {
+		class Cell {
+			int player1;
+			int player2;
+
+			public Cell(int player1, int player2) {
+				super();
+				this.player1 = player1;
+				this.player2 = player2;
+			}
+
+			@Override
+			public String toString() {
+				return "[p1=" + player1 + ", p2=" + player2 + "]";
+			}
+
+		}
+		Cell t[][] = new Cell[n][n];
+		for (int i = 0; i < n; i++) {
+			t[i][i] = new Cell(a[i], 0);
+		}
+
+		int p1, p2;
+		for (int l = 2; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				p1 = Math.max(t[i][i].player1 + t[i + 1][j].player2, t[j][j].player1 + t[i][j - 1].player2);
+				p2 = Math.min(t[i][i].player2 + t[i + 1][j].player1, t[j][j].player2 + t[i][j - 1].player1);
+				t[i][j] = new Cell(p1, p2);
+			}
+		}
+
+		return t[0][n - 1].player1;
+	}
+
+	// len is the length of the line
+	// a = array of words sized, n : size of a
+	public int wordWrap(int[] a, int n, int len) {
+		int c[][] = new int[n][n];
+
+		for (int i = 0; i < n; i++) {
+			c[i][i] = len - a[i];
+			for (int j = i + 1; j < n; j++) {
+				c[i][j] = c[i][j - 1] - 1 - a[j];
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			for (int j = i; j < n; j++) {
+				if (c[i][j] < 0) {
+					c[i][j] = Integer.MAX_VALUE;
+				} else {
+					c[i][j] = c[i][j] * c[i][j];
+				}
+			}
+		}
+
+		int t[] = new int[n];
+		for (int i = n - 1; i >= 0; i--) {
+			t[i] = c[i][n - 1];
+			for (int j = n - 1; j > i; j--) {
+				if (c[i][j - 1] == Integer.MAX_VALUE)
+					continue;
+				t[i] = Math.min(t[i], c[i][j - 1] + t[j]);
+			}
+		}
+		// CommonUtil.printArray(t);
+		return t[0];
+	}
+
+	/*
+	 * Given a sorted array keys[0.. n-1] of search keys and an array freq[0..
+	 * n-1] of frequency counts, where freq[i] is the number of searches to
+	 * keys[i]. Construct a binary search tree of all keys such that the total
+	 * cost of all the searches is as small as possible.
+	 */
+	// to minimize search cost in bst, we do not use keys and we only use
+	// frequencies
+	public int optmalBSTs(int keys[], int freqs[], int n) {
+		int t[][] = new int[n][n];
+		for (int i = 0; i < n; i++) {
+			t[i][i] = freqs[i];
+		}
+
+		int sum = 0, m, cur;
+		for (int l = 2; l <= n; l++) {
+			for (int i = 0; i < n - l + 1; i++) {
+				int j = i + l - 1;
+				sum = 0;
+				m = Integer.MAX_VALUE;
+
+				for (int k = i; k <= j; k++) {
+					sum += freqs[k];
+					if (k == i) {
+						cur = t[k + 1][j];
+					} else if (k == j) {
+						cur = t[i][k - 1];
+					} else {
+						cur = t[i][k - 1] + t[k + 1][j];
+					}
+					m = Math.min(m, cur);
+				}
+				t[i][j] = sum + m;
+			}
+		}
+		CommonUtil.print2DArray(t, n, n);
+		return t[0][n - 1];
+	}
+
 	// Mathematical
 	public int fibonacci(int n) {
 		int t[] = new int[n + 1];
@@ -792,5 +1000,31 @@ public class PracticeDynamicProgramming {
 			}
 		}
 		return t[n - 1];
+	}
+
+	public int maxSumRectangle(int a[][], int m, int n) {
+		int maxLeft = -1;
+		int maxRight = -1;
+		int maxUp = -1;
+		int maxDown = -1;
+		int max = Integer.MIN_VALUE;
+		int t[] = new int[m];
+
+		for (int l = 0; l < n; l++) {
+			for (int j = l; j < n; j++) {
+				for (int i = 0; i < m; i++) {
+					t[i] += a[i][j];
+				}
+
+				KadaneResult kadane = new PracticeArrays().largestContiguousSumUsingKadane(t, t.length);
+				if (kadane.maxSum > max) {
+					maxLeft = l;
+					maxRight = j;
+					maxUp = kadane.maxStart;
+					maxDown = kadane.maxEnd;
+				}
+			}
+		}
+		return max;
 	}
 }

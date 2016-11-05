@@ -20,9 +20,9 @@ public class URLShortener {
 		int id = 12345;
 		String url = null;
 		int _id = 0;
-		url = obj.idToShortUrl(id);
+		url = obj.idToShortUrl(238390);
 		System.out.println(url);
-		_id = obj.shortUrlToId(url);
+		_id = obj.shortUrlToId("baba");
 		System.out.println(_id);
 	}
 

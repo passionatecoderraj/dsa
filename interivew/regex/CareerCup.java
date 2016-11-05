@@ -5,9 +5,14 @@ package com.interivew.regex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +36,63 @@ public class CareerCup {
 		return sb.toString();
 	}
 
+	static void callFun(){
+		List<Integer> l1 = new ArrayList<>();
+		l1.add(10);
+		l1.add(30);
+		l1.add(40);
+		l1.add(90);
+		l1.add(13);
+		l1.add(12);
+		l1.add(17);
+		
+		List<Integer> l2 = new ArrayList<>();
+		l2.add(20);
+		l2.add(32);
+		l2.add(43);
+		l2.add(89);
+		l2.add(13);
+		l2.add(11);
+		l2.add(15);
+		findKSmallestElementsFromTwoLists(l1, l2, 4);
+	}
+	// Time : O((m+n)*logk), Space : O(logk)
+	public static void findKSmallestElementsFromTwoLists(List<Integer> list1, List<Integer> list2, final int k){
+		
+		final PriorityQueue<Integer> pq = new PriorityQueue<>(k, new Comparator<Integer>() {
+			@Override
+			public int compare(Integer i1, Integer i2) {
+				return i2-i1;
+			}
+		
+		});
+	
+		for(int i:list1){
+			if(pq.size() < k){
+				pq.offer(i);
+			}
+			else{
+				if(i < pq.peek()){
+					pq.poll();
+					pq.offer(i);
+				}
+			}
+		}
+		
+		for(int i:list2){
+			if(pq.size() < k){
+				pq.offer(i);
+			}
+			else{
+				if(i < pq.peek()){
+					pq.poll();
+					pq.offer(i);
+				}
+			}
+		}
+		System.out.println(pq);
+	}
+	
 	public static void reverse(StringBuilder sb, int l, int r) {
 		while (l < r) {
 			swap(sb, l++, r--);
@@ -227,6 +289,54 @@ public class CareerCup {
 		return result;
 	}
 
+	public void findTopKFrequentUsers(String file, int k) {
+		if (file == null || file.length() == 0)
+			return;
+		String[] users = file.split(",");
+		Map<String, Integer> countMap = new HashMap<>();
+		for (String user : users) {
+			countMap.compute(user, (key, value) -> {
+				if (null == value)
+					return value;
+				return value + 1;
+			});
+		}
+		class Element {
+			String user;
+			int value;
+
+			public Element(String user, int value) {
+				super();
+				this.user = user;
+				this.value = value;
+			}
+
+			@Override
+			public int hashCode() {
+				final int prime = 31;
+				int result = 1;
+				result = prime * result + value;
+				return result;
+			}
+
+			@Override
+			public boolean equals(Object obj) {
+				if (this == obj)
+					return true;
+				if (obj == null)
+					return false;
+				if (getClass() != obj.getClass())
+					return false;
+				Element other = (Element) obj;
+				if (value != other.value)
+					return false;
+				return true;
+			}
+		}
+		PriorityQueue<Element> pq = new PriorityQueue<>(Collections.reverseOrder());
+		
+	}
+
 	public static void main(String[] args) {
 		// reverseSetence("Prithviraj Kumar Dasari. $Hello");
 		// signedIntegerToStringWithoutUsingBuiltInFunctions(-123);
@@ -246,7 +356,12 @@ public class CareerCup {
 		//
 		Integer a1[] = { 1, 2, 3, 1, 5 };
 		Integer a2[] = { 3, 4, 5, 6, 7 };
-		findUncommonElements(a1, a2);
+//		findUncommonElements(a1, a2);
+
+		String file = "user1,user4,user2,user1,user3,user1,user2,user3";
+		int k = 2;
+		
+		callFun();
 	}
 
 }

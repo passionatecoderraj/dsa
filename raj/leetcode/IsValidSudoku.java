@@ -85,9 +85,9 @@ public class IsValidSudoku {
 
 	public boolean isValidBlock(int[][] sudoku, int x, int y) {
 		boolean a[] = new boolean [9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				int index = sudoku[x+i][y+j];
+		for (int i = x; i < x+3; i++) {
+			for (int j = y; j < y+3; j++) {
+				int index = sudoku[i][j];
 				if (index == 0) {
 					continue;
 				} else {

@@ -6,12 +6,15 @@ import java.util.PriorityQueue;
 public class PrintSortedOrderFromSortedMatrix {
 	public static void main(String args[]) throws Exception {
 
-		int a[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, { 32, 33, 39, 50 }, };
+		int a[][] = { { 10, 20, 30, 40 }, 
+				{ 15, 25, 35, 45 },
+				{ 27, 29, 37, 48 }, 
+				{ 32, 33, 39, 50 }, };
 		int m = a.length, n = a[0].length;
 
 		PrintSortedOrderFromSortedMatrix obj = new PrintSortedOrderFromSortedMatrix();
 
-		// Time : O(m*n*logm)
+		// Time : O(m*n*logm), Space : O(m)
 		obj.print(a, m, n);
 	}
 

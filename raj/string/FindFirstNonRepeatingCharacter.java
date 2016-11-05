@@ -5,6 +5,7 @@ package com.raj.string;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 
 /**
  * @author Raj
@@ -35,7 +36,7 @@ public class FindFirstNonRepeatingCharacter {
 
 		// Time : O(n), Space :O(1)
 		// by traversing twice
-		result = obj.findFirstNonRepeatingCharacter(str.toCharArray(), str.length());
+		result = obj.findFirstNonRepeatingCharacter(str);
 		System.out.println(result);
 
 		// Time : O(n), Space :O(1)
@@ -75,8 +76,7 @@ public class FindFirstNonRepeatingCharacter {
 			count[i] = new Char((char) i, Integer.MAX_VALUE, 0);
 
 		for (int i = 0; i < n; i++) {
-			Char ob = count[a[i]];
-			ob.count = ob.count + 1;
+			count[a[i]].count++;
 			count[a[i]].index = i;
 		}
 
@@ -109,7 +109,7 @@ public class FindFirstNonRepeatingCharacter {
 
 			@Override
 			public String toString() {
-				return "Char [index=" + index + ", count=" + count + "]";
+				return "Char [ch=" + ch + ", index=" + index + ", count=" + count + "]";
 			}
 
 		}
@@ -118,8 +118,7 @@ public class FindFirstNonRepeatingCharacter {
 			count[i] = new Char((char) i, Integer.MAX_VALUE, 0);
 
 		for (int i = 0; i < n; i++) {
-			Char ob = count[a[i]];
-			ob.count = ob.count + 1;
+			count[a[i]].count++;
 			count[a[i]].index = i;
 		}
 
@@ -138,18 +137,22 @@ public class FindFirstNonRepeatingCharacter {
 	}
 
 	// Time : O(n), Space :O(1)
-	public char findFirstNonRepeatingCharacter(char[] a, int n) {
+	public char findFirstNonRepeatingCharacter(String str) {
+		char nonRepeated = ' ';
+		if (null == str || str.isEmpty())
+			return nonRepeated;
 		int count[] = new int[256];
-		for (int i = 0; i < n; i++) {
-			count[a[i]]++;
+		for (char ch : str.toCharArray()) {
+			count[ch]++;
 		}
 
-		for (int i = 0; i < n; i++) {
-			if (count[a[i]] == 1)
-				return a[i];
-
+		for (char ch : str.toCharArray()) {
+			if (count[ch] == 1) {
+				return ch;
+			}
 		}
-		return 0;
+
+		return nonRepeated;
 	}
 
 }

@@ -3,6 +3,9 @@
  */
 package com.raj.string;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Raj
  *
@@ -13,96 +16,117 @@ package com.raj.string;
  * characters
  * 
  */
-/*
- * http://www.geeksforgeeks.org/find-first-non-repeating-character-stream-
- * characters/
- */
 
 public class FindFirstNonRepeatingInStream {
+
+	private Character firstNonRepeatingCharacter() {
+		return list.head == null ? null : list.head.data;
+	}
+
+	public Character insertInStream(char ch) {
+		if (list.search(ch)) {
+			list.removeFromlist(ch);
+		} else {
+			list.insertInList(ch);
+		}
+		return firstNonRepeatingCharacter();
+	}
+
+	CustomizedDLL list = new CustomizedDLL();
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		FindFirstNonRepeatingInStream obj = new FindFirstNonRepeatingInStream();
-		char ch = 0;
+		Character ch = null;
 		obj.insertInStream('a');
+		obj.insertInStream('b');
 		obj.insertInStream('a');
 		obj.insertInStream('a');
 		obj.insertInStream('b');
-		obj.insertInStream('b');
-		obj.insertInStream('c');
 		obj.insertInStream('d');
-		obj.insertInStream('b');
-		ch = obj.firstNonRepeatingCharacter();
+		obj.insertInStream('c');
+		ch = obj.insertInStream('b');
 		System.out.println(ch);
 	}
 
-	public char firstNonRepeatingCharacter() {
-		return list.head == null ? 0 : list.head.data;
+}
+
+/**
+ * Customized DLL that does insert, delete and search operations in O(1)
+ * @author Raj
+ *
+ */
+class CustomizedDLL {
+	DLLNode head = null, tail = null;
+
+	Map<Character, DLLNode> map = new HashMap<>();
+
+	public void printReverse() {
+		DLLNode temp = tail;
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.prev;
+		}
+		System.out.println();
 	}
 
-	public char insertInStream(char ch) {
-		if (!repeated[ch]) {
-			if (inDLL[ch] == null) {
-				list.insert(ch);
-				inDLL[ch] = list.tail;
-			} else {
-				list.remove(inDLL[ch]);
-				inDLL[ch] = null;
-				repeated[ch] = true;
-			}
-		}
-		return firstNonRepeatingCharacter();
+	public void insertInList(char data) {
+		insert(data);
+		map.put(data, tail);
 	}
 
-	boolean[] repeated = new boolean[256];
-	DLLNode[] inDLL = new DLLNode[256];
-	DLL list = new DLL();
-
-	class DLL {
-		DLLNode head = null, tail = null;
-
-		public void insert(char data) {
-			DLLNode nn = new DLLNode(data);
-			if (null == head) {
-				head = nn;
-				tail = nn;
-			} else {
-				tail.next = nn;
-				nn.prev = tail;
-				tail = tail.next;
-			}
-		}
-
-		public void remove(DLLNode node) {
-			if (node == head) {
-				head = head.next;
-				if (null != head) {
-					head.prev = null;
-				}
-			} else if (node == tail) {
-				tail = tail.prev;
-				if (null != tail) {
-					tail.next = null;
-				}
-			} else {
-				node.prev.next = node.next;
-			}
+	public void removeFromlist(char data) {
+		if (map.get(data) != null) {
+			remove(map.get(data));
+			map.put(data, null);
 		}
 	}
 
-	class DLLNode {
-		char data;
-		DLLNode next;
-		DLLNode prev;
+	public boolean search(char data) {
+		return map.containsKey(data);
+	}
 
-		public DLLNode(char data) {
-			this.data = data;
-			this.next = null;
-			this.prev = null;
+	private void insert(char data) {
+		DLLNode nn = new DLLNode(data);
+		if (null == head) {
+			head = nn;
+			tail = nn;
+		} else {
+			tail.next = nn;
+			nn.prev = tail;
+			tail = tail.next;
 		}
+	}
 
+	private void remove(DLLNode node) {
+		if (node == head) {
+			head = head.next;
+			if (null != head) {
+				head.prev = null;
+			}
+		} else if (node == tail) {
+			tail = tail.prev;
+			if (null != tail) {
+				tail.next = null;
+			}
+		} else {
+			node.prev.next = node.next;
+			node.next.prev = node.prev;
+		}
+	}
+}
+
+class DLLNode {
+	char data;
+	DLLNode next;
+	DLLNode prev;
+
+	public DLLNode(char data) {
+		this.data = data;
+		this.next = null;
+		this.prev = null;
 	}
 
 }

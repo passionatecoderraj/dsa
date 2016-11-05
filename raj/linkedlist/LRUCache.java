@@ -6,20 +6,40 @@ package com.raj.linkedlist;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.raj.nodes.LRUCacheDLLNode;;
-
 /**
  * @author Raj
  *
  */
+
 public class LRUCache {
+
+	private CustomizedDLL list = new CustomizedDLL();
+	int capacity;
+
+	public LRUCache(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public void put(int key, int value) {
+		if (list.search(key)) {
+			list.removeFromlist(key);
+			list.insertInList(key, value);
+		} else {
+			if (list.size() >= capacity) {
+				list.removeFromlist(list.head.key);
+			}
+			list.insertInList(key, value);
+		}
+	}
+
+	public void printCache() {
+		list.printReverse();
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		// DLL is opposite of queue as we insert at front and remove from rear
 		LRUCache ob = new LRUCache(3);
 		ob.put(7, 7);
 		ob.put(0, 0);
@@ -36,78 +56,89 @@ public class LRUCache {
 		ob.put(2, 2);
 		ob.put(1, 1);
 		ob.put(2, 2);
-		ob.print(ob.head);
+		ob.printCache();
 
 	}
 
-	private int capacity;
-	private LRUCacheDLLNode<Integer, Integer> head, tail;
-	private Map<Integer, LRUCacheDLLNode<Integer, Integer>> map;
+	// 7 0 1 2 0 3
+}
 
-	public LRUCache(int capacity) {
-		super();
-		this.capacity = capacity;
-		map = new HashMap<Integer, LRUCacheDLLNode<Integer, Integer>>(capacity);
-	}
+class CustomizedDLL {
+	DLLNode head = null, tail = null;
 
-	public void print(LRUCacheDLLNode<Integer, Integer> nn) {
-		LRUCacheDLLNode<Integer, Integer> cur = nn;
-		while (cur != null) {
-			System.out.print(cur + " ");
-			cur = cur.next;
+	Map<Integer, DLLNode> map = new HashMap<>();
+	int count;
+
+	public void printReverse() {
+		DLLNode temp = tail;
+		while (temp != null) {
+			System.out.print(temp.key + " ");
+			temp = temp.prev;
 		}
 		System.out.println();
 	}
 
-	// sort of deque
-	public void remove(LRUCacheDLLNode<Integer, Integer> nn) {
-		if (nn.prev != null) {
-			nn.prev.next = nn.next;
-		} else {
-			head = nn.next;
-		}
-
-		if (nn.next != null) {
-			nn.next.prev = nn.prev;
-		} else {
-			tail = nn.prev;
-		}
+	public void insertInList(int key, int value) {
+		insert(key, value);
+		count++;
+		map.put(key, tail);
 	}
 
-	public void setHead(LRUCacheDLLNode<Integer, Integer> nn) {
-		nn.next = head;
-		nn.prev = null;
-		if (head != null)
-			head.prev = nn;
-		head = nn;
-		if (null == tail)
+	public void removeFromlist(int key) {
+		remove(map.get(key));
+		map.remove(key);
+		count--;
+	}
+
+	public boolean search(int data) {
+		return map.containsKey(data);
+	}
+
+	public int size() {
+		return count;
+	}
+
+	private void insert(int key, int value) {
+		DLLNode nn = new DLLNode(key, value);
+		if (null == head) {
+			head = nn;
 			tail = nn;
-	}
-
-	public int get(int key) {
-		if (map.containsKey(key)) {
-			LRUCacheDLLNode<Integer, Integer> node = map.get(key);
-			remove(node);
-			setHead(node);
-			return node.value;
-		}
-		return -1;
-	}
-
-	public void put(int key, int value) {
-		if (map.containsKey(key)) {
-			LRUCacheDLLNode<Integer, Integer> node = map.get(key);
-			remove(node);
-			setHead(node);
 		} else {
-			LRUCacheDLLNode<Integer, Integer> nn = new LRUCacheDLLNode<Integer, Integer>(key, value);
-
-			if (map.size() >= capacity) {
-				map.remove(tail.key);
-				remove(tail);
-			}
-			setHead(nn);
-			map.put(key, nn);
+			tail.next = nn;
+			nn.prev = tail;
+			tail = tail.next;
 		}
 	}
+
+	private void remove(DLLNode node) {
+		if (node == head) {
+			head = head.next;
+			if (null != head) {
+				head.prev = null;
+			}
+		} else if (node == tail) {
+			tail = tail.prev;
+			if (null != tail) {
+				tail.next = null;
+			}
+		} else {
+			node.prev.next = node.next;
+			node.next.prev = node.prev;
+		}
+	}
+}
+
+class DLLNode {
+	int key;
+	int value;
+	DLLNode next;
+	DLLNode prev;
+
+	public DLLNode(int key, int value) {
+		this.key = key;
+		this.value = value;
+		this.next = null;
+		this.prev = null;
+	}
+
 }

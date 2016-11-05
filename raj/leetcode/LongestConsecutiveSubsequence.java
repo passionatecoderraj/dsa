@@ -7,7 +7,7 @@ import java.util.Set;
  *
  * Longest Consecutive Subsequence
  * 
- *http://www.geeksforgeeks.org/longest-consecutive-subsequence/
+ * http://www.programcreek.com/2013/01/leetcode-longest-consecutive-sequence-java/
  *
  *Given an array of integers, find the length of the longest sub-sequence such that elements in the subsequence are consecutive integers, the consecutive numbers can be in any order.
  */
@@ -25,19 +25,24 @@ public class LongestConsecutiveSubsequence {
 	// Time : O(n), Space : O(n)
 	public int longestConsecutiveSubsequence(int[] a) {
 		Set<Integer> set = new HashSet<>();
-		int maxLen = 0, curLen = 0;
+		int maxLen = 0;
 		for (int i : a)
 			set.add(i);
 		for (int i = 0; i < a.length; i++) {
-			if (!set.contains(a[i] - 1)) {
-				int element = a[i];
-				curLen = 0;
-				while (set.contains(element)) {
-					curLen++;
-					element++;
-				}
-				maxLen = Math.max(maxLen, curLen);
+			int left = a[i] - 1;
+			int right = a[i] + 1;
+			int count = 1;
+			while (set.contains(left)) {
+				set.remove(left++);
+				count++;
 			}
+
+			while (set.contains(right)) {
+				set.remove(right++);
+				count++;
+			}
+			maxLen = Math.max(maxLen, count);
+
 		}
 		return maxLen;
 	}

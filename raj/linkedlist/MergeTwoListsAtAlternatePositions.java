@@ -63,6 +63,27 @@ public class MergeTwoListsAtAlternatePositions {
 
 	}
 
+	public ListNode<Integer> alterMergeIteratively2(ListNode<Integer> r1, ListNode<Integer> r2) {
+		ListNode<Integer> root = r1, cur;
+		r1 = r1.next;
+		cur = root;
+		boolean flag = false;
+		while (r1 != null || r2 != null) {
+			if (flag && r1 != null) {
+				cur.next = r1;
+				cur = cur.next;
+				r1 = r1.next;
+			} else if (!flag && r2 != null) {
+				cur.next = r2;
+				cur = cur.next;
+				r2 = r2.next;
+			}
+			flag = !flag;
+		}
+
+		return root;
+	}
+
 	public ListNode<Integer> alterMergeIteratively(ListNode<Integer> r1, ListNode<Integer> r2) {
 		ListNode<Integer> root = r1;
 		ListNode<Integer> r1next = null, r2next = null, prer1 = null;

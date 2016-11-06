@@ -41,6 +41,37 @@ public class PrintRightViewOfTree {
 		obj.printRighViewOfTree(tree.root);
 	}
 
+	// Time : O(n)
+	public void printRighViewOfTree(BinaryTreeNode<Integer> root) {
+		if (root == null)
+			return;
+
+		Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
+
+		q.add(root);
+		q.add(null);
+		BinaryTreeNode<Integer> temp;
+		while (!q.isEmpty()) {
+			temp = q.poll();
+
+			if (!q.isEmpty() && q.peek() == null) {
+				System.out.print(temp.data + " ");
+			}
+
+			if (temp == null) {
+				if (q.isEmpty())
+					break;
+				q.add(null);
+				continue;
+			}
+			if (temp.left != null)
+				q.add(temp.left);
+			if (temp.right != null)
+				q.add(temp.right);
+		}
+		System.out.println();
+	}
+
 	int max_level = 0;
 
 	public void printRightViewRecursively(BinaryTreeNode<Integer> root, int level) {
@@ -53,33 +84,6 @@ public class PrintRightViewOfTree {
 		printRightViewRecursively(root.left, level + 1);
 		printRightViewRecursively(root.right, level + 1);
 
-	}
-
-	// Time : O(n)
-	public void printRighViewOfTree(BinaryTreeNode<Integer> root) {
-		if (root == null)
-			return;
-		Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
-
-		q.add(root);
-		q.add(null);
-		BinaryTreeNode<Integer> tmp2 = null, temp;
-		while (!q.isEmpty()) {
-			temp = q.poll();
-			if (temp == null) {
-				System.out.print(tmp2.data + " ");
-				if (q.isEmpty())
-					break;
-				q.add(null);
-				continue;
-			}
-			tmp2 = temp;
-			if (temp.left != null)
-				q.add(temp.left);
-			if (temp.right != null)
-				q.add(temp.right);
-		}
-		System.out.println();
 	}
 
 }

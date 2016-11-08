@@ -65,6 +65,35 @@ public class Traversals {
 		}
 	}
 
+	public static void levelOrderWithMarkers(BinaryTreeNode<Integer> node) {
+
+		Deque<BinaryTreeNode<Integer>> queue = new LinkedList<BinaryTreeNode<Integer>>();
+
+		queue.addLast(node);
+		queue.addLast(null);
+
+		while (!queue.isEmpty()) {
+			BinaryTreeNode<Integer> cur = queue.removeFirst();
+
+			if (cur == null) {
+				if (!queue.isEmpty()) {
+					System.out.print(" | ");
+					queue.addLast(null);
+				}
+				continue;
+			}
+			System.out.print(cur.data + " ");
+			if (cur.left != null) {
+				queue.addLast(cur.left);
+			}
+			if (cur.right != null) {
+				queue.addLast(cur.right);
+			}
+
+		}
+		System.out.println();
+	}
+
 	public void levelOrder(BinaryTreeNode<Integer> node) {
 		if (null == node) {
 			return;

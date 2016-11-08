@@ -45,9 +45,13 @@ public class PrintBoundarytViewOfTree {
 	public void printBoundaryOfaTree(BinaryTreeNode<Integer> root) {
 		if (null == root)
 			return;
+		// print root
 		System.out.print(root.data + " ");
+		// print left boundary without leaves
 		printLeftBoundary(root.left);
+		//print leaves
 		printLeaves(root);
+		// print right boundary
 		printRightBoundary(root.right);
 	}
 

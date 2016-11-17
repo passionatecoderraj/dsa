@@ -30,7 +30,7 @@ public class SearchWordInMatrix {
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (matrix[i][j] == word.charAt(0)) {
-					if (searchWordInMatrixUtil(matrix, m, n, i, j, word, 1, moves)){
+					if (searchWordInMatrixUtil(matrix, m, n, i, j, word, 1, moves)) {
 						System.out.print("(i=" + i + ",j=" + j + ") ");
 						return true;
 					}
@@ -63,4 +63,44 @@ public class SearchWordInMatrix {
 		return x >= 0 && x < m && y >= 0 && y < n && word.charAt(k) == matrix[x][y];
 	}
 
+	public boolean searchWordInMatrixRecursive(char[][] matrix, String word) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+
+				if (searchWordInMatrixRecursiveUtil(matrix, m, n, i, j, word, 0)) {
+					System.out.print("(i=" + i + ",j=" + j + ") ");
+					return true;
+				}
+				System.out.println();
+			}
+		}
+		return false;
+	}
+
+	private boolean searchWordInMatrixRecursiveUtil(char[][] matrix, int m, int n, int i, int j, String word, int k) {
+		if (isSafe(matrix, m, n, word, k, i, j)) {
+			char ch = matrix[i][j];
+			matrix[i][j] = '#';
+			if (word.length() - 1 == k)
+				return true;
+			if (searchWordInMatrixRecursiveUtil(matrix, m, n, i + 1, j, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i - 1, j, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i, j + 1, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i, j - 1, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i + 1, j + 1, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i + 1, j - 1, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i - 1, j + 1, word, k + 1)
+					|| searchWordInMatrixRecursiveUtil(matrix, m, n, i - 1, j - 1, word, k + 1)) {
+				return true;
+			}
+			matrix[i][j] = ch;
+		}
+		return false;
+	}
+
+	public boolean isSafe(char[][] matrix, int m, int n, String word, int k, int x, int y) {
+		return x >= 0 && x < m && y >= 0 && y < n && word.charAt(k) == matrix[x][y];
+	}
 }

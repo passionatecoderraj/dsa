@@ -9,8 +9,7 @@ package com.raj.arrays;
  *
  */
 public class URLShortener {
-
-	// Given an array of n elements which contains elements from 0 to n-1
+// Given an array of n elements which contains elements from 0 to n-1
 
 	/**
 	 * @param args

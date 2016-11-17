@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.arrays;
+package com.raj.backtracking;
 
 /**
  * @author Raj
@@ -19,8 +19,39 @@ public class CountIslands {
 
 		// Time :O(rows*cols), Space : O(rows*cols)
 		result = obj.countIslands(a, a.length, a[0].length);
+
+		System.out.println(result);
+		result = obj.countIslands(a);
 		System.out.println(result);
 
+	}
+
+	public int countIslands(int a[][]) {
+		int count = 0, m = a.length, n = a[0].length;
+		boolean visited[][] = new boolean[m][n];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (a[i][j] == 1 && !visited[i][j]) {
+					count++;
+					dfs(a, i, j, visited);
+				}
+			}
+		}
+		return count;
+	}
+
+	private void dfs(int[][] a, int i, int j, boolean[][] visited) {
+		if (!isSafe(a, a.length, a[0].length, i, j, visited))
+			return;
+		visited[i][j] = true;
+		dfs(a, i + 1, j + 1, visited);
+		dfs(a, i + 1, j - 1, visited);
+		dfs(a, i + 1, j, visited);
+		dfs(a, i, j - 1, visited);
+		dfs(a, i, j + 1, visited);
+		dfs(a, i - 1, j + 1, visited);
+		dfs(a, i - 1, j - 1, visited);
+		dfs(a, i - 1, j, visited);
 	}
 
 	public int countIslands(int[][] a, int m, int n) {

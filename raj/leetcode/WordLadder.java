@@ -132,6 +132,11 @@ public class WordLadder {
 	}
 
 	public static void main(String[] args) {
+
+		byte a = 4;
+		String b = Byte.toString(a);
+		System.out.println(b);
+		System.out.println(b.length());
 		Set<String> dictionary = new HashSet<>();
 		dictionary.add("hot");
 		dictionary.add("dot");

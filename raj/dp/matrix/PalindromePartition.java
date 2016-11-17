@@ -1,13 +1,15 @@
-/**
- * 
- */
 package com.raj.dp.matrix;
+/**							
+* 							
+*/
+
+import java.util.Arrays;
 
 import com.interivew.graph.CommonUtil;
 
 /**
  * @author Raj
- *
+ * 
  */
 public class PalindromePartition {
 
@@ -45,16 +47,15 @@ public class PalindromePartition {
 			}
 		}
 		CommonUtil.print2DArray(p, n, n);
-
-		for (int i = 0; i < n; i++) {
-			if (p[0][i] == true) {
-				t[i] = 0;
+		Arrays.fill(t, Integer.MAX_VALUE);
+		for (int j = 0; j < n; j++) {
+			if (p[0][j] == true) {
+				t[j] = 0;
 
 			} else {
-				t[i] = Integer.MAX_VALUE;
-				for (int j = 0; j < i; j++) {
-					if (p[j + 1][i] == true && t[i] > 1 + t[j]) {
-						t[i] = t[j] + 1;
+				for (int i = 0; i < j; i++) {
+					if (p[i + 1][j] == true) {
+						t[j] = Math.min(t[j], t[i] + 1);
 					}
 				}
 			}

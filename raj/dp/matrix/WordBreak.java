@@ -2,60 +2,80 @@
  * 
  */
 package com.raj.dp.matrix;
-
+						
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
-
-import com.interivew.graph.CommonUtil;
-
-/**
- * @author Raj
- *
- */
-/*
- * Given an input string and a dictionary of words, find out if the input string
- * can be segmented into a space-separated sequence of dictionary words.
- */
-public class WordBreak {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		boolean result = false;
-		String str = "iamace";
-		Set<String> dictionary = new HashSet<String>();
-		dictionary.add("i");
-		dictionary.add("a");
-		dictionary.add("am");
-		dictionary.add("ace");
-
-		WordBreak obj = new WordBreak();
-		// Time : O(n3), Space: O(n2)
-		result = obj.wordBreak(str, str.length(), dictionary);
-		System.out.println(result);
-		// TODO: Time : O(n2) from geeksforgeeks
-
-	}
-
-	public boolean wordBreak(String str, int n, Set<String> dictionary) {
-		boolean t[][] = new boolean[n][n];
-
-		for (int l = 1; l <= n; l++) {
-			for (int i = 0; i < n - l + 1; i++) {
-				int j = i + l - 1;
-				if (dictionary.contains(str.substring(i, j + 1))) {
-					t[i][j] = true;
-				} else {
-					for (int k = i; k < j; k++) {
-						t[i][j] = t[i][j] || (t[i][k] && t[k + 1][j]);
-					}
-				}
-			}
-		}
-		CommonUtil.print2DArray(t, n, n);
-		return t[0][n - 1];
-	}
-
-}
+import java.util.Set;							
+							
+public class WordBreak {							
+							
+	public static boolean wordBreak(String str, Set<String> dict) {						
+		int t[] = new int[str.length()];					
+		Arrays.fill(t, -1);					
+		for (int i = 0; i < str.length(); i++) {					
+			if (0 == i || t[i - 1] != -1) {				
+				for (int j = i; j < str.length(); j++) {			
+					String sb = str.substring(i, j + 1);		
+					if (dict.contains(sb)) {		
+						t[j] = i;	
+					}		
+				}			
+			}				
+		}					
+		System.out.println(Arrays.toString(t));					
+		return t[str.length() - 1] != -1;					
+	}						
+							
+	public static ArrayList<String> wordBreak2(String str, Set<String> dict) {						
+		ArrayList<String> t[] = new ArrayList[str.length()];					
+		for (int i = 0; i < str.length(); i++) {					
+			if (0 == i || t[i - 1] != null) {				
+				for (int j = i; j < str.length(); j++) {			
+					String sb = str.substring(i, j + 1);		
+					if (dict.contains(sb)) {		
+						if (t[j] == null) {	
+							ArrayList<String> list = new ArrayList<>();
+							list.add(sb);
+							t[j] = list;
+						} else {	
+							t[j].add(sb);
+						}	
+					}		
+				}			
+			}				
+		}					
+		System.out.println(Arrays.toString(t));					
+		ArrayList<String> result = new ArrayList<String>();					
+		dfs(t, result, t.length - 1, "");					
+		System.out.println(result);					
+		return result;					
+	}						
+							
+	public static void dfs(ArrayList<String> t[], ArrayList<String> result, int index, String cur) {						
+		if (index < 0 || null == t[index]) {					
+			result.add(cur);				
+			return;				
+		}					
+							
+		for (String str : t[index]) {					
+			dfs(t, result, index - str.length(), str + " " + cur);				
+		}					
+	}						
+							
+	public static void main(String[] args) {						
+		boolean result = false;					
+		Set<String> dict = new HashSet<>();					
+							
+		dict.add("cat");					
+		dict.add("cats");					
+		dict.add("sand");					
+		dict.add("and");					
+		dict.add("dog");					
+							
+		result = wordBreak("catsanddog", dict);					
+		System.out.println(result);					
+		wordBreak2("catsanddog", dict);					
+	}						
+							
+}	

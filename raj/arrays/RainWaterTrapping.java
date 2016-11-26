@@ -26,8 +26,8 @@ public class RainWaterTrapping {
 		RainWaterTrapping obj = new RainWaterTrapping();
 
 		// Time : O(n), Space : O(n)
-		result = obj.trappedQuantityOfRainWater(a, n);
-		System.out.println(result);
+	//	result = obj.trappedQuantityOfRainWater(a, n);
+	//	System.out.println(result);
 		result = obj.rainWaterTrapped(a, n);
 		System.out.println(result);
 	}

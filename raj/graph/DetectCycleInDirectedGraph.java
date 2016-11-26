@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.raj.nodes.Graph;
-import com.raj.nodes.Vertex;
+import com.raj.nodes.Vertex2;
 
 public class DetectCycleInDirectedGraph {
 
@@ -27,15 +27,15 @@ public class DetectCycleInDirectedGraph {
 	}
 
 	public boolean hasCycleInDirectedGraphUsingDfs(Graph<Integer> g) {
-		Set<Vertex<Integer>> whiteSet = new HashSet<>();
-		Set<Vertex<Integer>> graySet = new HashSet<>();
-		Set<Vertex<Integer>> blackSet = new HashSet<>();
-		for (Vertex<Integer> v : g.getAllVertex()) {
+		Set<Vertex2<Integer>> whiteSet = new HashSet<>();
+		Set<Vertex2<Integer>> graySet = new HashSet<>();
+		Set<Vertex2<Integer>> blackSet = new HashSet<>();
+		for (Vertex2<Integer> v : g.getAllVertex()) {
 			whiteSet.add(v);
 		}
 		g.display();
 		while (whiteSet.size() > 0) {
-			Vertex<Integer> cur = whiteSet.iterator().next();
+			Vertex2<Integer> cur = whiteSet.iterator().next();
 			if (dfs(cur, whiteSet, graySet, blackSet))
 				return true;
 		}
@@ -43,14 +43,14 @@ public class DetectCycleInDirectedGraph {
 		return false;
 	}
 
-	public boolean dfs(Vertex<Integer> cur, Set<Vertex<Integer>> whiteSet, Set<Vertex<Integer>> graySet,
-			Set<Vertex<Integer>> blackSet) {
+	public boolean dfs(Vertex2<Integer> cur, Set<Vertex2<Integer>> whiteSet, Set<Vertex2<Integer>> graySet,
+			Set<Vertex2<Integer>> blackSet) {
 		// move cur vertex to gray from white set and start exploring it
 		graySet.add(cur);
 		whiteSet.remove(cur);
 		System.out.println("To gray" + cur);
 
-		for (Vertex<Integer> neighbour : cur.getAdjacentVertexes()) {
+		for (Vertex2<Integer> neighbour : cur.getAdjacentVertexes()) {
 			if (blackSet.contains(neighbour))
 				continue;
 			// if in gray set then cycle is found

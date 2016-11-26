@@ -1,5 +1,7 @@
 package com.raj.dp.ks;
 
+import com.interivew.graph.CommonUtil;
+
 public class WildcardMatching {
 
 	public static void main(String[] args) {
@@ -50,6 +52,7 @@ public class WildcardMatching {
 				}
 			}
 		}
+		CommonUtil.print2DArray(t, t.length, t[0].length);
 		return t[t.length - 1][t[0].length - 1];
 	}
 }

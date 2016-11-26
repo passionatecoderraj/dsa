@@ -25,7 +25,7 @@ public class MergeKSortedArrays {
 		List<Integer[]> arrays = new ArrayList<Integer[]>();
 		arrays.add(new Integer[] { 10, 15, 17, 20 });
 		arrays.add(new Integer[] { 5, 7, 11, 19, 22 });
-		arrays.	add(new Integer[] { 1, 8, 12 });
+		arrays.add(new Integer[] { 1, 8, 12 });
 
 		Integer[] result = null;
 		int[] res = null;
@@ -57,17 +57,17 @@ public class MergeKSortedArrays {
 		}
 
 		int res[] = new int[n * k];
-		BinaryMinHeap<HeapNode> heap = new BinaryMinHeap<HeapNode>();
+		BinaryMinHeap<HeapNodee> heap = new BinaryMinHeap<HeapNodee>();
 
 		for (int i = 0; i < k; i++) {
 			if (ptrs[i] < n) {
-				heap.add(a[i][ptrs[i]], new HeapNode(a[i][ptrs[i]], i));
+				heap.add(a[i][ptrs[i]], new HeapNodee(a[i][ptrs[i]], i));
 			} else {
 				// if any of this list burns out,
-				heap.add(Integer.MAX_VALUE, new HeapNode(Integer.MAX_VALUE, i));
+				heap.add(Integer.MAX_VALUE, new HeapNodee(Integer.MAX_VALUE, i));
 			}
 		}
-		HeapNode temp;
+		HeapNodee temp;
 		int r, c;
 		for (int i = 0; i < n * k; i++) {
 			temp = heap.extractMin();
@@ -78,10 +78,10 @@ public class MergeKSortedArrays {
 			c = ptrs[temp.listNumber];
 
 			if (c < n) {
-				heap.add(a[r][c], new HeapNode(a[r][c], r));
+				heap.add(a[r][c], new HeapNodee(a[r][c], r));
 			} else {
 				// if any of this list burns out,
-				heap.add(Integer.MAX_VALUE, new HeapNode(Integer.MAX_VALUE, r));
+				heap.add(Integer.MAX_VALUE, new HeapNodee(Integer.MAX_VALUE, r));
 			}
 		}
 
@@ -124,12 +124,11 @@ public class MergeKSortedArrays {
 
 }
 
-class HeapNode {
+class HeapNodee {
 	int value;
 	int listNumber;
 
-	public HeapNode(int value, int listNumber) {
-		super();
+	public HeapNodee(int value, int listNumber) {
 		this.value = value;
 		this.listNumber = listNumber;
 	}

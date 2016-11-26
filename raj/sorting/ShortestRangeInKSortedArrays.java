@@ -57,20 +57,20 @@ public class ShortestRangeInKSortedArrays {
 		int curMax = Integer.MIN_VALUE;
 		int shortRange = Integer.MAX_VALUE;
 		int ptr[] = new int[k];
-		BinaryMinHeap<HeapNode> heap = new BinaryMinHeap<>();
+		BinaryMinHeap<HeapNodee> heap = new BinaryMinHeap<>();
 
 		for (int i = 0; i < k; i++) {
 			if (ptr[i] < n) {
-				heap.add(a[i][ptr[i]], new HeapNode(a[i][ptr[i]], i));
+				heap.add(a[i][ptr[i]], new HeapNodee(a[i][ptr[i]], i));
 				curMax = Math.max(curMax, a[i][ptr[i]]);
 			} else {
-				heap.add(Integer.MAX_VALUE, new HeapNode(Integer.MAX_VALUE, i));
+				heap.add(Integer.MAX_VALUE, new HeapNodee(Integer.MAX_VALUE, i));
 			}
 		}
 
 		int r, c, gMin = Integer.MAX_VALUE, gMax = Integer.MIN_VALUE;
 		int res[] = new int[n * k];
-		HeapNode temp;
+		HeapNodee temp;
 		for (int i = 0; i < n * k; i++) {
 			temp = heap.extractMin();
 			res[i] = temp.value;
@@ -86,7 +86,7 @@ public class ShortestRangeInKSortedArrays {
 			c = ptr[temp.listNumber];
 
 			if (ptr[temp.listNumber] < a[r].length) {
-				heap.add(a[r][c], new HeapNode(a[r][c], r));
+				heap.add(a[r][c], new HeapNodee(a[r][c], r));
 				curMax = Math.max(curMax, a[r][c]);
 			} else {
 				System.out.println("gMax=" + gMax + ",gMin=" + gMin + ",range=" + shortRange);

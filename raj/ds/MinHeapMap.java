@@ -1,21 +1,18 @@
 package com.raj.ds;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.raj.ds.HeapNode;
-
-public class MinHeap<T> {
+public class MinHeapMap<T> {
 	List<HeapNode<T>> heap = new ArrayList<>();
-	int heapSize;
+	Map<T, Integer> map = new HashMap<>();
 
-	public void buildHeap(List<HeapNode<T>> b) {
-		heap = b;
-		heapSize = b.size();
-		for (int i = heapSize / 2; i >= 0; i--) {
-			min_heapify(i);
-		}
-	}
+	int heapSize;
 
 	public void min_heapify(int i) {
 		int l = 2 * i + 1;
@@ -40,6 +37,16 @@ public class MinHeap<T> {
 		HeapNode<T> temp = heap.get(i);
 		replace(i, heap.get(j));
 		replace(j, temp);
+
+		HeapNode<T> t1 = heap.get(i);
+		HeapNode<T> t2 = heap.get(j);
+		map.put(t1.data, j);
+		map.put(t2.data, i);
+	}
+
+	public void decrease(T data, int value) {
+		if (containsData(data))
+			decreaseKey(map.get(data), value);
 	}
 
 	public void decreaseKey(int index, int value) {
@@ -48,10 +55,13 @@ public class MinHeap<T> {
 		}
 
 		HeapNode<T> node = heap.get(index);
-		node.weight = value;
+		node.data = value;
+
 		int parent = (index - 1) / 2;
 		while (parent >= 0 && heap.get(parent).weight > value) {
 			replace(index, heap.get(parent));
+			map.put(heap.get(parent).data, index);
+
 			index = parent;
 			if (0 == index) {
 				break;
@@ -59,6 +69,8 @@ public class MinHeap<T> {
 			parent = (parent - 1) / 2;
 		}
 		replace(index, node);
+		map.put(node.data, index);
+
 	}
 
 	public void increaseKey(int index, int value) {
@@ -71,16 +83,16 @@ public class MinHeap<T> {
 		min_heapify(index);
 	}
 
-	public void add(int weight, T data) {
-		heap.add(new HeapNode<T>(weight, data));
-		decreaseKey(heapSize++, weight);
-	}
-
 	private void replace(int index, HeapNode<T> value) {
 		if (index < heap.size()) {
 			heap.remove(index);
 			heap.add(index, value);
 		}
+	}
+
+	public void add(int weight, T data) {
+		heap.add(new HeapNode<T>(weight, data));
+		decreaseKey(heapSize++, weight, data);
 	}
 
 	public boolean remove(int index) {
@@ -109,8 +121,12 @@ public class MinHeap<T> {
 		System.out.println();
 	}
 
+	public boolean containsData(T data) {
+		return map.containsKey(data);
+	}
+
 	public static void main(String args[]) {
-		MinHeap<Integer> heap = new MinHeap<>();
+		MinHeapMap<Integer> heap = new MinHeapMap<>();
 		heap.add(3, 3);
 		heap.add(2, 2);
 		heap.add(1, 1);
@@ -122,5 +138,38 @@ public class MinHeap<T> {
 		heap.add(12, 12);
 		heap.print();
 
+		int i = 0;
+		class Node {
+			int position;
+			int value;
+
+			public Node(int position, int value) {
+				this.position = position;
+				this.value = value;
+			}
+
+			@Override
+			public String toString() {
+				// return "(" + position + "," + value + ")";
+				return Integer.toString(value);
+			}
+
+		}
+		Node a[] = new Node[heap.map.size()];
+
+		for (Integer key : heap.map.keySet()) {
+			a[i++] = new Node(heap.map.get(key), key);
+		}
+		Arrays.sort(a, new Comparator<Node>() {
+			@Override
+			public int compare(Node o1, Node o2) {
+				return o1.position - o2.position;
+			}
+
+		});
+
+		System.out.println(Arrays.toString(a));
+		heap.decrease(10, 0);
+		heap.print();
 	}
 }

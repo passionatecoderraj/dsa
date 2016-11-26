@@ -3,9 +3,9 @@ package com.raj.graph;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.raj.nodes.Edge;
+import com.raj.nodes.Edge2;
 import com.raj.nodes.Graph;
-import com.raj.nodes.Vertex;
+import com.raj.nodes.Vertex2;
 
 public class DetectCycleInUndirectedGraph {
 
@@ -31,20 +31,20 @@ public class DetectCycleInUndirectedGraph {
 	}
 
 	public boolean hasCycleUsingDfs(Graph<Integer> g) {
-		Set<Vertex<Integer>> visited = new HashSet<Vertex<Integer>>();
+		Set<Vertex2<Integer>> visited = new HashSet<Vertex2<Integer>>();
 
 		return false;
 	}
 
 	public boolean hasCycleUsingDisjointSets(Graph<Integer> g) {
 		DisjointSet dset = new DisjointSet();
-		for (Vertex<Integer> v : g.getAllVertex()) {
+		for (Vertex2<Integer> v : g.getAllVertex()) {
 			dset.makeSet(v.getId());
 		}
 
-		for (Edge<Integer> e : g.getAllEdges()) {
-			Vertex<Integer> v1 = e.getVertex1();
-			Vertex<Integer> v2 = e.getVertex2();
+		for (Edge2<Integer> e : g.getAllEdges()) {
+			Vertex2<Integer> v1 = e.getVertex1();
+			Vertex2<Integer> v2 = e.getVertex2();
 			long parent1 = dset.findSet(v1.getId());
 			long parent2 = dset.findSet(v2.getId());
 			if (parent1 == parent2)

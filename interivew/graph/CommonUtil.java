@@ -3,6 +3,7 @@
  */
 package com.interivew.graph;
 
+import java.util.List;
 import java.util.Set;
 
 import com.raj.nodes.BinaryTreeNode;
@@ -81,7 +82,7 @@ public class CommonUtil {
 	public static void print2DArray(boolean[][] t, int m, int n) {
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
-				System.out.print((t[i][j]?"T":"F") + " ");
+				System.out.print((t[i][j] ? "T" : "F") + " ");
 			}
 			System.out.println();
 		}
@@ -91,6 +92,17 @@ public class CommonUtil {
 		int temp = a[i];
 		a[i] = a[j];
 		a[j] = temp;
+	}
+
+	public static void swap(List<Integer> heap, int i, int j) {
+		int temp = heap.get(i);
+		replace(heap, i, heap.get(j));
+		replace(heap, j, temp);
+	}
+
+	private static void replace(List<Integer> heap, int index, int value) {
+		heap.remove(index);
+		heap.add(index, value);
 	}
 
 	public static void swap(char a[], int i, int j) {

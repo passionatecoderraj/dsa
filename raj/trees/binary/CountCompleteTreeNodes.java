@@ -8,29 +8,30 @@ import com.raj.nodes.BinaryTreeNode;
 /**
  * @author Raj
  *
+ *
+ *         Given a complete binary tree, count the number of nodes.
  */
 public class CountCompleteTreeNodes {
 
 	public int countCompleteTreeNodes(BinaryTreeNode<Integer> root) {
 		if (null == root)
 			return 0;
-		int lHeight = getLeftHeight(root) + 1;
-		int rHeight = getRightHeight(root) + 1;
+		int lHeight = getLeftHeight(root.left);
+		int rHeight = getRightHeight(root.right);
 
 		if (lHeight == rHeight) {
 			// 2^h - 1
-			return (2 << (lHeight - 1)) - 1;
+			int h = 1 + lHeight;
+			// return (int) (Math.pow(2, h) - 1);
+			return (1 << h) - 1;
 		} else {
 			return 1 + countCompleteTreeNodes(root.left) + countCompleteTreeNodes(root.right);
 		}
 	}
 
 	private int getLeftHeight(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-
 		int height = 0;
-		while (root.left != null) {
+		while (root != null) {
 			height++;
 			root = root.left;
 		}
@@ -38,11 +39,8 @@ public class CountCompleteTreeNodes {
 	}
 
 	private int getRightHeight(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-
 		int height = 0;
-		while (root.right != null) {
+		while (root != null) {
 			height++;
 			root = root.right;
 		}

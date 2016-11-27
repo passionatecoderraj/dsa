@@ -3,60 +3,34 @@ package com.raj.backtracking;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.interivew.graph.CommonUtil;
-
 public class RestoreIpAddress {
 	public List<String> restoreIpAddresses(String s) {
 		List<String> result = new ArrayList<String>();
 
-		if (s == null || s.length() < 4) {
-			return result;
+		for (int a = 1; a <= 3; a++) {
+			for (int b = 1; b <= 3; b++) {
+				for (int c = 1; c <= 3; c++) {
+					for (int d = 1; d <= 3; d++) {
+						if (a + b + c + d == s.length()) {
+							String n1 = s.substring(0, a);
+							String n2 = s.substring(a, a + b);
+							String n3 = s.substring(a + b, a + b + c);
+							String n4 = s.substring(a + b + c);
+							if (isValid(n1) && isValid(n2) && isValid(n3) && isValid(n4)) {
+								result.add(n1 + "." + n2 + "." + n3 + "." + n4);
+							}
+						}
+					}
+				}
+			}
 		}
-
-		restoreHelper(s, 0, 1, "", result);
 
 		return result;
 	}
 
-	private void restoreHelper(String s, int start, int segment, String curr, List<String> result) {
-		if (start >= s.length()) {
-			return;
-		}
-
-		if (segment == 4) {
-			if (isValid(s.substring(start))) {
-				result.add(curr + "." + s.substring(start));
-			}
-			return;
-		}
-
-		for (int i = 1; i < 4 && start + i < s.length(); i++) {
-			String temp = s.substring(start, start + i);
-			if (isValid(temp)) {
-				if (segment == 1) {
-					restoreHelper(s, start + i, segment + 1, temp, result);
-				} else {
-					restoreHelper(s, start + i, segment + 1, curr + "." + temp, result);
-				}
-			}
-		}
-	}
-
-	private boolean isValid(String str) {
-		if (str == null || str.length() > 3) {
-			return false;
-		}
-
-		int num = Integer.parseInt(str);
-		if (str.charAt(0) == '0' && str.length() > 1) {
-			return false;
-		}
-
-		if (num >= 0 && num <= 255) {
-			return true;
-		}
-
-		return false;
+	private boolean isValid(String a) {
+		int num = Integer.parseInt(a);
+		return num >= 0 && num <= 255;
 	}
 
 	public static void main(String[] args) {

@@ -40,7 +40,9 @@ public class PaintNHousesWith3Colors {
 
 	public static void main(String args[]) {
 		PaintNHousesWith3Colors obj = new PaintNHousesWith3Colors();
-		int cost[][] = { { 5, 8, 6 }, { 19, 14, 13 }, { 7, 5, 12 }, { 14, 15, 17 }, { 3, 20, 10 } };
+		int cost[][] = { { 5, 8, 6 },
+				{ 19, 14, 13 }, 
+				{ 7, 5, 12 }, { 14, 15, 17 }, { 3, 20, 10 } };
 		int result = obj.minCostToPaintNHousesWith3Colors(cost);
 		System.out.println(result);
 	}

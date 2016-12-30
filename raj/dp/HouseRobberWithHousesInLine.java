@@ -37,15 +37,15 @@ public class HouseRobberWithHousesInLine {
 		if (2 == n)
 			return Math.max(a[0], a[1]);
 
-		int t[] = new int[n + 1];
-		t[0] = 0;
-		t[1] = a[0];
+		int t[] = new int[n];
+		t[0] = a[0];
+		t[1] = Math.max(a[0], a[1]);
 
-		for (int i = 2; i <= n; i++) {
-			t[i] = Math.max(t[i - 1], t[i - 2] + a[i - 1]);
+		for (int i = 2; i < n; i++) {
+			t[i] = Math.max(t[i - 1], t[i - 2] + a[i]);
 		}
 		CommonUtil.printArray(t);
-		return t[n];
+		return t[n - 1];
 	}
 
 	public static void main(String[] args) {

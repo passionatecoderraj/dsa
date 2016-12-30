@@ -38,6 +38,30 @@ public class RodCut {
 
 		for (int i = 1; i <= n; i++) {
 			for (int j = 1; j <= n; j++) {
+				if (j >= i) {
+					t[i][j] = Math.max(t[i - 1][j], profits[i - 1] + t[i][j - i]);
+				} else {
+					t[i][j] = t[i - 1][j];
+				}
+			}
+		}
+
+		CommonUtil.print2DArray(t, n + 1, len + 1);
+
+		return t[n][len];
+	}
+
+	public int maximumProfitFromCuttinRodOfLength2(int size[], int profits[], int n, int len) {
+		int t[][] = new int[n + 1][len + 1];
+		for (int i = 0; i <= len; i++) {
+			t[0][i] = 0;
+		}
+		for (int i = 0; i <= n; i++) {
+			t[i][0] = 0;
+		}
+
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
 				if (j >= size[i - 1]) {
 					t[i][j] = Math.max(t[i - 1][j], profits[i - 1] + t[i][j - size[i - 1]]);
 				} else {
@@ -50,5 +74,4 @@ public class RodCut {
 
 		return t[n][len];
 	}
-
 }

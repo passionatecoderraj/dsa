@@ -16,9 +16,8 @@ public class KStacksInArray {
 	}
 
 	public void push(int stackNum, int data) {
-		int prev = ptrs[stackNum];
+		a[top] = new StackNode(data, ptrs[stackNum], stackNum);
 		ptrs[stackNum] = top++;
-		a[ptrs[stackNum]] = new StackNode(data, prev);
 	}
 
 	public int pop(int stackNum) {
@@ -26,8 +25,18 @@ public class KStacksInArray {
 		if (index == -1)
 			return -1;
 		StackNode node = a[ptrs[stackNum]];
-		a[ptrs[stackNum]] = null;
-		swap(a, ptrs[stackNum], --top);
+		StackNode last = a[top - 1];
+
+		// swap last node with deleting node
+		// updating last nodes ptr
+		ptrs[last.stackNum] = node.stackNum;
+		ptrs[node.stackNum] = last.stackNum;
+
+		// deleting kth node
+		a[ptrs[stackNum]] = a[top - 1];
+		a[top - 1] = null;
+
+		top--;
 		ptrs[stackNum] = node.prev;
 		return node.data;
 	}
@@ -72,16 +81,18 @@ public class KStacksInArray {
 class StackNode {
 	int data;
 	int prev;
+	int stackNum;
 
-	public StackNode(int data, int prev) {
+	public StackNode(int data, int prev, int stackNum) {
 		super();
 		this.data = data;
 		this.prev = prev;
+		this.stackNum = stackNum;
 	}
 
 	@Override
 	public String toString() {
-		return "StackNode [data=" + data + ", prev=" + prev + "]";
+		return "StackNode [data=" + data + ", prev=" + prev + ", stackNum=" + stackNum + "]";
 	}
 
 }

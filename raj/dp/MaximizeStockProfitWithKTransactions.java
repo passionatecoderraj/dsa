@@ -62,7 +62,7 @@ public class MaximizeStockProfitWithKTransactions {
 		int max_so_far = a[n - 1];
 
 		for (int i = n - 2; i >= 0; i--) {
-			profit[i] = Math.max(profit[i + 1], a[i] - max_so_far);
+			profit[i] = Math.max(profit[i + 1], max_so_far - a[i]);
 			max_so_far = Math.max(a[i], max_so_far);
 		}
 		CommonUtil.printArray(profit);
@@ -72,7 +72,7 @@ public class MaximizeStockProfitWithKTransactions {
 			min_so_far = Math.min(a[i], min_so_far);
 		}
 		CommonUtil.printArray(profit);
-			return profit[n - 1];
+		return profit[n - 1];
 	}
 
 	// MaxProfit With K Transactions : Slow Solution

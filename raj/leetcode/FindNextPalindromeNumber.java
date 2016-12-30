@@ -27,7 +27,7 @@ public class FindNextPalindromeNumber {
 		// ex : 999 -> 1001
 		if (all9s) {
 			int res[] = new int[n + 1];
-			res[0] = res[1] = 1;
+			res[0] = res[n] = 1;
 			for (int i = 1; i < n; i++) {
 				res[i] = 0;
 			}

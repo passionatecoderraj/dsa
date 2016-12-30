@@ -3,8 +3,6 @@
  */
 package com.raj.trees.bst;
 
-import java.util.List;
-
 import com.raj.nodes.IntervalTreeNode;
 
 /**
@@ -55,8 +53,6 @@ public class IntervalTree {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		List<IntervalTreeNode> result = null;
 
 		IntervalTree obj = new IntervalTree();
 

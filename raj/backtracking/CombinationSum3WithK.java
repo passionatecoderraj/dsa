@@ -1,7 +1,6 @@
 package com.raj.backtracking;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
@@ -19,36 +18,32 @@ import java.util.List;
  */
 public class CombinationSum3WithK {
 
-	public List<List<Integer>> combinationSum3WithK(int k, int sum) {
-		List<List<Integer>> result = new ArrayList<>();
-		combinationSum3WithKUtil(1, sum, new ArrayList<>(), result);
-		return result;
+	public void combinations(int k, int n) {
+		combinationsUtil(k, n, 1, new ArrayList<Integer>());
 	}
 
-	private void combinationSum3WithKUtil(int i, int sum, ArrayList<Integer> cur, List<List<Integer>> result) {
-		if (sum == 0) {
-			List<Integer> temp = new ArrayList<>(cur);
-			result.add(temp);
+	public void combinationsUtil(int k, int n, int cur, ArrayList<Integer> result) {
+		if (result.size() == k) {
+			if (0 == n)
+				System.out.println(result);
 			return;
 		}
-		for (int j = i; j <= 9; j++) {
-			if (j > sum)
+		for (int i = cur; i <= 9; i++) {
+			if (i > n)
 				break;
-			cur.add(j);
-			combinationSum3WithKUtil(j + 1, sum - j, cur, result);
-			cur.remove(cur.size() - 1);
+
+			result.add(i);
+			combinationsUtil(k, n - i, i + 1, result);
+			result.remove(result.size() - 1);
 		}
 	}
 
 	public static void main(String args[]) {
 		CombinationSum3WithK obj = new CombinationSum3WithK();
 
-		List<List<Integer>> result = null;
 		int k = 3;
 
-		result = obj.combinationSum3WithK(k, 7);
-		System.out.println(result);
-
+		obj.combinations(k, 7);
 	}
 
 }

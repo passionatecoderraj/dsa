@@ -11,6 +11,53 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class PruneBSTOutsideRange {
 
+	// k1 < k2
+	/**
+	 * 
+	 * @param root
+	 * @param k1
+	 * @param k2
+	 * @return
+	 */
+	public BinaryTreeNode<Integer> pruneBST(BinaryTreeNode<Integer> root, int k1, int k2) {
+		if (null == root)
+			return root;
+		if (root.data > Math.max(k1, k2)) {
+			return pruneBST(root.left, k1, k2);
+		} else if (root.data < Math.min(k1, k2)) {
+			return pruneBST(root.right, k1, k2);
+		} else {
+			root.left = pruneBST(root.left, k1, k2);
+			root.right = pruneBST(root.right, k1, k2);
+			return root;
+		}
+	}
+
+	// k1 < k2
+	/**
+	 * 
+	 * @param root
+	 * @param k1
+	 * @param k2
+	 * @return
+	 */
+	public BinaryTreeNode<Integer> pruneBST2(BinaryTreeNode<Integer> root, int k1, int k2) {
+		if (null == root)
+			return null;
+		root.left = pruneBST(root.left, k1, k2);
+		root.right = pruneBST(root.right, k1, k2);
+
+		if (root.data >= k1 && root.data <= k2) {
+			return root;
+		}
+		if (root.data < k1) {
+			return root.right;
+		}
+		if (root.data > k2)
+			return root.left;
+		return null;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -39,28 +86,4 @@ public class PruneBSTOutsideRange {
 
 	}
 
-	// k1 < k2
-	/**
-	 * 
-	 * @param root
-	 * @param k1
-	 * @param k2
-	 * @return
-	 */
-	public BinaryTreeNode<Integer> pruneBST(BinaryTreeNode<Integer> root, int k1, int k2) {
-		if (null == root)
-			return null;
-		root.left = pruneBST(root.left, k1, k2);
-		root.right = pruneBST(root.right, k1, k2);
-
-		if (root.data >= k1 && root.data <= k2) {
-			return root;
-		}
-		if (root.data < k1) {
-			return root.right;
-		}
-		if (root.data > k2)
-			return root.left;
-		return null;
-	}
 }

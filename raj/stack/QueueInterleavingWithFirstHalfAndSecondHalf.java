@@ -2,6 +2,7 @@ package com.raj.stack;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;;
 
 /*
  * rearrange queue with first and second half
@@ -20,6 +21,7 @@ public class QueueInterleavingWithFirstHalfAndSecondHalf {
 		q.addLast(60);
 		q.addLast(70);
 		q.addLast(80);
+		q.addLast(90);
 		QueueInterleavingWithFirstHalfAndSecondHalf obj = new QueueInterleavingWithFirstHalfAndSecondHalf();
 
 		obj.print(q);
@@ -29,6 +31,21 @@ public class QueueInterleavingWithFirstHalfAndSecondHalf {
 	}
 
 	public void interleavingQueueWithTwoStacks(Deque<Integer> q) {
+		int n = q.size();
+		Queue<Integer> tq = new LinkedList<>();
+		
+		for (int i = 0; i < n / 2; i++) {
+			tq.offer(q.removeFirst());
+		}
+		System.out.println(tq);
+		for (int i = n / 2; i < n; i++) {
+			if (!tq.isEmpty())
+				q.addLast(tq.poll());
+			q.addLast(q.removeFirst());
+		}
+	}
+
+	public void interleavingQueueWithTwoStacks2(Deque<Integer> q) {
 		int n = q.size();
 		Stack s1 = new Stack();
 		Stack s2 = new Stack();

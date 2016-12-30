@@ -33,7 +33,7 @@ public class LongestConsecutiveSubsequence {
 			int right = a[i] + 1;
 			int count = 1;
 			while (set.contains(left)) {
-				set.remove(left++);
+				set.remove(left--);
 				count++;
 			}
 

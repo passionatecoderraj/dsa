@@ -58,8 +58,8 @@ public class MeetingRooms2 {
 				pq.poll();
 			} else {
 				count++;
-				pq.offer(a.get(i).end);
 			}
+			pq.offer(a.get(i).end);
 		}
 
 		return count;

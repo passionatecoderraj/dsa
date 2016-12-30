@@ -4,8 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestoreIpAddress {
+
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public List<String> restoreIpAddresses(String s) {
+
 		List<String> result = new ArrayList<String>();
+
+		if (null == s || s.length() < 4 && s.length() > 12) {
+			return result;
+		}
 
 		for (int a = 1; a <= 3; a++) {
 			for (int b = 1; b <= 3; b++) {

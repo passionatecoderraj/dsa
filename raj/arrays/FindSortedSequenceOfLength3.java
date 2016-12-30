@@ -3,6 +3,8 @@
  */
 package com.raj.arrays;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -88,7 +90,9 @@ public class FindSortedSequenceOfLength3 {
 				max = i;
 			}
 		}
-
+		CommonUtil.printArray(smaller);
+		CommonUtil.printArray(larger);
+		
 		for (int i = 0; i < n; i++) {
 			if (smaller[i] != -1 && larger[i] != -1) {
 				System.out.println(a[smaller[i]] + " " + a[i] + " " + a[larger[i]]);

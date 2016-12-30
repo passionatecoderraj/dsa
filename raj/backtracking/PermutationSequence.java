@@ -16,7 +16,7 @@ package com.raj.backtracking;
  */
 public class PermutationSequence {
 
-	private String permute(int n, int k) {
+	private void permute(int n, int k) {
 
 		int a[] = new int[n];
 		a[0] = 1;
@@ -24,7 +24,6 @@ public class PermutationSequence {
 			a[i] = a[i - 1] + 1;
 		}
 		permuteUtil(a, 0);
-		return null;
 	}
 
 	private void permuteUtil(int res[], int i) {
@@ -50,10 +49,8 @@ public class PermutationSequence {
 
 	public static void main(String args[]) {
 		PermutationSequence obj = new PermutationSequence();
-
-		String result = null;
-		result = obj.permute(3, 4);
-		System.out.println(result);
+		// wrong solution(it seems)
+		obj.permute(3, 4);
 
 	}
 

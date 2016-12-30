@@ -65,35 +65,40 @@ public class MedianOfTwoSortedArrays {
 
 	}
 
+	// Time :O(log(m+n))
 	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 		int total = nums1.length + nums2.length;
 		if (total % 2 == 0) {
-			return (findKth(total / 2 + 1, nums1, nums2, 0, 0) + findKth(total / 2, nums1, nums2, 0, 0)) / 2.0;
+			int k1 = total / 2 + 1;
+			int k = total / 2;
+			return (findKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, k)
+					+ findKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, k1)) / 2;
 		} else {
-			return findKth(total / 2 + 1, nums1, nums2, 0, 0);
+			int k = total / 2 + 1;
+			return findKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, k);
 		}
 	}
 
-	public int findKth(int k, int[] nums1, int[] nums2, int s1, int s2) {
-		if (s1 >= nums1.length)
-			return nums2[s2 + k - 1];
+	// https://discuss.leetcode.com/topic/5728/share-one-divide-and-conquer-o-log-m-n-method-with-clear-description/2
+	int findKth(int A[], int aL, int aR, int B[], int bL, int bR, int k) {
+		if (aL > aR)
+			return B[bL + k - 1];
+		if (bL > bR)
+			return A[aL + k - 1];
 
-		if (s2 >= nums2.length)
-			return nums1[s1 + k - 1];
+		int aMid = (aL + aR) / 2;
+		int bMid = (bL + bR) / 2;
 
-		if (k == 1)
-			return Math.min(nums1[s1], nums2[s2]);
-
-		int m1 = s1 + k / 2 - 1;
-		int m2 = s2 + k / 2 - 1;
-
-		int mid1 = m1 < nums1.length ? nums1[m1] : Integer.MAX_VALUE;
-		int mid2 = m2 < nums2.length ? nums2[m2] : Integer.MAX_VALUE;
-
-		if (mid1 < mid2) {
-			return findKth(k - k / 2, nums1, nums2, m1 + 1, s2);
-		} else {
-			return findKth(k - k / 2, nums1, nums2, s1, m2 + 1);
+		if (A[aMid] <= B[bMid]) {
+			if (k <= (aMid - aL) + (bMid - bL) + 1)
+				return findKth(A, aL, aR, B, bL, bMid - 1, k);
+			else
+				return findKth(A, aMid + 1, aR, B, bL, bR, k - (aMid - aL) - 1);
+		} else { // A[aMid] > B[bMid]
+			if (k <= (aMid - aL) + (bMid - bL) + 1)
+				return findKth(A, aL, aMid - 1, B, bL, bR, k);
+			else
+				return findKth(A, aL, aR, B, bMid + 1, bR, k - (bMid - bL) - 1);
 		}
 	}
 

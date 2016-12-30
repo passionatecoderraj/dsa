@@ -163,13 +163,12 @@ public class FindNextSibling {
 		if (node.left != null) {
 			node.left.nextSibling = node.right;
 		}
-		if (node.right != null) {
-			if (node.nextSibling != null) {
+		if (node.nextSibling != null) {
+			if (node.right != null) {
 				node.right.nextSibling = node.nextSibling.left;
-			} else {
-				node.right.nextSibling = null;
 			}
 		}
+
 		updateNextSiblingRecur(node.left);
 		updateNextSiblingRecur(node.right);
 	}

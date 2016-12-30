@@ -3,27 +3,25 @@
  */
 package com.raj.nodes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Raj
  *
  */
 public class TrieNode {
 	public char data;
-	public boolean is_end_of_string;
-	public TrieNode[] child;
+	public boolean endOfWord;
+	public Map<Character, TrieNode> children = new HashMap<>();
 
 	public TrieNode(char data) {
-		super();
 		this.data = data;
-		this.is_end_of_string = false;
-		child = new TrieNode[256];
 	}
 
-	public TrieNode getNode(char c) {
-		if (child != null) {
-			return child[c];
-		}
-		return null;
+	@Override
+	public String toString() {
+		return "TrieNode [data=" + data + ", endOfWord=" + endOfWord + ", children=" + children + "]";
 	}
 
 }

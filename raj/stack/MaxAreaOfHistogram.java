@@ -1,7 +1,5 @@
 package com.raj.stack;
 
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Stack;
 
 public class MaxAreaOfHistogram {
@@ -33,15 +31,7 @@ public class MaxAreaOfHistogram {
 				maxArea = Math.max(area, maxArea);
 			}
 		}
-		while (!stack.isEmpty()) {
-			int top = stack.pop();
-			if (stack.isEmpty()) {
-				area = a[top] * i;
-			} else {
-				area = a[top] * (i - stack.peek() - 1);
-			}
-			maxArea = Math.max(area, maxArea);
-		}
+
 		return maxArea;
 	}
 

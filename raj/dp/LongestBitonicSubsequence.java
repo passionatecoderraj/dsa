@@ -1,5 +1,7 @@
 package com.raj.dp;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * 
  * @author Raj
@@ -38,6 +40,54 @@ public class LongestBitonicSubsequence {
 			}
 		}
 		return Math.max(inc[a.length - 1], dec[a.length - 1]);
+	}
+
+	// Time :O(n2), Space : O(n)
+	public int bitonicDpOn2(int[] a) {
+
+		int n = a.length;
+
+		if (n <= 0)
+			return -1;
+
+		int lis[] = new int[n];
+		int lds[] = new int[n];
+
+		for (int i = 0; i < n; i++) {
+			lis[i] = 1;
+			lds[i] = 1;
+		}
+
+		for (int i = 1; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (a[i] > a[j]) {
+					if (lis[j] + 1 > lis[i]) {
+						lis[i] = lis[j] + 1;
+					}
+				}
+			}
+		}
+
+		for (int i = n - 2; i >= 0; i--) {
+			for (int j = n - 1; j > i; j--) {
+				if (a[i] > a[j]) {
+					if (lds[j] + 1 > lds[i]) {
+						lds[i] = lds[j] + 1;
+					}
+				}
+			}
+		}
+
+		CommonUtil.printArray(lis);
+		CommonUtil.printArray(lds);
+		int max = 1;
+		for (int i = 0; i < n; i++) {
+			System.out.print(lis[i] + "-" + lds[i] + ", ");
+			if (lis[i] + lds[i] - 1 > max)
+				max = lis[i] + lds[i] - 1;
+		}
+		System.out.println();
+		return max;
 	}
 
 	public static void main(String[] args) {

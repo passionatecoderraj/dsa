@@ -9,7 +9,7 @@ public class LongestBitonicSubsequence {
 		// int a[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
 		// int a[] = { 1, 101, 2, 3, 100, 4, 5 };
 		// int a[] = { 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
-		int[] a = { 1, 11, 2, 10, 4, 5, 2, 1 };
+		int[] a = { 1, 17, 5, 10, 13, 15, 10, 5, 16, 8 };
 		// Time : O(n2), Space : O(n)
 		result = obj.bitonicDpOn2(a);
 		System.out.println(result);

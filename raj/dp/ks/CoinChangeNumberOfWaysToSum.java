@@ -5,9 +5,9 @@ import com.interivew.graph.CommonUtil;
 public class CoinChangeNumberOfWaysToSum {
 
 	public static void main(String[] args) {
-		int a[] = {  2, 3,6,7 };
+		int a[] = { 1, 2, 3 };
 		CoinChangeNumberOfWaysToSum obj = new CoinChangeNumberOfWaysToSum();
-		int result = -1, sum = 7;
+		int result = -1, sum = 4;
 		result = obj.coinChangeNumberOfWaysToSum(a, sum);
 		System.out.println(result);
 		// with space complexity of O(n)

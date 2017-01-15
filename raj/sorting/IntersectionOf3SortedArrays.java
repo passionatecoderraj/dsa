@@ -90,7 +90,7 @@ public class IntersectionOf3SortedArrays {
 		// removing all other elements and creating new array
 		int result[] = new int[l];
 		System.arraycopy(res, 0, result, 0, l);
-		
+
 		return result;
 	}
 

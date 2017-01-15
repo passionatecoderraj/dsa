@@ -15,8 +15,8 @@ public class CombinationsOfSizeR {
 		int n = a.length, r = 2;
 		CombinationsOfSizeR obj = new CombinationsOfSizeR();
 		// obj.combinationsOfSizeR(a, n, r);
-		char t[] = new char[2];
-		obj.combinationsOfSizeK("rajd".toCharArray(), 0, 2, t, 0);
+		char t[] = new char[3];
+		obj.combinationsOfSizeK("raaj".toCharArray(), 0, 3, t, 0);
 	}
 
 	public void combinationsOfSizeR(int[] a, int n, int r) {

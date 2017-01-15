@@ -4,6 +4,37 @@ import com.interivew.graph.CommonUtil;
 
 public class StringInterleaving {
 
+	public static boolean isInterleave(String s1, String s2, String s3) {
+		if (s1.length() + s2.length() != s3.length())
+			return false;
+
+		boolean t[][] = new boolean[s1.length() + 1][s2.length() + 1];
+
+		t[0][0] = true;
+		for (int i = 1; i <= s1.length(); i++) {
+			if (s1.charAt(i - 1) == s3.charAt(i - 1)) {
+				t[i][0] = true;
+			}
+		}
+		for (int j = 1; j <= s2.length(); j++) {
+			if (s2.charAt(j - 1) == s3.charAt(j - 1)) {
+				t[0][j] = true;
+			}
+		}
+
+		for (int i = 1; i <= s1.length(); i++) {
+			for (int j = 1; j <= s2.length(); j++) {
+				if (s3.charAt(i + j - 1) == s1.charAt(i - 1)) {
+					t[i][j] = t[i - 1][j];
+				} else if (s3.charAt(i + j - 1) == s2.charAt(j - 1)) {
+					t[i][j] = t[i][j - 1];
+				}
+			}
+		}
+
+		return t[s1.length()][s2.length()];
+	}
+
 	public static void main(String[] args) {
 
 		String a = "aab";
@@ -19,6 +50,9 @@ public class StringInterleaving {
 		result = obj.isStringsInterleavedDp(a.toCharArray(), b.toCharArray(), c.toCharArray());
 		System.out.println(result);
 		result = obj.stringInterLeaving(a.toCharArray(), b.toCharArray(), c.toCharArray());
+		System.out.println(result);
+
+		result = isInterleave(a, b, c);
 		System.out.println(result);
 	}
 

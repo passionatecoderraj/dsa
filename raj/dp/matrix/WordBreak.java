@@ -23,7 +23,7 @@ public class WordBreak {
 				}
 			}
 		}
-		System.out.println(Arrays.toString(t));
+		//System.out.println(Arrays.toString(t));
 		return t[str.length() - 1] != -1;
 	}
 

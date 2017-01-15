@@ -32,14 +32,15 @@ public class MaxSubarraySumKadane {
 
 		for (int i = 0; i < a.length; i++) {
 			maxSoFar += a[i];
-			if (maxSoFar < 0) {
-				curStart = i + 1;
-				maxSoFar = 0;
-			}
 			if (maxSoFar > max) {
 				max = maxSoFar;
 				maxStart = curStart;
 				maxEnd = i;
+			}
+			
+			if (maxSoFar < 0) {
+				curStart = i + 1;
+				maxSoFar = 0;
 			}
 		}
 		return new KadaneResult(max, maxStart, maxEnd);

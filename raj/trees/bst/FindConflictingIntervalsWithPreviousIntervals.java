@@ -37,7 +37,7 @@ public class FindConflictingIntervalsWithPreviousIntervals {
 	}
 
 	private boolean doOverlap(IntervalTreeNode i1, IntervalTreeNode i2) {
-		return i1.start < i2.end && i2.start < i1.end;
+		return i2.start < i1.end;
 	}
 
 	// Time :O(logn)

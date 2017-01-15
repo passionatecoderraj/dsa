@@ -28,6 +28,37 @@ public class PetrolPump {
 		result = obj.indexToStartForPetrolPump(a, n);
 		System.out.println(result);
 
+		result = obj.petrolPump(a, n);
+		System.out.println(result);
+
+	}
+
+	public int petrolPump(int a[][], int n) {
+		// cp = current petrol, d = distance
+		int cp = 0, d = 0, front = 0, rear = (front + 1) % n;
+		cp = a[0][0];
+		d = a[0][1];
+
+		while (true) {
+			if (cp < d) {
+				front++;
+				if (front == n)
+					return -1;
+
+				cp = a[front][0];
+				d = a[front][1];
+				rear = (front + 1) % n;
+				continue;
+			}
+
+			if (front == rear) {
+				return front;
+			}
+
+			cp += a[rear][0];
+			d += a[rear][1];
+			rear = (rear + 1) % n;
+		}
 	}
 
 	public int indexToStartForPetrolPump(int[][] a, int n) {

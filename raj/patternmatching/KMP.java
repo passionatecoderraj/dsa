@@ -11,18 +11,44 @@ public class KMP {
 		// String pat = "ababaca";
 
 		String txt = "ABABDABACDABABCABAB";
-		String pat = "ABABCABAB";
+		String pat = "ABACBCABA";
 		KMP obj = new KMP();
 		obj.kmp(txt.toCharArray(), pat.toCharArray());
+		System.out.println(obj.kmp(pat));
+	}
+
+	private String kmp(String s) {
+		int len = s.length();
+		int[] LPS = new int[len];
+
+		int i = 1, j = 0;
+		LPS[0] = 0;
+		while (i < len) {
+			if (s.charAt(i) == s.charAt(j)) {
+				LPS[i++] = ++j;
+			} else if (j == 0) {
+				LPS[i++] = 0;
+			} else {
+				j = LPS[j - 1];
+			}
+		}
+
+		int patternLen = len - LPS[len - 1];
+		if (patternLen != len && len % patternLen == 0) {
+			return s.substring(0, patternLen);
+		} else {
+			return s;
+		}
 	}
 
 	public void kmp(char[] t, char[] p) {
+		System.out.println(t.length);
 		int m = p.length;
 		int n = t.length;
 		int f[] = new int[m];
 		makePrefixArray(p, f.length, f);
 		CommonUtil.printArray(f);
-		
+
 		int i = 0, j = 0;
 		while (i < n) {
 			if (t[i] == p[j]) {

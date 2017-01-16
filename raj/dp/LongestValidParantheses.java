@@ -25,8 +25,39 @@ import java.util.Stack;
  */
 public class LongestValidParantheses {
 
+	// Time :O(n), Space : O(1)
+	public static int longestValidParentheses(String s) {
+		int left = 0, right = 0, maxlength = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '{') {
+				left++;
+			} else {
+				right++;
+			}
+			if (left == right) {
+				maxlength = Math.max(maxlength, 2 * right);
+			} else if (right >= left) {
+				left = right = 0;
+			}
+		}
+		left = right = 0;
+		for (int i = s.length() - 1; i >= 0; i--) {
+			if (s.charAt(i) == '}') {
+				left++;
+			} else {
+				right++;
+			}
+			if (left == right) {
+				maxlength = Math.max(maxlength, 2 * left);
+			} else if (left >= right) {
+				left = right = 0;
+			}
+		}
+		return maxlength;
+	}
+
 	// Time :O(n), Space : O(n)
-	public static int longestValidParentheses(String str) {
+	public static int longestValidParentheses2(String str) {
 		Stack<Integer> stack = new Stack<>();
 
 		for (int i = 0; i < str.length(); i++) {

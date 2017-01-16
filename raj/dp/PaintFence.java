@@ -13,6 +13,23 @@ package com.raj.dp;
  */
 public class PaintFence {
 
+	// Time :O(n), Space : O(1)
+	public static int numWaytoPaintFenceConstantSpace(int n, int k) {
+		int a = k, b = k * k, c = 0;
+		if (n == 0)
+			return 0;
+		if (n == 1)
+			return a;
+		if (n == 2)
+			return b;
+		for (int i = 2; i < n; i++) {
+			c = (k - 1) * (a + b);
+			a = b;
+			b = c;
+		}
+		return c;
+	}
+
 	// Time : O(n), Space : O(n)
 	public static int numWaytoPaintFence(int n, int k) {
 		if (n == 0 || k == 0)
@@ -39,28 +56,11 @@ public class PaintFence {
 		return same[n - 1] + diff[n - 1];
 	}
 
-	// Time :O(n), Space : O(1)
-	public static int numWaytoPaintFenceConstantSpace(int n, int k) {
-		int a = k, b = k * k, c = 0;
-		if (n == 0)
-			return 0;
-		if (n == 1)
-			return a;
-		if (n == 2)
-			return b;
-		for (int i = 2; i < n; i++) {
-			c = (k - 1) * (a + b);
-			a = b;
-			b = c;
-		}
-		return c;
-	}
-
 	public static void main(String[] args) {
 		int result = -1;
-		result = numWaytoPaintFenceConstantSpace(2, 3);
+		result = numWaytoPaintFenceConstantSpace(4, 3);
 		System.out.println(result);
-		result = numWaytoPaintFence(2, 3);
+		result = numWaytoPaintFence(4, 3);
 		System.out.println(result);
 	}
 

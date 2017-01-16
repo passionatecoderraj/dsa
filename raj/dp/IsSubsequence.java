@@ -38,35 +38,9 @@ public class IsSubsequence {
 		return false;
 	}
 
-	// for some reason all test cases are not covered in leetcode but code looks
-	// good
-	// Time :O(n), Space : O(1)
-	public static boolean isSubsequence2(String s, String t) {
-		if (s == null && t == null)
-			return true;
-		if (s.length() == 0)
-			return true;
-		int i = 0, j = 0;
-
-		while (i < s.length()) {
-			boolean found = false;
-			while (j < t.length()) {
-				if (s.charAt(i) == t.charAt(j)) {
-					found = true;
-					break;
-				}
-				j++;
-			}
-			if (!found)
-				return false;
-			i++;
-		}
-		return i == s.length();
-	}
-
 	public static void main(String args[]) {
 		boolean res = false;
-		res = isSubsequence("abc", "y");
+		res = isSubsequence("abc", "ahbgdc");
 		System.out.println(res);
 
 	}

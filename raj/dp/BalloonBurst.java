@@ -76,6 +76,9 @@ public class BalloonBurst {
 		int res = -1;
 		res = maxCoins(a);
 		System.out.println(res);
+		int b[] = { 2, 4, 3, 5 };
+		res = maxCoins(b);
+		System.out.println(res);
 	}
 
 }

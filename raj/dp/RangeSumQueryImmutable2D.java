@@ -3,6 +3,8 @@
  */
 package com.raj.dp;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  *
@@ -29,6 +31,7 @@ public class RangeSumQueryImmutable2D {
 				t[i][j] = t[i - 1][j] + t[i][j - 1] - t[i - 1][j - 1] + a[i - 1][j - 1];
 			}
 		}
+		CommonUtil.print2DArray(t, t.length, t[0].length);
 	}
 
 	public static int sumRegion(int row1, int col1, int row2, int col2) {

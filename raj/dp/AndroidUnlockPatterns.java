@@ -1,5 +1,8 @@
 package com.raj.dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 
  * @author Raj
@@ -16,8 +19,53 @@ package com.raj.dp;
  */
 public class AndroidUnlockPatterns {
 
+	public static int dfs(boolean[] visited, int cur, Map<Integer, Integer> map, int curLen, int totalLen) {
+		if (curLen == totalLen)
+			return 1;
+		visited[cur] = true;
+		int res = 0;
+		for (int i = 1; i <= 9; i++) {
+			int key = cur * 10 + i;
+			if (!visited[i] && (!map.containsKey(key) || visited[map.get(key)])) {
+				res += dfs(visited, i, map, curLen + 1, totalLen);
+			}
+		}
+		visited[cur] = false;
+		return res;
+	}
+
+	public static int numberOfPatterns(int m, int n) {
+		Map<Integer, Integer> map = new HashMap<>();
+		map.put(13, 2);
+		map.put(31, 2);
+		map.put(17, 4);
+		map.put(71, 4);
+		map.put(39, 6);
+		map.put(93, 6);
+		map.put(79, 8);
+		map.put(97, 8);
+		map.put(19, 5);
+		map.put(28, 5);
+		map.put(37, 5);
+		map.put(46, 5);
+		map.put(64, 5);
+		map.put(73, 5);
+		map.put(82, 5);
+		map.put(91, 5);
+
+		int res = 0;
+		boolean visited[] = new boolean[10];
+		for (int i = m; i <= n; i++) {
+			// DFS search each length from m to n
+			res += dfs(visited, 1, map, 1, i) * 4;// 1, 3, 7, 9 are symmetric
+			res += dfs(visited, 2, map, 1, i) * 4;// 2, 4, 6, 8 are symmetric
+			res += dfs(visited, 5, map, 1, i); // 5
+		}
+		return res;
+	}
+
 	// cur: the current position
-	static int dfs(boolean vis[], int[][] skip, int cur, int curLen, int totalLen) {
+	static int dfs2(boolean vis[], int[][] skip, int cur, int curLen, int totalLen) {
 		if (curLen == totalLen)
 			return 1;
 		vis[cur] = true;
@@ -26,14 +74,14 @@ public class AndroidUnlockPatterns {
 			// If vis[i] is not visited and (two numbers are adjacent or skip
 			// number is already visited)
 			if (!vis[i] && (skip[cur][i] == 0 || (vis[skip[cur][i]]))) {
-				rst += dfs(vis, skip, i, curLen + 1, totalLen);
+				rst += dfs2(vis, skip, i, curLen + 1, totalLen);
 			}
 		}
 		vis[cur] = false;
 		return rst;
 	}
 
-	public static int numberOfPatterns(int m, int n) {
+	public static int numberOfPatterns2(int m, int n) {
 		// Skip array represents number to skip between two pairs
 		int skip[][] = new int[10][10];
 		skip[1][3] = skip[3][1] = 2;
@@ -45,9 +93,9 @@ public class AndroidUnlockPatterns {
 		int rst = 0;
 		// DFS search each length from m to n
 		for (int i = m; i <= n; ++i) {
-			rst += dfs(vis, skip, 1, 1, i) * 4; // 1, 3, 7, 9 are symmetric
-			rst += dfs(vis, skip, 2, 1, i) * 4; // 2, 4, 6, 8 are symmetric
-			rst += dfs(vis, skip, 5, 1, i); // 5
+			rst += dfs2(vis, skip, 1, 1, i) * 4; // 1, 3, 7, 9 are symmetric
+			rst += dfs2(vis, skip, 2, 1, i) * 4; // 2, 4, 6, 8 are symmetric
+			rst += dfs2(vis, skip, 5, 1, i); // 5
 		}
 		return rst;
 	}

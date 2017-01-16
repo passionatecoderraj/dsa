@@ -22,20 +22,21 @@ public class DecodeWays {
 			if (i == str.length() - 1)
 				return 0;
 		}
-		int a = 1, b = 1, c = 1;
+		int a = 1, b = 1, c = 0;
 		for (int i = 2; i <= str.length(); i++) {
-			c = 0;
 			if (str.charAt(i - 1) > '0') {
 				c = b;
 			}
 
-			if (str.charAt(i - 2) < '2' || (str.charAt(i - 2) == '2' && str.charAt(i - 1) < '7')) {
+			if ((str.charAt(i - 2) > '0' && str.charAt(i - 2) < '2')
+					|| (str.charAt(i - 2) == '2' && str.charAt(i - 1) < '7')) {
 				c += a;
 			}
 			a = b;
 			b = c;
+			c = 0;
 		}
-		return c;
+		return b;
 	}
 
 	// Time : O(n), Space :O(n)
@@ -48,7 +49,8 @@ public class DecodeWays {
 				t[i] = t[i - 1];
 			}
 
-			if (str.charAt(i - 2) < '2' || (str.charAt(i - 2) == '2' && str.charAt(i - 1) < '7')) {
+			if ((str.charAt(i - 2) > '0' && str.charAt(i - 2) < '2')
+					|| (str.charAt(i - 2) == '2' && str.charAt(i - 1) < '7')) {
 				t[i] += t[i - 2];
 			}
 		}
@@ -64,7 +66,8 @@ public class DecodeWays {
 		if (str.charAt(n - 1) > '0') {
 			count = decodeWaysBruteForce(str, n - 1);
 		}
-		if (str.charAt(n - 2) < '2' || (str.charAt(n - 2) == '2' && str.charAt(n - 1) < '7')) {
+		if ((str.charAt(n - 2) > '0' && str.charAt(n - 2) < '2')
+				|| (str.charAt(n - 2) == '2' && str.charAt(n - 1) < '7')) {
 			count += decodeWaysBruteForce(str, n - 2);
 		}
 		return count;
@@ -74,13 +77,13 @@ public class DecodeWays {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int result = decodeWaysBruteForce("1234", 4);
+		int result = decodeWaysBruteForce("1203", 4);
 		System.out.println(result);
 
-		result = decodeWaysDp("1234");
+		result = decodeWaysDp("1203");
 		System.out.println(result);
 
-		result = decodeWaysDpConstantSpace("1234");
+		result = decodeWaysDpConstantSpace("1203");
 		System.out.println(result);
 
 		result = decodeWaysDpConstantSpace("0");

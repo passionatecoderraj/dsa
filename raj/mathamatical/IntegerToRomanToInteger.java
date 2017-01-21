@@ -19,7 +19,7 @@ public class IntegerToRomanToInteger {
 		int res = -1;
 
 		// Time :O(n)
-		result = obj.integerToRoman(3999);
+		result = obj.integerToRoman(2934);
 		System.out.println(result);
 
 		res = obj.romanToInteger(result);

@@ -1,4 +1,4 @@
-package com.raj.leetcode;
+package com.raj.mathamatical;
 
 /*
  *

@@ -1,12 +1,15 @@
 /**
  * 
  */
-package com.raj.matrix;
+package com.raj.mathamatical;
+
+import com.raj.nodes.Point;
 
 /**
  * @author Raj
  *
  */
+
 
 // http://www.geeksforgeeks.org/find-two-rectangles-overlap/
 public class CheckIfTwoRectanglesOverlap {
@@ -15,7 +18,7 @@ public class CheckIfTwoRectanglesOverlap {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Cell l1 = new Cell(0, 10), r1 = new Cell(10, 0), l2 = new Cell(5, 5), r2 = new Cell(15, 0);
+		Point l1 = new Point(0, 10), r1 = new Point(10, 0), l2 = new Point(5, 5), r2 = new Point(15, 0);
 		CheckIfTwoRectanglesOverlap obj = new CheckIfTwoRectanglesOverlap();
 		boolean result = false;
 		result = obj.checkIfRectangelsOverlap(l1, r1, l2, r2);
@@ -23,11 +26,14 @@ public class CheckIfTwoRectanglesOverlap {
 	}
 
 	// Time : O(1)
-	public boolean checkIfRectangelsOverlap(Cell l1, Cell r1, Cell l2, Cell r2) {
-		if (l2.i > r1.i || l1.i > r2.i)
+	public boolean checkIfRectangelsOverlap(Point l1, Point r1, Point l2, Point r2) {
+
+		// If one rectangle is on left side of other
+		if (l2.x > r1.x || l1.x > r2.x)
 			return false;
 
-		if (l2.j < r1.j || l1.j < r2.j)
+		// If one rectangle is above other
+		if (l2.y < r1.y || l1.y < r2.y)
 			return false;
 		return true;
 	}

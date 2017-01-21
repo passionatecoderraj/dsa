@@ -3,6 +3,8 @@
  */
 package com.raj.dp;
 
+import com.interivew.graph.CommonUtil;
+
 /**
  * @author Raj
  * 
@@ -39,7 +41,8 @@ public class FindNthUglyNumber {
 				factor5 = 5 * t[++idx5];
 			}
 		}
-
+		CommonUtil.printArray(t);
+		
 		return t[n - 1];
 	}
 

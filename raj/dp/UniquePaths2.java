@@ -20,6 +20,8 @@ public class UniquePaths2 {
 		int m = a.length, n = a[0].length;
 		int t[][] = new int[m][n];
 
+		if (t[0][0] == 1)
+			return 0;
 		for (int i = 0; i < m; i++) {
 			if (a[i][0] == 1)
 				break;

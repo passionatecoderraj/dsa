@@ -54,10 +54,11 @@ public class FrogJump {
 				if (num != 0)
 					reach.add(val + 1);
 				for (int step : reach) {
-					if (map.containsKey(num + step)) {
-						if (num + step == stones[stones.length - 1])
+					int key = num + step;
+					if (map.containsKey(key)) {
+						if (key == stones[stones.length - 1])
 							return true;
-						map.get(num + step).add(step);
+						map.get(key).add(step);
 					}
 				}
 			}

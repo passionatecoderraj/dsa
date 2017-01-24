@@ -8,7 +8,34 @@ import java.util.Queue;
 
 public class CloneGraph {
 
-	public GraphNode cloneGraph(GraphNode source) {
+	public GraphNode cloneGraph(GraphNode node) {
+		if (node == null)
+			return null;
+
+		LinkedList<GraphNode> queue = new LinkedList<GraphNode>();
+		HashMap<GraphNode, GraphNode> map = new HashMap<GraphNode, GraphNode>();
+
+		GraphNode newHead = new GraphNode(node.val * 10);
+
+		queue.add(node);
+		map.put(node, newHead);
+
+		while (!queue.isEmpty()) {
+			GraphNode curr = queue.pop();
+			for (GraphNode aNeighbor : curr.neighbours) {
+				if (!map.containsKey(aNeighbor)) {
+					GraphNode copy = new GraphNode(aNeighbor.val * 10);
+					map.put(aNeighbor, copy);
+					queue.add(aNeighbor);
+				}
+				map.get(curr).neighbours.add(map.get(aNeighbor));
+			}
+
+		}
+		return newHead;
+	}
+
+	public GraphNode cloneGraph2(GraphNode source) {
 		if (null == source)
 			return null;
 
@@ -19,16 +46,20 @@ public class CloneGraph {
 		Map<GraphNode, GraphNode> map = new HashMap<GraphNode, GraphNode>();
 
 		// Put the node into the HashMap
-		map.put(source, new GraphNode(source.val));
+		map.put(source, new GraphNode(source.val * 10));
 
 		while (!q.isEmpty()) {
 			GraphNode cur = q.poll();
+
 			for (GraphNode adj : cur.neighbours) {
 				if (!map.containsKey(adj)) {
-					map.put(adj, new GraphNode(adj.val));
+					map.put(adj, new GraphNode(adj.val * 10));
 					q.add(adj);
+					map.get(adj).neighbours.add(map.get(cur));
+					map.get(cur).neighbours.add(map.get(adj));
+				} else {
+					map.get(cur).neighbours.add(map.get(adj));
 				}
-				map.get(adj).neighbours.add(cur);
 			}
 		}
 		return map.get(source);

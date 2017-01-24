@@ -1,6 +1,10 @@
 package com.raj.graph;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -14,6 +18,38 @@ import com.raj.nodes.Vertex;
  *
  */
 public class TopologicalSort {
+
+	// Time : O(v+e), Space : O(v)
+	public void topologicalSortUsingQ(Graph graph) {
+		Map<Vertex, Integer> degree = new HashMap<>();
+		for (Vertex v : graph.getVertices()) {
+			degree.put(v, 0);
+		}
+		for (Edge e : graph.getEdges()) {
+			degree.put(e.v2, degree.get(e.v2) + 1);
+		}
+		Queue<Vertex> queue = new LinkedList<>();
+		for (Vertex v : degree.keySet()) {
+			if (degree.get(v) == 0) {
+				queue.add(v);
+			}
+		}
+		while (!queue.isEmpty()) {
+			Vertex cur = queue.poll();
+			System.out.print(cur + " ");
+			// not adj edge continue with next iteration
+			if (graph.getAdjascentEdges(cur) == null)
+				continue;
+			for (Edge e : graph.getAdjascentEdges(cur)) {
+				Vertex adj = (e.v1.equals(cur)) ? e.v2 : e.v1;
+				degree.put(adj, degree.get(adj) - 1);
+				if (degree.get(adj) == 0) {
+					queue.add(adj);
+				}
+			}
+		}
+		System.out.println();
+	}
 
 	// Time : O(v+e), Space : O(v)
 	public Stack<Vertex> topologicalSort(Graph graph) {
@@ -56,6 +92,7 @@ public class TopologicalSort {
 			System.out.print(res.pop() + " ");
 		}
 		System.out.println();
+		obj.topologicalSortUsingQ(graph);
 	}
 
 }

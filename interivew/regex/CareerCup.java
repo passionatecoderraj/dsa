@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,7 +35,7 @@ public class CareerCup {
 		return sb.toString();
 	}
 
-	static void callFun(){
+	static void callFun() {
 		List<Integer> l1 = new ArrayList<>();
 		l1.add(10);
 		l1.add(30);
@@ -45,7 +44,7 @@ public class CareerCup {
 		l1.add(13);
 		l1.add(12);
 		l1.add(17);
-		
+
 		List<Integer> l2 = new ArrayList<>();
 		l2.add(20);
 		l2.add(32);
@@ -56,35 +55,34 @@ public class CareerCup {
 		l2.add(15);
 		findKSmallestElementsFromTwoLists(l1, l2, 4);
 	}
+
 	// Time : O((m+n)*logk), Space : O(logk)
-	public static void findKSmallestElementsFromTwoLists(List<Integer> list1, List<Integer> list2, final int k){
-		
+	public static void findKSmallestElementsFromTwoLists(List<Integer> list1, List<Integer> list2, final int k) {
+
 		final PriorityQueue<Integer> pq = new PriorityQueue<>(k, new Comparator<Integer>() {
 			@Override
 			public int compare(Integer i1, Integer i2) {
-				return i2-i1;
+				return i2 - i1;
 			}
-		
+
 		});
-	
-		for(int i:list1){
-			if(pq.size() < k){
+
+		for (int i : list1) {
+			if (pq.size() < k) {
 				pq.offer(i);
-			}
-			else{
-				if(i < pq.peek()){
+			} else {
+				if (i < pq.peek()) {
 					pq.poll();
 					pq.offer(i);
 				}
 			}
 		}
-		
-		for(int i:list2){
-			if(pq.size() < k){
+
+		for (int i : list2) {
+			if (pq.size() < k) {
 				pq.offer(i);
-			}
-			else{
-				if(i < pq.peek()){
+			} else {
+				if (i < pq.peek()) {
 					pq.poll();
 					pq.offer(i);
 				}
@@ -92,7 +90,7 @@ public class CareerCup {
 		}
 		System.out.println(pq);
 	}
-	
+
 	public static void reverse(StringBuilder sb, int l, int r) {
 		while (l < r) {
 			swap(sb, l++, r--);
@@ -334,7 +332,7 @@ public class CareerCup {
 			}
 		}
 		PriorityQueue<Element> pq = new PriorityQueue<>(Collections.reverseOrder());
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -356,12 +354,34 @@ public class CareerCup {
 		//
 		Integer a1[] = { 1, 2, 3, 1, 5 };
 		Integer a2[] = { 3, 4, 5, 6, 7 };
-//		findUncommonElements(a1, a2);
+		// findUncommonElements(a1, a2);
 
 		String file = "user1,user4,user2,user1,user3,user1,user2,user3";
 		int k = 2;
-		
+
 		callFun();
 	}
 
+	// Time :O(n), Space :O(1)
+	public static int maxNumberOf1s(String str) {
+		if (null == str || str.isEmpty() || !str.contains("1")) {
+			return 0;
+		}
+		int count = 0;
+		int curCount = 0;
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '1') {
+				if (curCount == 0) {
+					curCount = 1;
+				} else {
+					curCount++;
+				}
+				count = Math.max(curCount, count);
+			} else {
+				curCount = 0;
+			}
+		}
+
+		return count;
+	}
 }

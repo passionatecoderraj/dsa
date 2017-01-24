@@ -27,7 +27,7 @@ public class ExcelColumnTitleToColumnNumber {
 	 */
 	public static void main(String[] args) {
 		ExcelColumnTitleToColumnNumber obj = new ExcelColumnTitleToColumnNumber();
-		int result = obj.excelSheetColumnNumber("HV");
+		int result = obj.excelSheetColumnNumber("CJL");
 		System.out.println(result);
 	}
 

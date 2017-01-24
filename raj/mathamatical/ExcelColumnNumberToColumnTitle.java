@@ -30,7 +30,7 @@ public class ExcelColumnNumberToColumnTitle {
 	 */
 	public static void main(String[] args) {
 		ExcelColumnNumberToColumnTitle obj = new ExcelColumnNumberToColumnTitle();
-		String result = obj.excelSheetColumnNumber(230);
+		String result = obj.excelSheetColumnNumber(2300);
 		System.out.println(result);
 	}
 

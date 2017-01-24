@@ -19,11 +19,12 @@ package com.raj.mathamatical;
  */
 public class AddDigits {
 
-	// Time :O(n)
+	// Time :O(1)
 	public static int addDigits(int n) {
+		if (0 == n)
+			return 0;
 		int res = n % 9;
-
-		return (res != 0 || n == 0) ? res : 9;
+		return (res != 0) ? res : 9;
 	}
 
 	// Time :O(n)
@@ -41,7 +42,7 @@ public class AddDigits {
 		int res = -1;
 		res = addDigits2(943);
 		System.out.println(res);
-		res = addDigits(943);
+		res = addDigits(38);
 		System.out.println(res);
 
 	}

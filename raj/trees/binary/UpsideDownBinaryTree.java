@@ -5,14 +5,10 @@ import com.raj.nodes.BinaryTreeNode;
 public class UpsideDownBinaryTree {
 
 	public BinaryTreeNode<Integer> upsideDown(BinaryTreeNode<Integer> root) {
-		if (null == root) {
+		if (null == root || null == root.left) {
 			return root;
 		}
-		if (BinaryTree.isLeaf(root.left)) {
-			root.left.left = root.right;
-			root.left.right = root;
-			return root.left;
-		}
+
 		BinaryTreeNode<Integer> newRoot = upsideDown(root.left);
 		root.left.left = root.right;
 		root.left.right = root;

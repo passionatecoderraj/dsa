@@ -19,9 +19,9 @@ public class PermutationsOfString {
 		String str = "raj";
 		int n = str.length();
 		obj.permuations(str.toCharArray(), 0, n - 1);
-	//	obj.permuationsOfLengthK(str.toCharArray(), 0, 2);
+		// obj.permuationsOfLengthK(str.toCharArray(), 0, 2);
 		System.out.println();
-	//	obj.permuationsUnique(str.toCharArray(), 0);
+		// obj.permuationsUnique(str.toCharArray(), 0);
 	}
 
 	public void permuationsUnique(char a[], int i) {
@@ -38,7 +38,7 @@ public class PermutationsOfString {
 	}
 
 	private boolean containsDuplicate(char[] a, int start, int end, int k) {
-		for (int i = start; i <= end; i++) {
+		for (int i = start;	 i <= end; i++) {
 			if (a[i] == k)
 				return true;
 		}

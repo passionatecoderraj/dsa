@@ -2,9 +2,11 @@ package com.raj.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * 
@@ -13,8 +15,10 @@ import java.util.Queue;
  *         There are a total of n courses you have to take, labeled from 0 to n
  *         - 1. Some courses may have prerequisites, for example to take course
  *         0 you have to first take course 1, which is expressed as a pair:
- *         [0,1]. Given the total number of courses and a list of prerequisite
- *         pairs, is it possible for you to finish all courses?
+ *         [0,1].
+ * 
+ *         Given the total number of courses and a list of prerequisite pairs,
+ *         is it possible for you to finish all courses?
  * 
  *         For example, given 2 and [[1,0]], there are a total of 2 courses to
  *         take. To take course 1 you should have finished course 0. So it is
@@ -30,6 +34,57 @@ import java.util.Queue;
 public class CourseSchedule {
 
 	public static boolean canFinishUsingBfs(int numCourses, int[][] prereq) {
+		if (numCourses == 0 || prereq.length == 0) {
+			return true;
+		}
+
+		// store courses that have no prerequisites
+		int degree[] = new int[numCourses];
+		Map<Integer, Set<Integer>> map = new HashMap<>();
+		for (int[] a : prereq) {
+			if (!map.containsKey(a[1]) || (map.containsKey(a[1]) && !map.get(a[1]).contains(a[0]))) {
+				map.compute(a[1], (key, value) -> {
+					if (null == value) {
+						value = new HashSet<>(0);
+					}
+					value.add(a[0]);
+					return value;
+				});
+				degree[a[0]]++;
+			}
+		}
+
+		// store courses that have no prerequisites
+		Queue<Integer> queue = new LinkedList<>();
+		for (int i = 0; i < degree.length; i++)
+
+		{
+			if (degree[i] == 0)
+				queue.offer(i);
+		}
+
+		// number of courses that have no prerequisites
+		Set<Integer> visited = new HashSet<>();
+		while (!queue.isEmpty())
+
+		{
+			int cur = queue.poll();
+			visited.add(cur);
+			if (map.containsKey(cur)) {
+				for (int neighbour : map.get(cur)) {
+					degree[neighbour]--;
+					if (degree[neighbour] == 0) {
+						queue.add(neighbour);
+					}
+				}
+			}
+		}
+
+		return visited.size() == numCourses;
+
+	}
+
+	public static boolean canFinishUsingBfs2(int numCourses, int[][] prereq) {
 		if (numCourses == 0 || prereq.length == 0) {
 			return true;
 		}
@@ -120,6 +175,10 @@ public class CourseSchedule {
 		System.out.println(result);
 		int prereq2[][] = { { 1, 0 }, { 0, 1 } };
 		result = canFinishUsingBfs(2, prereq2);
+		System.out.println(result);
+
+		int prereq3[][] = { { 5, 8 }, { 3, 5 }, { 1, 9 }, { 4, 5 }, { 0, 2 }, { 1, 9 }, { 7, 8 }, { 4, 9 } };
+		result = canFinishUsingBfs(10, prereq3);
 		System.out.println(result);
 
 	}

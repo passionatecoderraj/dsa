@@ -25,17 +25,28 @@ public class XPowerN {
 		System.out.println(result);
 
 		// Time :O(logn)
-		result = obj.powOptimized(x, n);
+		double res = 0;
+		res = obj.powOptimized(x, n);
 		System.out.println(result);
 
 		// Time :O(logn)
 		// for negative values also
-		double res = 0;
+		res = obj.pow(2, -3);
+		System.out.println(res);
+
 		res = obj.pow(2, -3);
 		System.out.println(res);
 	}
 
 	public double pow(double x, int n) {
+		if (0 == n)
+			return 1;
+		if (n < 0)
+			return (1.0 / powOptimized(x, n));
+		return powOptimized(x, n);
+	}
+
+	public double pow2(double x, int n) {
 		if (0 == n)
 			return 1;
 		double temp = pow(x, n / 2);
@@ -49,10 +60,10 @@ public class XPowerN {
 		}
 	}
 
-	public int powOptimized(int x, int n) {
+	public double powOptimized(double x, int n) {
 		if (n == 0)
 			return 1;
-		int temp = powOptimized(x, n / 2);
+		double temp = powOptimized(x, n / 2);
 		if (n % 2 == 0)
 			return temp * temp;
 		else

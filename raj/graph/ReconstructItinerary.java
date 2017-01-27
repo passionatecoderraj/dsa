@@ -50,13 +50,7 @@ public class ReconstructItinerary {
 
 		// construct graph
 		for (String[] ticket : tickets) {
-			map.compute(ticket[0], (key, value) -> {
-				if (null == value) {
-					value = new PriorityQueue<>();
-				}
-				value.add(ticket[1]);
-				return value;
-			});
+			map.computeIfAbsent(ticket[0], key -> new PriorityQueue<>()).add(ticket[1]);
 		}
 		LinkedList<String> result = new LinkedList<>();
 		dfs("JFK", result, map);

@@ -1,69 +1,43 @@
 package com.raj.dp;
 
-
 public class LongestCommonSubSequence {
 
-	public static void main(String[] args) {
-		String x = "AGGTAB";
-		String y = "GXTXAYB";
-		// String x = "AG";
-		// String y = "GXX";
-		LongestCommonSubSequence obj = new LongestCommonSubSequence();
-		x = "baab";
-		y = "abb";
-		int result = -1;
+	public int lcsBruteForce(String a, String b, int i, int j) {
+		if (i == 0 || j == 0)
+			return 0;
+		if (a.charAt(i - 1) == b.charAt(j - 1))
+			return 1 + lcsBruteForce(a, b, i - 1, j - 1);
 
-		result = obj.lcsBruteForce(x.toCharArray(), y.toCharArray(), x.length(), y.length());
-		System.out.println(result);
-		result = obj.lcsBottomUp(x.toCharArray(), y.toCharArray(), x.length(), y.length());
-		System.out.println(result);
-
+		return Math.max(lcsBruteForce(a, b, i - 1, j), lcsBruteForce(a, b, i, j - 1));
 	}
 
-	public int lcsBottomUp(char[] x, char[] y, int i, int j) {
-		int[][] c = new int[i + 1][j + 1];
+	public int lcsBottomUp(String a, String b) {
+		if (null == a || null == b)
+			return 0;
 
-		for (int k = 0; k < i + 1; k++) {
-			c[k][0] = 0;
-		}
+		int[][] t = new int[a.length() + 1][b.length() + 1];
 
-		for (int k = 0; k < j + 1; k++) {
-			c[0][k] = 0;
-		}
-
-		for (int m = 1; m < i + 1; m++) {
-			for (int n = 1; n < j + 1; n++) {
-				if (x[m - 1] == y[n - 1]) {
-					c[m][n] = 1 + c[m - 1][n - 1];
+		for (int i = 1; i <= a.length(); i++) {
+			for (int j = 1; j <= b.length(); j++) {
+				if (a.charAt(i - 1) == b.charAt(j - 1)) {
+					t[i][j] = 1 + t[i - 1][j - 1];
 				} else {
-					c[m][n] = max(c[m][n - 1], c[m - 1][n]);
+					t[i][j] = Math.max(t[i][j - 1], t[i - 1][j]);
 				}
 			}
 		}
-
-	/*	for (int m = 0; m < i + 1; m++) {
-			for (int n = 0; n < j + 1; n++) {
-				System.out.print(c[m][n] + " ");
-			}
-			System.out.println();
-		}
-		*/
-
-		return c[i][j];
+		return t[a.length()][b.length()];
 	}
 
-	public int lcsBruteForce(char[] x, char[] y, int i, int j) {
-		if (i == 0 || j == 0)
-			return 0;
-		else if (x[i - 1] == y[j - 1])
-			return 1 + lcsBruteForce(x, y, i - 1, j - 1);
-		else {
-			return max(lcsBruteForce(x, y, i - 1, j), lcsBruteForce(x, y, i, j - 1));
-		}
-	}
+	public static void main(String[] args) {
+		String x = "agccat";
+		String y = "acgct";
+		LongestCommonSubSequence obj = new LongestCommonSubSequence();
+		int result = obj.lcsBruteForce(x, y, x.length(), y.length());
+		System.out.println(result);
+		result = obj.lcsBottomUp(x, y);
+		System.out.println(result);
 
-	public int max(int a, int b) {
-		return a > b ? a : b;
 	}
 
 }

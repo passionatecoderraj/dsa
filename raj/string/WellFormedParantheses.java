@@ -17,21 +17,26 @@ package com.raj.string;
  */
 public class WellFormedParantheses {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		WellFormedParantheses obj = new WellFormedParantheses();
-
-		String str = "{{{{}}}}{}{}{}{}{}{}{}{}{}{}{{{}}}";
-		boolean result = false;
-
-		// Time : O(n) Space :O(1)
-		result = obj.isWellFormedParantheses(str.toCharArray(), str.length());
-		System.out.println(result);
+	public boolean isWellFormedParantheses(char[] a, int n) {
+		int p = 0;
+		char ch;
+		for (int i = 0; i < n; i++) {
+			ch = a[i];
+			switch (ch) {
+			case '{':
+				p++;
+				break;
+			case '}':
+				p--;
+				break;
+			}
+			if (p < 0)
+				return false;
+		}
+		return 0 == p;
 	}
 
-	public boolean isWellFormedParantheses(char[] a, int n) {
+	public boolean isWellFormedParantheses2(char[] a, int n) {
 		int openParentheses = 0, closedParantheses = 0;
 		char ch;
 		for (int i = 0; i < n; i++) {
@@ -48,6 +53,20 @@ public class WellFormedParantheses {
 				return false;
 		}
 		return openParentheses == closedParantheses;
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		WellFormedParantheses obj = new WellFormedParantheses();
+
+		String str = "{{{{}}}}{}{}{}{}{}{}{}{}{}{}{{{}}}";
+		boolean result = false;
+
+		// Time : O(n) Space :O(1)
+		result = obj.isWellFormedParantheses(str.toCharArray(), str.length());
+		System.out.println(result);
 	}
 
 }

@@ -11,6 +11,15 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class IdenticalCheckFor2Trees {
 
+	public boolean isStructurallyIdentical(BinaryTreeNode<Integer> root1, BinaryTreeNode<Integer> root2) {
+		if (root1 == null && root2 == null)
+			return true;
+
+		if (root1 == null || root2 == null)
+			return false;
+		return isStructurallyIdentical(root1.left, root2.left) && isStructurallyIdentical(root1.right, root2.right);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -35,14 +44,6 @@ public class IdenticalCheckFor2Trees {
 		result = obj.isStructurallyIdentical(ob.root, ob2.root);
 		System.out.println(result);
 
-	}
-
-	public boolean isStructurallyIdentical(BinaryTreeNode<Integer> root1, BinaryTreeNode<Integer> root2) {
-		if (root1 == null && root2 == null)
-			return true;
-		else if ((root1 == null && root2 != null) || (root1 != null && root2 == null))
-			return false;
-		return isStructurallyIdentical(root1.left, root2.left) && isStructurallyIdentical(root1.right, root2.right);
 	}
 
 }

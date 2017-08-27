@@ -11,6 +11,53 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class Diameter {
 
+	int diameter = Integer.MIN_VALUE;
+	int diameterRoot = Integer.MIN_VALUE;
+
+	public int diameter(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		int lh = diameter(root.left);
+		int rh = diameter(root.right);
+		int curDiameter = lh + rh + 1;
+		if (curDiameter > diameter) {
+			diameter = curDiameter;
+			diameterRoot = root.data;
+		}
+		return 1 + Math.max(lh, rh);
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Diameter obj = new Diameter();
+
+		BinaryTree ob = new BinaryTree();
+		ob.insert(1);
+		ob.insert(2);
+		ob.insert(3);
+		ob.insert(4);
+		ob.insert(5);
+		ob.insert(6);
+		ob.insert(7);
+		ob.insert(8);
+
+		BinaryTreeNode<Integer> l1 = obj.createTestTree1();
+		BinaryTreeNode<Integer> l2 = obj.createTestTree2();
+
+		obj.diameter(l1);
+		System.out.println(obj.diameter);
+		System.out.println(obj.diameterRoot);
+
+		obj.diameter = Integer.MIN_VALUE;
+		obj.diameterRoot = Integer.MIN_VALUE;
+
+		obj.diameter(l2);
+		System.out.println(obj.diameter);
+		System.out.println(obj.diameterRoot);
+	}
+
 	public BinaryTreeNode<Integer> createTestTree1() {
 		BinaryTreeNode<Integer> n1 = new BinaryTreeNode<Integer>(1);
 		BinaryTreeNode<Integer> n2 = new BinaryTreeNode<Integer>(2);
@@ -75,53 +122,6 @@ public class Diameter {
 		n12.right = n14;
 		n14.right = n15;
 		return n1;
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Diameter obj = new Diameter();
-
-		BinaryTree ob = new BinaryTree();
-		ob.insert(1);
-		ob.insert(2);
-		ob.insert(3);
-		ob.insert(4);
-		ob.insert(5);
-		ob.insert(6);
-		ob.insert(7);
-		ob.insert(8);
-
-		BinaryTreeNode<Integer> l1 = obj.createTestTree1();
-		BinaryTreeNode<Integer> l2 = obj.createTestTree2();
-
-		obj.diameter(l1);
-		System.out.println(obj.diameter);
-		System.out.println(obj.diameterRoot);
-
-		obj.diameter = Integer.MIN_VALUE;
-		obj.diameterRoot = Integer.MIN_VALUE;
-
-		obj.diameter(l2);
-		System.out.println(obj.diameter);
-		System.out.println(obj.diameterRoot);
-	}
-
-	int diameter = Integer.MIN_VALUE;
-	int diameterRoot = Integer.MIN_VALUE;
-
-	public int diameter(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-		int lh = diameter(root.left);
-		int rh = diameter(root.right);
-		int curDiameter = lh + rh + 1;
-		if (curDiameter > diameter) {
-			diameter = curDiameter;
-			diameterRoot = root.data;
-		}
-		return 1 + Math.max(lh, rh);
 	}
 
 }

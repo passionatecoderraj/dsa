@@ -1,13 +1,13 @@
 package com.raj.matrix;
 
-public class SearchForElementInMatrix {
+public class Searcha2DMatrix2 {
 	public static void main(String args[]) throws Exception {
 
 		int a[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, { 32, 33, 39, 50 }, };
 		int m = a.length, n = a[0].length;
 		Cell result = null;
 
-		SearchForElementInMatrix obj = new SearchForElementInMatrix();
+		Searcha2DMatrix2 obj = new Searcha2DMatrix2();
 
 		int key = 29;
 

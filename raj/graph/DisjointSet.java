@@ -21,6 +21,10 @@ public class DisjointSet {
 		map.put(data, node);
 	}
 
+	public boolean contains(long data) {
+		return map.containsKey(data);
+	}
+
 	public long findSet(long data) {
 		return findSet(map.get(data)).data;
 	}

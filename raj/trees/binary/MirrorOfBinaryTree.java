@@ -15,6 +15,18 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class MirrorOfBinaryTree {
 
+	public boolean areMirrors(BinaryTreeNode<Integer> root1, BinaryTreeNode<Integer> root2) {
+		if (root1 == null && root2 == null) {
+			return true;
+		}
+
+		if (root1 == null || root2 == null) {
+			return false;
+		}
+
+		return root1.data == root2.data && areMirrors(root1.left, root2.right) && areMirrors(root1.right, root2.left);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -71,17 +83,6 @@ public class MirrorOfBinaryTree {
 		if (null == root)
 			return true;
 		return areMirrors(root.left, root.right);
-	}
-
-	public boolean areMirrors(BinaryTreeNode<Integer> root1, BinaryTreeNode<Integer> root2) {
-
-		if (root1 == null && root2 == null) {
-			return true;
-		} else if (root1 == null || root2 == null) {
-			return false;
-		}
-		return root1.data == root2.data && areMirrors(root1.left, root2.right) && areMirrors(root1.right, root2.left);
-
 	}
 
 	public void mirror(BinaryTreeNode<Integer> root) {

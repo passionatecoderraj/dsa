@@ -24,9 +24,7 @@ public class ZigzagIterator {
 		int list = getNextAvailable();
 		if (list != -1) {
 			cur = list;
-			if (ptrs[cur] < a[cur].length) {
-				return a[cur][ptrs[cur]++];
-			}
+			return a[cur][ptrs[cur]++];
 		}
 		return -1;
 	}

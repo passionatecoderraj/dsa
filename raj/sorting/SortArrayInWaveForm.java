@@ -20,6 +20,27 @@ import com.interivew.graph.CommonUtil;
 
 public class SortArrayInWaveForm {
 	/*
+	 * The idea is based on the fact that if we make sure that all even
+	 * positioned (at index 0, 2, 4, ..) elements are greater than their
+	 * adjacent odd elements, we don’t need to worry about odd positioned
+	 * element.
+	 */
+	public void sortInWaveForm(int[] a, int n) {
+		if (n <= 1)
+			return;
+
+		for (int i = 1; i < n; i++) {
+			if (i % 2 == 1) {
+				if (a[i] < a[i - 1])
+					CommonUtil.swap(a, i, i - 1);
+			} else {
+				if (a[i] > a[i - 1])
+					CommonUtil.swap(a, i, i - 1);
+			}
+		}
+	}
+
+	/*
 	 * Input: arr[] = {10, 5, 6, 3, 2, 20, 100, 80} Output: arr[] = {10, 5, 6,
 	 * 2, 20, 3, 100, 80} OR {20, 5, 10, 2, 80, 6, 100, 3} OR /**
 	 * 
@@ -41,23 +62,6 @@ public class SortArrayInWaveForm {
 		int b[] = { 10, 90, 49, 2, 1, 5, 23 };
 		obj.sortInWaveForm(b, b.length);
 		CommonUtil.printArray(b);
-	}
-
-	/*
-	 * The idea is based on the fact that if we make sure that all even
-	 * positioned (at index 0, 2, 4, ..) elements are greater than their
-	 * adjacent odd elements, we don’t need to worry about odd positioned
-	 * element.
-	 */
-	public void sortInWaveForm(int[] a, int n) {
-		for (int i = 0; i < n - 1; i = i + 2) {
-			if (i - 1 >= 0 && a[i] < a[i - 1]) {
-				CommonUtil.swap(a, i, i - 1);
-			}
-			if (i + 1 < n && a[i] < a[i + 1]) {
-				CommonUtil.swap(a, i, i + 1);
-			}
-		}
 	}
 
 	public void sortInWaveFormUsingSorting(int[] a, int n) {

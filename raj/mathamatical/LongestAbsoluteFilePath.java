@@ -17,8 +17,20 @@ import java.util.HashMap;
  *         sub-directory subdir1 and a sub-directory subdir2 containing a file
  *         file.ext.
  * 
- *         The string
- *         "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"
+ *         The string "dir\n
+ * 
+ *         \tsubdir1\n
+ * 
+ *         \t\tfile1.ext\n
+ * 
+ *         \t\tsubsubdir1\n
+ * 
+ *         \tsubdir2\n
+ * 
+ *         \t\tsubsubdir2\n
+ * 
+ *         \t\t\tfile2.ext"
+ * 
  *         represents:
  * 
  *         dir subdir1 file1.ext subsubdir1 subdir2 subsubdir2 file2.ext The
@@ -53,6 +65,27 @@ public class LongestAbsoluteFilePath {
 	// Time :O(n),Space :O(n)
 	public static int lengthLongestPath(String input) {
 		HashMap<Integer, Integer> hashMap = new HashMap<>();
+		hashMap.put(-1, 0);
+		int result = 0;
+		for (String s : input.split("\n")) {
+			int level = s.lastIndexOf("\t");
+			int len = s.substring(level + 1).length();
+			// if it's a file check for max size
+			if (s.contains(".")) {
+				result = Math.max(result, hashMap.get(level) + len);
+			}
+			// if it's a level create a new level with length so far
+			else {
+				// hashMap.get(level) + len + 1 -> here '1' represents the '\'
+				// in output
+				hashMap.put(level + 1, hashMap.get(level) + len + 1);
+			}
+		}
+		return result;
+	}
+
+	public static int lengthLongestPath2(String input) {
+		HashMap<Integer, Integer> hashMap = new HashMap<>();
 		hashMap.put(0, 0);
 		int result = 0;
 		for (String s : input.split("\n")) {
@@ -66,6 +99,7 @@ public class LongestAbsoluteFilePath {
 				hashMap.put(level + 1, hashMap.get(level) + len + 1);
 			}
 		}
+		System.out.println(hashMap);
 		return result;
 	}
 

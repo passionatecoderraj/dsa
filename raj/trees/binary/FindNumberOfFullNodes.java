@@ -14,6 +14,20 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class FindNumberOfFullNodes {
 
+	public int numberOfFullNodes(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		int n = 0;
+		if (isFullNode(root)) {
+			n = 1;
+		}
+		return n + numberOfFullNodes(root.left) + numberOfFullNodes(root.right);
+	}
+
+	private boolean isFullNode(BinaryTreeNode<Integer> root) {
+		return root.left != null && root.right != null;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -40,20 +54,6 @@ public class FindNumberOfFullNodes {
 		result = obj.numberOfleavesWithoutRecursion(root);
 		System.out.println(result);
 
-	}
-
-	public int numberOfFullNodes(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-		int n = 0;
-		if (isFullNode(root)) {
-			n = 1;
-		}
-		return n + numberOfFullNodes(root.left) + numberOfFullNodes(root.right);
-	}
-
-	public boolean isFullNode(BinaryTreeNode<Integer> root) {
-		return root.left != null && root.right != null;
 	}
 
 	public int numberOfleavesWithoutRecursion(BinaryTreeNode<Integer> node) {

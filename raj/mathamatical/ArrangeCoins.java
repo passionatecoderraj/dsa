@@ -25,7 +25,7 @@ package com.raj.mathamatical;
  */
 public class ArrangeCoins {
 
-	// Time :O(n)
+	// Time :O(logn)
 	public int arrangeCoinsOlogn(int n) {
 		// to prevent int overflow
 		long nLong = (long) n;

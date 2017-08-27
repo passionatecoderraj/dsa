@@ -25,10 +25,8 @@ public class PerfectSquares {
 		Arrays.fill(t, Integer.MAX_VALUE);
 		t[0] = 0;
 		for (int i = 1; i <= n; i++) {
-			int j = 1;
-			while (i >= j * j) {
+			for (int j = 1; j * j <= i; j++) {
 				t[i] = Math.min(t[i], 1 + t[i - j * j]);
-				j++;
 			}
 		}
 		return t[n];

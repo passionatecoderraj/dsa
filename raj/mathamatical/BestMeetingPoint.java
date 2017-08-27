@@ -40,21 +40,34 @@ public class BestMeetingPoint {
 			}
 		}
 		// rows and cols are already sorted
-		int rowMedian = rows.get(rows.size() / 2);
-		int colMedian = cols.get(cols.size() / 2);
+		int rowMedian = median(rows);
+		int colMedian = median(cols);
+
+		// System.out.println(rows);
+		// System.out.println(cols);
 
 		int distance = 0;
 		for (int i : rows) {
 			distance += Math.abs(i - rowMedian);
 		}
-		System.out.println(rows);
-		System.out.println(cols);
 
 		for (int i : cols) {
 			distance += Math.abs(i - colMedian);
 		}
 
 		return distance;
+	}
+
+	public static int median(ArrayList<Integer> a) {
+
+		int k = a.size() / 2;
+
+		if (k % 2 != 0) {
+			return a.get(k);
+		} else {
+			return (a.get(k) + a.get(k - 1)) / 2;
+		}
+
 	}
 
 	/**

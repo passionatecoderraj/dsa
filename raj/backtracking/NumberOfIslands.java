@@ -7,13 +7,13 @@ package com.raj.backtracking;
  * @author Raj
  *
  */
-public class CountIslands {
+public class NumberOfIslands {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CountIslands obj = new CountIslands();
+		NumberOfIslands obj = new NumberOfIslands();
 		int result = -1;
 		int a[][] = { { 1, 1, 0, 0, 0 }, { 0, 1, 0, 0, 1 }, { 1, 0, 0, 1, 1 }, { 0, 0, 0, 0, 0 }, { 1, 0, 1, 0, 1 } };
 

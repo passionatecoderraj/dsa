@@ -16,6 +16,25 @@ package com.raj.dp;
  */
 public class SentenceScreenFiltering {
 
+	// Time : O(rows * Lw), Lw = max Length of the word
+	// https://discuss.leetcode.com/topic/62455/21ms-18-lines-java-solution
+	public static int wordsTyping(String[] sentence, int rows, int cols) {
+		String s = String.join(" ", sentence) + " ";
+		int start = 0, l = s.length();
+		for (int i = 0; i < rows; i++) {
+			start += cols;
+			if (s.charAt(start % l) == ' ') {
+				start++;
+			} else {
+				while (start > 0 && s.charAt((start - 1) % l) != ' ') {
+					start--;
+				}
+			}
+		}
+
+		return start / s.length();
+	}
+
 	// Time : O(r*c), Space : O(1)
 	public static int sentenceScreenFiltering(String[] sentence, int rows, int cols) {
 		int r = 0, c = 0, i = 0, count = 0;
@@ -52,6 +71,10 @@ public class SentenceScreenFiltering {
 
 		String s2[] = { "I", "had", "apple", "pie" };
 		res = sentenceScreenFiltering(s2, 4, 5);
+		System.out.println(res);
+
+		String s3[] = { "abc", "de", "f" };
+		res = wordsTyping(s3, 4, 6);
 		System.out.println(res);
 
 	}

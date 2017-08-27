@@ -48,7 +48,7 @@ public class ValidWordSquares {
 
 		for (int i = 0; i < words.size(); i++) {
 			String rowWord = words.get(i);
-			for (int j = i; j < rowWord.length(); j++) {
+			for (int j = i + 1; j < rowWord.length(); j++) {
 				String colWord = words.get(j);
 				if (colWord.charAt(i) != rowWord.charAt(j)) {
 					return false;

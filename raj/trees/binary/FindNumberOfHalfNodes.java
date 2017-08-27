@@ -14,6 +14,20 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class FindNumberOfHalfNodes {
 
+	public int numberOfHalfNodes(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		int n = 0;
+		if (isHalfNode(root)) {
+			n = 1;
+		}
+		return n + numberOfHalfNodes(root.left) + numberOfHalfNodes(root.right);
+	}
+
+	private boolean isHalfNode(BinaryTreeNode<Integer> root) {
+		return (root.left != null && root.right == null) || (root.left == null && root.right != null);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -39,20 +53,6 @@ public class FindNumberOfHalfNodes {
 		result = obj.numberOfHalfNodesWithoutRecursion(root);
 		System.out.println(result);
 
-	}
-
-	public int numberOfHalfNodes(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-		int n = 0;
-		if (isHalfNode(root)) {
-			n = 1;
-		}
-		return n + numberOfHalfNodes(root.left) + numberOfHalfNodes(root.right);
-	}
-
-	public boolean isHalfNode(BinaryTreeNode<Integer> root) {
-		return (root.left != null && root.right == null) || (root.left == null && root.right != null);
 	}
 
 	public int numberOfHalfNodesWithoutRecursion(BinaryTreeNode<Integer> node) {

@@ -34,6 +34,9 @@ public class SortTransformedArray {
 	 * 
 	 * if a < 0, the max value is at its vertex. So our sort goes the opposite
 	 * way.
+	 * 
+	 * 1.a>0, two ends in original array are bigger than center if you learned
+	 * middle school math before. 2.a<0, center is bigger than two ends.
 	 */
 	// Time :O(n)
 	public static int[] sortTransformedArray(int[] arr, int a, int b, int c) {

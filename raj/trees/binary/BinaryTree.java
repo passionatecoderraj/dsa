@@ -92,7 +92,7 @@ public class BinaryTree {
 		}
 	}
 
-	public void levelOrder(BinaryTreeNode<Integer> node) {
+	public static void levelOrder(BinaryTreeNode<Integer> node) {
 		if (null == node) {
 			System.out.println("Empty");
 			return;

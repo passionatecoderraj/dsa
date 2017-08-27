@@ -14,6 +14,13 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class NumberOfNodes {
 
+	// Time :O(n), Space :O(n)
+	public int size(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		return 1 + size(root.left) + size(root.right);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -39,12 +46,6 @@ public class NumberOfNodes {
 		result = obj.sizeWithoutRecursion(root);
 		System.out.println(result);
 
-	}
-
-	public int size(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-		return 1 + size(root.left) + size(root.right);
 	}
 
 	public int sizeWithoutRecursion(BinaryTreeNode<Integer> node) {

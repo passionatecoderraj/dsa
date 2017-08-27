@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.raj.mathamatical;
 
@@ -8,16 +8,12 @@ import java.util.Map;
 
 /**
  * @author Raj
- *
+ * 
  *         Given two integers representing the numerator and denominator of a
- *         fraction, return the fraction in string format.
+ *         fraction, return the fraction in string format. If the fractional
+ *         part is repeating, enclose the repeating part in parentheses.
  * 
- *         If the fractional part is repeating, enclose the repeating part in
- *         parentheses.
- * 
- *         For example,
- * 
- *         Given numerator = 1, denominator = 2, return "0.5".
+ *         For example, Given numerator = 1, denominator = 2, return "0.5".
  * 
  *         Given numerator = 2, denominator = 1, return "2".
  * 
@@ -74,10 +70,6 @@ public class FractiontoRecurringDecimal {
 
 	}
 
-	public static int gcd(int a, int b) {
-		return b != 0 ? gcd(b, a % b) : a;
-	}
-
 	/**
 	 * @param args
 	 */
@@ -90,6 +82,8 @@ public class FractiontoRecurringDecimal {
 		result = fractionToDecimal(2, 3);
 		System.out.println(result);
 		result = fractionToDecimal(22, 3);
+		System.out.println(result);
+		result = fractionToDecimal(9, 100);
 		System.out.println(result);
 	}
 

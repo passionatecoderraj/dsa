@@ -14,6 +14,19 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class FindNumberOfLeaves {
 
+	public int numberOfleaves(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		if (isLeaf(root)) {
+			return 1;
+		}
+		return numberOfleaves(root.left) + numberOfleaves(root.right);
+	}
+
+	private boolean isLeaf(BinaryTreeNode<Integer> root) {
+		return root.left == null && root.right == null;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -39,19 +52,6 @@ public class FindNumberOfLeaves {
 		result = obj.numberOfleavesWithoutRecursion(root);
 		System.out.println(result);
 
-	}
-
-	public int numberOfleaves(BinaryTreeNode<Integer> root) {
-		if (null == root)
-			return 0;
-		if (isLeaf(root)) {
-			return 1;
-		}
-		return numberOfleaves(root.left) + numberOfleaves(root.right);
-	}
-
-	public boolean isLeaf(BinaryTreeNode<Integer> root) {
-		return root.left == null && root.right == null;
 	}
 
 	public int numberOfleavesWithoutRecursion(BinaryTreeNode<Integer> node) {

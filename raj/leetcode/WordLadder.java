@@ -46,7 +46,7 @@ public class WordLadder {
 				}
 			}
 		}
-		return 0;
+		return Integer.MAX_VALUE;
 
 	}
 

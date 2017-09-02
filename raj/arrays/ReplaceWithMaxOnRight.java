@@ -1,6 +1,6 @@
 package com.raj.arrays;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /*
  * @Author Raj

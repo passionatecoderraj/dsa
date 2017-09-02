@@ -1,6 +1,6 @@
 package com.raj.matrix;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 // http://www.geeksforgeeks.org/create-a-matrix-with-alternating-rectangles-of-0-and-x/
 /*

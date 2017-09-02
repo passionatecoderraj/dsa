@@ -1,6 +1,6 @@
 package com.raj.matrix;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 public class TransposeMatrix {
 	// Time :O(m+n), Space : O(1)

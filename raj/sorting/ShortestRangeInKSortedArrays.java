@@ -3,7 +3,7 @@
  */
 package com.raj.sorting;
 
-import com.interivew.graph.BinaryMinHeap;
+import com.interview.graph.BinaryMinHeap;
 
 /**
  * @author Raj

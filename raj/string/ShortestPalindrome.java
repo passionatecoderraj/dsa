@@ -1,6 +1,6 @@
 package com.raj.string;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /*
  * Given a string s, form a shortest palindrome by appending characters at the start of the string

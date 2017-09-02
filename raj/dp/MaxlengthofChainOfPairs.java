@@ -6,7 +6,7 @@ package com.raj.dp;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

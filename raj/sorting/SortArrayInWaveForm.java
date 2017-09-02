@@ -5,7 +5,7 @@ package com.raj.sorting;
 
 import java.util.Arrays;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

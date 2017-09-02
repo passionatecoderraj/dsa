@@ -6,7 +6,7 @@ package com.raj.trees.binary;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 import com.raj.nodes.BinaryTreeNode;
 
 /**

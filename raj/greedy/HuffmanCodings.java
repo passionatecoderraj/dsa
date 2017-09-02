@@ -1,6 +1,6 @@
 package com.raj.greedy;
 
-import com.interivew.graph.BinaryMinHeap;
+import com.interview.graph.BinaryMinHeap;
 import com.raj.nodes.BinaryTreeNode;
 import com.raj.trees.binary.BinaryTree;
 

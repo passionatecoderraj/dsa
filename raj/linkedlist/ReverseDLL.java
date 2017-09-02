@@ -3,7 +3,7 @@
  */
 package com.raj.linkedlist;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 import com.raj.nodes.DLLNode;
 
 /**

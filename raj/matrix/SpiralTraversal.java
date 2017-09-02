@@ -1,6 +1,6 @@
 package com.raj.matrix;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 public class SpiralTraversal {
 	public static void main(String args[]) throws Exception {

@@ -1,6 +1,6 @@
 package com.raj.dp;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 public class MatrixChainMultiplication {
 	public static void main(String[] args) {

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 /**
  * 
@@ -39,13 +40,33 @@ import java.util.PriorityQueue;
  */
 public class ReconstructItinerary {
 
-	/*
-	 * In graph theory, an Eulerian trail (or Eulerian path) is a trail in a
-	 * graph which visits every edge exactly once. Similarly, an Eulerian
-	 * circuit or Eulerian cycle is an Eulerian trail which starts and ends on
-	 * the same vertex.
-	 */
-	public static List<String> findItinerary(String[][] tickets) {
+    /*
+     * First keep going forward until you get stuck. That's a good main path already. Remaining tickets form cycles which are found on the way back and get merged into that main path.
+     * 
+     *  https://leetcode.com/problems/reconstruct-itinerary/discuss/
+     */
+
+    public static List<String> findItinerary(String[][] tickets) {
+        Map<String, PriorityQueue<String>> map = new HashMap<>();
+
+        // construct graph
+        for (String[] ticket : tickets) {
+            map.computeIfAbsent(ticket[0], key -> new PriorityQueue<>()).add(ticket[1]);
+        }
+        LinkedList<String> result = new LinkedList<>();
+        Stack<String> stack = new Stack<>();
+        stack.push("JFK");
+        while (!stack.isEmpty()) {
+            while (map.containsKey(stack.peek()) && !map.get(stack.peek()).isEmpty()) {
+                stack.push(map.get(stack.peek()).poll());
+            }
+            result.addFirst(stack.pop());
+        }
+        return result;
+    }
+
+    
+     public static List<String> findItinerary2(String[][] tickets) {
 		Map<String, PriorityQueue<String>> map = new HashMap<>();
 
 		// construct graph

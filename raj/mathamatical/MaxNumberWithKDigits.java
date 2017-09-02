@@ -3,7 +3,7 @@ package com.raj.mathamatical;
 import java.util.Arrays;
 import java.util.Stack;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * 

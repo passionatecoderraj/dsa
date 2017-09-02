@@ -3,7 +3,7 @@
  */
 package com.raj.backtracking;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

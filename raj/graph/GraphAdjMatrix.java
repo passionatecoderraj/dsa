@@ -3,7 +3,7 @@ package com.raj.graph;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 public class GraphAdjMatrix {
 

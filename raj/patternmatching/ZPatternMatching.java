@@ -1,6 +1,6 @@
 package com.raj.patternmatching;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 public class ZPatternMatching {
 

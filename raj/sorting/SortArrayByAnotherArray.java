@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 import com.raj.arrays.AVLTreeWithCount;
 import com.raj.nodes.AVLTreeNodeWithCount;
 

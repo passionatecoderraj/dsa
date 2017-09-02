@@ -3,7 +3,7 @@
  */
 package com.raj.leetcode;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

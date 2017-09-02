@@ -58,6 +58,34 @@ import com.raj.graph.DisjointSet;
 public class NumberOfIslands2 {
 
 	public List<Integer> numIslands2(int m, int n, int[][] positions) {
+		List<Integer> result = new ArrayList<>();
+		DisjointSet ds = new DisjointSet();
+		int moves[][] = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+		int count = 0;
+		for (int p[] : positions) {
+			int v1 = n * p[0] + p[1];
+			ds.makeSet(v1);
+			count++;
+			for (int[] move : moves) {
+				int _x = p[0] + move[0];
+				int _y = p[1] + move[1];
+				int v2 = n * _x + _y;
+				if (!isSafe(m, n, _x, _y) || !ds.contains(v2)) {
+					continue;
+				}
+				ds.union(v1, v2);
+				count--;
+			}
+			result.add(count);
+		}
+		return result;
+	}
+
+	private boolean isSafe(int m, int n, int x, int y) {
+		return x >= 0 && x < m && y >= 0 && y < n;
+	}
+
+	public List<Integer> numIslands22(int m, int n, int[][] positions) {
 
 		DisjointSet ds = new DisjointSet();
 		ArrayList<Integer> result = new ArrayList<Integer>();

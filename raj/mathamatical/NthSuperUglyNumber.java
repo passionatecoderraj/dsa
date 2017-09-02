@@ -6,7 +6,7 @@ package com.raj.mathamatical;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

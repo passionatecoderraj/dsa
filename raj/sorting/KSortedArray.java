@@ -3,8 +3,8 @@
  */
 package com.raj.sorting;
 
-import com.interivew.graph.CommonUtil;
-import com.interivew.graph.MinHeap;
+import com.interview.graph.CommonUtil;
+import com.interview.graph.MinHeap;
 import com.raj.nodes.AVLTreeNode;
 import com.raj.trees.bst.AVLTree;;
 

@@ -2,7 +2,7 @@ package com.raj.leetcode;
 
 import java.util.HashMap;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /*
  * Given an input string, reverse the string word by word. A word is defined as a sequence of non-space characters.

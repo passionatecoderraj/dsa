@@ -5,7 +5,7 @@ package com.raj.arrays;
 
 import java.util.Stack;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

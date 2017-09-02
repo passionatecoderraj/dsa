@@ -1,6 +1,6 @@
 package com.raj.dp;
 
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.CommonUtil;
 
 /**
  * House Robber http://www.programcreek.com/2014/03/leetcode-house-robber-java/

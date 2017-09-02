@@ -6,8 +6,8 @@ package com.raj.sorting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.interivew.graph.BinaryMinHeap;
-import com.interivew.graph.CommonUtil;
+import com.interview.graph.BinaryMinHeap;
+import com.interview.graph.CommonUtil;
 
 /**
  * @author Raj

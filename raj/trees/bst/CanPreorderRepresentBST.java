@@ -49,7 +49,7 @@ public class CanPreorderRepresentBST {
 			}
 			stack.push(i);
 		}
-		return false;
+		return true;
 	}
 
 	// Time : O(n) , Space :O(1)
@@ -63,7 +63,7 @@ public class CanPreorderRepresentBST {
 			}
 			a[++i] = num;
 		}
-		return false;
+		return true;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class CanPreorderRepresentBST {
 		result = obj.canPreorderRepresentBSTUsingStack(new int[] { 40, 30, 35, 20, 80, 100 });
 		System.out.println(result);
 
-		// Time :O(n), Space :O(n)
+		// Time :O(n), Space :O(1)
 		result = obj.canPreorderRepresentBSTInConstantSpace(new int[] { 40, 30, 35, 20, 80, 100 });
 		System.out.println(result);
 

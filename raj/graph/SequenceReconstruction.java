@@ -52,6 +52,8 @@ import java.util.Set;
  *         Output: true
  *         
  *         https://discuss.leetcode.com/topic/65948/java-solution-using-bfs-topological-sort/2
+ *         
+ *         This problem is ambiguous. They are asking whether org can be uniquely constructed from seqs
  */
 public class SequenceReconstruction {
 

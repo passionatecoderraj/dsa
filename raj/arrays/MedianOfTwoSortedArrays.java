@@ -9,17 +9,74 @@ package com.raj.arrays;
  */
 public class MedianOfTwoSortedArrays {
 
-	/**
-	 * @param args
-	 */
+	public double findMedianSortedArrays(int a[], int b[]) {
+		int m = a.length, n = b.length;
+		/* A[0, 1, 2, ..., n-1, n] */
+		/* A[0, 1, 2, ..., m-1, m] */
+
+		// not using k as index because, finding kth element with 0th index is
+		// not clean
+		int k = (m + n - 1) / 2;
+		double v = (double) findKth(a, 0, m - 1, b, 0, n - 1, k);
+		System.out.println("k=" + k + ",v=" + v);
+		if ((m + n) % 2 == 0) {
+			int k2 = k + 1;
+			double v2 = (double) findKth(a, 0, m - 1, b, 0, n - 1, k2);
+			System.out.println("k2=" + k2 + ",v2=" + v2);
+			v = (v + v2) / 2;
+		}
+
+		return v;
+	}
+
+	// find the kth element int the two sorted arrays
+	// let us say: A[aMid] <= B[bMid], x: mid len of a, y: mid len of b, then
+	// wen can know
+	//
+	// (1) there will be at least (x + 1 + y) elements before bMid
+	// (2) there will be at least (m - x - 1 + n - y) = m + n - (x + y +1)
+	// elements after aMid
+	// therefore
+	// if k <= x + y + 1, find the kth element in a and b, but unconsidering
+	// bMid and its suffix
+	// if k > x + y + 1, find the k - (x + 1) th element in a and b, but
+	// unconsidering aMid and its prefix
+	// https://discuss.leetcode.com/topic/5728/share-one-divide-and-conquer-o-log-m-n-method-with-clear-description/12
+	public int findKth(int A[], int aL, int aR, int B[], int bL, int bR, int k) {
+		if (aL > aR)
+			return B[bL + k];
+		if (bL > bR)
+			return A[aL + k];
+
+		int aMid = (aL + aR) / 2;
+		int bMid = (bL + bR) / 2;
+
+		if (k <= (aMid - aL) + (bMid - bL)) {
+			if (A[aMid] <= B[bMid]) {
+				return findKth(A, aL, aR, B, bL, bMid - 1, k);
+			} else {
+				return findKth(A, aL, aMid - 1, B, bL, bR, k);
+			}
+		} else {
+			if (A[aMid] <= B[bMid]) {
+				return findKth(A, aMid + 1, aR, B, bL, bR, k - (aMid - aL) - 1);
+			} else {
+				return findKth(A, aL, aR, B, bMid + 1, bR, k - (bMid - bL) - 1);
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		MedianOfTwoSortedArrays obj = new MedianOfTwoSortedArrays();
-		int a1[] = { 1, 12, 15, 26 };
-		int a2[] = { 2, 13, 17, 30 };
+		int a[] = { 1, 12, 15, 26 };
+		int b[] = { 2, 13, 17, 30 };
 		int result = -1;
-		result = obj.medianOfTwoSortedArrays(a1, a2, 0, a1.length - 1, 0, a2.length - 1);
+		result = obj.medianOfTwoSortedArrays(a, b, 0, a.length - 1, 0, b.length - 1);
 		System.out.println(result);
-		double res = obj.findMedianSortedArrays(a1, a2);
+		double res = obj.findMedianSortedArrays(a, b);
+		System.out.println(res);
+
+		res = obj.findMedianSortedArrays(a, b);
 		System.out.println(res);
 
 	}
@@ -63,43 +120,6 @@ public class MedianOfTwoSortedArrays {
 			return (a[k] + a[k - 1]) / 2;
 		}
 
-	}
-
-	// Time :O(log(m+n))
-	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-		int total = nums1.length + nums2.length;
-		if (total % 2 == 0) {
-			int k1 = total / 2 + 1;
-			int k = total / 2;
-			return (findKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, k)
-					+ findKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, k1)) / 2;
-		} else {
-			int k = total / 2 + 1;
-			return findKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, k);
-		}
-	}
-
-	// https://discuss.leetcode.com/topic/5728/share-one-divide-and-conquer-o-log-m-n-method-with-clear-description/2
-	int findKth(int A[], int aL, int aR, int B[], int bL, int bR, int k) {
-		if (aL > aR)
-			return B[bL + k - 1];
-		if (bL > bR)
-			return A[aL + k - 1];
-
-		int aMid = (aL + aR) / 2;
-		int bMid = (bL + bR) / 2;
-
-		if (A[aMid] <= B[bMid]) {
-			if (k <= (aMid - aL) + (bMid - bL) + 1)
-				return findKth(A, aL, aR, B, bL, bMid - 1, k);
-			else
-				return findKth(A, aMid + 1, aR, B, bL, bR, k - (aMid - aL) - 1);
-		} else { // A[aMid] > B[bMid]
-			if (k <= (aMid - aL) + (bMid - bL) + 1)
-				return findKth(A, aL, aMid - 1, B, bL, bR, k);
-			else
-				return findKth(A, aL, aR, B, bMid + 1, bR, k - (bMid - bL) - 1);
-		}
 	}
 
 }

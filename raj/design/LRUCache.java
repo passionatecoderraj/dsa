@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.linkedlist;
+package com.raj.design;
 
 import java.util.HashMap;
 import java.util.Map;

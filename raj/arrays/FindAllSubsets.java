@@ -33,6 +33,27 @@ public class FindAllSubsets {
 		}
 	}
 
+	public List<List<Integer>> subsetsIterativeWithoutDuplicate(int[] a) {
+		Arrays.sort(a);
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		result.add(new ArrayList<Integer>());
+		int last = 0;
+		for (int i = 0; i < a.length; i++) {
+			int start = 0, size = result.size();
+			if (i > 0 && a[i] == a[i - 1]) {
+				start = result.size() - last;
+			}
+			last = 0;
+			for (int j = start; j < size; j++) {
+				last++;
+				List<Integer> list = new ArrayList<>(result.get(j));
+				list.add(a[i]);
+				result.add(list);
+			}
+		}
+		return result;
+	}
+
 	public List<List<Integer>> subsetsRecursive(int[] a) {
 		Arrays.sort(a);
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
@@ -77,6 +98,11 @@ public class FindAllSubsets {
 
 		int b[] = { 2, 1, 2 };
 		result = obj.subsetsRecursiveWithoutDuplicate(b);
+		System.out.println(result);
+
+		int c[] = { 5, 5, 5, 5, 5 };
+
+		result = obj.subsetsIterativeWithoutDuplicate(c);
 		System.out.println(result);
 
 	}

@@ -8,28 +8,58 @@ import com.interview.graph.CommonUtil;
 /**
  * @author Raj
  *
+ *A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+Given an encoded message containing digits, determine the total number of ways to decode it.
+
+For example,
+Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
+
+The number of ways decoding "12" is 2.
+
  */
 public class DecodeWays {
 
 	// Time :O(n), Space : O(1)
 	public static int decodeWaysDpConstantSpace(String str) {
-		if (null == str || str.length() == 0)
+		if (null == str || str.length() == 0 || str.charAt(0) == '0')
 			return 0;
-		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) != '0') {
-				break;
-			}
-			if (i == str.length() - 1)
-				return 0;
-		}
+
 		int a = 1, b = 1, c = 0;
-		for (int i = 2; i <= str.length(); i++) {
-			if (str.charAt(i - 1) > '0') {
+		for (int i = 1; i < str.length(); i++) {
+			int q = str.charAt(i) - '0';
+			if (q > 0) {
+				c = b;
+			}
+			int p = str.charAt(i - 1) - '0';
+			int val = p * 10 + q;
+			if (val >= 10 && val <= 26) {
+				c += a;
+			}
+			a = b;
+			b = c;
+			c = 0;
+		}
+		return b;
+	}
+
+	// Time :O(n), Space : O(1)
+	public static int decodeWaysDpConstantSpace2(String str) {
+		if (null == str || str.length() == 0 || str.charAt(0) == '0')
+			return 0;
+
+		int a = 1, b = 1, c = 0;
+		for (int i = 1; i < str.length(); i++) {
+			if (str.charAt(i) > '0') {
 				c = b;
 			}
 
-			if ((str.charAt(i - 2) > '0' && str.charAt(i - 2) < '2')
-					|| (str.charAt(i - 2) == '2' && str.charAt(i - 1) < '7')) {
+			if ((str.charAt(i - 1) > '0' && str.charAt(i - 1) < '2')
+					|| (str.charAt(i - 1) == '2' && str.charAt(i) < '7')) {
 				c += a;
 			}
 			a = b;
@@ -83,10 +113,10 @@ public class DecodeWays {
 		result = decodeWaysDp("1203");
 		System.out.println(result);
 
-		result = decodeWaysDpConstantSpace("1203");
+		result = decodeWaysDpConstantSpace("1224");
 		System.out.println(result);
 
-		result = decodeWaysDpConstantSpace("0");
+		result = decodeWaysDpConstantSpace("1202");
 		System.out.println(result);
 
 	}

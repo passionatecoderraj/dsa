@@ -1,17 +1,23 @@
 package com.raj.dp;
 
+import java.util.Arrays;
+
 public class LongestIncreasingSubsequence {
-	public static void main(String[] args) {
-		LongestIncreasingSubsequence obj = new LongestIncreasingSubsequence();
-		int result = -1;
-		//int a[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
-		//int a[] = { 1, 101, 2, 3, 100, 4, 5 };
-		int a[] = {0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
-		result = obj.lisDpOn2(a);
-		System.out.println(result);
-		result = obj.lisDpOnlogn(a);
-		System.out.println(result);
-		
+
+	public int lengthOfLIS(int[] nums) {
+		int[] dp = new int[nums.length];
+		int len = 0;
+		for (int num : nums) {
+			int i = Arrays.binarySearch(dp, 0, len, num);
+			if (i < 0) {
+				i = -(i + 1);
+			}
+			dp[i] = num;
+			if (i == len) {
+				len++;
+			}
+		}
+		return len;
 	}
 
 	public int lisDpOnlogn(int[] a) {
@@ -19,8 +25,9 @@ public class LongestIncreasingSubsequence {
 		int[] c = new int[n];
 		int[] result = new int[n];
 
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < n; i++) {
 			result[i] = -1;
+		}
 
 		c[0] = 0;
 		int len = 0;
@@ -54,10 +61,11 @@ public class LongestIncreasingSubsequence {
 	private int binarySearchForIndex(int[] a, int[] c, int l, int r, int key) {
 		while (r - l > 1) {
 			int m = l + (r - l) / 2;
-			if (a[c[m]] >= key)
+			if (a[c[m]] >= key) {
 				r = m;
-			else
+			} else {
 				l = m;
+			}
 		}
 		return r;
 	}
@@ -73,14 +81,32 @@ public class LongestIncreasingSubsequence {
 			for (int j = 0; j < i; j++) {
 				if (a[i] > a[j]) {
 					int t = c[j] + 1;
-					if (t > c[i])
+					if (t > c[i]) {
 						c[i] = t;
-					if (t > max)
+					}
+					if (t > max) {
 						max = t;
+					}
 				}
 			}
 		}
 
 		return max;
 	}
+
+	public static void main(String[] args) {
+		LongestIncreasingSubsequence obj = new LongestIncreasingSubsequence();
+		int result = -1;
+		// int a[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80 };
+		// int a[] = { 1, 101, 2, 3, 100, 4, 5 };
+		int a[] = { 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
+		result = obj.lisDpOn2(a);
+		System.out.println(result);
+		result = obj.lisDpOnlogn(a);
+		System.out.println(result);
+
+		result = obj.lengthOfLIS(a);
+		System.out.println(result);
+	}
+
 }

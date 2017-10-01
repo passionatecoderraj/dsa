@@ -1,16 +1,65 @@
 /**
- * 
+ *
  */
 package com.raj.trees.bst;
+
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
+import static java.lang.Math.max;
 
 import com.raj.nodes.BinaryTreeNode;
 import com.raj.trees.binary.BinaryTree;
 
 /**
  * @author Raj
- *
  */
 public class LargestBSTInBinaryTree {
+
+	public Result largestBSTInBinaryTree(BinaryTreeNode<Integer> root) {
+		if (null == root) {
+			return new Result(true, 0, MAX_VALUE, MIN_VALUE);
+		}
+
+		Result left = largestBSTInBinaryTree(root.left);
+		Result right = largestBSTInBinaryTree(root.right);
+
+		// if either of left or right subtree says its not BST or the data
+		// of this node is not greater/equal than max of left and less than min
+		// of right
+		// then subtree with this node as root will not be BST.
+		// Return false and max size of left and right subtree to parent
+		if (!left.isBst || !right.isBst || root.data < left.max || root.data > right.min) {
+			return new Result(false, max(left.count, right.count), 0, 0);
+		}
+
+		int count = 1 + left.count + right.count;
+		// if root.left is null then set root.data as min else
+		// take min of left side as min
+		int min = root.left != null ? left.min : root.data;
+		// if root.right is null then set root.data as max else
+		// take max of right side as max.
+		int max = root.right != null ? right.max : root.data;
+
+		return new Result(true, count, min, max);
+	}
+
+	public static void main(String[] args) {
+
+		LargestBSTInBinaryTree obj = new LargestBSTInBinaryTree();
+		Result result = null;
+		BinaryTreeNode<Integer> node = makeTree();
+		BinaryTree.postOrder(node);
+		System.out.println();
+		result = obj.largestBSTInBinaryTree(node);
+		System.out.println(result);
+
+		BinaryTree tree = new BinaryTree();
+		tree.insert(8);
+		tree.insert(7);
+		result = obj.largestBSTInBinaryTree(tree.root);
+		BinaryTree.postOrder(tree.root);
+		System.out.println(result);
+	}
 
 	private static BinaryTreeNode<Integer> makeTree() {
 		BinaryTreeNode<Integer> r25 = new BinaryTreeNode<Integer>(25);
@@ -49,20 +98,6 @@ public class LargestBSTInBinaryTree {
 		return r25;
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		LargestBSTInBinaryTree obj = new LargestBSTInBinaryTree();
-		Result result = null;
-		BinaryTreeNode<Integer> node = makeTree();
-		BinaryTree.postOrder(node);
-		System.out.println();
-		result = obj.largestBSTInBinaryTree(node);
-		System.out.println(result);
-	}
-
 	class Result {
 		boolean isBst;
 		int count;
@@ -80,23 +115,6 @@ public class LargestBSTInBinaryTree {
 		public String toString() {
 			return "Result [isBst=" + isBst + ", count=" + count + ", min=" + min + ", max=" + max + "]";
 		}
-	}
-
-	public Result largestBSTInBinaryTree(BinaryTreeNode<Integer> node) {
-		if (null == node) {
-			return new Result(true, 0, 0, 0);
-		}
-		Result left = largestBSTInBinaryTree(node.left);
-		Result right = largestBSTInBinaryTree(node.right);
-
-		if (BinaryTree.isLeaf(node)) {
-			return new Result(true, 1, node.data, node.data);
-		}
-		if (left.isBst && right.isBst) {
-			if (node.data > left.max && node.data < right.min)
-				return new Result(true, 1 + left.count + right.count, left.min, right.max);
-		}
-		return new Result(false, Math.max(left.count, right.count), 0, 0);
 	}
 
 }

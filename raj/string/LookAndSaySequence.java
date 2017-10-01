@@ -19,9 +19,36 @@ import java.util.Map;
  */
 public class LookAndSaySequence {
 
-	/**
-	 * @param args
-	 */
+	public String countAndSay(int n) {
+		if (n == 0) {
+			return "";
+		}
+		String pre = "1";
+
+		for (int i = 1; i < n; i++) {
+			StringBuilder res = new StringBuilder();
+			char prev = pre.charAt(0);
+			int count = 1;
+			for (int j = 1; j < pre.length(); j++) {
+				char cur = pre.charAt(j);
+				if (prev == cur) {
+					count++;
+				} else {
+					res.append(count);
+					res.append(prev);
+					prev = cur;
+					count = 1;
+				}
+			}
+
+			res.append(count);
+			res.append(prev);
+			pre = res.toString();
+		}
+
+		return pre;
+	}
+
 	public static void main(String[] args) {
 		LookAndSaySequence obj = new LookAndSaySequence();
 		String result = null;
@@ -30,6 +57,9 @@ public class LookAndSaySequence {
 		System.out.println(result);
 		result = obj.lookAndSaySequence("abcca");
 		System.out.println(result);
+		result = obj.countAndSay(n);
+		System.out.println(result);
+
 	}
 
 	// input abcca, output 2a1b2c

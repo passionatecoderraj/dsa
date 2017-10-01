@@ -45,7 +45,7 @@ public class SquareRoot {
 		result = obj.squareRoot(25);
 		System.out.println(result);
 
-		result = obj.squareRoot(0.36);
+		result = obj.squareRoot(0.0036);
 		System.out.println(result);
 	}
 

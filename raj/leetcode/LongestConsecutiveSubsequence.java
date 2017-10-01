@@ -13,17 +13,35 @@ import java.util.Set;
  */
 public class LongestConsecutiveSubsequence {
 
-	public static void main(String args[]) {
-		LongestConsecutiveSubsequence s = new LongestConsecutiveSubsequence();
-		int a[] = { 9, 3, 1, 10, 4, 20, 2 };
-		int result = -1;
-		result = s.longestConsecutiveSubsequence(a);
-		System.out.println(result);
+	// Time : O(n), Space : O(n)
+	public int longestConsecutiveSubsequence(int[] a) {
+		Set<Integer> set = new HashSet<>();
+		int maxLen = 0;
+		for (int i : a) {
+			set.add(i);
+		}
+		while (!set.isEmpty()) {
+			int n = set.iterator().next();
+			int left = n - 1;
+			int right = n + 1;
+			int count = 1;
+			while (set.contains(left)) {
+				set.remove(left--);
+				count++;
+			}
 
+			while (set.contains(right)) {
+				set.remove(right++);
+				count++;
+			}
+			maxLen = Math.max(maxLen, count);
+
+		}
+		return maxLen;
 	}
 
 	// Time : O(n), Space : O(n)
-	public int longestConsecutiveSubsequence(int[] a) {
+	public int longestConsecutiveSubsequence2(int[] a) {
 		Set<Integer> set = new HashSet<>();
 		int maxLen = 0;
 		for (int i : a)
@@ -46,4 +64,14 @@ public class LongestConsecutiveSubsequence {
 		}
 		return maxLen;
 	}
+
+	public static void main(String args[]) {
+		LongestConsecutiveSubsequence s = new LongestConsecutiveSubsequence();
+		int a[] = { 9, 3, 1, 10, 4, 20, 2 };
+		int result = -1;
+		result = s.longestConsecutiveSubsequence(a);
+		System.out.println(result);
+
+	}
+
 }

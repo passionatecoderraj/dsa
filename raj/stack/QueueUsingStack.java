@@ -1,68 +1,81 @@
-/**
- * 
+/**2.i
+ *
  */
 package com.raj.stack;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * @author Raj
- *
+ * 
+ * 
+ * Implement the following operations of a queue using stacks.
+
+push(x) -- Push element x to the back of queue.
+pop() -- Removes the element from in front of queue.
+peek() -- Get the front element.
+empty() -- Return whether the queue is empty.
+Notes:
+You must use only standard operations of a stack -- which means only push to top, peek/pop from top, size, and is empty operations are valid.
+Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or deque (double-ended queue), as long as you use only standard operations of a stack.
+You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
+
+
+ * (Two Stacks) Push - O(1)O(1) per operation, Pop - Amortized O(1)O(1) per operation.
  */
 public class QueueUsingStack {
 
-	Stack s1 = new Stack();
-	Stack s2 = new Stack();
+    Deque<Object> s1 = new LinkedList<>();
+    Deque<Object> s2 = new LinkedList<>();
 
-	Stack s3 = new Stack();
-	Stack s4 = new Stack();
+    // Time : O(1)
+    public void push(Object data) {
+        s1.push(data);
+    }
 
-	public void enque(Object data) {
-		s1.push(data);
-	}
+    // Time : Amortized O(1)
+    public Object pop() {
+        if (isEmpty()) {
+            return null;
+        }
 
-	public Object deQueue() {
-		return s3.pop();
-	}
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        return s2.pop();
+    }
 
-	public static void main(String[] args) {
-		QueueUsingStack q = new QueueUsingStack();
-		q.enque(10);
-		q.enque(20);
-		q.enque(30);
-		q.enque(40);
-		q.enque(50);
-		q.enque(60);
+    // Time : O(1)
+    public Object peek() {
+        if (isEmpty()) {
+            return null;
+        }
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        return s2.peek();
+    }
 
-		System.out.println(q.deQueueOverload());
-		System.out.println(q.deQueueOverload());
+    // Time : O(1)
+    public boolean isEmpty() {
+        return !s1.isEmpty() && !s2.isEmpty();
+    }
 
-		QueueUsingStack q2 = new QueueUsingStack();
-		q2.enqueOverload(10);
-		q2.enqueOverload(20);
-		q2.enqueOverload(30);
-		q2.enqueOverload(40);
-		q2.enqueOverload(50);
-		q2.enqueOverload(60);
-
-		System.out.println(q2.deQueue());
-		System.out.println(q2.deQueue());
-
-	}
-
-	public void enqueOverload(Object data) {
-		while (!s3.isEmpty())
-			s4.push(s3.pop());
-		s4.push(data);
-		while (!s4.isEmpty())
-			s3.push(s4.pop());
-	}
-
-	public Object deQueueOverload() {
-		while (!s1.isEmpty())
-			s2.push(s1.pop());
-		Object pop = s2.pop();
-		while (!s2.isEmpty())
-			s1.push(s2.pop());
-		return pop;
-	}
+    public static void main(String[] args) {
+        QueueUsingStack q = new QueueUsingStack();
+        q.push(10);
+        q.push(20);
+        q.push(30);
+        q.push(40);
+        System.out.println(q.pop());
+        System.out.println(q.peek());
+        q.push(50);
+        q.push(60);
+    }
 
 }

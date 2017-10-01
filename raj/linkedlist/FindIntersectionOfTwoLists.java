@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.raj.linkedlist;
 
@@ -7,12 +7,24 @@ import com.raj.nodes.ListNode;
 
 /**
  * @author Raj
- *
  */
 public class FindIntersectionOfTwoLists {
 
+	// https://discuss.leetcode.com/topic/28067/java-solution-without-knowing-the-difference-in-len
 	// Time : O(n)
 	public ListNode<Integer> findIntersection(SingleLinkedList<Integer> list1, SingleLinkedList<Integer> list2) {
+		ListNode<Integer> head1 = list1.root, head2 = list2.root;
+		ListNode<Integer> temp1 = head1, temp2 = head2;
+
+		while (temp1 != temp2) {
+			temp1 = temp1 != null ? temp1.next : head2;
+			temp2 = temp2 != null ? temp2.next : head1;
+		}
+		return temp1;
+	}
+
+	// Time : O(n)
+	public ListNode<Integer> findIntersection2(SingleLinkedList<Integer> list1, SingleLinkedList<Integer> list2) {
 		int n1 = list1.length(), n2 = list2.length();
 		int d = Math.abs(n1 - n2);
 		ListNode<Integer> temp1, temp2;
@@ -29,8 +41,9 @@ public class FindIntersectionOfTwoLists {
 		}
 
 		while (temp1 != null && temp2 != null) {
-			if (temp1.data == temp2.data)
+			if (temp1.data == temp2.data) {
 				return temp1;
+			}
 			temp1 = temp1.next;
 			temp2 = temp2.next;
 		}

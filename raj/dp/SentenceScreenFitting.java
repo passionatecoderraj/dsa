@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package com.raj.dp;
 
 /**
  * @author Raj
- *
+ * 
  *         Given a rows x cols screen and a sentence represented by a list of
  *         words, find how many times the given sentence can be fitted on the
  *         screen. Note: A word cannot be split into two lines. The order of
@@ -14,11 +14,27 @@ package com.raj.dp;
  *         sentence won't exceed 100. Length of each word won't exceed 10. 1 ≤
  *         rows, cols ≤ 20,000.
  */
-public class SentenceScreenFiltering {
+public class SentenceScreenFitting {
 
 	// Time : O(rows * Lw), Lw = max Length of the word
 	// https://discuss.leetcode.com/topic/62455/21ms-18-lines-java-solution
 	public static int wordsTyping(String[] sentence, int rows, int cols) {
+		String s = String.join(" ", sentence) + " ";
+		int start = 0, l = s.length();
+		for (int i = 0; i < rows; i++) {
+			start += cols;
+			while (start > 0 && s.charAt((start) % l) != ' ') {
+				start--;
+			}
+			start++;
+		}
+
+		return start / s.length();
+	}
+
+	// Time : O(rows * Lw), Lw = max Length of the word
+	// https://discuss.leetcode.com/topic/62455/21ms-18-lines-java-solution
+	public static int wordsTyping2(String[] sentence, int rows, int cols) {
 		String s = String.join(" ", sentence) + " ";
 		int start = 0, l = s.length();
 		for (int i = 0; i < rows; i++) {
@@ -37,24 +53,16 @@ public class SentenceScreenFiltering {
 
 	// Time : O(r*c), Space : O(1)
 	public static int sentenceScreenFiltering(String[] sentence, int rows, int cols) {
-		int r = 0, c = 0, i = 0, count = 0;
-		while (r < rows) {
-			c = 0;
-			while (c < cols) {
-				int wordLen = sentence[i].length();
-				int remainingCols = cols - c;
-				if (remainingCols >= wordLen) {
-					i++;
-					if (i == sentence.length) {
-						i = 0;
-						count++;
-					}
-					c = c + wordLen + 1;
-				} else {
-					break;
+		int i = 0, count = 0;
+		for (int r = 0; r < rows; r++) {
+			int remainingCols = cols;
+			while (remainingCols >= sentence[i].length()) {
+				remainingCols = remainingCols - sentence[i].length() - 1;
+				if (++i == sentence.length) {
+					i = 0;
+					count++;
 				}
 			}
-			r++;
 		}
 		return count;
 	}

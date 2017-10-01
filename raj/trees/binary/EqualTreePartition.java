@@ -44,6 +44,8 @@ public class EqualTreePartition {
 	 * the problem. In fact under any circumstances, we do not expect to cut the
 	 * root node:)
 	 * 
+	 * We cannot cut the root node by removing only one edge	
+	 * 
 	 * https://discuss.leetcode.com/topic/100179/java-c-simple-solution-with-
 	 * only-one-hashmap/11
 	 */

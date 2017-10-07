@@ -59,6 +59,7 @@ public class TextJustification {
 				sb.deleteCharAt(sb.length() - 1);
 				sb.append(getNSpaces(L - sb.length()));
 			} else {
+
 				int reqSpaces = L - lenSoFar;
 
 				// middle justified
@@ -68,8 +69,10 @@ public class TextJustification {
 					if (i != end - 1) {
 						int r = reqSpaces % (count - 1);
 						int n = (r == 0) ? (reqSpaces / (count - 1)) : (reqSpaces / (count - 1)) + 1;
-						sb.append(getNSpaces(n));
+						// below it's n+1,extra +1 comes from 'default counted space from above'
+						sb.append(getNSpaces(n + 1));
 						reqSpaces -= n;
+						count--;
 					}
 				}
 			}

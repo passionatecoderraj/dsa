@@ -19,7 +19,35 @@ import com.interview.graph.CommonUtil;
  */
 public class RotateMatrixBy90degrees {
 
-	public void rotateImageBy90degrees(int[][] a, int m, int n) {
+    /*
+     * clockwise rotate
+     * first reverse up to down, then swap the symmetry 
+     * 1 2 3     7 8 9     7 4 1
+     * 4 5 6  => 4 5 6  => 8 5 2
+     * 7 8 9     1 2 3     9 6 3
+    */
+    public void rotateImageBy90degrees(int[][] a, int m, int n) {
+      
+        // swap rows
+        int l = 0, r = m - 1;
+        while (l < r) {
+            for (int i = 0; i < n; i++) {
+                CommonUtil.swap(a, l,i,r,i);
+            }
+            l++;
+            r--;
+        }
+        
+        // transpose
+        for (int i = 0; i < m; i++) {
+            for (int j = i + 1; j < n; j++) {
+                CommonUtil.swap(a, i, j, j, i);
+            }
+        }
+
+    }
+    
+    public void rotateImageBy90degrees2(int[][] a, int m, int n) {
 		// transpose
 		for (int i = 0; i < m; i++) {
 			for (int j = i + 1; j < n; j++) {

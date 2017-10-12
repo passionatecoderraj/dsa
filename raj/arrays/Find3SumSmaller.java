@@ -30,6 +30,14 @@ public class Find3SumSmaller {
 			int l = i + 1, r = a.length - 1;
 			while (l < r) {
 				if (a[i] + a[l] + a[r] < k) {
+					/*
+					 * If we know that nums[i] + nums[lo] + nums[hi] < target,
+					 * then we know that since the array is sorted, we can
+					 * replace hi with any element from lo+1 to nums.length-1,
+					 * and the requirements will still be met. Just like in the
+					 * example above, we know that since -2 + 0 + 3 < 2, we can
+					 * replace hi (3) with 1, and it would still work.
+					 */
 					count += (r - l);
 					l++;
 				} else {

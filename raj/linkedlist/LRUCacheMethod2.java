@@ -5,7 +5,6 @@ package com.raj.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 import com.raj.nodes.LRUCacheDLLNode;;
 
@@ -80,7 +79,6 @@ public class LRUCacheMethod2 {
 		nn.prev = null;
 		if (head != null)
 			head.prev = nn;
-		head = nn;
 		if (null == tail)
 			tail = nn;
 	}
@@ -111,7 +109,5 @@ public class LRUCacheMethod2 {
 			map.put(key, nn);
 		}
 	}
-	
-	Stack<Character> stack = new Stack<>();
-	
+
 }

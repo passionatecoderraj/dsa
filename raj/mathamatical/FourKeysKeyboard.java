@@ -3,6 +3,7 @@
  */
 package com.raj.mathamatical;
 
+
 /**
  * @author Raj
  * 
@@ -28,7 +29,22 @@ package com.raj.mathamatical;
  */
 public class FourKeysKeyboard {
 
-	// http://www.geeksforgeeks.org/how-to-print-maximum-number-of-a-using-given-four-keys/
+	
+    public int maxA(int n) {
+        int t[] = new int[n];
+        
+        for (int i = 0; i < 6; i++) {
+            t[i] = i+1;
+        }
+        for(int i=6;i<n;i++){
+            for(int j=2;j<6;j++){
+                t[i] = Math.max(t[i],t[i-j-1]*j);
+            }
+        }
+        return t[n-1];
+    }
+    
+    // http://www.geeksforgeeks.org/how-to-print-maximum-number-of-a-using-given-four-keys/
 
 	// T : O(n2), Space : O(n)
 	public int maxA2(int n) {
@@ -65,7 +81,7 @@ public class FourKeysKeyboard {
 	}
 
 	// T : O(n), Space : O(n)
-	public int maxA(int n) {
+	public int maxA3(int n) {
 		if (n <= 6) {
 			return n;
 		}

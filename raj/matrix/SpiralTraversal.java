@@ -30,14 +30,11 @@ public class SpiralTraversal {
 			}
 			right--;
 
-			if (top <= bottom) {
+			if (top <= bottom && left <= right) {
 				for (int i = right; i >= left; i--) {
 					System.out.print(a[bottom][i] + " ");
 				}
 				bottom--;
-			}
-
-			if (left <= right) {
 				for (int i = bottom; i >= top; i--) {
 					System.out.print(a[i][left] + " ");
 				}

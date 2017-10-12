@@ -24,6 +24,10 @@ public class CountPrimes {
 			for (int k = i * i; k <= n; k += i) {
 				isPrime[k] = false;
 			}
+			// another way of doing
+			// for (int k = i ; k* i < n; k++) {
+			// isPrime[k*i] = false;
+			// }
 		}
 		int count = 0;
 		for (int i = 2; i <= n; i++) {

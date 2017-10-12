@@ -11,7 +11,7 @@ import com.raj.nodes.ListNode;
 public class FindIntersectionOfTwoLists {
 
 	// https://discuss.leetcode.com/topic/28067/java-solution-without-knowing-the-difference-in-len
-	// Time : O(n)
+	// Time : O(max(m,n))
 	public ListNode<Integer> findIntersection(SingleLinkedList<Integer> list1, SingleLinkedList<Integer> list2) {
 		ListNode<Integer> head1 = list1.root, head2 = list2.root;
 		ListNode<Integer> temp1 = head1, temp2 = head2;

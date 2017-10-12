@@ -14,12 +14,32 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class HouseRobberWithMaxAmountInTree {
 
-    public int maxAmountRobbedByHouseRobber(BinaryTreeNode<Integer> root) {
+    public int rob(BinaryTreeNode<Integer> root) {
+        Result n = robU(root);
+        return Math.max(n.incl, n.excl);
+    }
+
+    public Result robU(BinaryTreeNode<Integer> root) {
+        if(null == root){
+            return new Result(0,0);
+        }
+        Result left = robU(root.left);
+        Result right = robU(root.right);
+        // very similar to house robber 1 problem
+        // cur exclusive is neighbours inclusive
+       int excl = left.incl+right.incl;
+       // current inclusive is max of (neighbors exclusive + cur value, neighbors inclusive)
+       int incl = Math.max(left.excl+right.excl+root.data, left.incl+right.incl);
+       return new Result(incl,excl);
+    }
+
+ 
+ public int maxAmountRobbedByHouseRobber(BinaryTreeNode<Integer> root) {
         if (null == root) {
             return 0;
         }
         Result obj = maxAmountRobbedByHouseRobberUtil(root);
-        return Math.max(obj.amtIncludingRoot, obj.amtExcludingRoot);
+        return Math.max(obj.incl, obj.excl);
     }
 
     private Result maxAmountRobbedByHouseRobberUtil(BinaryTreeNode<Integer> root) {
@@ -30,31 +50,31 @@ public class HouseRobberWithMaxAmountInTree {
         Result right = maxAmountRobbedByHouseRobberUtil(root.right);
         // when root is included, sum of (root, left amount when it's excluded
         // and right amount when it's excluded)
-        int incl = root.data + left.amtExcludingRoot + right.amtExcludingRoot;
+        int incl = root.data + left.excl + right.excl;
 
         // when root is excluded, sum of (max of left's amt including and left
         // amt excluding, and max of right amt including and right's amt
         // excluding)
         // When excluded, we are going to include it's children. It means we need to get the max value at their
         // nodes. To do so, we need to calculate max(including,excluding) similar to the way we are doing for root
-        int excl = Math.max(left.amtIncludingRoot, left.amtExcludingRoot)
-                + Math.max(right.amtIncludingRoot, right.amtExcludingRoot);
+        int excl = Math.max(left.incl, left.excl)
+                + Math.max(right.incl, right.excl);
 
         return new Result(incl, excl);
     }
 
     class Result {
-        int amtIncludingRoot;
-        int amtExcludingRoot;
+        int incl;
+        int excl;
 
-        public Result(int amtIncludingRoot, int amtExcludingRoot) {
-            this.amtIncludingRoot = amtIncludingRoot;
-            this.amtExcludingRoot = amtExcludingRoot;
+        public Result(int incl, int excl) {
+            this.incl = incl;
+            this.excl = excl;
         }
 
         @Override
         public String toString() {
-            return "Result [amtIncludingRoot=" + amtIncludingRoot + ", amtExcludingRoot=" + amtExcludingRoot + "]";
+            return "Result [incl=" + incl + ", excl=" + excl + "]";
         }
 
     }
@@ -82,10 +102,10 @@ public class HouseRobberWithMaxAmountInTree {
         ob2.insert(1);
 
         int result = 0;
-        result = obj.maxAmountRobbedByHouseRobber(ob1.root);
+        result = obj.rob(ob1.root);
         System.out.println(result);
 
-        result = obj.maxAmountRobbedByHouseRobber(ob2.root);
+        result = obj.rob(ob2.root);
         System.out.println(result);
 
     }

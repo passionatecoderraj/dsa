@@ -15,26 +15,38 @@ import com.interview.graph.CommonUtil;
  */
 public class RainWaterTrapping {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		int a[] = { 1, 5, 2, 3, 1, 7, 2 };
-		int result = -1, n = a.length;
-
-		RainWaterTrapping obj = new RainWaterTrapping();
-
-		// Time : O(n), Space : O(n)
-	//	result = obj.trappedQuantityOfRainWater(a, n);
-	//	System.out.println(result);
-		result = obj.rainWaterTrapped(a, n);
-		System.out.println(result);
+	// Time : O(n), Space : O(1);
+	public int rainWaterTrapped(int[] a) {
+		if (a.length < 3)
+			return 0;
+		int res = 0, maxLeft = 0, maxRight = 0;
+		int l = 0, r = a.length - 1;
+		while (l <= r) {
+			// we can count water, from tower with smaller height that's why if
+			// left is small we move from left or right is small we move from right
+			if (a[l] <= a[r]) {
+				if (a[l] >= maxLeft) {
+					maxLeft = a[l];
+				} else {
+					res += (maxLeft - a[l]);
+				}
+				l++;
+			} else {
+				if (a[r] >= maxRight) {
+					maxRight = a[r];
+				} else {
+					res += (maxRight - a[r]);
+				}
+				r--;
+			}
+		}
+		return res;
 	}
 
-	// same logic but easy to code
-	public int rainWaterTrapped(int a[], int n) {
-		if (n <= 1)
+	// Time : O(n), Space : O(n);
+	public int rainWaterTrapped2(int a[]) {
+		int n = a.length;
+		if (n <= 3)
 			return 0;
 		int lMax[] = new int[n];
 		int rMax[] = new int[n];
@@ -67,51 +79,18 @@ public class RainWaterTrapping {
 		return t;
 	}
 
-	public int trappedQuantityOfRainWater(int[] a, int n) {
-		if (n <= 2)
-			return 0;
-		int[] lMax = new int[n];
-		int[] rMax = new int[n];
-		int[] t = new int[n];
+	public static void main(String[] args) {
 
-		lMax[0] = 0;
-		rMax[n - 1] = n - 1;
+		int a[] = { 1, 5, 2, 3, 1, 7, 2 };
+		int result = -1, n = a.length;
 
-		int max_so_far = 0;
-		for (int i = 1; i < n; i++) {
-			if (a[i] >= a[max_so_far]) {
-				lMax[i] = i;
-				max_so_far = i;
-			} else {
-				lMax[i] = max_so_far;
-			}
-		}
+		RainWaterTrapping obj = new RainWaterTrapping();
 
-		max_so_far = n - 1;
-		for (int i = n - 2; i >= 0; i--) {
-			if (a[i] >= a[max_so_far]) {
-				rMax[i] = i;
-				max_so_far = i;
-			} else {
-				rMax[i] = max_so_far;
-			}
-		}
-
-		CommonUtil.printArray(lMax);
-		CommonUtil.printArray(a);
-		CommonUtil.printArray(rMax);
-		int trapped_water = 0;
-		for (int i = 1; i < n - 1; i++) {
-			if (lMax[i] == i || rMax[i] == i) {
-				t[i] = 0;
-			} else {
-				t[i] = Math.min(a[lMax[i]], a[rMax[i]]) - a[i];
-				trapped_water += t[i];
-			}
-		}
-		CommonUtil.printArray(t);
-
-		return trapped_water;
+		// Time : O(n), Space : O(n)
+		// result = obj.trappedQuantityOfRainWater(a, n);
+		// System.out.println(result);
+		result = obj.rainWaterTrapped(a);
+		System.out.println(result);
 	}
 
 }

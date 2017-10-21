@@ -15,9 +15,6 @@ import com.interview.graph.CommonUtil;
  */
 public class SortArrayByFrequency {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		SortArrayByFrequency obj = new SortArrayByFrequency();
 		int a[] = { 2, 5, 2, 6, -1, 9999999, 5, 8, 8, 8 };

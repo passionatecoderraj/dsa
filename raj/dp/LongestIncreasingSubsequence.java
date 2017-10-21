@@ -9,7 +9,7 @@ public class LongestIncreasingSubsequence {
         int size = 0;
         for (int x : nums) {
             int i = 0, j = size;
-            while (i != j) {
+            while (i < j) {
                 int m = (i + j) / 2;
                 if (x > dp[m]) {
                     i = m + 1;

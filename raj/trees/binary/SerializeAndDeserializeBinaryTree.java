@@ -50,6 +50,8 @@ public class SerializeAndDeserializeBinaryTree {
 		return root;
 	}
 
+	// use List<String> to capture tree. If negative numbers or two digit
+	// numbers are there string concatenation may not work
 	public void serializeBinaryTree(BinaryTreeNode<Integer> root, StringBuilder preOrder) {
 		if (null == root) {
 			preOrder.append("#");

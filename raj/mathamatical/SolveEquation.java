@@ -1,11 +1,9 @@
 package com.raj.mathamatical;
 
 /**
- * Solve the Equation
- *
- * https://leetcode.com/problems/solve-the-equation/description/
- *
- * Solve a given equation and return the value of x in the form of string "x=#value". The equation contains only '+', '-' operation, the variable x and its coefficient.
+ * @author Raj
+ * @formatter : off
+ *Solve a given equation and return the value of x in the form of string "x=#value". The equation contains only '+', '-' operation, the variable x and its coefficient.
 
 If there is no solution for the equation, return "No solution".
 
@@ -28,6 +26,8 @@ Output: "x=-1"
 Example 5:
 Input: "x=x+2"
 Output: "No solution"
+ *
+ * @formatter : on
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +66,30 @@ public class SolveEquation {
 
     public List<String> breakIt(String str) {
         List<String> res = new ArrayList<>();
+        int l = 0;
+        for (int r = 1; r < str.length(); r++) {
+            char ch = str.charAt(r);
+            if (ch == '+' || ch == '-') {
+                res.add(str.substring(l, r));
+                l = r;
+            }
+        }
+        res.add(str.substring(l));
+        return res;
+    }
+
+    public String coeff(String x) {
+        if (x.length() == 1) {
+            return "1";
+        }
+        if (x.length() == 2 && (x.charAt(0) == '+' || x.charAt(0) == '-')) {
+            return x.replace("x", "1");
+        }
+        return x.replace("x", "");
+    }
+
+    public List<String> breakIt2(String str) {
+        List<String> res = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (char ch : str.toCharArray()) {
             if (ch == '+' || ch == '-') {
@@ -79,16 +103,6 @@ public class SolveEquation {
         res.add(sb.toString());
 
         return res;
-    }
-
-    public String coeff(String x) {
-        if (x.length() == 1) {
-            return "1";
-        }
-        if (x.length() == 2 && (x.charAt(0) == '+' || x.charAt(0) == '-')) {
-            return x.replace("x", "1");
-        }
-        return x.replace("x", "");
     }
 
     public static void main(String[] args) {

@@ -48,8 +48,8 @@ public class RotateFunction {
         }
        
         int maxFun = preFun;
-        for (int i = a.length - 1; i > 0; i--) {
-             int curFun = sum + preFun - 4 * a[i];
+        for (int i = 1; i <a.length;i++) {
+             int curFun = sum + preFun - (a.length * a[a.length-i]);
             maxFun = Math.max(curFun, maxFun);
             preFun = curFun;
         }

@@ -40,10 +40,10 @@ public class MergeTwoBinaryTrees {
             return null;
         }
         if (null == r1) {
-            return new BinaryTreeNode<Integer>(r2.data);
+            return r2;
         }
         if (null == r2) {
-            return new BinaryTreeNode<Integer>(r1.data);
+            return r1;
         }
         BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(r1.data + r2.data);
         root.left = mergeTrees(r1.left, r2.left);

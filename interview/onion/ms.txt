@@ -1,0 +1,41 @@
+static void reformat(String [] ph) {
+		String a;
+		for(int i = 0; i < ph.length; i++)
+			if(ph[i].length()==10) {
+				a = ph[i].substring(3,6) + "-" + ph[i].substring(0, 3) + "-" +ph[i].substring(6, 10);
+				ph[i] = a;
+			} else if (ph[i].length() == 12) {
+				a = ph[i].substring(4,7) + "-" + ph[i].substring(0, 3) + "-" +ph[i].substring(8, 12);
+				ph[i] = a;
+			}
+	}
+	
+	public static void sortArray(String productCodeArray[]){
+		System.out.println(Arrays.toString(productCodeArray));
+		int mid=0;
+		int low=0;
+		int high  = productCodeArray.length-1;
+		while(mid<=high){
+			int priorityCode = getPriority(productCodeArray[mid]);
+			String tmp = null;
+			switch(priorityCode){
+			case 1:
+				tmp = productCodeArray[mid];
+				productCodeArray[mid] = productCodeArray[low];
+				productCodeArray[low]=tmp;
+				mid++;
+				low++;
+				break;
+			case 2:
+				mid++;
+				break;
+			case 3:
+				tmp = productCodeArray[mid];
+				productCodeArray[mid] = productCodeArray[high];
+				productCodeArray[high]=tmp;
+				high--;
+				break;
+			}
+		}
+		System.out.println("After Sorting: "+Arrays.toString(productCodeArray));
+	}

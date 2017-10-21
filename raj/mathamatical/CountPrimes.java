@@ -13,15 +13,15 @@ public class CountPrimes {
 
 	// Time :O(n*loglogn), Space : O(n)
 	public int countPrimes(int n) {
-		boolean[] isPrime = new boolean[n + 1];
+		boolean[] isPrime = new boolean[n];
 		Arrays.fill(isPrime, true);
 
 		// Loop's ending condition is i * i < n instead of i < sqrt(n)
 		// to avoid repeatedly calling an expensive function sqrt().
-		for (int i = 2; i * i <= n; i++) {
+		for (int i = 2; i * i < n; i++) {
 			if (!isPrime[i])
 				continue;
-			for (int k = i * i; k <= n; k += i) {
+			for (int k = i * i; k < n; k += i) {
 				isPrime[k] = false;
 			}
 			// another way of doing
@@ -30,7 +30,7 @@ public class CountPrimes {
 			// }
 		}
 		int count = 0;
-		for (int i = 2; i <= n; i++) {
+		for (int i = 2; i < n; i++) {
 			if (isPrime[i])
 				count++;
 		}

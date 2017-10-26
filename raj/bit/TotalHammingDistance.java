@@ -25,6 +25,21 @@ Length of the array will not exceed 10^4.
 public class TotalHammingDistance {
 
     // https://discuss.leetcode.com/topic/72092/java-o-n-time-o-1-space
+	/*
+	 * consider three numbers {3,4,5} 
+	 * Least Significant bit of 3 : 1,
+	 * Least Significant bit of 4 : 0,
+	 * Least Significant bit of 5 : 1, 
+	 * 
+	 * Total Pairs : 3 - (3,4)(3,5)(4,5)
+	 *  LSBs of these pairs : (1,0),(1,1),(0,1)
+	 *  so total hamming distance for these are : 3
+	 *  
+	 *  if we see, do we need to take pairs here?
+	 *   We only cared about how many bits are 1 and how many bits are zero
+	 *  bitsCount(1) * n-bitsCount(0) = result
+	 * 
+	 */
     public int totalHammingDistance(int a[]) {
         int total = 0;
         for (int i = 0; i < 32; i++) {

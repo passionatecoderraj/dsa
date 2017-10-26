@@ -89,7 +89,11 @@ public class SplitArrayLargestSum {
 		SplitArrayLargestSum obj = new SplitArrayLargestSum();
 		int a[] = { 7, 2, 5, 10, 8 };
 		int result = -1;
+		
 		result = obj.splitArray(a, 2);
+		System.out.println(result);
+
+		result = obj.splitArray(new int[]{7,2,5,10,8,9,5,4,6,11,3}, 3);
 		System.out.println(result);
 
 	}

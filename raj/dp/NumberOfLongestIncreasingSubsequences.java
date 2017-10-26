@@ -63,6 +63,10 @@ public class NumberOfLongestIncreasingSubsequences {
         result = obj.findNumberOfLIS(b);
         System.out.println(result);
 
+        int c[] = {1, 3, 5, 4, 7,6,8 };
+        result = obj.findNumberOfLIS(c);
+        System.out.println(result);
+
     }
 
 }

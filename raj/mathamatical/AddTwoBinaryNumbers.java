@@ -8,18 +8,28 @@ package com.raj.mathamatical;
  */
 public class AddTwoBinaryNumbers {
 
-	public static void main(String args[]) {
-		AddTwoBinaryNumbers s = new AddTwoBinaryNumbers();
-		String b1 = "11", b2 = "111";
+	// Time :O(m+n)
+	public String addTwoBinaryNumbers(String b1, String b2) {
+		if (b1 == null || b1.length() <= 0)
+			return b2;
+		if (b2 == null || b2.length() <= 0)
+			return b1;
 
-		String result = null;
-		result = s.addTwoBinaryNumbers(b1, b2);
-		System.out.println(result);
-
+		StringBuilder sb = new StringBuilder();
+		int carry = 0, l, r, res;
+		int i = b1.length() - 1, j = b2.length() - 1;
+		while (i >= 0 || j >= 0 || carry > 0) {
+			l = (i >= 0) ? b1.charAt(i--) - '0' : 0;
+			r = (j >= 0) ? b2.charAt(j--) - '0' : 0;
+			res = l + r + carry;
+			sb.append(res % 2);
+			carry = res / 2;
+		}
+		return sb.reverse().toString();
 	}
 
 	// Time :O(m+n)
-	public String addTwoBinaryNumbers(String b1, String b2) {
+	public String addTwoBinaryNumbers2(String b1, String b2) {
 		if (b1 == null || b1.length() <= 0)
 			return b2;
 		if (b2 == null || b2.length() <= 0)
@@ -49,4 +59,15 @@ public class AddTwoBinaryNumbers {
 			sb.append(carry);
 		return sb.reverse().toString();
 	}
+
+	public static void main(String args[]) {
+		AddTwoBinaryNumbers s = new AddTwoBinaryNumbers();
+		String b1 = "11", b2 = "111";
+
+		String result = null;
+		result = s.addTwoBinaryNumbers(b1, b2);
+		System.out.println(result);
+
+	}
+
 }

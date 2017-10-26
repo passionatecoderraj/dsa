@@ -3,7 +3,6 @@
  */
 package com.raj.dp;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,15 +12,33 @@ import java.util.Map;
  */
 public class TargetSum {
 
-	public int findTargetSumWays(int[] a, int S) {
-		int sum = Arrays.stream(a).sum();
-		if (S > sum || S < -sum) {
-			return 0;
-		}
-		int t[][] = new int[a.length][2001];
-		t[0][a[0] + 1000] += 1;
-		t[0][-a[0] + 1000] += 1;
+	/*
+	 * The original problem statement is equivalent to: Find a subset of nums
+	 * that need to be positive, and the rest of them negative, such that the
+	 * sum is equal to target
+	 * 
+	 * sum(P) - sum(N) = target sum(P) + sum(N) + sum(P) - sum(N) = target +
+	 * sum(P) + sum(N) 2 * sum(P) = target + sum(nums)
+	 * 
+	 * 
+	 */
 
+	public int findTargetSumWays(int[] nums, int s) {
+		int sum = 0;
+		for (int n : nums)
+			sum += n;
+		return sum < s || (s + sum) % 2 > 0 ? 0 : subsetSum(nums, (s + sum) >>> 1);
+	}
+
+	private int subsetSum(int[] nums, int sum) {
+		int t[] = new int[sum + 1];
+		t[0] = 1;
+		for (int num : nums) {
+			for (int j = sum; j >= num; j--) {
+				t[j] += t[j - num];
+			}
+		}
+		return t[sum];
 	}
 
 	public int findTargetSumWays2(int[] nums, int S) {

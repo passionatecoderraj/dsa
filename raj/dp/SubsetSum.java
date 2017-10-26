@@ -9,9 +9,20 @@ package com.raj.dp;
  */
 public class SubsetSum {
 
-	/**
-	 * @param args
-	 */
+	// Time : O(n*sum), Space : O(sum);
+	public boolean isSubsetSum(int a[], int sum) {
+		boolean t[] = new boolean[sum + 1];
+
+		t[0] = true;
+		for (int num : a) {
+			for (int i = sum; i >= num; i--) {
+				t[i] = t[i] || t[i - num];
+			}
+		}
+
+		return t[sum];
+	}
+
 	public static void main(String[] args) {
 		int a[] = { 3, 34, 4, 12, 5, 2 };
 
@@ -19,6 +30,16 @@ public class SubsetSum {
 		int n = 9;
 		SubsetSum obj = new SubsetSum();
 		result = obj.isSubsetSum(a, a.length, n);
+		System.out.println(result);
+
+		int[] b = new int[] { 1, 2, 3, 5 };
+		result = obj.isSubsetSum(b, b.length, 12);
+		System.out.println(result);
+
+		result = obj.isSubsetSum(a, 9);
+		System.out.println(result);
+
+		result = obj.isSubsetSum(b, 12);
 		System.out.println(result);
 
 	}

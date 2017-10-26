@@ -59,6 +59,10 @@ public class Find3SumSmaller {
 		res = threeSumSmaller(a2, 2);
 		System.out.println(res);
 
+		int a3[] = { -2,-1, 0, 1,2, 3 };
+		res = threeSumSmaller(a3, 2);
+		System.out.println(res);
+
 	}
 
 }

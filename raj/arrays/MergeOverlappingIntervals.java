@@ -10,10 +10,19 @@ import java.util.List;
 
 /**
  * @author Raj
+ * @formatter:off
+ * 
+Merge Intervals								Start
+Meeting Rooms								Start
+Meeting Rooms2								Start
+Insert Interval								Start
+Maximum Length of Pair Chain				Start
+Non-overlapping Intervals					End
+Minimum Number of Arrows to Burst Balloons	End
+@formatter:on
  *
  */
 /*
- * Merge Overlapping Intervals using Java
  * 
  */
 public class MergeOverlappingIntervals {

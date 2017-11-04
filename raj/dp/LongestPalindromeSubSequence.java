@@ -9,19 +9,25 @@ package com.raj.dp;
  */
 public class LongestPalindromeSubSequence {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		String str = "agbdba";
+	// Time : O(n2), Space : O(n)
+	// https://discuss.leetcode.com/topic/78625/python-dp-o-n-space-o-n-2-time/3
+	public int longestPalindormeDp(String s) {
+		int t[] = new int[s.length()];
 
-		int result = -1, n = str.length();
-
-		LongestPalindromeSubSequence obj = new LongestPalindromeSubSequence();
-		result = obj.longestPalindormeBruteForce(str.toCharArray(), 0, n - 1);
-		System.out.println(result);
-		result = obj.longestPalindormeDp(str.toCharArray(), 0, n);
-		System.out.println(result);
+		for (int i = 0; i < s.length(); i++) {
+			t[i] = 1;
+			int prev = 0;
+			for (int j = i - 1; j >= 0; j--) {
+				int temp = t[j];
+				if (s.charAt(i) == s.charAt(j)) {
+					t[j] = 2 + prev;
+				} else {
+					t[j] = Math.max(t[j], t[j + 1]);
+				}
+				prev = temp;
+			}
+		}
+		return t[0];
 	}
 
 	public int longestPalindormeDp(char[] str, int s, int n) {
@@ -44,13 +50,23 @@ public class LongestPalindromeSubSequence {
 			}
 		}
 
-		// for (int i = 0; i < n; i++) {
-		// for (int j = 0; j < n; j++) {
-		// System.out.print(t[i][j] + " ");
-		// }
-		// System.out.println();
-		// }
 		return t[0][n - 1];
+	}
+
+	public static void main(String[] args) {
+		String str = "agbdba";
+
+		int result = -1, n = str.length();
+
+		LongestPalindromeSubSequence obj = new LongestPalindromeSubSequence();
+		result = obj.longestPalindormeBruteForce(str.toCharArray(), 0, n - 1);
+		System.out.println(result);
+		result = obj.longestPalindormeDp(str.toCharArray(), 0, n);
+		System.out.println(result);
+
+		result = obj.longestPalindormeDp(str);
+		System.out.println(result);
+
 	}
 
 	public int longestPalindormeBruteForce(char[] str, int i, int n) {

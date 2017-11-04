@@ -1,4 +1,4 @@
-./**
+/**
  * 
  */
 package com.raj.arrays;
@@ -11,9 +11,21 @@ import java.util.Arrays;
  */
 public class CountNumberofPossibleTriangles {
 
-	/**
-	 * @param args
-	 */
+	public int triangleNumber(int[] a) {
+		Arrays.sort(a);
+		int count = 0;
+		for (int i = 0; i < a.length - 2; i++) {
+			for (int l = i + 1; l < a.length - 1; l++) {
+				int r = l + 1;
+				while (r < a.length && a[i] + a[l] > a[r]) {
+					r++;
+				}
+				count += (r - l - 1);
+			}
+		}
+		return count;
+	}
+
 	public static void main(String[] args) {
 		CountNumberofPossibleTriangles obj = new CountNumberofPossibleTriangles();
 		int result = -1;
@@ -32,6 +44,9 @@ public class CountNumberofPossibleTriangles {
 		int c[] = { 21, 100, 200, 22, 10, 300, 101, };
 		// Time :O(n2), Space : O(1)
 		result = obj.countNumberOfPossibleTrianglesWithSmallChange(c, c.length);
+		System.out.println(result);
+
+		result = obj.triangleNumber(c);
 		System.out.println(result);
 
 	}

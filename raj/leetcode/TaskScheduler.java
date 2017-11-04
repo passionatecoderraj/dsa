@@ -47,6 +47,10 @@ public class TaskScheduler {
 		}
 
 		// https://leetcode.com/problems/task-scheduler/discuss/
+		/*
+		 * ABCD 2 -> tasks.length
+		 * AAAABBBEEFFGG  3 -> 13
+		 */
 		int res = ((t[0] - 1) * (n + 1)) + i;
 		return Math.max(res, tasks.length);
 	}

@@ -131,9 +131,8 @@ public class KDifferentPairsWIthDifferenceK {
 	// Time : O(nlogn), Space : O(1)
 	public int findPairsWithSorting3(int[] a, int k) {
 		int count = 0;
-		if (null == a || a.length < 2) {
+		if (null == a || a.length < 2)
 			return count;
-		}
 		Arrays.sort(a);
 		int l = 0, r = 1;
 		while (r < a.length) {
@@ -148,16 +147,11 @@ public class KDifferentPairsWIthDifferenceK {
 					l++;
 				}
 			} else {
-				System.out.println(a[l] + "," + a[r]);
-				int i = a[l], j = a[r];
-				l++;
-				r++;
-				while (r < a.length && a[r] == j) {
+				while (r < a.length - 1 && a[r] == a[r + 1])
 					r++;
-				}
-				while (l < r - 1 && a[l] == i) {
+				while (l < r - 1 && a[l] == a[l + 1])
 					l++;
-				}
+				r++;
 				count++;
 			}
 		}

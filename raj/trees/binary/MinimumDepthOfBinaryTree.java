@@ -12,14 +12,31 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class MinimumDepthOfBinaryTree {
 
-	// Time : O(n)
+    public int minDepth(BinaryTreeNode<Integer>  root) {
+        if(null == root) return 0;
+        int res[] = new int[1];
+        res[0] = Integer.MAX_VALUE;
+        minDepth(root,0,res);
+        return res[0];
+    }
+    
+    public void minDepth(BinaryTreeNode<Integer>  root,int level,int res[]){
+        if(null == root) return;
+        if(root.left==null && root.right==null){
+            res[0]= Math.min(res[0],level+1);
+        }
+        minDepth(root.left,level+1,res);
+        minDepth(root.right,level+1,res);
+    }
+    
+    // Time : O(n)
 	// https://discuss.leetcode.com/topic/8723/my-4-line-java-solution
-	public int minDepth(BinaryTreeNode<Integer> root) {
+	public int minDepth2(BinaryTreeNode<Integer> root) {
 		if (null == root)
 			return 0;
-		int left = minDepth(root.left);
-		int right = minDepth(root.left);
-		return (left == 0 || right == 0) ? left + right + 1 : 1 + Math.min(minDepth(root.left), minDepth(root.right));
+		int left = minDepth2(root.left);
+		int right = minDepth2(root.right);
+		return (left == 0 || right == 0) ? left + right + 1 : 1 + Math.min(left,right);
 	}
 
 	public static void main(String args[]) {

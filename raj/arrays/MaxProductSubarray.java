@@ -1,47 +1,37 @@
 /**
- * 
+ *
  */
 package com.raj.arrays;
 
 /**
  * @author Raj
- *
  */
 public class MaxProductSubarray {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+    public int maxProduct(int[] a) {
+        if (a.length <= 0) {
+            return 0;
+        }
+        int min, max, res;
+        min = max = res = a[0];
+        for (int i = 1; i < a.length; i++) {
+            int curMax = Math.max(a[i], Math.max(a[i] * min, a[i] * max));
+            int curMin = Math.min(a[i], Math.min(a[i] * min, a[i] * max));
+            res = Math.max(curMax, res);
+            max = curMax;
+            min = curMin;
+        }
+        return res;
+    }
 
-		MaxProductSubarray obj = new MaxProductSubarray();
-		// int a[] = { 1, -2, -3, 0, 7, -8, -2 };
-		int a[] = { 12, 2, -3, -5, -6, -2 };
-		// int a[] = { 0, 0, -3, 0, 0 };
+    public static void main(String[] args) {
 
-		int n = a.length, result = -1;
-		result = obj.maxProductSubarray(a, n);
-		System.out.println(result);
-	}
+        MaxProductSubarray obj = new MaxProductSubarray();
+        int a[] = {12, 2, -3, -5, -6, -2 };
 
-	public int maxProductSubarray(int[] a, int n) {
-		int maxProduct = Integer.MIN_VALUE;
-		if (n <= 0)
-			return maxProduct;
-
-		int maxEndingHere = a[0];
-		int minEndingHere = a[0];
-		maxProduct = a[0];
-
-		int tempMax, tempMin;
-		for (int i = 1; i < n; i++) {
-			tempMax = maxEndingHere;
-			tempMin = minEndingHere;
-			maxEndingHere = Math.max(a[i], Math.max(tempMax * a[i], tempMin * a[i]));
-			minEndingHere = Math.min(a[i], Math.min(tempMax * a[i], tempMin * a[i]));
-			maxProduct = Math.max(maxEndingHere, maxProduct);
-		}
-		return maxProduct;
-	}
+        int result = -1;
+        result = obj.maxProduct(a);
+        System.out.println(result);
+    }
 
 }

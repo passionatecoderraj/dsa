@@ -3,10 +3,8 @@
  */
 package com.raj.dp;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,48 +37,62 @@ import java.util.Map;
 public class FrogJump {
 
 	// Time : O(n), Space : O(n)
-	public static boolean canFrogJumpToEnd(int[] stones) {
+	public boolean canFrogJumpToEnd(int[] stones) {
 		Map<Integer, HashSet<Integer>> map = new LinkedHashMap<>();
 		for (int num : stones) {
 			map.put(num, new HashSet<>());
 		}
 		map.get(0).add(1);
-		for (Integer num : map.keySet()) {
-			for (Integer val : map.get(num)) {
-				List<Integer> reach = new ArrayList<Integer>();
-				if (val > 1)
-					reach.add(val - 1);
-				reach.add(val);
-				if (num != 0)
-					reach.add(val + 1);
-				for (int step : reach) {
-					int key = num + step;
-					if (map.containsKey(key)) {
-						if (key == stones[stones.length - 1])
-							return true;
-						map.get(key).add(step);
+
+		for (int i = 0; i < stones.length - 1; i++) {
+			int stone = stones[i];
+			for (int step : map.get(stone)) {
+				int reach = step + stone;
+				if (reach == stones[stones.length - 1])
+					return true;
+				if (map.containsKey(reach)) {
+					map.get(reach).add(step);
+					map.get(reach).add(step + 1);
+					if (step > 1) {
+						map.get(reach).add(step - 1);
 					}
 				}
 			}
 		}
+
 		return false;
 	}
 
-	/**
-	 * @param args
-	 */
+	public boolean canJump(boolean[] a) {
+		return util(a, 0, 1, a.length);
+	}
+
+	boolean util(boolean[] a, int cur, int step, int target) {
+		if (cur >= target)
+			return true;
+		if (!a[cur] || step <= 0)
+			return false;
+		return util(a, cur + step - 1, step - 1, target) || util(a, cur + step, step, target)
+				|| util(a, cur + step + 1, step + 1, target);
+	}
+
 	public static void main(String[] args) {
 		int a[] = { 0, 1, 3, 5, 6, 8, 12, 17 };
 		boolean result = false;
-		result = canFrogJumpToEnd(a);
+		FrogJump obj = new FrogJump();
+		result = obj.canFrogJumpToEnd(a);
 		System.out.println(result);
 
 		int b[] = { 0, 1, 2, 3, 4, 8, 9, 11 };
-		result = canFrogJumpToEnd(b);
+		result = obj.canFrogJumpToEnd(b);
 		System.out.println(result);
 
 		int c[] = { 0, 2 };
-		result = canFrogJumpToEnd(c);
+		result = obj.canFrogJumpToEnd(c);
+		System.out.println(result);
+
+		boolean t[] = { true, false, true, false, false };
+		result = obj.canJump(t);
 		System.out.println(result);
 
 	}

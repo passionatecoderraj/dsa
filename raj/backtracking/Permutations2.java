@@ -1,6 +1,7 @@
 package com.raj.backtracking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.interview.graph.CommonUtil;
@@ -19,6 +20,7 @@ public class Permutations2 {
 
 	public List<List<Integer>> permute(int[] a) {
 		List<List<Integer>> result = new ArrayList<>();
+		Arrays.sort(a);
 		permuteUtil(0, a, result);
 		return result;
 	}
@@ -33,7 +35,7 @@ public class Permutations2 {
 			return;
 		}
 		for (int i = start; i < a.length; i++) {
-			if (!containsDuplication(a, start, i - 1, a[i])) {
+			if (!containsDuplication(a, start, i)) {
 				CommonUtil.swap(a, i, start);
 				permuteUtil(start + 1, a, result);
 				CommonUtil.swap(a, i, start);
@@ -41,8 +43,9 @@ public class Permutations2 {
 		}
 	}
 
-	private boolean containsDuplication(int a[], int start, int end, int val) {
-		for (int i = start; i <= end; i++) {
+	private boolean containsDuplication(int a[], int start, int end) {
+		int val = a[end];
+		for (int i = start; i < end; i++) {
 			if (a[i] == val)
 				return true;
 		}

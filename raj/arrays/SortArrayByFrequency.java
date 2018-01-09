@@ -3,8 +3,14 @@
  */
 package com.raj.arrays;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.interview.graph.CommonUtil;
 
@@ -15,11 +21,46 @@ import com.interview.graph.CommonUtil;
  */
 public class SortArrayByFrequency {
 
+	void sortArrayByFrequency(int a[]) {
+		class Node {
+			int idx;
+			int value;
+			int count;
+		}
+		Map<Integer, Node> map = new HashMap<>();
+		for (int i = 0; i < a.length; i++) {
+			final int idx = i;
+			map.compute(a[i], (k, v) -> {
+				if (null == v) {
+					v = new Node();
+					v.idx = idx;
+					v.value = a[idx];
+				}
+				v.count++;
+				return v;
+			});
+		}
+
+		List<Entry<Integer, Node>> entries = new ArrayList<>(map.entrySet());
+		Collections.sort(entries, (e1, e2) -> {
+			if (e1.getValue().count == e2.getValue().count)
+				return e1.getValue().idx - e2.getValue().idx;
+			return e2.getValue().count - e1.getValue().count;
+		});
+	
+		int i = 0;
+		for (Entry<Integer, Node> item : entries) {
+			for (int k = 0; k < item.getValue().count; k++) {
+				a[i++] = item.getValue().value;
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		SortArrayByFrequency obj = new SortArrayByFrequency();
 		int a[] = { 2, 5, 2, 6, -1, 9999999, 5, 8, 8, 8 };
 		int n = a.length;
-		obj.sortArrayByFrequency(a, n);
+		obj.sortArrayByFrequency(a);
 		CommonUtil.printArray(a);
 	}
 
@@ -38,7 +79,7 @@ public class SortArrayByFrequency {
 		}
 	};
 
-	public void sortArrayByFrequency(int[] a, int n) {
+	public void sortArrayByFrequency2(int[] a, int n) {
 		if (n <= 0)
 			return;
 		Element[] elements = new Element[n];
@@ -57,7 +98,7 @@ public class SortArrayByFrequency {
 		CommonUtil.printArray(elements);
 		Arrays.sort(elements, customSorterByCountAndIndex);
 		CommonUtil.printArray(elements);
-		
+
 		int k = 0;
 		for (int i = 0; i < n; i++) {
 			Element ele = elements[i];

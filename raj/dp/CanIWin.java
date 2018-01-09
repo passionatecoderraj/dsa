@@ -48,13 +48,13 @@ public class CanIWin {
 		if (maxChoosableInteger * (maxChoosableInteger + 1) / 2 < desiredTotal)
 			return false;
 		HashMap<String, Boolean> map = new LinkedHashMap<>();
-		int[] state = new int[maxChoosableInteger + 1];
+		boolean[] state = new boolean[maxChoosableInteger + 1];
 		boolean result = canIWin(desiredTotal, state, map);
 		System.out.println(map);
 		return result;
 	}
 
-	private boolean canIWin(int total, int[] state, HashMap<String, Boolean> hashMap) {
+	private boolean canIWin(int total, boolean[] state, HashMap<String, Boolean> hashMap) {
 		if (total <= 0)
 			return false;
 
@@ -64,9 +64,53 @@ public class CanIWin {
 			return hashMap.get(curr);
 
 		for (int i = 1; i < state.length; i++) {
+			if (!state[i]) {
+				state[i] = true;
+				if (!canIWin(total - i, state, hashMap)) {
+					hashMap.put(curr, true);
+					state[i] = false;
+					return true;
+				}
+				state[i] = false;
+			}
+		}
+		hashMap.put(curr, false);
+		return false;
+	}
+
+	private String getKey(boolean state[]) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 1; i < state.length; i++) {
+			sb.append(state[i] ? 1 : 0);
+		}
+		return sb.toString();
+	}
+
+	public boolean canIWin2(int maxChoosableInteger, int desiredTotal) {
+		if (desiredTotal <= 0)
+			return true;
+		if (maxChoosableInteger * (maxChoosableInteger + 1) / 2 < desiredTotal)
+			return false;
+		HashMap<String, Boolean> map = new LinkedHashMap<>();
+		int[] state = new int[maxChoosableInteger + 1];
+		boolean result = canIWin2(desiredTotal, state, map);
+		System.out.println(map);
+		return result;
+	}
+
+	private boolean canIWin2(int total, int[] state, HashMap<String, Boolean> hashMap) {
+		if (total <= 0)
+			return false;
+
+		String curr = getKey2(state);
+
+		if (hashMap.containsKey(curr))
+			return hashMap.get(curr);
+
+		for (int i = 1; i < state.length; i++) {
 			if (state[i] == 0) {
 				state[i] = 1;
-				if (!canIWin(total - i, state, hashMap)) {
+				if (!canIWin2(total - i, state, hashMap)) {
 					hashMap.put(curr, true);
 					state[i] = 0;
 					return true;
@@ -78,14 +122,11 @@ public class CanIWin {
 		return false;
 	}
 
-	private String getKey(int state[]) {
+	private String getKey2(int state[]) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i < state.length; i++) {
-			if (state[i] == 1)
-				sb.append(i);
+			sb.append(i);
 		}
-		if (sb.length() == 0)
-			sb.append(0);
 		return sb.toString();
 	}
 

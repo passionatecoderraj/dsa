@@ -60,7 +60,7 @@ public class SearchWordInMatrix2 {
 		for (int i = 0; i < moves.length; i++) {
 			int _x = moves[i][0] + x;
 			int _y = moves[i][1] + y;
-			if (isSafe(a, _x, _y, node)) {
+			if (isSafe(a, _x, _y, node) && node.children.containsKey(a[_x][_y])) {
 				dfs(_x, _y, word + a[_x][_y], a, node.children.get(a[_x][_y]), result);
 			}
 

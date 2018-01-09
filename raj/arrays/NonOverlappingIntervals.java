@@ -33,10 +33,7 @@ Output: 0
 Explanation: You don't need to remove any of the intervals since they're already non-overlapping.
 @formatter:on
  */
-/*
- * Merge Overlapping Intervals using Java
- * 
- */
+
 public class NonOverlappingIntervals {
 
 	/*

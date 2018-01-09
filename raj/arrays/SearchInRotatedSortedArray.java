@@ -25,7 +25,7 @@ public class SearchInRotatedSortedArray {
 					l = m + 1;
 				}
 			}
-			// right is sorted
+			// right is sorted*
 			else {
 				// if element in range go right
 				if (k >= a[m] && k <= a[r]) {

@@ -14,9 +14,23 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class FindKthSmallest {
 
-	/**
-	 * @param args
-	 */
+	// binary search : Time : O(logn)
+	public int kthSmallest(BinaryTreeNode<Integer> root, int k) {
+		int count = countNodes(root.left);
+		if (k <= count) {
+			return kthSmallest(root.left, k);
+		} else if (k > 1 + count) {
+			return kthSmallest(root.right, k - count - 1);
+		}
+		return root.data;
+	}
+
+	int countNodes(BinaryTreeNode<Integer> root) {
+		if (null == root)
+			return 0;
+		return 1 + countNodes(root.left) + countNodes(root.right);
+	}
+
 	public static void main(String[] args) {
 		BinarySearchTree tree = new BinarySearchTree();
 		tree.root = tree.insert(tree.root, 8);
@@ -38,6 +52,10 @@ public class FindKthSmallest {
 		System.out.println(result);
 		result = obj.findKthSmallestWithoutRecursion(tree.root, k);
 		System.out.println(result);
+
+		int res = -1;
+		res = obj.kthSmallest(tree.root, k);
+		System.out.println(res);
 
 	}
 

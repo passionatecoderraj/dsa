@@ -109,7 +109,7 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
 
 	 */
 	// https://leetcode.com/articles/continous-subarray-sum/
-	// Time : O(n), Space : O(n)
+	// Time : O(n), Space : O(k)
 	public boolean checkSubarraySum_MultipleOfK(int[] a, int k) {
 		Map<Integer, Integer> map = new HashMap<>();
 		map.put(0, -1);

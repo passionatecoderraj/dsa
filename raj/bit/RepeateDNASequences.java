@@ -23,6 +23,7 @@ public class RepeateDNASequences {
 	 * example to manually execute the program and see how it works.
 	 * 
 	 */
+	// explanation : https://discuss.leetcode.com/topic/8894/clean-java-solution-hashmap-bits-manipulation/9
 	public static List<String> findRepeatedDnaSequences2(String s) {
 		List<String> result = new ArrayList<String>();
 

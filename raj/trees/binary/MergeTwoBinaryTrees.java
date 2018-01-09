@@ -36,9 +36,6 @@ Merged tree:
 public class MergeTwoBinaryTrees {
 
     public BinaryTreeNode<Integer> mergeTrees(BinaryTreeNode<Integer> r1, BinaryTreeNode<Integer> r2) {
-        if (null == r1 && null == r2) {
-            return null;
-        }
         if (null == r1) {
             return r2;
         }

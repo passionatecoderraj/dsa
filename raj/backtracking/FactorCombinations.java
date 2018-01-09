@@ -34,19 +34,18 @@ public class FactorCombinations {
 	}
 
 	private static void factorCombinationsUtil(int n, int start, ArrayList<Integer> cur, List<List<Integer>> result) {
-		// if (new CountPrimes().isPrime(n)) {
 		if (n <= 1) {
 			return;
 		}
 
-		if (cur.size() > 0) {
-			ArrayList<Integer> list = new ArrayList<>(cur);
-			list.add(n);
-			result.add(list);
-		}
-
 		for (int i = start; i * i <= n; i++) {
 			if (n % i == 0) {
+
+				ArrayList<Integer> list = new ArrayList<>(cur);
+				list.add(i);
+				list.add(n / i);
+				result.add(list);
+
 				cur.add(i);
 				factorCombinationsUtil(n / i, i, cur, result);
 				cur.remove(cur.size() - 1);
@@ -61,7 +60,7 @@ public class FactorCombinations {
 		System.out.println(result);
 		result = factorCombinations(12);
 		System.out.println(result);
-		result = factorCombinations(8);
+		result = factorCombinations(36);
 		System.out.println(result);
 	}
 

@@ -70,7 +70,7 @@ public class NumberOfIslands2 {
 				int _x = p[0] + move[0];
 				int _y = p[1] + move[1];
 				int v2 = n * _x + _y;
-				if (!isSafe(m, n, _x, _y) || !ds.contains(v2)) {
+				if (!isSafe(m, n, _x, _y) || !ds.contains(v2) || ds.findSet(v1)==ds.findSet(v2)) {
 					continue;
 				}
 				ds.union(v1, v2);

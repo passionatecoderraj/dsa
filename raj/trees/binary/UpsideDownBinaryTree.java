@@ -63,8 +63,8 @@ public class UpsideDownBinaryTree {
 		n1.right = n3;
 		n2.left = n4;
 		n2.right = n5;
-		n4.left = n6;
-		n4.right = n7;
+//		n4.left = n6;
+//		n4.right = n7;
 		return n1;
 	}
 

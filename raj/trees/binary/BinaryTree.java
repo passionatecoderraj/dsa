@@ -3,8 +3,11 @@
  */
 package com.raj.trees.binary;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import com.raj.nodes.BinaryTreeNode;
 
@@ -25,9 +28,11 @@ public class BinaryTree {
 		obj.insert(3);
 		obj.insert(4);
 		obj.insert(5);
-		obj.levelOrder(obj.root);
-		obj.root = obj.delete(obj.root);
-		obj.levelOrder(obj.root);
+		// obj.levelOrder(obj.root);
+		// obj.root = obj.delete(obj.root);
+		// obj.levelOrder(obj.root);
+		List<List<Integer>> res = obj.levelOrderTraversal(obj.root);
+		System.out.println(res);
 
 	}
 
@@ -137,6 +142,28 @@ public class BinaryTree {
 
 	public static boolean isHalfNode(BinaryTreeNode<Integer> root) {
 		return (root.left != null && root.right == null) || (root.left == null && root.right != null);
+	}
+
+	public List<List<Integer>> levelOrderTraversal(BinaryTreeNode<Integer> root) {
+		List<List<Integer>> res = new ArrayList<>();
+		if (null == root)
+			return res;
+		Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
+		q.offer(root);
+		while (!q.isEmpty()) {
+			int size = q.size();
+			List<Integer> list = new ArrayList<>();
+			for (int i = 0; i < size; i++) {
+				BinaryTreeNode<Integer> temp = q.poll();
+				list.add(temp.data);
+				if (temp.left != null)
+					q.offer(temp.left);
+				if (temp.right != null)
+					q.offer(temp.right);
+			}
+			res.add(list);
+		}
+		return res;
 	}
 
 }

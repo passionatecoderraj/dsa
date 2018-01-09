@@ -33,7 +33,36 @@ import com.raj.nodes.NestedIntegerImpl;
  */
 public class NestedListWeightSum2 {
 
+	/*
+	 * level1 = l1 =>add to total = l1
+	 * level2 = l1+l2 => add to total = l1+l1+l2 = 2l1+l2
+	 * level3 = l1+l2+l3 => add to total = 2l1+l2+l1+l2+l3=3l1+2l2+l3
+	 */
 	public int depthSum(List<NestedInteger> nestedList) {
+		if (null == nestedList || nestedList.size() == 0)
+			return 0;
+		Queue<List<NestedInteger>> queue = new LinkedList<>();
+
+		queue.offer(nestedList);
+		int levelSum = 0, total = 0;
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+			for (int i = 0; i < size; i++) {
+				List<NestedInteger> list = queue.poll();
+				for (NestedInteger cur : list) {
+					if (cur.isInteger()) {
+						levelSum += cur.getInteger();
+					} else {
+						queue.offer(cur.getList());
+					}
+				}
+			}
+			total += levelSum;
+		}
+		return total;
+	}
+
+	public int depthSum2(List<NestedInteger> nestedList) {
 		if (null == nestedList || nestedList.size() == 0)
 			return 0;
 		Queue<NestedInteger> queue = new LinkedList<>();

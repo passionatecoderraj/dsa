@@ -26,7 +26,36 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
 public class MinimumNumberofArrowstoBurstBalloons {
 
 	// Time : O(nlogn)
-	public int findMinArrowShots(int[][] a) {
+		public int findMinArrowShots(int[][] a) {
+			if (a.length < 0) {
+				return 0;
+			}
+
+			/*
+			 * sort by end position because we need to shoot down before it ends. If
+			 * sort by end , then we can try to find as many balloons as possible
+			 * before it ends
+			 * 
+			 */
+			Arrays.sort(a, (a1, a2) -> a1[1] - a2[1]);
+
+			int arrowPos = a[0][1];
+			int arrowCount = 1;
+			for (int i = 1; i < a.length; i++) {
+				/*
+				 * if balloon end position is higher than next balloon start
+				 * position we dont need to use additional arrow
+				 */
+				if (a[i][0]  > arrowPos ) {
+	                arrowCount++;
+	                arrowPos = a[i][1];
+				}
+			}
+			return arrowCount;
+		}
+		
+		// Time : O(nlogn)
+	public int findMinArrowShots2(int[][] a) {
 		if (a.length < 0) {
 			return 0;
 		}

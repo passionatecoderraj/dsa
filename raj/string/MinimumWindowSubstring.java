@@ -62,7 +62,6 @@ public class MinimumWindowSubstring {
 	public static void main(String[] args) {
 		MinimumWindowSubstring obj = new MinimumWindowSubstring();
 		String result = null;
-		char[] a = { 'x', 'y', 'z' };
 		String s = "ADOBECODEBANC", t = "ABC";
 		result = obj.minimumWindowSubstring(s, t);
 		System.out.println(result);

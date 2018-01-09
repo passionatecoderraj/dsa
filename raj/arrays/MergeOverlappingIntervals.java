@@ -10,6 +10,9 @@ import java.util.List;
 
 /**
  * @author Raj
+ * 
+ * 
+ * 
  * @formatter:off
  * 
 Merge Intervals								Start
@@ -27,7 +30,30 @@ Minimum Number of Arrows to Burst Balloons	End
  */
 public class MergeOverlappingIntervals {
 
-	static class Interval {
+		// Time : O(nlogn), Space : O(1)
+		public List<Interval> mergeOverlappingIntervals(List<Interval> a, int n) {
+			if (n < 2)
+				return a;
+			Collections.sort(a,(a1,a2)->a1.start-a2.start);
+	
+			List<Interval> result = new ArrayList<Interval>();
+			Interval prev = a.get(0), cur, merged;
+			for (int i = 1; i < a.size(); i++) {
+				cur = a.get(i);
+				if (cur.start <= prev.end) {
+					merged = new Interval(prev.start, Math.max(cur.end, prev.end));
+					prev = merged;
+				} else {
+					result.add(prev);
+					prev = cur;
+				}
+			}
+			result.add(prev);
+
+			return result;
+		}
+		
+		static class Interval {
 		int start;
 		int end;
 
@@ -43,10 +69,6 @@ public class MergeOverlappingIntervals {
 		}
 
 	}
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		List<Interval> intervals = new ArrayList<Interval>();
 		intervals.add(new Interval(6, 8));
@@ -62,33 +84,6 @@ public class MergeOverlappingIntervals {
 		System.out.println(result);
 	}
 
-	// Time : O(nlogn), Space : O(1)
-	public List<Interval> mergeOverlappingIntervals(List<Interval> a, int n) {
-		if (n < 2)
-			return a;
-		// System.out.println(a);
-		Collections.sort(a, new Comparator<Interval>() {
-			@Override
-			public int compare(Interval a1, Interval a2) {
-				return a1.start - a2.start;
-			}
-		});
-		// System.out.println(a);
-		List<Interval> result = new ArrayList<Interval>();
-		Interval prev = a.get(0), cur, merged;
-		for (int i = 1; i < a.size(); i++) {
-			cur = a.get(i);
-			if (cur.start <= prev.end) {
-				merged = new Interval(prev.start, Math.max(cur.end, prev.end));
-				prev = merged;
-			} else {
-				result.add(prev);
-				prev = cur;
-			}
-		}
-		result.add(prev);
-
-		return result;
-	}
+	
 
 }

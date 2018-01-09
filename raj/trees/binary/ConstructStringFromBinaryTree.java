@@ -54,8 +54,6 @@ public class ConstructStringFromBinaryTree {
             return node;
         } else if (right.isEmpty()) {
             return node + "(" + left + ")";
-        } else if (left.isEmpty()) {
-            return node + "()" + "(" + right + ")";
         } else {
             return node + "(" + left + ")" + "(" + right + ")";
         }

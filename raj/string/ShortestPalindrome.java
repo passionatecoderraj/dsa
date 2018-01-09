@@ -12,7 +12,7 @@ public class ShortestPalindrome {
 
 	public static void main(String[] args) {
 
-		String result = null, str = "ananab";
+		String result = null, str = "abcd";
 		ShortestPalindrome obj = new ShortestPalindrome();
 		result = obj.shortestPalindrome(str);
 		System.out.println(result);

@@ -29,9 +29,29 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class BinarySearchTreeIterator {
 
-	/**
-	 * @param args
-	 */
+	Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
+
+	public BinarySearchTreeIterator(BinaryTreeNode<Integer> root) {
+		pushAll(root);
+	}
+
+	public boolean hasNext() {
+		return !stack.isEmpty();
+	}
+
+	public BinaryTreeNode<Integer> next() {
+		BinaryTreeNode<Integer> node = stack.pop();
+		pushAll(node.right);
+		return node;
+	}
+
+	private void pushAll(BinaryTreeNode<Integer> root) {
+		while (root != null) {
+			stack.push(root);
+			root = root.left;
+		}
+	}
+
 	public static void main(String[] args) {
 		BinarySearchTree tree = new BinarySearchTree();
 		tree.root = tree.insert(tree.root, 8);
@@ -49,31 +69,6 @@ public class BinarySearchTreeIterator {
 			System.out.print(obj.next().data + " ");
 		}
 		System.out.println();
-	}
-
-	Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
-
-	public BinarySearchTreeIterator(BinaryTreeNode<Integer> root) {
-		while (root != null) {
-			stack.push(root);
-			root = root.left;
-		}
-	}
-
-	public boolean hasNext() {
-		return !stack.isEmpty();
-	}
-
-	public BinaryTreeNode<Integer> next() {
-		BinaryTreeNode<Integer> node = stack.pop(), temp;
-		temp = node.right;
-		if (temp != null) {
-			while (temp != null) {
-				stack.push(temp);
-				temp = temp.left;
-			}
-		}
-		return node;
 	}
 
 }

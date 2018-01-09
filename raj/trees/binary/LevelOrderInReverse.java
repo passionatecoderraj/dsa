@@ -3,8 +3,11 @@
  */
 package com.raj.trees.binary;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import com.raj.nodes.BinaryTreeNode;
 
@@ -14,9 +17,28 @@ import com.raj.nodes.BinaryTreeNode;
  */
 public class LevelOrderInReverse {
 
-	/**
-	 * @param args
-	 */
+	public List<List<Integer>> levelOrderFromBottom(BinaryTreeNode<Integer> root) {
+		List<List<Integer>> res = new ArrayList<>();
+		if (null == root)
+			return res;
+		Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
+		q.offer(root);
+		while (!q.isEmpty()) {
+			int size = q.size();
+			List<Integer> list = new ArrayList<>();
+			for (int i = 0; i < size; i++) {
+				BinaryTreeNode<Integer> temp = q.poll();
+				list.add(0, temp.data);
+				if (temp.right != null)
+					q.offer(temp.right);
+				if (temp.left != null)
+					q.offer(temp.left);
+			}
+			res.add(0, list);
+		}
+		return res;
+	}
+
 	public static void main(String[] args) {
 		LevelOrderInReverse obj = new LevelOrderInReverse();
 
@@ -39,6 +61,8 @@ public class LevelOrderInReverse {
 
 		// Time : O(n)
 		obj.levelOrderInReverseUsingStack(root);
+		List<List<Integer>> res = obj.levelOrderFromBottom(ob.root);
+		System.out.println(res);
 
 	}
 

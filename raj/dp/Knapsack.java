@@ -3,6 +3,8 @@
  */
 package com.raj.dp;
 
+import java.util.Arrays;
+
 /**
  * @author Raj
  *
@@ -16,19 +18,20 @@ public class Knapsack {
 				t[j] = Math.max(t[j], profits[i] + t[j - wts[i]]);
 			}
 		}
+		System.out.println(Arrays.toString(t));
 		return t[w];
 	}
 
 	public static void main(String[] args) {
-		int wt[] = { 10, 20, 30 };
-		int profits[] = { 60, 100, 120 };
+		int wt[] = { 3,8,6 };
+		int profits[] = {  7,8,4 };
 
 		int result = -1;
 		Knapsack obj = new Knapsack();
-		result = obj.knapSack(wt, profits, 50);
+		result = obj.knapSack(wt, profits, 10);
 		System.out.println(result);
 
-		int res = obj.knapSack2(wt, profits, 50);
+		int res = obj.knapSack2(wt, profits, 10);
 		System.out.println(res);
 
 	}

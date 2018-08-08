@@ -2,7 +2,9 @@ package com.raj.backtracking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.interview.graph.CommonUtil;
 
@@ -19,6 +21,33 @@ import com.interview.graph.CommonUtil;
 public class Permutations2 {
 
 	public List<List<Integer>> permute(int[] a) {
+		Set<List<Integer>> set = new HashSet<>();
+
+		Arrays.sort(a);
+		permuteUtil(0, a, set);
+
+		List<List<Integer>> res = new ArrayList<>();
+		res.addAll(set);
+		return res;
+	}
+
+	private void permuteUtil(int start, int a[], Set<List<Integer>> set) {
+		if (a.length == start) {
+			List<Integer> list = new ArrayList<>();
+			for (int i : a) {
+				list.add(i);
+			}
+			set.add(list);
+			return;
+		}
+		for (int i = start; i < a.length; i++) {
+			CommonUtil.swap(a, i, start);
+			permuteUtil(start + 1, a, set);
+			CommonUtil.swap(a, i, start);
+		}
+	}
+
+	public List<List<Integer>> permute2(int[] a) {
 		List<List<Integer>> result = new ArrayList<>();
 		Arrays.sort(a);
 		permuteUtil(0, a, result);

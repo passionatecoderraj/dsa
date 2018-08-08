@@ -152,13 +152,12 @@ public class MaximizeStockProfitWithKTransactions {
         if (a.length == 0) {
             return 0;
         }
-        // hold means you are buying a stock
-        int cash = 0, hold = -a[0];
+        int profit = 0, cash = -a[0];
         for (int i = 1; i < a.length; i++) {
-            cash = Math.max(cash, hold + a[i] - fee);
-            hold = Math.max(hold, cash - a[i]);
+            profit = Math.max(profit, cash + a[i] - fee);
+            cash = Math.max(cash, profit - a[i]);
         }
-        return cash;
+        return profit;
     }
 
     // Time :O(n), Space :O(1)

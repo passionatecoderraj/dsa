@@ -34,8 +34,8 @@ public class GameOfLife {
                         count += (a[x][y] & 1);
                     }
                 }
-                int val = isAlive;
-                if (isAlive == 1 && (count < 2 || count > 3)) {
+                int val = 0;
+                if (isAlive == 1 && (count == 2 || count == 3)) {
                     val = 0;
                 } else if (isAlive != 1 && count == 3) {
                     val = 1;

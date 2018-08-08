@@ -22,6 +22,10 @@ public class RepeateDNASequences {
 	 * 20-bits-long integer. The following is a Java solution. You may use an
 	 * example to manually execute the program and see how it works.
 	 * 
+	 * Now let's analyze the space cost. Since in Java, each character takes 2 bytes. 
+	 * For the previous solution using string, a 10-character substring takes 20 byte. For using the integer, 
+	 * which takes only 4 bytes. So the new solution saves the memory by 1/5. 
+	 * 
 	 */
 	// explanation : https://discuss.leetcode.com/topic/8894/clean-java-solution-hashmap-bits-manipulation/9
 	public static List<String> findRepeatedDnaSequences2(String s) {

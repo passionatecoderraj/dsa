@@ -32,6 +32,51 @@ class Pair {
 
 public class MaxlengthofChainOfPairs {
 
+	public int findLongestChain(int[][] pairs) {
+		if (pairs.length <= 0)
+			return 0;
+		Arrays.sort(pairs, (p1, p2) -> p1[1] - p2[1]);
+		int len = 1;
+		int last = pairs[0][1];
+		for (int i = 1; i < pairs.length; i++) {
+			if (pairs[i][0] > last) {
+				len++;
+				last = pairs[i][1];
+			}
+		}
+		return len;
+	}
+
+	public int findLongestChain(Pair[] pairs) {
+		Arrays.sort(pairs, (p1, p2) -> p1.a - p2.a);
+		int len = 0;
+		int pre = Integer.MIN_VALUE;
+		for (Pair pair : pairs) {
+			if (pair.a > pre) { // not overlap
+				len++;
+				pre = pair.b;
+			} else {
+				pre = Math.min(pre, pair.b);
+			}
+		}
+		return len;
+	}
+
+	public int findLongestChain2(Pair[] pairs) {
+		Arrays.sort(pairs, (p1, p2) -> p1.a - p2.a);
+		int len = 0;
+		int pre = Integer.MIN_VALUE;
+		for (Pair pair : pairs) {
+			if (pair.a > pre) { // not overlap
+				len++;
+				pre = pair.b;
+			} else if (pair.b < pre) { // overlap but with smaller second element
+				pre = pair.b;
+			}
+		}
+		return len;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -41,6 +86,8 @@ public class MaxlengthofChainOfPairs {
 		int result = -1;
 		MaxlengthofChainOfPairs obj = new MaxlengthofChainOfPairs();
 		result = obj.maxLengthOfChainPairs(a);
+		System.out.println(result);
+		result = obj.findLongestChain(a);
 		System.out.println(result);
 	}
 

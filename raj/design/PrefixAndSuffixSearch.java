@@ -26,6 +26,13 @@ prefix, suffix have lengths in range [0, 10].
 words[i] and prefix, suffix queries consist of lowercase letters only.
  */
 
+/* 
+ * 
+If f is more frequently than WordFilter, use method 1.
+If space complexity is concerned, use method 2.
+If the input string array might change frequently, use method 3.
+ *
+ */
 class WordFilter1 {
 	Map<String, Integer> map = new HashMap<>();
 
@@ -37,13 +44,14 @@ class WordFilter1 {
 	// Time : O(n*l*l) ,Space : O(n*l*l)
 	// n : No. of words, l : max length of each word
 	public WordFilter1(String[] words) {
-		for (int w = 0; w < words.length; w++) {
-			for (int i = 0; i <= 10 && i <= words[w].length(); i++) {
-				for (int j = 0; j <= 10 && j <= words[w].length(); j++) {
-					map.put(words[w].substring(0, i) + "#" + words[w].substring(words[w].length() - j), w);
+		for (int wt = 0; wt < words.length; wt++) {
+			for (int i = 0; i <= 10 && i <= words[wt].length(); i++) {
+				for (int j = 0; j <= 10 && j <= words[wt].length(); j++) {
+					map.put(words[wt].substring(0, i) + "#" + words[wt].substring(words[wt].length() - j), wt);
 				}
 			}
 		}
+		System.out.println(map);
 	}
 
 	// Time : O(1)
@@ -64,22 +72,22 @@ class WordFilter2 {
 	// Time : O(n*l) ,Space : O(n*l)
 	// n : No. of words, l : max length of each word
 	public WordFilter2(String[] words) {
-		for (int w = 0; w < words.length; w++) {
-			for (int i = 0; i <= 10 && i <= words[w].length(); i++) {
-				String s = words[w].substring(0, i);
+		for (int wt = 0; wt < words.length; wt++) {
+			for (int i = 0; i <= 10 && i <= words[wt].length(); i++) {
+				String s = words[wt].substring(0, i);
 				if (!mapPrefix.containsKey(s))
 					mapPrefix.put(s, new ArrayList<>());
-				mapPrefix.get(s).add(w);
+				mapPrefix.get(s).add(wt);
 			}
-			for (int i = 0; i <= 10 && i <= words[w].length(); i++) {
-				String s = words[w].substring(words[w].length() - i);
+			for (int i = 0; i <= 10 && i <= words[wt].length(); i++) {
+				String s = words[wt].substring(words[wt].length() - i);
 				if (!mapSuffix.containsKey(s))
 					mapSuffix.put(s, new ArrayList<>());
-				mapSuffix.get(s).add(w);
+				mapSuffix.get(s).add(wt);
 			}
 		}
-		// System.out.println(mapPrefix);
-		// System.out.println(mapSuffix);
+		 System.out.println(mapPrefix);
+		 System.out.println(mapSuffix);
 
 	}
 

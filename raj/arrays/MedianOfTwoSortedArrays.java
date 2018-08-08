@@ -9,7 +9,39 @@ package com.raj.arrays;
  */
 public class MedianOfTwoSortedArrays {
 
-	public double findMedianSortedArrays(int a[], int b[]) {
+	// https://github.com/mission-peace/interview/blob/master/src/com/interview/binarysearch/MedianOfTwoSortedArrayOfDifferentLength.java
+	public double findMedianSortedArrays(int X[], int Y[]) {
+		if (X.length > Y.length)
+			return findMedianSortedArrays(Y, X);
+		int l = 0, r = X.length;
+		while (l <= r) {
+			int partitionX = (l + r) >> 1;
+			int partitionY = ((X.length + Y.length + 1) / 2) - partitionX;
+
+			int maxLeftX = (partitionX == 0) ? Integer.MIN_VALUE : X[partitionX - 1];
+			int minRightX = (partitionX == X.length) ? Integer.MAX_VALUE : X[partitionX];
+
+			int maxLeftY = (partitionY == 0) ? Integer.MIN_VALUE : Y[partitionY - 1];
+			int minRightY = (partitionY == Y.length) ? Integer.MAX_VALUE : Y[partitionY];
+			if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
+				if ((X.length + Y.length) % 2 == 0) {
+					return ((double) Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY)) / 2;
+				} else {
+					return (double) Math.max(maxLeftX, maxLeftY);
+				}
+			}
+
+			if (maxLeftX > minRightY) {
+				r = partitionX - 1;
+			} else {
+				l = partitionX + 1;
+			}
+
+		}
+		return -1;
+	}
+
+	public double findMedianSortedArrays2(int a[], int b[]) {
 		int m = a.length, n = b.length;
 		/* A[0, 1, 2, ..., n-1, n] */
 		/* A[0, 1, 2, ..., m-1, m] */

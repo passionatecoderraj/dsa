@@ -35,7 +35,19 @@ Explanation: The smallest value is 2, but there isn't any second smallest value.
  */
 public class SecondMinimumNodeInaBinaryTree {
 
-	public int findSecondMinimumValue(BinaryTreeNode<Integer> root) {
+	
+    public int findSecondMinimumValue(BinaryTreeNode<Integer> root) {
+        if(null == root) return -1;
+        if(null == root.left && null == root.right) return -1;
+        int l = root.left.data==root.data?findSecondMinimumValue(root.left):root.left.data;
+        int r = root.right.data==root.data?findSecondMinimumValue(root.right):root.right.data;
+        
+        if(l != -1 && r != -1) return Math.min(l,r);
+        return l==-1?r:l;
+        
+    }
+    
+	public int findSecondMinimumValue2(BinaryTreeNode<Integer> root) {
 		if (null == root)
 			return -1;
 		int res = util(root);
@@ -59,21 +71,6 @@ public class SecondMinimumNodeInaBinaryTree {
             right = root.right.data;
         }
        
-		if (left != -1 && right != -1) {
-			return Math.min(left, right);
-		}
-		return left != -1 ? left : right;
-	}
-  
-	private int utilMethod2(BinaryTreeNode<Integer> root) {
-		if (null == root || BinaryTree.isLeaf(root))
-			return -1;
-		/*
-		 * by problem definition there are not half-nodes. Only full nodes or leaf nodes
-		 */
-		int left = root.left.data == root.data?utilMethod2(root.left):root.left.data;
-		int right = root.right.data == root.data?utilMethod2(root.right):root.right.data;
-		
 		if (left != -1 && right != -1) {
 			return Math.min(left, right);
 		}

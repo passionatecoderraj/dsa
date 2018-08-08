@@ -33,12 +33,39 @@ import com.raj.nodes.NestedIntegerImpl;
  */
 public class NestedListWeightSum2 {
 
-	/*
-	 * level1 = l1 =>add to total = l1
-	 * level2 = l1+l2 => add to total = l1+l1+l2 = 2l1+l2
-	 * level3 = l1+l2+l3 => add to total = 2l1+l2+l1+l2+l3=3l1+2l2+l3
-	 */
 	public int depthSum(List<NestedInteger> nestedList) {
+		if (null == nestedList || nestedList.size() == 0)
+			return 0;
+		Queue<NestedInteger> queue = new LinkedList<>();
+
+		queue.addAll(nestedList);
+		queue.add(null);
+		int sumTillPrevLevel = 0, res = 0, levelSum = 0;
+		while (!queue.isEmpty()) {
+			NestedInteger val = queue.poll();
+			if (val == null) {
+				if (!queue.isEmpty())
+					queue.offer(null);
+				res += (levelSum + sumTillPrevLevel);
+				sumTillPrevLevel += levelSum;
+				levelSum = 0;
+			} else {
+				if (val.isInteger()) {
+					levelSum += val.getInteger();
+				} else {
+					queue.addAll(val.getList());
+				}
+			}
+
+		}
+		return res;
+	}
+
+	/*
+	 * level1 = l1 =>add to total = l1 level2 = l1+l2 => add to total = l1+l1+l2 =
+	 * 2l1+l2 level3 = l1+l2+l3 => add to total = 2l1+l2+l1+l2+l3=3l1+2l2+l3
+	 */
+	public int depthSum2(List<NestedInteger> nestedList) {
 		if (null == nestedList || nestedList.size() == 0)
 			return 0;
 		Queue<List<NestedInteger>> queue = new LinkedList<>();
@@ -62,7 +89,7 @@ public class NestedListWeightSum2 {
 		return total;
 	}
 
-	public int depthSum2(List<NestedInteger> nestedList) {
+	public int depthSum3(List<NestedInteger> nestedList) {
 		if (null == nestedList || nestedList.size() == 0)
 			return 0;
 		Queue<NestedInteger> queue = new LinkedList<>();

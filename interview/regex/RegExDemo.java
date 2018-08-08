@@ -23,6 +23,7 @@ public class RegExDemo {
 	public static void main(String[] args) {
 		// strings("Prithvi raj! kumar. dasari?");
 		replace();
+		demoExample8();
 	}
 
 	public static void replace() {
@@ -203,6 +204,21 @@ public class RegExDemo {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	public int util(String s){
+		if(null ==s ) return 0;
+		int n =0;
+		char t[] = s.toCharArray();
+		for(int i=1;i<t.length-1;i++){
+			if(t[i]==t[i-1]){
+				t[i]=' ';
+				n++;
+			}
+		}
+		return n;
+		
 	}
 
 }

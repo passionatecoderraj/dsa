@@ -24,7 +24,7 @@ public class PeaksAndValleys {
 			return;
 		int m = (l + r) >> 1;
 
-	//	System.out.println("l=" + l + ",r=" + r + ",m=" + m);
+		// System.out.println("l=" + l + ",r=" + r + ",m=" + m);
 
 		if (Math.abs(a[m] - a[l]) != m - l) {
 			peaksAndValleysUtil(a, l, m, res);
@@ -35,6 +35,17 @@ public class PeaksAndValleys {
 		}
 		if (a[m - 1] == a[m + 1])
 			res.add(a[m]);
+	}
+
+	// Time :O(n), Space : O(1)
+	public List<Integer> findPeaksAndValleys_bruteforce2(int a[]) {
+		List<Integer> res = new ArrayList<>();
+		for (int i = 1; i < a.length - 1; i++) {
+			if (a[i - 1] == a[i + 1]) {
+				res.add(a[i]);
+			}
+		}
+		return res;
 	}
 
 	// Time :O(n), Space : O(1)
@@ -56,6 +67,10 @@ public class PeaksAndValleys {
 		List<Integer> result = null;
 
 		result = obj.findPeaksAndValleys_bruteforce(a);
+		System.out.println(result);
+
+		// Time :O(logn), Space : O(1)
+		result = obj.findPeaksAndValleys_bruteforce2(a);
 		System.out.println(result);
 
 		// Time :O(logn), Space : O(1)

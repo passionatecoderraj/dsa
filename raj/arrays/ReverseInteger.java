@@ -9,9 +9,19 @@ package com.raj.arrays;
  */
 public class ReverseInteger {
 
-	/**
-	 * @param args
-	 */
+	// https://leetcode.com/problems/reverse-integer/discuss/4056/Very-Short-(7-lines)-and-Elegant-Solution
+	public int reverse(int x) {
+		long res = 0;
+		while (x != 0) {
+			res = (res * 10) + (x % 10);
+			x /= 10;
+			if (res > Integer.MAX_VALUE || res < Integer.MIN_VALUE) {
+				return 0;
+			}
+		}
+		return (int) res;
+	}
+
 	public static void main(String[] args) {
 		ReverseInteger obj = new ReverseInteger();
 		int result = -1;
@@ -21,14 +31,4 @@ public class ReverseInteger {
 		System.out.println(result);
 
 	}
-
-	public int reverse(int n) {
-		int rev = 0;
-		while (n != 0) {
-			rev = rev * 10 + (n % 10);
-			n = n / 10;
-		}
-		return rev;
-	}
-
 }

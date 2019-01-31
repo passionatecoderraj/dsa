@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.dp;
+package com.raj.leetcode;
 
 import java.util.Stack;
 
@@ -25,11 +25,12 @@ import java.util.Stack;
  */
 public class LongestValidParantheses {
 
+	// https://leetcode.com/problems/longest-valid-parentheses/solution/
 	// Time :O(n), Space : O(1)
 	public static int longestValidParentheses(String s) {
 		int left = 0, right = 0, maxlength = 0;
 		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) == '{') {
+			if (s.charAt(i) == '(') {
 				left++;
 			} else {
 				right++;
@@ -42,10 +43,10 @@ public class LongestValidParantheses {
 		}
 		left = right = 0;
 		for (int i = s.length() - 1; i >= 0; i--) {
-			if (s.charAt(i) == '}') {
-				left++;
-			} else {
+			if (s.charAt(i) == ')') {
 				right++;
+			} else {
+				left++;
 			}
 			if (left == right) {
 				maxlength = Math.max(maxlength, 2 * left);
@@ -56,15 +57,36 @@ public class LongestValidParantheses {
 		return maxlength;
 	}
 
+	// https://leetcode.com/problems/longest-valid-parentheses/solution/
 	// Time :O(n), Space : O(n)
-	public static int longestValidParentheses2(String str) {
+	public int longestValidParentheses2(String s) {
+		int maxans = 0;
+		Stack<Integer> stack = new Stack<>();
+		stack.push(-1);
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '(') {
+				stack.push(i);
+			} else {
+				stack.pop();
+				if (stack.empty()) {
+					stack.push(i);
+				} else {
+					maxans = Math.max(maxans, i - stack.peek());
+				}
+			}
+		}
+		return maxans;
+	}
+
+	// Time :O(n), Space : O(n)
+	public static int longestValidParentheses3(String str) {
 		Stack<Integer> stack = new Stack<>();
 
 		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) == '{') {
+			if (str.charAt(i) == '(') {
 				stack.push(i);
 			} else {
-				if (!stack.isEmpty() && str.charAt(stack.peek()) == '{') {
+				if (!stack.isEmpty() && str.charAt(stack.peek()) == ')') {
 					stack.pop();
 				} else {
 					stack.push(i);
@@ -90,16 +112,16 @@ public class LongestValidParantheses {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String str = "{{{{}}}}{";
+		String str = "(((()))))";
 		int result = -1;
 
 		result = longestValidParentheses(str);
 		System.out.println(result);
 
-		str = "}{}{}{";
+		str = ")()()(";
 		result = longestValidParentheses(str);
 		System.out.println(result);
-		str = "{}}";
+		str = "())";
 		result = longestValidParentheses(str);
 		System.out.println(result);
 	}

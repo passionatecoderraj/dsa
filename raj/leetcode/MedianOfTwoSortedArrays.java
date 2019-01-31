@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.arrays;
+package com.raj.leetcode;
 
 /**
  * @author Raj
@@ -9,6 +9,14 @@ package com.raj.arrays;
  */
 public class MedianOfTwoSortedArrays {
 
+	/*
+	 * 1. find median in normal array
+	 * 2. find median in two sorted arrays 
+	 * 3. observe that you need only middle numbers so divide them to two halves such that two equal parts are available
+	 * 4. note that maxX, minX, maxY, minY are enough to solve the problem
+	 * 5. If size is odd, answer is in first half so, answer so max(maxX,maxY)
+	 * 6. If size is odd, answer is (max of first half + min of 2nd half)/2
+	 */
 	// https://github.com/mission-peace/interview/blob/master/src/com/interview/binarysearch/MedianOfTwoSortedArrayOfDifferentLength.java
 	public double findMedianSortedArrays(int X[], int Y[]) {
 		if (X.length > Y.length)
@@ -100,8 +108,8 @@ public class MedianOfTwoSortedArrays {
 
 	public static void main(String[] args) {
 		MedianOfTwoSortedArrays obj = new MedianOfTwoSortedArrays();
-		int a[] = { 1, 12, 15, 26 };
-		int b[] = { 2, 13, 17, 30 };
+		int a[] = { 1, 3};
+		int b[] = { 2, 4,6 };
 		int result = -1;
 		result = obj.medianOfTwoSortedArrays(a, b, 0, a.length - 1, 0, b.length - 1);
 		System.out.println(result);

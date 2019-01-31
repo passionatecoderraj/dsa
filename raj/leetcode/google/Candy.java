@@ -37,6 +37,7 @@ public class Candy {
 			if (a[i] >= a[i - 1]) {
 				if (countDown > 0) {
 					result += countDown * (countDown + 1) / 2;
+					//we need to update our peak child if his number of candies is less then or equal to countDown
 					if (countDown >= prev)
 						result += (countDown - prev + 1);
 					countDown = 0;
@@ -94,6 +95,7 @@ public class Candy {
 		result = obj.candy(c);
 		System.out.println(result);
 
+		
 	}
 
 }

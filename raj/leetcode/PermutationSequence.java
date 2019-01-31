@@ -1,4 +1,4 @@
-package com.raj.mathamatical;
+package com.raj.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  * 
  * @author Raj
  * 
- *         The set [1,2,3,…,n] contains a total of n! unique permutations.
+ *         The set [1,2,3,ï¿½,n] contains a total of n! unique permutations.
  * 
  *         By listing and labeling all of the permutations in order, We get the
  *         following sequence (ie, for n = 3):
@@ -26,6 +26,9 @@ public class PermutationSequence {
 		StringBuilder res = new StringBuilder();
 		int[] factorial = new int[n + 1];
 
+		// convert to index
+        k--;
+	
 		// memorization of factorial
 		factorial[0] = 1;
 		for (int i = 1; i <= n; i++) {
@@ -39,7 +42,7 @@ public class PermutationSequence {
 			int p = factorial[numbers.size() - 1];
 
 			// idx ranges from 0 to n-1. (k-1)/p gives that
-			int idx = (k - 1) / p;
+			int idx = k / p;
 			res.append(numbers.get(idx));
 			numbers.remove(idx);
 
@@ -51,7 +54,7 @@ public class PermutationSequence {
 
 	public static void main(String args[]) {
 		String res = null;
-		res = permuteSequence(4, 24);
+		res = permuteSequence(4, 4);
 		System.out.println(res);
 	}
 

@@ -1,4 +1,4 @@
-package com.raj.graph;
+package com.raj.leetcode;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -43,7 +43,7 @@ public class ReconstructItinerary {
     /*
      * First keep going forward until you get stuck. That's a good main path already. Remaining tickets form cycles which are found on the way back and get merged into that main path.
      * 
-     *  https://leetcode.com/problems/reconstruct-itinerary/discuss/
+     * https://leetcode.com/problems/reconstruct-itinerary/discuss/78768/Short-Ruby-Python-Java-C++
      */
 
     public static List<String> findItinerary(String[][] tickets) {

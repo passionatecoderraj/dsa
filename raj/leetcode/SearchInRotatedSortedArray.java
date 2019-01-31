@@ -1,4 +1,4 @@
-package com.raj.arrays;
+package com.raj.leetcode;
 
 public class SearchInRotatedSortedArray {
 
@@ -19,7 +19,7 @@ public class SearchInRotatedSortedArray {
 			if (a[m] >= a[l]) {
 				// if element in range go left
 				if (k >= a[l] && k <= a[m]) {
-					r = m;
+					r = m + 1;
 				} else {
 					// if element not in range go right
 					l = m + 1;
@@ -29,7 +29,7 @@ public class SearchInRotatedSortedArray {
 			else {
 				// if element in range go right
 				if (k >= a[m] && k <= a[r]) {
-					l = m;
+					l = m + 1;
 				} else {
 					// if element not in range go left
 					r = m - 1;
@@ -49,13 +49,13 @@ public class SearchInRotatedSortedArray {
 			}
 			if (a[m] >= a[l]) {
 				if (k >= a[l] && k <= a[m]) {
-					r = m;
+					r = m + 1;
 				} else {
 					l = m + 1;
 				}
 			} else {
 				if (k >= a[m] && k <= a[r]) {
-					l = m;
+					l = m + 1;
 				} else {
 					r = m - 1;
 				}

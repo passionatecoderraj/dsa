@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.raj.dp;
+package com.raj.leetcode;
 
 import java.util.Arrays;
 
@@ -24,9 +24,9 @@ public class PerfectSquares {
 		int t[] = new int[n + 1];
 		Arrays.fill(t, Integer.MAX_VALUE);
 		t[0] = 0;
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j * j <= i; j++) {
-				t[i] = Math.min(t[i], 1 + t[i - j * j]);
+		for (int i = 1; i * i <= n; i++) {
+			for (int j = i * i; j <= n; j++) {
+				t[j] = Math.min(1 + t[j - i * i], t[j]);
 			}
 		}
 		return t[n];

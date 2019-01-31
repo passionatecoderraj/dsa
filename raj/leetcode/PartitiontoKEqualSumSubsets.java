@@ -1,6 +1,5 @@
-package com.raj.backtracking;
+package com.raj.leetcode;
 
-import java.util.Arrays;
 
 /**
  * 
@@ -34,28 +33,29 @@ public class PartitiontoKEqualSumSubsets {
 		if (sum % k != 0) {
 			return false;
 		}
-		Arrays.sort(a);
 		boolean[] visited = new boolean[a.length];
 		return canPartitionUtil(a, k, visited, 0, 0, sum / k, 0);
 	}
 
 	private boolean canPartitionUtil(int[] a, int k, boolean[] visited, int index, int sum, int target, int count) {
-		if (sum > target)
-			return false;
-
 		if (1 == k) {
 			return true;
 		}
 		/*
 		 * 'count' is added to address corner case when sum=0
 		 *  if it's not added every time 'target' and 'sum' are zero and will fail.
+		 *  this condition is not required since given input is positive integer and sum can not be zero
 		 */
-		if (sum == target && count > 0) {
+		//if (sum == target && count > 0) {
+		if (sum == target) {
 			return canPartitionUtil(a, k - 1, visited, 0, 0, target, 0);
 		}
 
 		for (int i = index; i < a.length; i++) {
 			if (!visited[i]) {
+				if(sum+a[i]>target) 
+	                continue;
+	               
 				visited[i] = true;
 				if (canPartitionUtil(a, k, visited, i + 1, sum + a[i], target, ++count))
 					return true;

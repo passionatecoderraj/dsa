@@ -62,7 +62,7 @@ class SegmentTreeForRangeMinUsingTree {
 		if (root.start > qhigh || qlow > root.end)
 			return Integer.MAX_VALUE;
 		// total overlap
-		if (root.start <= qlow && qhigh <= root.end)
+		if (qlow <= root.start && qhigh >= root.end)
 			return root.val;
 		return Math.min(rangeUtil(root.left, qlow, qhigh), rangeUtil(root.right, qlow, qhigh));
 	}
@@ -188,7 +188,7 @@ public class SegmentTree {
 		System.out.println(result);
 
 		SegmentTreeForRangeMinUsingTree ob = new SegmentTreeForRangeMinUsingTree();
-		ob.create(new int[] { -1, 3, 0, 6 });
+		ob.create(new int[] { -1, 3, 0, -2 });
 		result = ob.rangeSumQuery(0, 2);
 		System.out.println(result);
 		ob.update(2, -4);

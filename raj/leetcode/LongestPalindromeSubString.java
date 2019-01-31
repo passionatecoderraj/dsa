@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.raj.dp;
+package com.raj.leetcode;
 
 import com.interview.graph.CommonUtil;
 
@@ -26,29 +26,28 @@ Output: "bb"
 
 public class LongestPalindromeSubString {
 
+	// https://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/ , There is O(n) solution but don't waste time on that
+	int left=0,right=0;
 	// https://discuss.leetcode.com/topic/23498/very-simple-clean-java-solution
 	// Time : O(n2), Space : O(1)
-	public String longest(String s) {
-		StringBuilder longest = new StringBuilder();
-		for (int i = 0; i < s.length() - 1; i++) {
-			isPalindrome(s, i, i, longest);
-			isPalindrome(s, i, i + 1, longest);
+	public String longestPalindrome(String s) {
+    	for (int i = 0; i < s.length() - 1; i++) {
+			isPalindrome(s, i, i);
+			isPalindrome(s, i, i + 1);
 		}
-		return longest.toString();
-
-	}
-
-	private void isPalindrome(String s, int l, int r, StringBuilder longest) {
+		return s.isEmpty()?s:s.substring(left,right+1);
+    }
+    
+	private void isPalindrome(String s, int l, int r) {
 		while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
 			l--;
 			r++;
 		}
-		if (r - l - 1 > longest.length()) {
-			longest.setLength(0);
-			longest.append(s.substring(l + 1, r));
+		if (r - l - 1 > right-left+1) {
+			left=l+1;
+			right=r-1;
 		}
 	}
-
 	// Time : O(n2), Space : O(n2)
 	public String longest2(String s) {
 		boolean[][] t = new boolean[s.length()][s.length()];
@@ -105,14 +104,14 @@ public class LongestPalindromeSubString {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String str = "forgeeksskeegfor";
+		String str = "a";
 
 		int result = -1, n = str.length();
 
 		LongestPalindromeSubString obj = new LongestPalindromeSubString();
-		result = obj.longestPalindormeDpOn2(str.toCharArray(), 0, n);
-		System.out.println(result);
-		System.out.println(obj.longest(str));
+//		result = obj.longestPalindormeDpOn2(str.toCharArray(), 0, n);
+//		System.out.println(result);
+		System.out.println(obj.longestPalindrome(str));
 	}
 
 }

@@ -1,13 +1,12 @@
 /**
  * 
  */
-package com.raj.arrays;
+package com.raj.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.raj.nodes.NestedInteger;
-import com.raj.nodes.NestedIntegerImpl;
 
 /**
  * @author Raj
@@ -52,11 +51,11 @@ public class NestedListWeightSum {
 		List<NestedInteger> l1 = new ArrayList<>();
 		List<NestedInteger> l2 = new ArrayList<>();
 		List<NestedInteger> l3 = new ArrayList<>();
-		l1.add(new NestedIntegerImpl(1));
-		l2.add(new NestedIntegerImpl(4));
-		l3.add(new NestedIntegerImpl(6));
-		NestedInteger n2 = new NestedIntegerImpl(l2);
-		NestedInteger n3 = new NestedIntegerImpl(l3);
+		l1.add(new NestedInteger(1));
+		l2.add(new NestedInteger(4));
+		l3.add(new NestedInteger(6));
+		NestedInteger n2 = new NestedInteger(l2);
+		NestedInteger n3 = new NestedInteger(l3);
 		l2.add(n3);
 		l1.add(n2);
 

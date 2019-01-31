@@ -19,8 +19,16 @@ What if the inputs contain unicode characters? How would you adapt your solution
 
 public class ValidAnagram {
 
-    // Time : O(n), Space : O(1)
     public boolean isAnagram(String s, String t) {
+        if(s.length()>t.length()) return isAnagram(t,s);
+        int a[] = new int[256];
+        for(char ch:s.toCharArray()) a[ch]++;
+        for(char ch:t.toCharArray()) if(a[ch]-- == 0) return false;
+        return true;
+    }
+    
+    // Time : O(n), Space : O(1)
+    public boolean isAnagram2(String s, String t) {
         int a[] = new int[26];
         for(char ch:s.toCharArray()){
             a[ch-'a']++;

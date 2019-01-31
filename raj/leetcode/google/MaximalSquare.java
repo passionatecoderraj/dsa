@@ -23,6 +23,8 @@ Output: 4
 
 public class MaximalSquare {
 
+	
+	
 	public int maximalSquare(char[][] a) {
 		if (a.length == 0)
 			return 0;
@@ -46,6 +48,37 @@ public class MaximalSquare {
 	}
 
 	public int maximalSquare2(char[][] a) {
+		if (a.length == 0)
+			return 0;
+		int m = a.length, n = a[0].length;
+		int t[] = new int[n];
+		int max = 0;
+		for(int i=0;i<n;i++) {
+			t[i]=a[0][i]=='1'?1:0;
+			if(a[0][i]=='1') {
+				max=1;
+			}
+		}
+		for (int i = 1; i < m; i++) {
+			int prev = t[i];
+			t[0]=a[i][0]=='1'?1:0;
+			if(a[i][0]=='1' && max==0) {
+				max=1;
+			}
+			for (int j = 1; j < n; j++) {
+				int temp = t[j];
+				if (a[i][j] == '1') {
+					t[j] = 1 + Math.min(prev, Math.min(t[j], t[j - 1]));
+					max = Math.max(t[j], max);
+				} else {
+					t[j] = 0;
+				}
+				prev = temp;
+			}
+		}
+		return max * max;
+	}
+	public int maximalSquare3(char[][] a) {
 		if (a.length == 0)
 			return 0;
 		int m = a.length, n = a[0].length;

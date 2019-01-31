@@ -1,4 +1,4 @@
-package com.raj.design;
+package com.raj.leetcode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,36 +91,32 @@ public class AutocompleteSystem {
     }
 
     public List<String> input(char ch) {
-        List<String> res = new ArrayList<>();
-        PriorityQueue<Node> pq = new PriorityQueue<>(
-                (n1, n2) -> n1.times == n2.times ? n2.string.compareTo(n1.string) : n1.times - n2.times);
-
-        if ('#' == ch) {
-            // when end of the string is reached, increment the count
-            // to increment count, if node doesn't exist , create a new node
-            if (null == search_node) {
-                insert(search_string.toString(), 1);
-            } else {
-                search_node.endWord = true;
-                search_node.times++;
-            }
-            search_string.setLength(0);
-            search_node = this.root;
-        } else {
-            search_string.append(ch);
-            if (null != search_node && search_node.children.containsKey(ch)) {
-                search_node = search_node.children.get(ch);
-                collect(search_node, new StringBuilder(search_string), pq);
-            } else {
-                search_node = null;
-            }
-        }
-
-        while (!pq.isEmpty()) {
-            Node n = pq.poll();
-            res.add(0, n.string);
-        }
-        return res;
+    	 List<String> res = new ArrayList<>();
+         PriorityQueue<Node> pq = new PriorityQueue<>(
+                 (n1, n2) -> n1.times == n2.times ? n2.string.compareTo(n1.string) : n1.times - n2.times);
+         search_string.append(ch);
+         if ('#' == ch) {
+             // when end of the string is reached, increment the count
+             // to increment count, if node doesn't exist , create a new node
+            
+             search_node.endWord = true;
+             search_node.times++;
+            
+             search_string.setLength(0);
+             search_node = this.root;
+         } else if(!search_node.children.containsKey(ch)){
+               search_node.children.put(ch, new TrieNode(ch));
+               search_node = search_node.children.get(ch);
+         }else {
+        	 search_node = search_node.children.get(ch); 
+        	 collect(search_node, new StringBuilder(search_string), pq);	 
+         }
+         
+         while (!pq.isEmpty()) {
+             Node n = pq.poll();
+             res.add(0, n.string);
+         }
+         return res;
     }
 
     private void collect(TrieNode temp, StringBuilder sb, PriorityQueue<Node> pq) {

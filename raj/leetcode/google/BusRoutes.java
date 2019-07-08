@@ -12,9 +12,9 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
- * @author Raj 
+ * @author Raj
  * 
- * We have a list of bus routes. Each routes[i] is a bus route that the i-th bus repeats forever. For example if routes[0] = [1, 5, 7], this means that the first bus (0-th indexed) travels in the sequence 1->5->7->1->5->7->1->... forever.
+We have a list of bus routes. Each routes[i] is a bus route that the i-th bus repeats forever. For example if routes[0] = [1, 5, 7], this means that the first bus (0-th indexed) travels in the sequence 1->5->7->1->5->7->1->... forever.
 
 We start at bus stop S (initially not on a bus), and we want to go to bus stop T. Travelling by buses only, what is the least number of buses we must take to reach our destination? Return -1 if it is not possible.
 
@@ -31,11 +31,52 @@ Note:
 1 <= routes.length <= 500.
 1 <= routes[i].length <= 500.
 0 <= routes[i][j] < 10 ^ 6.
-
  */
 public class BusRoutes {
 
 	public int numBusesToDestination(int[][] routes, int S, int T) {
+		// bus stop to buses map
+		Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+		for (int i = 0; i < routes.length; i++) {
+			for (int j = 0; j < routes[i].length; j++) {
+				if (!map.containsKey(routes[i][j])) {
+					map.put(routes[i][j], new ArrayList<>());
+				}
+				map.get(routes[i][j]).add(i);
+			}
+		}
+
+		class Node {
+			int stop;
+			int bus_count = 0;
+
+			public Node(int stop, int count) {
+				this.stop = stop;
+				this.bus_count = count;
+			}
+		}
+		Set<Integer> visited = new HashSet<>();
+		Queue<Node> q = new LinkedList<>();
+		q.offer(new Node(S, 0));
+		while (!q.isEmpty()) {
+			Node cur = q.poll();
+			if (cur.stop == T)
+				return cur.bus_count;
+			ArrayList<Integer> buses = map.get(cur.stop);
+			for (int bus : buses) {
+				if (visited.contains(bus))
+					continue;
+				visited.add(bus);
+				for (int stop = 0; stop < routes[bus].length; stop++) {
+					q.offer(new Node(routes[bus][stop], cur.bus_count + 1));
+				}
+
+			}
+		}
+		return -1;
+	}
+
+	public int numBusesToDestination2(int[][] routes, int S, int T) {
 		if (S == T)
 			return 0;
 		// bus stop to buses map

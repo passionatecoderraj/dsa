@@ -89,13 +89,23 @@ public class SlidingPuzzle {
 		return -1;
 	}
 
-	private String swap(String cur, int idx, int swap_position) {
+
+	private String swap(String cur, int i, int j) {
+	    char a[] = cur.toCharArray();
+        a[i] = (char)(a[i]^a[j]);
+        a[j] = (char)(a[i]^a[j]);
+        a[i] = (char)(a[i]^a[j]);
+        return String.valueOf(a);
+	}
+	
+	private String swap2(String cur, int idx, int swap_position) {
 		StringBuilder sb = new StringBuilder(cur);
 		sb.setCharAt(idx, cur.charAt(swap_position));
 		sb.setCharAt(swap_position, cur.charAt(idx));
 		return sb.toString();
 	}
 
+	
 	public static void main(String[] args) {
 		SlidingPuzzle obj = new SlidingPuzzle();
 		int res = -1;

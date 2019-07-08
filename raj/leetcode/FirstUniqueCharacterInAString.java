@@ -1,15 +1,28 @@
 /**
  * 
  */
-package com.raj.string;
+package com.raj.leetcode;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Raj
  *
+ *Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+
+Examples:
+
+s = "leetcode"
+return 0.
+
+s = "loveleetcode",
+return 2.
+Note: You may assume the string contain only lowercase letters.
  */
 
 /*
@@ -22,13 +35,28 @@ import java.util.LinkedHashSet;
  * http://www.geeksforgeeks.org/given-a-string-find-its-first-non-repeating-
  * character/
  */
-public class FindFirstNonRepeatingCharacter {
+public class FirstUniqueCharacterInAString{
 
-	/**
-	 * @param args
-	 */
+	// https://leetcode.com/problems/first-unique-character-in-a-string/discuss/86511/Java-One-Pass-Solution-with-LinkedHashMap
+	public int firstUniqChar(String s) {
+		Set<Character> set = new HashSet<>();
+		Map<Character, Integer> map = new LinkedHashMap<>();
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+			if (!set.contains(ch)) {
+				set.add(ch);
+				map.put(ch, i);
+			} else {
+				if (map.containsKey(ch)) {
+					map.remove(ch);
+				}
+			}
+		}
+		return map.size() == 0 ? -1 : map.entrySet().iterator().next().getValue();
+	}
+
 	public static void main(String[] args) {
-		FindFirstNonRepeatingCharacter obj = new FindFirstNonRepeatingCharacter();
+		FirstUniqueCharacterInAString obj = new FirstUniqueCharacterInAString();
 
 		// String str = "thomaoht";
 		String str = "raja";
@@ -48,6 +76,9 @@ public class FindFirstNonRepeatingCharacter {
 		// by traversing once
 		result = obj.findFirstNonRepeatingCharacterByTraversingOnceWithoutSorting(str.toCharArray(), str.length());
 		System.out.println(result);
+
+		int res = obj.firstUniqChar(str);
+		System.out.println(res);
 
 	}
 

@@ -9,19 +9,18 @@ public class BasicCalculator3 {
         if (s == null || s.length() == 0) return 0;
         Stack<Integer> nums = new Stack<>(); // the stack that stores numbers
         Stack<Character> ops = new Stack<>(); // the stack that stores operators (including parentheses)
-        int num = 0;
+        
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c == ' ') continue;
             if (Character.isDigit(c)) {
-                num = c - '0';
+            	int num = c - '0';
                 // iteratively calculate each number
                 while (i < s.length() - 1 && Character.isDigit(s.charAt(i+1))) {
                     num = num * 10 + (s.charAt(i+1) - '0');
                     i++;
                 }
                 nums.push(num);
-                num = 0; // reset the number to 0 before next calculation
             } else if (c == '(') {
                 ops.push(c);
             } else if (c == ')') {

@@ -4,7 +4,9 @@
 package com.raj.leetcode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.raj.nodes.NestedInteger;
 
@@ -26,6 +28,29 @@ import com.raj.nodes.NestedInteger;
 public class NestedListWeightSum {
 
 	public int depthSum(List<NestedInteger> nestedList) {
+		if (null == nestedList || nestedList.size() == 0)
+			return 0;
+		Queue<List<NestedInteger>> q = new LinkedList<>();
+		q.offer(nestedList);
+		int res = 0;
+		int level = 1;
+		while (!q.isEmpty()) {
+			int size = q.size();
+			for (int i = 0; i < size; i++) {
+				for (NestedInteger n : q.poll()) {
+					if (n.isInteger()) {
+						res += (level * n.getInteger());
+					} else {
+						q.offer(n.getList());
+					}
+				}
+			}
+			level++;
+		}
+		return res;
+	}
+	
+	public int depthSum2(List<NestedInteger> nestedList) {
 		if (null == nestedList || nestedList.size() == 0)
 			return 0;
 		return depthSumUtil(nestedList, 1);
@@ -51,14 +76,19 @@ public class NestedListWeightSum {
 		List<NestedInteger> l1 = new ArrayList<>();
 		List<NestedInteger> l2 = new ArrayList<>();
 		List<NestedInteger> l3 = new ArrayList<>();
-		l1.add(new NestedInteger(1));
-		l2.add(new NestedInteger(4));
-		l3.add(new NestedInteger(6));
+		
+		l2.add(new NestedInteger(1));
+		l2.add(new NestedInteger(1));
+		
+		l3.add(new NestedInteger(1));
+		l3.add(new NestedInteger(1));
+		
 		NestedInteger n2 = new NestedInteger(l2);
 		NestedInteger n3 = new NestedInteger(l3);
-		l2.add(n3);
 		l1.add(n2);
-
+		l1.add(new NestedInteger(2));
+		l1.add(n3);
+		
 		int result = obj.depthSum(l1);
 		System.out.println(result);
 	}

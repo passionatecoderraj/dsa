@@ -26,32 +26,27 @@ import java.util.Set;
  */
 public class NumberOfConnectedComponents {
 
-	public static int countComponentsUnionFind(int n, int[][] edges) {
-
-		if (n <= 0 || edges.length == 0) {
-			return 0;
-		}
-
+	public int countComponentsUnionFind(int n, int[][] edges) {
 		DisjointSet ds = new DisjointSet();
 		for (int i = 0; i < n; i++) {
 			ds.makeSet(i);
 		}
-
+		int count = n;
 		for (int[] edge : edges) {
-			ds.union(edge[0], edge[1]);
+			long p1 = ds.findSet(edge[0]);
+			long p2 = ds.findSet(edge[1]);
+			if (p1 != p2) {
+				ds.union(edge[0], edge[1]);
+				count--;
+			}
 		}
 
-		Set<Long> result = new HashSet<>();
-		for (int i = 0; i < n; i++) {
-			result.add(ds.findSet(i));
-		}
-		return result.size();
+		return count;
 	}
 
-	public static int countComponentsDfs(int n, int[][] edges) {
-
-		if (n <= 0 || edges.length == 0) {
-			return 0;
+	public int countComponents(int n, int[][] edges) {
+		if (n == 0 || edges.length == 0) {
+			return n;
 		}
 
 		Map<Integer, Set<Integer>> map = new HashMap<>();
@@ -76,7 +71,7 @@ public class NumberOfConnectedComponents {
 		}
 
 		int count = 0;
-		for (int ver : map.keySet()) {
+		for (int ver = 0; ver < n; ver++) {
 			if (!visited.contains(ver)) {
 				dfs(ver, visited, map);
 				count++;
@@ -99,18 +94,13 @@ public class NumberOfConnectedComponents {
 	public static void main(String args[]) {
 		int n = 5, edges[][] = { { 0, 1 }, { 1, 2 }, { 3, 4 } };
 		int result = -1;
-		result = countComponentsDfs(n, edges);
+		NumberOfConnectedComponents ob = new NumberOfConnectedComponents();
+		result = ob.countComponents(n, edges);
 		System.out.println(result);
 
 		n = 5;
 		int edges2[][] = { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 4 } };
-		result = countComponentsDfs(5, edges2);
-		System.out.println(result);
-
-		result = countComponentsUnionFind(n, edges);
-		System.out.println(result);
-
-		result = countComponentsUnionFind(5, edges2);
+		result = ob.countComponents(5, edges2);
 		System.out.println(result);
 
 	}

@@ -41,7 +41,46 @@ Note: The length of each dimension in the given grid does not exceed 50.
  */
 public class NumberOfDistinctIslands {
 
-    public int numDistinctIslands(int[][] a) {
+	  /** WARNING: DO NOT FORGET to add path for backtracking, otherwise, we may have same result when we count two 
+     * distinct islands in some cases
+     * 
+     * eg:              1 1 1   and    1 1 0
+     *                  0 1 0          0 1 1
+     * with b:          rdbr           rdr
+     * without b:       rdr            rdr
+     * */
+	// https://leetcode.com/problems/number-of-distinct-islands/discuss/108475/Java-very-Elegant-and-concise-DFS-Solution(Beats-100)
+	public int numDistinctIslands(int[][] grid) {
+		if (grid == null || grid.length == 0 || grid[0].length == 0)
+			return 0;
+		Set<String> set = new HashSet<>();
+
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (grid[i][j] == 1) {
+					StringBuilder sb = new StringBuilder();
+					dfs(grid, i, j, sb, "o");
+					System.out.println(sb.toString());
+					set.add(sb.toString());
+				}
+			}
+		}
+		return set.size();
+	}
+
+	private void dfs(int[][] grid, int x, int y, StringBuilder sb, String s) {
+		if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length || grid[x][y] != 1)
+			return;
+		grid[x][y] = 0;
+		sb.append(s);
+		dfs(grid, x - 1, y, sb, "l");
+		dfs(grid, x + 1, y, sb, "r");
+		dfs(grid, x, y - 1, sb, "u");
+		dfs(grid, x, y + 1, sb, "d");
+		sb.append("b");
+	}
+	    
+	public int numDistinctIslands2(int[][] a) {
         Set<List<List<Integer>>> set = new HashSet<>();
         boolean visited[][] = new boolean[a.length][a[0].length];
         for (int i = 0; i < a.length; i++) {

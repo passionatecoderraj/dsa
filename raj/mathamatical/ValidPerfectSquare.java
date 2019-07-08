@@ -20,6 +20,23 @@ package com.raj.mathamatical;
  */
 public class ValidPerfectSquare {
 
+	// https://leetcode.com/problems/valid-perfect-square/discuss/269396/Binary-Search-beats-double-100
+	// Time : O(logn), Space : O(1)
+	public boolean isPerfectSquare(int n) {
+		int l = 1, r = n;
+		while (l <= r) {
+			int m = l + (r - l) / 2;
+			if (m * m == n) {
+				return true;
+			}
+			if (m > n / m)
+				r = m - 1;
+			else
+				l = m + 1;
+		}
+		return false;
+	}
+
 	public static boolean isPerfectSquareUsingNewtonRaphson(int n) {
 		long x = n;
 		while (x * x > n) {
@@ -40,7 +57,7 @@ public class ValidPerfectSquare {
 	 * 1+3+5+7=sqr(4)
 	 */
 	// Time :O(Sqrt(n))
-	private static boolean isPerfectSquare(int n) {
+	private static boolean isPerfectSquare2(int n) {
 		int i = 1;
 		while (n > 0) {
 			n -= i;
@@ -51,9 +68,10 @@ public class ValidPerfectSquare {
 
 	public static void main(String[] args) {
 		boolean res = false;
-		res = isPerfectSquare(19);
+		ValidPerfectSquare obj = new ValidPerfectSquare();
+		res = obj.isPerfectSquare(19);
 		System.out.println(res);
-		res = isPerfectSquare(16);
+		res = obj.isPerfectSquare(16);
 		System.out.println(res);
 	}
 

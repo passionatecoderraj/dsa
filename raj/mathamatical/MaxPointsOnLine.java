@@ -3,7 +3,10 @@
  */
 package com.raj.mathamatical;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.raj.nodes.Point;
 
@@ -22,16 +25,16 @@ import com.raj.nodes.Point;
  *         java/
  */
 public class MaxPointsOnLine {
-
+	
 	// Time : O(n2), Space : O(n)
-	public static int maxPoints(Point[] points) {
+	public int maxPoints(Point[] points) {
 		if (points.length <= 2)
 			return points.length;
 
 		int result = 0;
 		for (int i = 0; i < points.length; i++) {
 
-			HashMap<Double, Integer> map = new HashMap<Double, Integer>();
+			Map<BigDecimal, Integer> map = new HashMap<>();
 			int localResult = 0;
 			int samePoint = 1;
 
@@ -40,15 +43,63 @@ public class MaxPointsOnLine {
 					samePoint++;
 					continue;
 				} else if (points[j].x == points[i].x) {
-					map.compute(Double.MAX_VALUE, (key, value) -> {
+					map.compute(BigDecimal.valueOf(Integer.MAX_VALUE), (key, value) -> {
 						if (null == value)
 							return 1;
 						return value + 1;
 					});
 					continue;
 				} else {
-					double slope = points[j].y == points[i].y ? 0.0
-							: (1.0 * (points[j].y - points[i].y)) / (points[j].x - points[i].x);
+					BigDecimal slope = BigDecimal.valueOf(points[j].y - points[i].y)
+							.divide(BigDecimal.valueOf(points[j].x - points[i].x), new MathContext(20));
+					if (map.containsKey(slope)) {
+						map.put(slope, map.get(slope) + 1);
+					} else {
+						// we put only one because we are adding samePoint by
+						// default to localResult
+						map.put(slope, 1);
+					}
+				}
+			}
+
+			for (int value : map.values()) {
+				localResult = Math.max(value, localResult);
+			}
+
+			localResult += samePoint;
+			result = Math.max(result, localResult);
+		}
+		return result;
+	}
+
+	// Time : O(n2), Space : O(n)
+	public static int maxPoints2(Point[] points) {
+		if (points.length <= 2)
+			return points.length;
+
+		int result = 0;
+		for (int i = 0; i < points.length; i++) {
+
+			HashMap<BigDecimal, Integer> map = new HashMap<>();
+			int localResult = 0;
+			int samePoint = 1;
+
+			for (int j = i + 1; j < points.length; j++) {
+				if ((points[j].x == points[i].x) && (points[j].y == points[i].y)) {
+					samePoint++;
+					continue;
+				} else if (points[j].x == points[i].x) {
+					map.compute(BigDecimal.valueOf(Integer.MAX_VALUE), (key, value) -> {
+						if (null == value)
+							return 1;
+						return value + 1;
+					});
+					continue;
+				} else {
+					// double slope = points[j].y == points[i].y ? 0.0
+					// : (1.0 * (points[j].y - points[i].y)) / (points[j].x - points[i].x);
+					BigDecimal slope = BigDecimal.valueOf(points[j].y - points[i].y)
+							.divide(BigDecimal.valueOf(points[j].x - points[i].x), new MathContext(20));
 					if (map.containsKey(slope)) {
 						map.put(slope, map.get(slope) + 1);
 					} else {
@@ -76,9 +127,9 @@ public class MaxPointsOnLine {
 
 		// Point a[] = { new Point(0, 0), new Point(-1, -1), new Point(2, 2) };
 		Point a[] = { new Point(2, 3), new Point(3, 3), new Point(-5, 3) };
-
+		MaxPointsOnLine obj = new MaxPointsOnLine();
 		int res = -1;
-		res = maxPoints(a);
+		res = obj.maxPoints(a);
 		System.out.println(res);
 
 		Point b[] = { new Point(40, -23), new Point(9, 138), new Point(429, 115), new Point(50, -17), new Point(-3, 80),
@@ -109,7 +160,7 @@ public class MaxPointsOnLine {
 				new Point(9, -5), new Point(6, -29), new Point(-2, 73), new Point(-1, -15), new Point(1, 76),
 				new Point(-4, 77), new Point(6, -29) };
 
-		res = maxPoints(b);
+		res = obj.maxPoints(b);
 		System.out.println(res);
 
 	}

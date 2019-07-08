@@ -27,8 +27,41 @@ package com.raj.mathamatical;
  */
 public class ValidNumber {
 
+	public boolean isNumber(String s) {
+		s = s.trim();
+		boolean pointSeen = false;
+		boolean eSeen = false;
+		boolean numberSeen = false;
+		for (int i = 0; i < s.length(); i++) {
+			if ('0' <= s.charAt(i) && s.charAt(i) <= '9') {
+				numberSeen = true;
+
+			} else if (s.charAt(i) == '.') {
+				if (eSeen || pointSeen) {
+					return false;
+				}
+				pointSeen = true;
+			} else if (s.charAt(i) == 'e') {
+				if (eSeen || !numberSeen) {
+					return false;
+				}
+				numberSeen = false;
+				eSeen = true;
+			} else if (s.charAt(i) == '-' || s.charAt(i) == '+') {
+				if (i != 0 && s.charAt(i - 1) != 'e') {
+					return false;
+				}
+				numberSeen = false;
+			} else {
+				return false;
+			}
+		}
+
+		return numberSeen;
+	}
+
 	// Time : O(n), Space :O(1)
-	public static boolean isValidNumber(String s) {
+	public boolean isNumber2(String s) {
 
 		boolean numberSeen = false;
 		boolean numberAfterE = false;
@@ -63,14 +96,15 @@ public class ValidNumber {
 
 	public static void main(String[] args) {
 		boolean res = false;
-		res = isValidNumber("0.1");
+		ValidNumber obj = new ValidNumber();
+		res = obj.isNumber("0.1");
 		System.out.println(res);
-		res = isValidNumber("abc");
+		res = obj.isNumber("abc");
 		System.out.println(res);
 
-		res = isValidNumber("1 a");
+		res = obj.isNumber("1 a");
 		System.out.println(res);
-		res = isValidNumber("2e10");
+		res = obj.isNumber("2e10");
 		System.out.println(res);
 
 	}

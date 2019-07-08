@@ -85,10 +85,10 @@ public class GuessTheWord {
 	// https://leetcode.com/problems/guess-the-word/discuss/133862/Random-Guess-and-Minimax-Guess-with-Comparison
 	/*
 	 *  Strategy : Guess the word randomly
-	 *  1. make map of words with zero matches
-	 *  2. Guess will be a word (a) that has atleast one match with other words, or
-	 *  (b) word that least of zero matches
-	 *  3) if guess is not correct, build words for next iteration with exact 'x' matches
+	 *  1. randomly choose a 'guess' word
+	 *  2. call 'guess' method with word to get no. of matches(x)
+	 *  3. if guess is not correct and matched word is still in list of words, it should also have 'x' matches
+	 *  4. so, filter out words that has 'x' matches for next iteration
 	 */
 	public void findSecretWord2(String[] wordlist, Master master) {
 		for (int i = 0, x = 0; i < 10 && x < 6; i++) {

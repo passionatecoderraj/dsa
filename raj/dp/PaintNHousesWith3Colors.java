@@ -21,8 +21,29 @@ import com.interview.graph.CommonUtil;
  */
 public class PaintNHousesWith3Colors {
 
+	// Time : O(n*k), Space : O(n)
+	// if we cannot change array
+	public int minCostToPaintNHousesWith3Colors(int[][] a) {
+		int m = a.length;
+		if (m == 0)
+			return 0;
+		int n = a[0].length;
+
+		int prev[] = new int[n];
+
+		System.arraycopy(a[0], 0, prev, 0, n);
+		for (int i = 1; i < m; i++) {
+			int cur[] = new int[n];
+			cur[0] = Math.min(prev[1], prev[2]) + a[i][0];
+			cur[1] = Math.min(prev[0], prev[2]) + a[i][1];
+			cur[2] = Math.min(prev[0], prev[1]) + a[i][2];
+			System.arraycopy(cur, 0, prev, 0, n);
+		}
+		return Math.min(prev[1], Math.min(prev[0], prev[2]));
+	}
+
 	// Time : O(n*k), Space : O(1)
-	public int minCostToPaintNHousesWith3Colors(int[][] cost) {
+	public int minCostToPaintNHousesWith3Colors2(int[][] cost) {
 		int n = cost.length;
 
 		if (null == cost || n == 0)

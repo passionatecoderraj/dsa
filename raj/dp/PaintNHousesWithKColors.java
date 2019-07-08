@@ -26,50 +26,39 @@ import com.interview.graph.CommonUtil;
  * 
  */
 public class PaintNHousesWithKColors {
+
 	// Time : O(n*k), Space : O(1)
-	// same as above but with understandable logic
 	public int minCostToPaintNHousesWithKColorsTimeOptimized(int[][] cost) {
-		int n = cost.length;
-		int k = cost[0].length;
+		if (null == cost || cost.length == 0)
+			return 0;
 
-		if (null == cost || n == 0)
-			return Integer.MAX_VALUE;
-
-		int prev1stMin = 0;
-		int prev1stMinIndex = -1;
-		int prev2ndMin = 0;
-
-		for (int i = 0; i < n; i++) {
-			int cur1stMin = Integer.MAX_VALUE;
-			int cur1stMinIndex = -1;
-			int cur2ndMin = Integer.MAX_VALUE;
-			for (int j = 0; j < k; j++) {
-				if (prev1stMinIndex == j) {
-					cost[i][j] += prev2ndMin;
-				} else {
-					cost[i][j] += prev1stMin;
-				}
-
-				if (cost[i][j] < cur1stMin) {
-					cur2ndMin = cur1stMin;
-					cur1stMin = cost[i][j];
-					cur1stMinIndex = j;
-				} else if (cost[0][j] < cur2ndMin) {
-					cur2ndMin = cost[i][j];
+		int min1 = Integer.MAX_VALUE, min2 = Integer.MAX_VALUE, min1Index = -1;
+		for (int j = 0; j < cost[0].length; j++) {
+			if (cost[0][j] <= min1) {
+				min2 = min1;
+				min1 = cost[0][j];
+				min1Index = j;
+			} else if (cost[0][j] < min2) {
+				min2 = cost[0][j];
+			}
+		}
+		for (int i = 1; i < cost.length; i++) {
+			int curMin1 = Integer.MAX_VALUE, curMin2 = Integer.MAX_VALUE, curMin1Index = -1;
+			for (int j = 0; j < cost[0].length; j++) {
+				int val = cost[i][j] + (j == min1Index ? min2 : min1);
+				if (val <= curMin1) {
+					curMin2 = curMin1;
+					curMin1 = val;
+					curMin1Index = j;
+				} else if (val < curMin2) {
+					curMin2 = val;
 				}
 			}
-			prev1stMin = cur1stMin;
-			prev1stMinIndex = cur1stMinIndex;
-			prev2ndMin = cur2ndMin;
+			min1 = curMin1;
+			min2 = curMin2;
+			min1Index = curMin1Index;
 		}
-
-		CommonUtil.print2DArray(cost, n, k);
-
-		int minCost = Integer.MAX_VALUE;
-		for (int j = 0; j < k; j++) {
-			minCost = Math.min(minCost, cost[n - 1][j]);
-		}
-		return minCost;
+		return min1;
 	}
 
 	// Time : O(n*k), Space : O(1)

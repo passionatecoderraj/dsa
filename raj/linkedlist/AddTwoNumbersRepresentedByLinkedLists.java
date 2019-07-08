@@ -32,7 +32,7 @@ public class AddTwoNumbersRepresentedByLinkedLists {
 			res.data = -res.data;
 			return res;
 		}
-		r
+		
 
 		return reverse(res);
 	}

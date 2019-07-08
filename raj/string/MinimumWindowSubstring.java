@@ -41,8 +41,8 @@ public class MinimumWindowSubstring {
 			}
 
 			while (counter == 0) {
-				if (r - l < minLen) {
-					minLen = r - l;
+				if (r - l + 1 < minLen) {
+					minLen = r - l + 1;
 					minSubString = s.substring(l, r + 1);
 				}
 				char left = s.charAt(l++);

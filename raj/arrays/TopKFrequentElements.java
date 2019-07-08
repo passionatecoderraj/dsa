@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
 
 /**
  * @author Raj
@@ -24,7 +26,7 @@ import java.util.Map;
 public class TopKFrequentElements {
 
 	// Time : O(n), Space : O(n)
-	public List<Integer> topKFrequent(int[] a, int k) {
+	public List<Integer> topKFrequent2(int[] a, int k) {
 		List<Integer> res = new ArrayList<>();
 		Map<Integer, Integer> map = new HashMap<>();
 		for (int n : a) {
@@ -56,13 +58,39 @@ public class TopKFrequentElements {
 		return res;
 	}
 
+	// Time : O(klogn), Space :O(n)
+	public List<Integer> topKFrequent(int[] a, int k) {
+		List<Integer> res = new ArrayList<>();
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int n : a) {
+			map.compute(n, (kev, val) -> {
+				if (val == null)
+					val = 0;
+				return val + 1;
+			});
+		}
+
+		PriorityQueue<Entry<Integer, Integer>> pq = new PriorityQueue<>((e1, e2) -> e1.getValue() - e2.getValue());
+
+		for (Entry<Integer, Integer> e : map.entrySet()) {
+			pq.offer(e);
+			if (pq.size() > k)
+				pq.poll();
+		}
+		while (!pq.isEmpty()) {
+			res.add(pq.poll().getKey());
+		}
+
+		return res;
+	}
+
 	public static void main(String[] args) {
 		TopKFrequentElements obj = new TopKFrequentElements();
 
 		int a[] = { 1, 1, 1, 2, 2, 3 };
 
 		List<Integer> res = null;
-		res = obj.topKFrequent(a, 2);
+		res = obj.topKFrequent(a, 3);
 		System.out.println(res);
 
 	}

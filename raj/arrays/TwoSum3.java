@@ -6,7 +6,6 @@ package com.raj.arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
@@ -70,10 +69,8 @@ public class TwoSum3 {
 			for (int i : map.keySet()) {
 				int target = sum - i;
 				if (map.containsKey(target)) {
-					if (target == i && map.get(target) < 2) {
-						continue;
-					}
-					return true;
+					if (target != i || map.get(target) >= 2)
+						return true;
 				}
 			}
 			return false;
@@ -87,51 +84,7 @@ public class TwoSum3 {
 	public static void main(String[] args) {
 
 		TwoSum3 obj = new TwoSum3();
-		int k = 3, result = -1;
-		obj.insertInStream(10, k);
-		obj.insertInStream(20, k);
-		obj.insertInStream(11, k);
-		result = obj.findKthLargest(k);
-		System.out.println(result);
-		obj.insertInStream(70, k);
-		result = obj.findKthLargest(k);
-		System.out.println(result);
-		obj.insertInStream(50, k);
-		result = obj.findKthLargest(k);
-		System.out.println(result);
-		obj.insertInStream(40, k);
-		result = obj.findKthLargest(k);
-		System.out.println(result);
-		obj.insertInStream(100, k);
-		result = obj.findKthLargest(k);
-		System.out.println(result);
-		obj.insertInStream(5, k);
-		result = obj.findKthLargest(k);
-		System.out.println(result);
-
-	}
-
-	PriorityQueue<Integer> minHeap;
-
-	public TwoSum3() {
-		minHeap = new PriorityQueue<Integer>();
-	}
-
-	// Time : O(1)
-	public int findKthLargest(int k) {
-		return minHeap.size() < k ? -1 : minHeap.peek();
-	}
-
-	public int insertInStream(int val, int k) {
-		if (minHeap.size() < k) {
-			minHeap.offer(val);
-		} else {
-			if (val > minHeap.peek()) {
-				minHeap.poll();
-				minHeap.offer(val);
-			}
-		}
-		return findKthLargest(k);
+		
 	}
 
 }

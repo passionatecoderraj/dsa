@@ -55,37 +55,56 @@ class Vector2D implements Iterator<Integer> {
 
 }
 
-class Vector2D_2 implements Iterator<Integer> {
+class Vector2D_2 {
+    int i=0,j=0;
+    int[][]a;
+    public Vector2D_2(int[][] v) {
+        this.a = v;
+    }
+    
+    public int next() {
+        if(hasNext()){
+            return a[i][j++];
+        }
+        return -1;
+    }
+    
+    public boolean hasNext() {
+        while(i<a.length && (j>=a[i].length)){
+            i++;
+            j=0;
+        }
+        return i<a.length && j<a[i].length;
+    }
+}
+
+class Vector2D_3 implements Iterator<Integer> {
 	int i = -1, j = -1;
 	List<List<Integer>> a;
 
-	public Vector2D_2(List<List<Integer>> vec2d) {
+	public Vector2D_3(List<List<Integer>> vec2d) {
 		this.a = vec2d;
 	}
 
 	@Override
-	public Integer next() {
-		int[] n = getNext();
-		if (n == null)
-			return null;
-		j = n[1];
-		return a.get(n[0]).get(n[1]);
-	}
+	 public Integer next() {
+        Integer val =null;
+        if(hasNext()){
+            val = a.get(i+1).get(j+1);
+            j++;
+        }
+        return val;
+    }
 
-	@Override
-	public boolean hasNext() {
-		return getNext() != null;
-	}
-
-	private int[] getNext() {
-		while (i + 1 < a.size()) {
-			if (j + 1 < a.get(i + 1).size())
-				return new int[] { i + 1, j + 1 };
-			i++;
-			j = -1;
-		}
-		return null;
-	}
+    @Override
+    public boolean hasNext() {
+         while(i+1<a.size()){
+            if(j+1<a.get(i+1).size()) return true;
+            i++;
+            j=-1;
+        }
+        return false;
+    }
 }
 
 public class Flatten2DVector {
@@ -98,6 +117,14 @@ public class Flatten2DVector {
 
 		Vector2D obj = new Vector2D(list);
 		System.out.println(obj.hasNext());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
+		System.out.println(obj.next());
 		System.out.println(obj.next());
 	}
 

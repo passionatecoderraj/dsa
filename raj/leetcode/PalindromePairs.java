@@ -53,6 +53,7 @@ public class PalindromePairs {
 				String str2 = words[i].substring(j);
 				if (isPalindrome(str1)) {
 					String str2rvs = new StringBuilder(str2).reverse().toString();
+					// if (map.containsKey(str2rvs) && map.get(str2rvs) != i && !str1.isEmpty()) {
 					if (map.containsKey(str2rvs) && map.get(str2rvs) != i) {
 						List<Integer> list = new ArrayList<Integer>();
 						list.add(map.get(str2rvs));
@@ -65,7 +66,8 @@ public class PalindromePairs {
 					String str1rvs = new StringBuilder(str1).reverse().toString();
 					// this is to address the case 2 above 
 					// check "str.length() != 0" to avoid duplicates
-					if (map.containsKey(str1rvs) && map.get(str1rvs) != i && str2.length() != 0) {
+					// if (map.containsKey(str1rvs) && map.get(str1rvs) != i) {
+					if (map.containsKey(str1rvs) && map.get(str1rvs) != i && !str2.isEmpty()) {
 						List<Integer> list = new ArrayList<Integer>();
 						list.add(i);
 						list.add(map.get(str1rvs));

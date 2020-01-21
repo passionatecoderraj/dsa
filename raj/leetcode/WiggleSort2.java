@@ -4,10 +4,8 @@
 package com.raj.leetcode;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.interview.graph.CommonUtil;
-import com.raj.arrays.ReverseArray;
 
 /**
  * @author Raj
@@ -32,7 +30,21 @@ Can you do it in O(n) time and/or in-place with O(1) extra space?
 public class WiggleSort2 {
 	
 
+	/*
+	 * There can be utmost n/2 medians to have wiggle sort with duplicates
+	 * The best strategy to arrange in the case is 
+	 * (1) elements smaller than the 'median' are put into the last even slots
 
+	   (2) elements larger than the 'median' are put into the first odd slots
+		
+	    (3) the medians are put into the remaining slots.
+	    
+	    For this, sort array in reverse order(descending), then start placing.
+	    If you sort array in ascending order, then it can give problems
+	    For example, if array has 6 elements (S,S,M,M,M,L)
+	    Sort array in ascending, and start placing can give wrong order as follows : S_S_M_ => S M S M M L
+	    Instead sorting array in descending and placing can give correct order as follows : _L_M_M => M L S M S M
+	 */
 	/*
 	 * https://leetcode.com/problems/wiggle-sort-ii/discuss/77682/Step-by-step-explanation-of-index-mapping-in-Java
 	 * 
@@ -61,7 +73,7 @@ public class WiggleSort2 {
 	public void wiggleSort(int[] a) {
 		int n = a.length;
 		int first = 0, mid = 0, last = a.length - 1;
-		int median = quickSelectFindKthSmallest(a, 0, a.length - 1, (a.length - 1) / 2);
+		int median = quickSelectFindKthLargest(a, 0, a.length - 1, (a.length - 1) / 2);
 		while (mid <= last) {
 			if (a[newIndex(mid, n)] > median) {
 				swap(a, newIndex(first++, n), newIndex(mid++, n));
@@ -103,7 +115,7 @@ public class WiggleSort2 {
 		int n = a.length, m = (n - 1) >> 1;
 		if(n < 2) return;
 		int[] copy = Arrays.copyOf(a, n);
-		int median = quickSelectFindKthSmallest(a, 0, a.length - 1, m);
+		int median = quickSelectFindKthLargest(a, 0, a.length - 1, m);
 		/*
 		 * we still need to do color sort - 
 		 * 	because after finding kth small though all larger on the left side and smaller on the right side, 
@@ -119,23 +131,18 @@ public class WiggleSort2 {
 			}
 		}
 
-		for (int i = 0, j = 1; i < n; i++) {
-			a[j] = copy[i];
-			j = j + 2 < n ? j + 2 : 0;
+		for (int i = 0; i < copy.length; i++) {
+			a[newIndex(i, copy.length)] = copy[i];
 		}
 	}
 	
 	// Time : O(nlogn), Space : O(n)
 	public void wiggleSort3(int[] a) {
-		int n = a.length;
-		if (n < 2)
-			return;
-		Arrays.sort(a);
-		reverse(a);
-		int[] copy = Arrays.copyOf(a, n);
-		for (int i = 0, j = 1; i < n; i++) {
-			a[j] = copy[i];
-			j = j + 2 < n ? j + 2 : 0;
+		int copy[] = Arrays.copyOf(a, a.length);
+		Arrays.sort(copy);
+		reverse(copy);
+		for (int i = 0; i < copy.length; i++) {
+			a[newIndex(i, copy.length)] = copy[i];
 		}
 	}
 
@@ -163,7 +170,7 @@ public class WiggleSort2 {
 		CommonUtil.printArray(a);
 	}
 
-	public int quickSelectFindKthSmallest(int a[], int low, int high, int k) {
+	public int quickSelectFindKthLargest(int a[], int low, int high, int k) {
 		if (low <= high) {
 			int pivot = partition(a, low, high);
 			if (pivot - low == k) {
@@ -172,10 +179,10 @@ public class WiggleSort2 {
 				// right sub array
 				// position of k is changed ,it's k - length of left side -
 				// 1(pivot)
-				return quickSelectFindKthSmallest(a, pivot + 1, high, k - (pivot - low) - 1);
+				return quickSelectFindKthLargest(a, pivot + 1, high, k - (pivot - low) - 1);
 			} else {
 				// lest sub array
-				return quickSelectFindKthSmallest(a, low, pivot - 1, k);
+				return quickSelectFindKthLargest(a, low, pivot - 1, k);
 			}
 		}
 		return -1;

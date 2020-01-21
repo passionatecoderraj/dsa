@@ -32,7 +32,15 @@ import com.raj.patternmatching.Trie;
 public class SearchWordInMatrix2 {
 
 	int moves[][] = { { 0, 1 }, { 1, 0 }, { -1, 0 }, { 0, -1 } };
-
+	/*
+	 * Idea is that insert all words in trie
+	 * 
+	 * Adv :
+	 * 1) All words have same prefixes can be found in one shot.
+	 * 2) all words, do not have prefix match from root can be ignored in one shot
+	 * 
+	 *
+	 */
 	public List<String> findWords(char[][] a, String[] words) {
 		Trie trie = new Trie();
 		for (String word : words) {

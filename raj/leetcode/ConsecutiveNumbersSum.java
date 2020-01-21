@@ -47,12 +47,35 @@ N - k*(k-1)/2 > 0 which implies
 k*(k-1) < 2N which can be approximated to
 k*k < 2N ==> k < sqrt(2N)
 	 */
+	
+	
 	// https://leetcode.com/problems/consecutive-numbers-sum/discuss/129015/5-lines-C++-solution-with-detailed-mathematical-explanation.
+	// Time : O(sqrt(N), Space : O(1)
+	/*
+	 * https://leetcode.com/problems/consecutive-numbers-sum/discuss/129015/5-lines-C++-solution-with-detailed-mathematical-explanation.
+	 * https://www.youtube.com/watch?v=oKOCYZd4m7E&feature=youtu.be
+	 *  sum of consecutive first 'k' numbers 
+	 *  1+2+3+... +k ==> k*(k+1)/2
+	 *  
+	 *  sum of consecutive next 'k' numbers
+	 *  2+3+4+....+k+k+1 => 1+2+3+...+k+k ==> k*(k+1)/2 + k
+	 *  
+	 *  sum of consecutive next 'k' numbers
+	 *  3+4+5+....+k+k+1+k+2 => 1+2+3+...+k+k+k ==> k*(k+1)/2 + 2k
+	 *  
+	 *  If sum of 'k' consecutive numbers is 'N' then "N' must be divisible by 'k'.
+	 *  
+	 *   N = k*(k+1)/2 + (i-1)*k
+	 * 
+	 *  consider example N = 9
+	 *  
+	 */
 	// Time : O(sqrt(N), Space : O(1)
 	public int consecutiveNumbersSum(int N) {
 		int count = 1;
-		for (int k = 2; k < Math.sqrt(2 * N); k++) {
-			if ((N - (k * (k - 1) / 2)) % k == 0) {
+		// k starts from 2 goes until k*(k+1)/2<=N.
+		for (int k = 2; (k*(k+1))/2 <=N; k++) {
+			if ((N - (k * (k + 1) / 2)) % k == 0) {
 				count++;
 			}
 		}
@@ -78,7 +101,7 @@ k*k < 2N ==> k < sqrt(2N)
 	public static void main(String[] args) {
 		ConsecutiveNumbersSum obj = new ConsecutiveNumbersSum();
 		int res = -1;
-		res = obj.consecutiveNumbersSum(5);
+		res = obj.consecutiveNumbersSum(15);
 		System.out.println(res);
 	}
 

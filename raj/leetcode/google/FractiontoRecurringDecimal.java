@@ -21,56 +21,35 @@ import java.util.Map;
  */
 public class FractiontoRecurringDecimal {
 
-	// Time :O(mn), Space :O(m+n)
+	// https://leetcode.com/problems/fraction-to-recurring-decimal/discuss/51106/My-clean-Java-solution
 	public static String fractionToDecimal(int numerator, int denominator) {
-		StringBuilder sb = new StringBuilder();
-
-		// zero numerator
-		if (0 == numerator) {
-			sb.append(numerator);
-			return sb.toString();
-		}
-		// determine the sign
-		if (numerator < 0 ^ denominator < 0) {
-			sb.append('-');
-		}
-
-		// remove sign of operands and long to avoid overflow 
-		long a = Math.abs((long) numerator);
-		long b = Math.abs((long) denominator);
-
-		sb.append(a / b);
-
-		// in case no fractional part
-		if (a % b == 0) {
-			return sb.toString();
-		}
-		sb.append('.');
+		if (numerator == 0)
+			return "0";
+		StringBuilder res = new StringBuilder();
+		res.append(((numerator > 0) ^ (denominator > 0)) ? "-" : "");
+		long n = Math.abs((long) numerator);
+		long d = Math.abs((long) denominator);
+		res.append(n / d);
+		if (n % d == 0)
+			return res.toString();
+		res.append(".");
 		Map<Long, Integer> map = new HashMap<>();
-
-		// simulate the division process
-		for (long r = a % b; r > 0; r %= b) {
-
-			// meet a known remainder
-			// so we reach the end of the repeating part
-			if (map.containsKey(r)) {
-				sb.insert(map.get(r), "(");
-				sb.append(")");
+		n %= d;
+		while (n != 0) {
+			n *= 10;
+			res.append(n / d);
+			n %= d;
+			if (map.containsKey(n)) {
+				res.insert(map.get(n), "(");
+				res.append(")");
 				break;
+			} else {
+				map.put(n, res.length());
 			}
-			// the remainder is first seen
-			// remember the current position for it
-			map.put(r, sb.length());
-			r *= 10;
-			// append the quotient digit
-			sb.append(r / b);
 		}
-		return sb.toString();
+		return res.toString();
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		String result = null;
 		result = fractionToDecimal(1, 2);

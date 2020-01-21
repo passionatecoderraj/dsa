@@ -18,14 +18,72 @@ import java.util.Map;
  * 
  *         12345 -> "Twelve Thousand Three Hundred Forty Five"
  * 
- *         1234567 ->
- *         "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+ *         1234567 -> "One Million Two Hundred Thirty Four Thousand Five Hundred
+ *         Sixty Seven"
  */
 public class IntegerToEnglishWords {
 
+	private String[] LESS_THAN_20 = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+			"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+	private String[] TENS = { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+
+	public String numberToWords(int n) {
+		if (n == 0)
+			return "Zero";
+		return helper(n);
+	}
+
+	private String helper(int n) {
+		String s = "";
+		if (n < 20) {
+			s = LESS_THAN_20[n];
+		} else if (n < 100) {
+			s = TENS[n / 10] + " " + helper(n % 10);
+		} else if (n < 1000) {
+			s = LESS_THAN_20[n / 100] + " Hundred " + helper(n % 100);
+		} else if (n < 1000000) {
+			s = helper(n / 1000) + " Thousand " + helper(n % 1000);
+		} else if (n < 1000000000) {
+			s = helper(n / 1000000) + " Million " + helper(n % 1000000);
+		} else {
+			s = helper(n / 1000000000) + " Billion " + helper(n % 1000000000);
+		}
+		// every level trimming is required, consider example 50000 to understand corner
+		// case
+		return s.trim();
+	}
+
+	private String[] THOUSANDS = { "", "Thousand", "Million", "Billion" };
+
+	public String numberToWords2(int n) {
+		if (n == 0)
+			return "Zero";
+
+		StringBuilder res = new StringBuilder();
+		int i = 0;
+
+		while (n > 0) {
+			if (n % 1000 != 0) {
+				res.insert(0, util(n % 1000) + " " + THOUSANDS[i] + " ");
+			}
+			n /= 1000;
+			i++;
+		}
+		return res.toString().trim();
+	}
+
+	private String util(int n) {
+		if (n < 20) {
+			return LESS_THAN_20[n];
+		} else if (n < 100) {
+			return TENS[n / 10] + " " + util(n % 10);
+		}
+		return LESS_THAN_20[n / 100] + " Hundred " + util(n % 100);
+	}
+
 	// consider number : 368,945,678,324
 	// Time :O(n)
-	public static String integerToEnglishWords(int n) {
+	public String integerToEnglishWords3(int n) {
 		if (0 == n)
 			return map.get(n);
 
@@ -59,7 +117,7 @@ public class IntegerToEnglishWords {
 	}
 
 	// this handles values from 1 to 999
-	private static String convert(int n) {
+	private String convert(int n) {
 		if (n < 20) {
 			return map.get(n);
 		} else if (n < 100) {
@@ -72,9 +130,9 @@ public class IntegerToEnglishWords {
 		}
 	}
 
-	static Map<Integer, String> map = new HashMap<>();
+	Map<Integer, String> map = new HashMap<>();
 
-	static {
+	{
 		map.put(0, "Zero");
 		map.put(1, "One");
 		map.put(2, "Two");
@@ -110,21 +168,22 @@ public class IntegerToEnglishWords {
 	 */
 	public static void main(String[] args) {
 
+		IntegerToEnglishWords obj = new IntegerToEnglishWords();
 		String result = null;
 
-		result = integerToEnglishWords(93);
+		result = obj.numberToWords(93);
 		System.out.println(result);
 
-		result = integerToEnglishWords(894);
+		result = obj.numberToWords(894);
 		System.out.println(result);
 
-		result = integerToEnglishWords(2934);
+		result = obj.numberToWords(2934);
 		System.out.println(result);
 
-		result = integerToEnglishWords(945678324);
+		result = obj.numberToWords(945678324);
 		System.out.println(result);
 
-		result = integerToEnglishWords(1945678324);
+		result = obj.numberToWords(1945678324);
 		System.out.println(result);
 
 	}
